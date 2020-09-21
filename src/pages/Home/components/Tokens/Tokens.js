@@ -12,13 +12,13 @@ export const Tokens = () => (
     <div className={styles.tokens}>
       <div className={styles.infoFirst}>
         <div className={styles.tokensTitle}>
-          IUSD - interest token that earns 14% interest in USD
+          IUSD &mdash; interest token that earns 16% interest in USD
         </div>
         <p>
-          It started at exactly 1 USD on July 20, 2020 and the price of the
-          token grows at 14% per year. In one year, it is expected to be $1.14,
-          in two years &mdash; $1.2996, if the interest rate stays the same (it
-          can be changed by GRD holders).
+          It started at exactly 1 USD on September 21, 2020 and the price of the
+          token grows at 16% per year. In one year, it is expected to be $1.16,
+          in two years &mdash; $1.3456, if the interest rate stays the same (it
+          can be changed by GRD holders). It is a <b>stable+</b> coin.
         </p>
         <p>
           You can buy IUSD and hold. Or you can buy IUSD,{" "}
@@ -29,8 +29,8 @@ export const Tokens = () => (
           accrued interest. You can also redirect interest to someone else, e.g.
           to a charity.
         </p>
-        <Link className={styles.btnOpen} to="/trade">
-          trade
+        <Link className={styles.btnOpen} to="/buy">
+          Buy interest tokens
         </Link>
       </div>
       <div className={styles.illustration}>
@@ -42,7 +42,7 @@ export const Tokens = () => (
         <img alt="Stable token" src={stableIllustration} />
       </div>
       <div className={styles.infoSecond}>
-        <div className={styles.tokensTitle}>OUSD - a USD-pegged stablecoin</div>
+        <div className={styles.tokensTitle}>OUSD &mdash; a USD-pegged stablecoin</div>
         <p>OUSD is essentially IUSD with interest payments stripped off.</p>
         <p>
           You get it by depositing IUSD, or you can buy it on the market, or you
@@ -61,7 +61,7 @@ export const Tokens = () => (
     <div className={styles.tokens}>
       <div className={styles.infoFirst}>
         <div className={styles.tokensTitle}>
-          GRD - growth and governance token
+          GRD &mdash; growth and governance token
         </div>
         <p>
           Price of GRD depends on popularity of IUSD (and therefore OUSD). As

@@ -50,7 +50,7 @@ export const SelectStablecoin = () => {
       <Row>
         <Select
           size="large"
-          placeholder="Please, select stablecoin"
+          placeholder="Please select a stablecoin"
           style={{ width: "100%" }}
           showSearch={true}
           value={activeAddress || undefined}

@@ -3,7 +3,7 @@ export default {
   FACTORY_AA: process.env.REACT_APP_FACTORY_AA,
   TOKEN_REGISTRY: process.env.REACT_APP_TOKEN_REGISTRY,
   SIMPLESWAP_API_KEY: process.env.REACT_APP_SIMPLESWAP_API_KEY,
-  BUFFER_URL: process.env.BUFFER_URL,
+  BUFFER_URL: process.env.REACT_APP_BUFFER_URL,
   GA_ID: process.env.REACT_APP_GA,
   reserves: {
     base: {
@@ -27,14 +27,14 @@ export default {
       stableName: "OUSD",
       interestName: "IUSD",
       growthName: "GRD",
-      percent: 14,
+      percent: 16,
       address: "ZSLRU3JMJSXRNM4YXQASFEGOOJ2FAP7F",
     },
     BTC: {
       stableName: "OBIT",
       interestName: "IBIT",
       growthName: "GRB",
-      percent: 10,
+      percent: 11,
       address: "ZSLRU3JMJSXRNM4YXQASFEGOOJ2FAP7F",
     },
     GOLD: {

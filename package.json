@@ -1,7 +1,8 @@
 {
-  "name": "bonded_stable",
+  "name": "bonded-stablecoin-ui",
   "version": "0.1.0",
-  "private": true,
+	"author": "Obyte",
+	"license": "MIT",
   "dependencies": {
     "@ant-design/icons": "^4.2.1",
     "@testing-library/jest-dom": "^4.2.4",

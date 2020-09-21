@@ -45,7 +45,7 @@ export const CreatePage = () => {
       {current === 3 && <CreateStep setCurrent={setCurrent} data={data} />}
       {current !== 3 && (
         <div style={{ fontSize: 16, paddingTop: 18 }}>
-          <span style={{ color: "red " }}>*</span> - This field is required
+          <span style={{ color: "red " }}>*</span> - Required field
         </div>
       )}
     </div>

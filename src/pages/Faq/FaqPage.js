@@ -46,7 +46,7 @@ export const FaqPage = () => {
           <p>
             You can buy IUSD first, then open a deposit to receive the
             equivalent amount of OUSD. While the deposit is open, you can also
-            periodically withdraw the accrued interest (14% p.a.) or choose a
+            periodically withdraw the accrued interest (16% p.a.) or choose a
             charity or your friend or relative who will receive the interest.
             When you don’t need OUSD any more, you can close the deposit,
             receive your IUSD back, then sell IUSD.

@@ -9,9 +9,9 @@ import styles from "../../CreatePage.module.css";
 
 const { useForm } = Form;
 const initialValues = {
-  fee_multiplier: 5,
+  fee_multiplier: 2,
   moved_capacity_share: 0.1,
-  threshold_distance: 0.1,
+  threshold_distance: 0.02,
   move_capacity_timeout: 2 * 3600,
   slow_capacity_share: 0.5,
 };

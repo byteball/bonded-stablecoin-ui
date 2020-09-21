@@ -27,7 +27,7 @@ export const Header = ({ type, setType }) => {
                 <StableToken name={pegged[type].stableName} />
               </div>
               <div className={styles.tokenItemTitle}>
-                {pegged[type].stableName}: Stablecoin whose value is 1 {type}
+                {pegged[type].stableName}: Stablecoin whose value is 1 {type}.
               </div>
             </div>
           </div>
@@ -40,7 +40,7 @@ export const Header = ({ type, setType }) => {
               <div className={styles.tokenItemTitle}>
                 <div>
                   {pegged[type].interestName}: Interest token that earns{" "}
-                  {pegged[type].percent}% interest in {type}
+                  {pegged[type].percent}% interest in {type} &mdash; a stable+ coin.
                 </div>
                 <div className={styles.tokenItemSubTitle}>
                   You can also buy {pegged[type].interestName} and redirect
@@ -57,7 +57,7 @@ export const Header = ({ type, setType }) => {
               </div>
               <div className={styles.tokenItemTitle}>
                 {pegged[type].growthName}: Growth token whose value is tied to
-                the amount of {pegged[type].interestName} issued
+                the amount of {pegged[type].interestName} issued.
               </div>
             </div>
           </div>

@@ -603,7 +603,7 @@ export const CurverStep = ({ setCurrent, setData }) => {
               <Label
                 required
                 label="Interest rate"
-                descr="Interest rate that Token2 earns on top of the stable token"
+                descr="Interest rate that Token2 earns on top of the stable token. Type 0.1 for 10%."
               />
             }
           >
