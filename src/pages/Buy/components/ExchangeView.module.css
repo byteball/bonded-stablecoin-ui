@@ -1,0 +1,49 @@
+.view {
+  margin-top: 20px;
+  font-size: 20px;
+}
+
+.icon {
+  font-size: 64px;
+  color: #1890ff;
+}
+
+.auto {
+  margin-top: 20px;
+  font-size: 14px;
+}
+
+.currency {
+  padding: 10px;
+  text-align: center;
+}
+
+.addressWrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.address {
+  margin: 0 !important;
+  padding: 3px !important;
+  word-break: break-all;
+  font-size: 14px;
+}
+
+@media (max-width: 576px) {
+  .currency {
+    padding: 0;
+  }
+  .address {
+    padding-left: 30px;
+    padding-right: 30px;
+    text-align: center;
+  }
+}
+
+@media (max-width: 1000px) {
+  .addressWrap {
+    flex-direction: column;
+  }
+}

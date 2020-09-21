@@ -1,0 +1,34 @@
+body {
+  font-family: "Open Sans", sans-serif;
+  color: #333333 !important;
+}
+.ant-tabs,
+.ant-checkbox + span,
+.ant-layout,
+.ant-table,
+.ant-steps,
+.ant-form,
+.ant-select,
+h1.ant-typography,
+h2.ant-typography,
+h3.ant-typography,
+h4.ant-typography,
+.ant-list,
+.ant-card-body,
+.ant-layout,
+.ant-layout-header {
+  color: #333333 !important;
+}
+.ant-menu-horizontal > .ant-menu-item a {
+  color: #333333;
+}
+.ant-menu-horizontal > .ant-menu-item-selected a {
+  color: #1890ff !important;
+}
+
+.ant-menu-vertical > .ant-menu-item a {
+  color: #333333;
+}
+.ant-menu-vertical > .ant-menu-item-selected a {
+  color: #1890ff !important;
+}
