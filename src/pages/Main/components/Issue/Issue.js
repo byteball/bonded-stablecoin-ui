@@ -360,7 +360,7 @@ export const Issue = () => {
               >
                 Send{" "}
                 {Number(
-                  (amount.reserve_needed * 1.001) /
+                  (amount.reserve_needed * 1.01) /
                     10 ** params.reserve_asset_decimals
                 ).toFixed(params.reserve_asset_decimals)}{" "}
                 {params.reserve_asset === "base"

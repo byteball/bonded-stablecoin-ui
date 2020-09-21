@@ -42,11 +42,11 @@ export const HowItWorksPage = () => {
               where:
               <ul style={{ listStyleType: "none", paddingLeft: 0 }}>
                 <li>
-                  r is the total amount of GBYTE reservelocked to issue both
+                <i>r</i> is the total amount of GBYTE reserve locked to issue both
                   tokens
                 </li>
-                <li>s1 is the total supply of GRD</li>
-                <li>s2 is the total supply of IUSD</li>
+                <li><i>s1</i> is the total supply of GRD</li>
+                <li><i>s2</i> is the total supply of IUSD</li>
               </ul>
               <div className={styles.image}>
                 <img alt="Graphics" src={graphics} />
@@ -58,7 +58,7 @@ export const HowItWorksPage = () => {
                 lock some reserve in GBYTE, and when one wants to redeem GRD or
                 IUSD, they get a share of the reserve back. The prices of GRD
                 and IUSD, i.e. how much reserve one needs to pay per token, or
-                can get back per token, depends on the current supplies of the
+                can get back per token, depend on the current supplies of the
                 tokens.
               </p>
               <p>
@@ -77,7 +77,7 @@ export const HowItWorksPage = () => {
           </div>
           <div className={styles.item}>
             <div className={styles.infoFirst}>
-              This mechanism is called a capacitor. It gets “charged” with fees
+              This mechanism is called a <b>capacitor</b>. It gets “charged” with fees
               when traders move the price away from the target, and releases the
               charge to reward those who move the price closer to the target.
             </div>
@@ -91,7 +91,7 @@ export const HowItWorksPage = () => {
               <img alt="Autonomous agent" src={agent} />
             </div>
             <div className={styles.infoSecond}>
-              All this is operated by several Autonomous Agents which are
+              All this is operated by several <b>Autonomous Agents</b> which are
               programs that run on Obyte distributed ledger, do the math quickly
               (they are good at math, unlike some people), and can never be
               changed by anybody. All transactions are transparent, quickly

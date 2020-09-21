@@ -519,7 +519,7 @@ export const ExchangeForm = () => {
                 currentTokenData &&
                 amountCurrency &&
                 generateLink(
-                  Number(amountCurrency * 1.1).toFixed(9) * 1e9,
+                  Number(amountCurrency * 1.01).toFixed(9) * 1e9,
                   {
                     tokens2:
                       amountToken * 10 ** currentTokenData.params.decimals2,

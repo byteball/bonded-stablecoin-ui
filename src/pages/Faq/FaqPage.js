@@ -216,7 +216,7 @@ export const FaqPage = () => {
             </li>
             <li>
               - there is no overcollateralization any more, which was commonly
-              misunderstoo.
+              misunderstood.
             </li>
             <li>
               - there is no need to balance risks against the amount of capital
