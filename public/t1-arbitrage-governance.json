@@ -1,0 +1,13 @@
+{
+	"version": "1.0",
+	"description": "Governance AA for bonded stablecoins T1 arbitrage.",
+	"homepage_url": "https://ostable.org",
+	"source_url": "https://github.com/byteball/stablecoin-t1-arbitrage",
+	"field_descriptions": {
+		"name": "Name of the parameter to vote for.",
+		"value": "Value of the parameter to vote for.",
+		"commit": "Commit a new value after voting has ended.",
+		"withdraw": "Withdraw a stake used for voting. Set to 1.",
+		"amount": "Amount of shares to withdraw."
+	}
+}

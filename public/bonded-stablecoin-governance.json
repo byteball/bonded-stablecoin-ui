@@ -1,0 +1,18 @@
+{
+	"version": "1.0",
+	"description": "Bonded Stablecoin Governance AA.",
+	"homepage_url": "https://ostable.org",
+	"source_url": "https://github.com/byteball/bonded-stablecoin",
+	"field_descriptions": {
+		"name": "Name of the parameter to vote for.",
+		"value": "Value of the parameter to vote for.",
+		"commit": "Commit a new value after voting has ended.",
+		"withdraw": "Withdraw a stake used for voting. Set to 1.",
+		"amount": "Amount to withdraw or amount of grant proposal (in T1 tokens).",
+		"add_proposal": "Add a new grant proposal.",
+		"type": "Type of proposal. Only 'grant' is supported.",
+		"recipient": "Address of grant recipient.",
+		"unit": "Unit where the pledge of the proposed grant recipient is posted.",
+		"expiry": "When the proposal expires, YYYY-MM-DD format."
+	}
+}

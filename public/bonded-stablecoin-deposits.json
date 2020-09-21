@@ -1,0 +1,19 @@
+{
+	"version": "1.0",
+	"description": "Bonded Stablecoin Deposits AA.",
+	"homepage_url": "https://ostable.org",
+	"source_url": "https://github.com/byteball/bonded-stablecoin",
+	"field_descriptions": {
+		"interest_recipient": "Address of interest recipient if different from the owner.",
+		"owner": "Address of the owner of the new deposit if different from the caller.",
+		"to": "Send the coins to this address instead of the caller, or the address of the owner of the deposit you are adding protection to (if different from you).",
+		"id": "ID of the deposit.",
+		"commit_force_close": "Commit a force-close of other person's deposit. Set to 1.",
+		"challenge_force_close": "Challenge a force-close of other person's deposit. Set to 1.",
+		"weaker_id": "ID of the weaker deposit when challenging a force-close.",
+		"add_protection": "Add protection to a deposit. Set to 1.",
+		"withdraw_protection": "Withdraw protection from a deposit. Set to 1.",
+		"amount": "Amount of protection to withdraw.",
+		"change_interest_recipient": "Change interest recipient. Set to 1."
+	}
+}

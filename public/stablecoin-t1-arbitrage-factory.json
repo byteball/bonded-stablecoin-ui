@@ -1,0 +1,13 @@
+{
+	"version": "1.0",
+	"description": "Factory AA for bonded stablecoins T1 arbitrage.",
+	"homepage_url": "https://ostable.org",
+	"source_url": "https://github.com/byteball/stablecoin-t1-arbitrage",
+	"field_descriptions": {
+		"curve_aa": "Curve AA to arbitrage on.",
+		"max_reserve_share": "Initial maximum share of the reserve currency (set 0.2 for 20%).",
+		"min_reserve_share": "Initial minimum share of the reserve currency (set 0.1 for 10%).",
+		"triggerer_reward_share": "Initial share of the reward paid to the user who triggered arbitrage (set 0.1 for 10%).",
+		"min_reserve_delta": "Initial minimum transaction amount in the reserve currency."
+	}
+}

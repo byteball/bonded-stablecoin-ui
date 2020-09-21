@@ -1,0 +1,10 @@
+{
+	"version": "1.0",
+	"description": "Arbitrage AA for buying/selling T1 tokens for the reserve currency when the price deviates from the peg.",
+	"homepage_url": "https://ostable.org",
+	"source_url": "https://github.com/byteball/stablecoin-t1-arbitrage",
+	"field_descriptions": {
+		"arb": "Execute arbitrage if possible.",
+		"what": "What tokens to get in exchange for shares: 'both', 't1', or 'reserve'."
+	}
+}

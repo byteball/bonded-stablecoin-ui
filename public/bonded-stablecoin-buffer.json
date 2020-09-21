@@ -1,0 +1,10 @@
+{
+	"version": "1.0",
+	"description": "Buffer AA that helps to buy bonded stablecoins.",
+	"homepage_url": "https://ostable.org",
+	"source_url": "https://github.com/byteball/bonded-stablecoin-buffer",
+	"field_descriptions": {
+		"execute": "Execute a purchase of T2 tokens using this AA's balance in the reserve currency.",
+		"tokens2": "Amount of T2 tokens to buy."
+	}
+}
