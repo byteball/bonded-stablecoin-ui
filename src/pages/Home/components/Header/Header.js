@@ -20,48 +20,53 @@ export const Header = ({ type, setType }) => {
           <h1 className={styles.title}>Bonded stablecoins</h1>
           <h2 className={styles.subTitle}>Choose your crypto:</h2>
         </div>
-        <Link to={`/trade/${pegged[type].address}`}>
-          <div style={{ marginBottom: 40 }}>
-            <div className={styles.tokenItem}>
-              <div className={styles.tokenItemGraph}>
+        <div style={{ marginBottom: 40 }}>
+          <div className={styles.tokenItem}>
+            <div className={styles.tokenItemGraph}>
+              <Link to={`/trade/${pegged[type].address}`}>
                 <StableToken name={pegged[type].stableName} />
-              </div>
-              <div className={styles.tokenItemTitle}>
-                {pegged[type].stableName}: Stablecoin whose value is 1 {type}.
-              </div>
+              </Link>
+            </div>
+            <div className={styles.tokenItemTitle}>
+              {pegged[type].stableName}: Stablecoin whose value is 1 {type}.
             </div>
           </div>
+        </div>
 
-          <div style={{ marginBottom: 40 }}>
-            <div className={styles.tokenItem}>
-              <div className={styles.tokenItemGraph}>
+        <div style={{ marginBottom: 40 }}>
+          <div className={styles.tokenItem}>
+            <div className={styles.tokenItemGraph}>
+              <Link to={`/trade/${pegged[type].address}`}>
                 <InterestToken name={pegged[type].interestName} />
+              </Link>
+            </div>
+            <div className={styles.tokenItemTitle}>
+              <div>
+                {pegged[type].interestName}: Interest token that earns{" "}
+                {pegged[type].percent}% interest in {type} &mdash; a stable+
+                coin.
               </div>
-              <div className={styles.tokenItemTitle}>
-                <div>
-                  {pegged[type].interestName}: Interest token that earns{" "}
-                  {pegged[type].percent}% interest in {type} &mdash; a stable+ coin.
-                </div>
-                <div className={styles.tokenItemSubTitle}>
-                  You can also buy {pegged[type].interestName} and redirect
-                  interest to a charity.
-                </div>
+              <div className={styles.tokenItemSubTitle}>
+                You can also buy {pegged[type].interestName} and redirect
+                interest to a charity.
               </div>
             </div>
           </div>
+        </div>
 
-          <div style={{ marginBottom: 40 }}>
-            <div className={styles.tokenItem}>
-              <div className={styles.tokenItemGraph}>
+        <div style={{ marginBottom: 40 }}>
+          <div className={styles.tokenItem}>
+            <div className={styles.tokenItemGraph}>
+              <Link to={`/trade/${pegged[type].address}`}>
                 <GrowthToken name={pegged[type].growthName} />
-              </div>
-              <div className={styles.tokenItemTitle}>
-                {pegged[type].growthName}: Growth token whose value is tied to
-                the amount of {pegged[type].interestName} issued.
-              </div>
+              </Link>
+            </div>
+            <div className={styles.tokenItemTitle}>
+              {pegged[type].growthName}: Growth token whose value is tied to the
+              amount of {pegged[type].interestName} issued.
             </div>
           </div>
-        </Link>
+        </div>
         <div className={styles.action}>
           Need similar coins pegged to {otherList.join(", ")} or some other
           asset? <br />
