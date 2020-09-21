@@ -1,0 +1,20 @@
+.copy {
+  padding-bottom: 10px;
+  font-size: 16px;
+  text-align: center;
+}
+
+.footer {
+  margin-bottom: 25px;
+}
+
+.footer a {
+  font-size: 18px;
+  /* color: #0037ff; */
+  color: #333333;
+  /* font-weight: bold; */
+}
+
+a.trade {
+  color: #0037ff;
+}

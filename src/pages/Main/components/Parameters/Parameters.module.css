@@ -1,0 +1,38 @@
+.param {
+  display: flex;
+  flex-wrap: wrap;
+  word-break: break-all;
+}
+
+.semi {
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.wrap {
+  display: flex;
+}
+
+.column {
+  margin-right: 50px;
+}
+
+.labelWrap {
+  display: flex;
+  font-weight: 600;
+}
+
+@media (max-width: 880px) {
+  .wrap {
+    flex-direction: column;
+  }
+  .column {
+    margin-right: 0;
+  }
+}
+
+@media (max-width: 460px) {
+  /* .param {
+    flex-direction: column;
+  } */
+}
