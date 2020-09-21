@@ -20,7 +20,7 @@ export const MainLayout = (props) => {
   const [activeMenu, setActiveMenu] = useState(false);
   useEffect(() => {
     const unlisten = historyInstance.listen((location, action) => {
-      if (action === "PUSH" || action === "PUP") {
+      if (action === "PUSH" || action === "POP") {
         ReactGA.pageview(location.pathname);
       }
     });
