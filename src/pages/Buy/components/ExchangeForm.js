@@ -255,7 +255,7 @@ export const ExchangeForm = () => {
     }
   }, [activeCurrency]);
 
-  const getReserveNeed = () =>
+  const getResult = () =>
     $get_exchange_result({
       tokens1: 0,
       tokens2: amountToken * 10 ** currentTokenData.params.decimals2,
@@ -368,7 +368,7 @@ export const ExchangeForm = () => {
                       <span style={{ color: "#ccc" }}>
                         ≈{" "}
                         {activeCurrency === "gbyte"
-                          ? getReserveNeed().amountTokens2InCurrency.toFixed(2)
+                          ? getResult().amountTokens2InCurrency.toFixed(2)
                           : (
                               Number(amountCurrency) *
                               exchangeRates *
@@ -521,6 +521,7 @@ export const ExchangeForm = () => {
                 amountCurrency === "" ||
                 Number(amountCurrency) === 0
               }
+              key="btn-buy-gbyte"
               onClick={() =>
                 ReactGA.event({
                   category: "Stablecoin",
@@ -564,6 +565,7 @@ export const ExchangeForm = () => {
               size="large"
               ref={buyRef}
               loading={isCreated || ranges.min === undefined}
+              key="btn-buy-currency"
               disabled={
                 !recipient.valid ||
                 !amountCurrency ||
