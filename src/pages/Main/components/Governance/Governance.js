@@ -32,7 +32,7 @@ export const Governance = () => {
   if (!activeWallet) {
     return (
       <div style={{ textAlign: "center" }}>
-        Please add the address of your wallet in order to start
+        Please add the address of your wallet in order to participate in governance
       </div>
     );
   }

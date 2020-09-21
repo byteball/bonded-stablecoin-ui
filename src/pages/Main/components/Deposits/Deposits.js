@@ -68,7 +68,7 @@ export const Deposits = () => {
   if (!activeWallet) {
     return (
       <div style={{ textAlign: "center" }}>
-        Please add the address of your wallet in order to start
+        Please add the address of your wallet in order to view/open deposits
       </div>
     );
   }
