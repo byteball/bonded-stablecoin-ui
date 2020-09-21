@@ -171,7 +171,7 @@ export const Issue = () => {
       {!reserve && (
         <p>
           <Text type="secondary">
-            You are the first to buy tokens this stablecoin, so you should buy
+            You are the first to buy tokens of this stablecoin, so you should buy
             token 1 and token 2 at the same time
           </Text>
         </p>

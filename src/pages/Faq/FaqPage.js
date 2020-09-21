@@ -28,9 +28,9 @@ export const FaqPage = () => {
           className={styles.panel}
         >
           <p>
-            You can buy the tokens for GBYTE on this website. The website helps
-            you to construct a request that you send to an Autonomous Agent from
-            your Obyte wallet.
+            You can buy or sell the tokens for GBYTE on the <a href="/trade">trading page</a> or buy IUSD from a simpler <a href="/buy">buy interest tokens page</a> of this website. The website helps
+            you to construct a request that you send to an <a href="https://obyte.org/platform/autonomous-agents" target="_blank" rel="noopener">Autonomous Agent</a> from
+            your <a href="https://obyte.org/" target="_blank" rel="noopener">Obyte</a> wallet.
           </p>
           <p>
             Some exchanges might also list the tokens to enable you to buy/sell
@@ -44,7 +44,7 @@ export const FaqPage = () => {
           className={styles.panel}
         >
           <p>
-            You can buy IUSD first, then open a deposit to receive the
+            You can buy IUSD first, then open a <a href="trade/7FSSFG2Y5QHQTKVRFB3VWL6UNX3WB36O#deposits">deposit</a> to receive the
             equivalent amount of OUSD. While the deposit is open, you can also
             periodically withdraw the accrued interest (16% p.a.) or choose a
             charity or your friend or relative who will receive the interest.
@@ -63,7 +63,7 @@ export const FaqPage = () => {
           className={styles.panel}
         >
           <p>
-            A bunch of soulless agents. They are called Autonomous Agents. They
+            A bunch of soulless agents. They are called <a href="https://obyte.org/platform/autonomous-agents" target="_blank" rel="noopener">Autonomous Agents</a> (AAs). They
             are truly autonomous meaning that nobody can interfere with their
             work.
           </p>
@@ -75,7 +75,7 @@ export const FaqPage = () => {
           className={styles.panel}
         >
           <p>
-            No, they are not smart contracts. They are neither smart, nor
+            No, they are not <a href="https://obyte.org/platform/smart-contracts" target="_blank" rel="noopener">smart contracts</a>. They are neither smart, nor
             contracts, they are dumb programs that blindly follow the immutable
             rules.
           </p>
@@ -116,7 +116,7 @@ export const FaqPage = () => {
             and losses.
           </p>
           <p>
-            Bonded stablecoins run on Obyte &mdash; a blockless minerless DAG
+            Bonded stablecoins run on <a href="https://obyte.org/" target="_blank" rel="noopener">Obyte</a> &mdash; a blockless minerless DAG
             ledger. In a DAG these tricks don’t work. There are no miners, no
             blocks, the positions of transactions in the DAG cannot be changed
             by anybody, and it is impossible for any single actor to manipulate
@@ -198,7 +198,7 @@ export const FaqPage = () => {
         >
           <p>
             Bonded stablecoins is our next generation stablecoin design and it
-            improves above discount stablecoins (link) in virtually all
+            improves above <a href="https://discount.ostable.org" target="_blank" rel="noopener">discount stablecoins</a> in virtually all
             dimensions. In particular:
           </p>
           <ul>
@@ -243,7 +243,7 @@ export const FaqPage = () => {
           <p>
             For example, while Brent Crude is worth $40, a 2x leverage
             stablecoin BRENT2/USD is worth 1600. If Brent goes up 25% to $50,
-            BRENT2/USD goes up to 2500, i.e. 56.25% gain.
+            BRENT2/USD goes up to 2500 &mdash; a 56.25% gain.
           </p>
           <p>
             It might seem unusual to call such coins “stablecoins” but they are
@@ -252,7 +252,7 @@ export const FaqPage = () => {
           </p>
           <p>
             When you{" "}
-            <a href="create" target="_blank" rel="noopener">
+            <a href="create">
               create a new stablecoin
             </a>
             , you need to specify the desired leverage parameter. It is 0 by
@@ -280,22 +280,19 @@ export const FaqPage = () => {
         >
           <p>
             If an oracle that posts the price of X already exists, you can
-            create the{" "}
-            <a href="create" target="_blank" rel="noopener">
-              corresponding stablecoin
-            </a>{" "}
+            {" "}<a href="create">create the corresponding stablecoin</a>{" "}
             right away!
           </p>
           <p>
-            If there is no such oracle yet — create the oracle. You have to be a
+            If there is no such oracle yet &mdash; create the oracle. You have to be a
             developer though. There are sources of{" "}
-            <a href="#" target="_blank" rel="noopener">
+            <a href="https://github.com/byteball/oracle-example" target="_blank" rel="noopener">
               {" "}
-              example oracle{" "}
+              example oracle
             </a>{" "}
             to help you get started. If you are not a developer and cannot hire
             one, signal your demand in{" "}
-            <a href="http://discord.obyte.org/" target="_blank" rel="noopener">
+            <a href="https://discord.obyte.org/" target="_blank" rel="noopener">
               Obyte discord
             </a>
             .
