@@ -83,7 +83,7 @@ export const Header = ({ type, setType }) => {
             ))}
           </Select>{" "}
           or{" "}
-          <a target="_blank" rel="noopener" href="/create">
+          <a href="/create">
             create new ones
           </a>
           .

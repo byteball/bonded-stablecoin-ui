@@ -15,14 +15,14 @@ export const Tokens = () => (
           IUSD &mdash; interest token that earns 16% interest in USD
         </div>
         <p>
-          It started at exactly 1 USD on September 21, 2020 and the price of the
+          It started at exactly 1 USD on September 22, 2020 and the price of the
           token grows at 16% per year. In one year, it is expected to be $1.16,
           in two years &mdash; $1.3456, if the interest rate stays the same (it
           can be changed by GRD holders). It is a <b>stable+</b> coin.
         </p>
         <p>
           You can buy IUSD and hold. Or you can buy IUSD,{" "}
-          <a href="/trade#deposits" target="_blank" rel="noopener">
+          <a href="/trade#deposits">
             put it on a deposit
           </a>
           , get an equivalent amount of OUSD, and periodically withdraw the
@@ -45,7 +45,7 @@ export const Tokens = () => (
         <div className={styles.tokensTitle}>OUSD &mdash; a USD-pegged stablecoin</div>
         <p>OUSD is essentially IUSD with interest payments stripped off.</p>
         <p>
-          You get it by depositing IUSD, or you can buy it on the market, or you
+          You get it by <a href="/trade#deposits">depositing</a> IUSD, or you can buy it on the market, or you
           can receive it as payment for goods and services.
         </p>
         <p>
@@ -69,7 +69,7 @@ export const Tokens = () => (
           are redeemed, GRD falls in price.
         </p>
         <p>
-          GRD holders can vote to tune the interest rate and various parameters
+          GRD holders can <a href="/trade#governance">vote</a> to tune the interest rate and various parameters
           of the ecosystem that are important for keeping the peg. GRD holders
           can even vote to hire a management team tasked with promoting the use
           of OUSD &mdash; which directly affects GRD price.

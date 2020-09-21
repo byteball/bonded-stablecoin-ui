@@ -265,7 +265,9 @@ export const FaqPage = () => {
           </p>
           <p>
             Note that with this kind of leverage, you can’t be margin called and
-            liquidated. For details, see{" "}
+            liquidated.
+          </p>
+          <p> For details, see{" "}
             <a href="#" target="_blank" rel="noopener">
               our blog introducing bonded stablecoins
             </a>{" "}

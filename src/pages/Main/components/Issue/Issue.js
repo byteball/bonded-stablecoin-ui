@@ -215,7 +215,7 @@ export const Issue = () => {
           <Input
             placeholder={`Amount of tokens1 (${
               symbol1 || stable_state.asset1
-            })`}
+            } — growth tokens)`}
             autoComplete="off"
             suffix={
               <span style={{ color: "#ccc" }}>
@@ -259,7 +259,7 @@ export const Issue = () => {
             }
             placeholder={`Amount of tokens2 (${
               symbol2 || stable_state.asset2
-            })`}
+            } — interest tokens)`}
             autoComplete="off"
           />
         </Form.Item>
