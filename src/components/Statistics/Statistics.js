@@ -99,7 +99,7 @@ export const Statistics = ({ windowWidth }) => {
     {
       title: "Tokens2 supply",
       currency: symbol2,
-      descr: "Total supply of Token2 (interest token)",
+      descr: "Total supply of Token2 (interest tokens)",
       value: supply2 || 0,
       decimals: decimals2,
     },

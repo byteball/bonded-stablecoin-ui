@@ -129,7 +129,7 @@ export const RedeemToken = ({
         ]}
       >
         <Input.Search
-          placeholder={`Amount of tokens${type} (${symbol || asset})`}
+          placeholder={`Amount of tokens${type} (${symbol || asset} — ${type === 1 ? 'interest' : 'growth'} tokens)`}
           autoComplete="off"
           style={{ marginBottom: 0 }}
           onKeyPress={(ev) => {

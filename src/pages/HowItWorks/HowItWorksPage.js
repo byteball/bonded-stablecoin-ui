@@ -18,12 +18,12 @@ export const HowItWorksPage = () => {
       <div className={styles.howItWork}>
         <Title level={1}>How it works</Title>
         <div className={styles.subTitle}>
-          There is some math behind all this. IUSD and GRD tokens exist on a
-          bonding curve, that is a mathematical formula that connects the
+          There is some math behind all this. IUSD and GRD tokens exist on
+          a <b>bonding curve</b>, that is a mathematical formula that connects the
           amounts of IUSD and GRD tokens issued with the amount of the reserve
           currency{" "}
           <span style={{ whiteSpace: "nowrap" }}>&mdash; Bytes &mdash;</span>{" "}
-          used to issue them
+          used to issue them.
         </div>
         <div className={styles.items}>
           <div className={styles.item}>
@@ -42,11 +42,11 @@ export const HowItWorksPage = () => {
               where:
               <ul style={{ listStyleType: "none", paddingLeft: 0 }}>
                 <li>
-                <i>r</i> is the total amount of GBYTE reserve locked to issue both
-                  tokens
+                - <i>r</i> is the total amount of GBYTE reserve locked to issue both
+                  tokens;
                 </li>
-                <li><i>s1</i> is the total supply of GRD</li>
-                <li><i>s2</i> is the total supply of IUSD</li>
+                <li>- <i>s1</i> is the total supply of token1 — GRD;</li>
+                <li>- <i>s2</i> is the total supply of token2 — IUSD.</li>
               </ul>
               <div className={styles.image}>
                 <img alt="Graphics" src={graphics} />
@@ -91,10 +91,12 @@ export const HowItWorksPage = () => {
               <img alt="Autonomous agent" src={agent} />
             </div>
             <div className={styles.infoSecond}>
-              All this is operated by several <b>Autonomous Agents</b> which are
-              programs that run on Obyte distributed ledger, do the math quickly
+              <p>
+              All this is operated by several <b><a href="https://obyte.org/platform/autonomous-agents" target="_blank" rel="noopener">Autonomous Agents</a></b> which are
+              programs that run on <a href="https://obyte.org/" target="_blank" rel="noopener">Obyte</a> distributed ledger, do the math quickly
               (they are good at math, unlike some people), and can never be
-              changed by anybody. All transactions are transparent, quickly
+              changed by anybody.</p>
+              <p>All transactions are transparent, quickly
               verified by multiple independently operated computers, and can
               never be reversed. There are no fallible humans who could
               interfere with the work of Autonomous Agents, no fraudulent
@@ -105,6 +107,7 @@ export const HowItWorksPage = () => {
               is stored by an Autonomous Agent and can be withdrawn only in
               exchange for the tokens, again strictly according to the bonding
               curve formula.
+              </p>
             </div>
           </div>
         </div>

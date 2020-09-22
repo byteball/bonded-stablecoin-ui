@@ -1,0 +1,17 @@
+{
+	"version": "1.0",
+	"description": "Bonded Stablecoins AA.",
+	"homepage_url": "https://ostable.org",
+	"source_url": "https://github.com/byteball/bonded-stablecoin",
+	"field_descriptions": {
+		"move_capacity": "Move the capacity from slow to fast pool.",
+		"tokens1": "Amount of T1 tokens to buy.",
+		"tokens2": "Amount of T2 tokens to buy.",
+		"tokens1_to": "Send T1 tokens to this address instead of the caller.",
+		"tokens2_to": "Send T2 tokens to this address instead of the caller.",
+		"reserve_to": "Send reserve tokens to this address instead of the caller.",
+		"to": "Send the proceeds of the exchange to this address instead of the caller.",
+		"min_reserve_tokens": "Minimum number of reserve tokens to get from the exchange, else it fails.",
+		"max_fee_percent": "Maximum acceptable fee in %, else the transaction fails."
+	}
+}

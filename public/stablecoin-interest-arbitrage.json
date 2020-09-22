@@ -1,0 +1,20 @@
+{
+	"version": "1.0",
+	"description": "AA for arbitrage between insterest and stable tokens on bonded stablecoins.",
+	"homepage_url": "https://ostable.org",
+	"source_url": "https://github.com/byteball/stablecoin-interest-arbitrage",
+	"field_descriptions": {
+		"open_deposit": "Open a new deposit and sell the stable tokens on oswap.",
+		"close_deposit": "Buy stable tokens on oswap and close a deposit.",
+		"id": "ID of the deposit to close or unlock.",
+		"unlock": "Unlock the funds reserved in closing a deposit after the close request is resolved in any way.",
+		"challenge_force_close": "Challenge a force-close request.",
+		"weaker_id": "ID of the weaker deposit to indicate in a challenge.",
+		"withdraw_from_bank": "Withdraw funds from bank AA.",
+		"asset": "Asset to withdraw from bank AA.",
+		"withdraw_management_fee": "Withdraw the management fee accrued since the last withdrawal.",
+		"withdraw_success_fee": "Withdraw the success fee accrued since the last withdrawal.",
+		"withdraw_bytes": "Withdraw bytes accumulated on the AA through bounce fees.",
+		"amount": "Amount of bytes to withdraw."
+	}
+}

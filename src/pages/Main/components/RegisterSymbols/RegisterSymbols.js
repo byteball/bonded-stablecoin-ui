@@ -238,6 +238,7 @@ export const RegisterSymbols = (props) => {
                 onClick={() => {
                   setIsAvailable(null);
                 }}
+                key="btn-check"
                 loading={isAvailable === null}
                 disabled={token.value === "" || !token.valid}
               >
@@ -246,6 +247,7 @@ export const RegisterSymbols = (props) => {
             ) : (
               <Button
                 disabled={!token.valid || !tokenSupport.valid}
+                key="btn-reg"
                 href={generateLink(
                   tokenSupport.value * 1e9,
                   data,
