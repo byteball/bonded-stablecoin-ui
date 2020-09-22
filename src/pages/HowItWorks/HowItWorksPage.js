@@ -45,8 +45,8 @@ export const HowItWorksPage = () => {
                 - <i>r</i> is the total amount of GBYTE reserve locked to issue both
                   tokens;
                 </li>
-                <li>- <i>s1</i> is the total supply of token1 — GRD;</li>
-                <li>- <i>s2</i> is the total supply of token2 — IUSD.</li>
+                <li>- <i>s</i><sub>1</sub> is the total supply of token1 — GRD;</li>
+                <li>- <i>s</i><sub>2</sub> is the total supply of token2 — IUSD.</li>
               </ul>
               <div className={styles.image}>
                 <img alt="Graphics" src={graphics} />
