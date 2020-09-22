@@ -108,7 +108,7 @@ export const Statistics = ({ windowWidth }) => {
       currency: symbol3,
       descr: "Total supply of the stable tokens",
       value: supply || 0,
-      decimals: decimals1,
+      decimals: decimals2,
     },
     {
       title: "Reserve",
