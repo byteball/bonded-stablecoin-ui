@@ -414,7 +414,7 @@ export const ExchangeForm = () => {
                       {t.symbol || t.asset}{" "}
                       {" (" +
                         Decimal.mul(t.interest_rate, 100).toNumber() +
-                        "%)"}
+                        "% interest)"}
                     </Select.Option>
                   ))}
                 </Select>
