@@ -158,7 +158,7 @@ export const FaqPage = () => {
             first to buy while the price is still below equilibrium.
           </p>
           <p>
-            Read the blog article introducing bonded stablecoins (link) for more
+            Read the <a href="https://medium.com/obyte/using-multi-dimensional-bonding-curves-to-create-stablecoins-81e857b4355c" target="_blank" rel="noopener">blog article introducing bonded stablecoins</a> for more
             details.
           </p>
         </Panel>
@@ -268,7 +268,7 @@ export const FaqPage = () => {
             liquidated.
           </p>
           <p> For details, see{" "}
-            <a href="#" target="_blank" rel="noopener">
+            <a href="https://medium.com/obyte/using-multi-dimensional-bonding-curves-to-create-stablecoins-81e857b4355c" target="_blank" rel="noopener">
               our blog introducing bonded stablecoins
             </a>{" "}
             .
@@ -303,12 +303,12 @@ export const FaqPage = () => {
       </Collapse>
       <div className={styles.action}>
         Any other questions? Read the{" "}
-        <a href="#" target="_blank" rel="noopener">
+        <a href="https://medium.com/obyte/using-multi-dimensional-bonding-curves-to-create-stablecoins-81e857b4355c" target="_blank" rel="noopener">
           introductory article
         </a>{" "}
         or ask on{" "}
         <a href="https://discord.obyte.org/" target="_blank">
-          discord
+          Discord
         </a>
         .
       </div>

@@ -114,8 +114,8 @@ export const HowItWorksPage = () => {
 
         <div className={styles.action}>
           <div>
-            Read a more thorough introduction to bonded stablecoins in{" "}
-            <a href="#">our blog</a>.
+            Read a <a href="https://medium.com/obyte/using-multi-dimensional-bonding-curves-to-create-stablecoins-81e857b4355c" target="_blank" rel="noopener">more thorough introduction to bonded stablecoins</a> in
+            our blog.
           </div>
         </div>
       </div>
