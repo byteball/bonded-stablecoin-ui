@@ -65,11 +65,10 @@ export const getOraclePrice = async (
   const oraclesValues = [oracleValue1, oracleValue2, oracleValue3].filter(
     (v) => !!v
   );
-
-  const price = oraclesValues.reduce((result, current, index) => {
-    return params["op" + index + 1] === "/"
-      ? result / current
-      : result * (current || 1);
+  const price = oraclesValues.reduce((price, current, index) => {
+    return params["op" + (index + 1)] === "*"
+      ? price * current
+      : price / current;
   }, 1);
 
   if (showOracles) {
