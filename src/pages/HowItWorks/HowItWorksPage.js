@@ -45,8 +45,8 @@ export const HowItWorksPage = () => {
                 - <i>r</i> is the total amount of GBYTE reserve locked to issue both
                   tokens;
                 </li>
-                <li>- <i>s1</i> is the total supply of token1 — GRD;</li>
-                <li>- <i>s2</i> is the total supply of token2 — IUSD.</li>
+                <li>- <i>s</i><sub>1</sub> is the total supply of token1 — GRD;</li>
+                <li>- <i>s</i><sub>2</sub> is the total supply of token2 — IUSD.</li>
               </ul>
               <div className={styles.image}>
                 <img alt="Graphics" src={graphics} />
@@ -114,8 +114,8 @@ export const HowItWorksPage = () => {
 
         <div className={styles.action}>
           <div>
-            Read a more thorough introduction to bonded stablecoins in{" "}
-            <a href="#">our blog</a>.
+            Read a <a href="https://medium.com/obyte/using-multi-dimensional-bonding-curves-to-create-stablecoins-81e857b4355c" target="_blank" rel="noopener">more thorough introduction to bonded stablecoins</a> in
+            our blog.
           </div>
         </div>
       </div>
