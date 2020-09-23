@@ -3,7 +3,7 @@ import { Form, Input, Row, Col, Select, Button } from "antd";
 
 import { Label } from "components/Label/Label";
 import { validator } from "utils/validators";
-import { getStatusVaild } from "utils/getStatusVaild";
+import { getStatusValid } from "utils/getStatusValid";
 
 import styles from "../../CreatePage.module.css";
 
@@ -87,7 +87,7 @@ export const GovernanceStep = ({ setCurrent, setData }) => {
         <Col sm={{ span: 24 }} xs={{ span: 24 }} md={{ span: 7 }}>
           <Form.Item
             hasFeedback
-            validateStatus={getStatusVaild(validFields.allow_grants)}
+            validateStatus={getStatusValid(validFields.allow_grants)}
             name="allow_grants"
             label={
               <Label
@@ -118,7 +118,7 @@ export const GovernanceStep = ({ setCurrent, setData }) => {
           <Form.Item
             hasFeedback
             name="allow_oracle_change"
-            validateStatus={getStatusVaild(validFields.allow_oracle_change)}
+            validateStatus={getStatusValid(validFields.allow_oracle_change)}
             label={
               <Label
                 required
@@ -147,7 +147,7 @@ export const GovernanceStep = ({ setCurrent, setData }) => {
         <Col ssm={{ span: 24 }} xs={{ span: 24 }} md={{ span: 7, offset: 1 }}>
           <Form.Item
             hasFeedback
-            validateStatus={getStatusVaild(
+            validateStatus={getStatusValid(
               validFields.regular_challenging_period
             )}
             name="regular_challenging_period"
@@ -183,7 +183,7 @@ export const GovernanceStep = ({ setCurrent, setData }) => {
         <Col sm={{ span: 24 }} xs={{ span: 24 }} md={{ span: 7 }}>
           <Form.Item
             hasFeedback
-            validateStatus={getStatusVaild(
+            validateStatus={getStatusValid(
               validFields.important_challenging_period
             )}
             name="important_challenging_period"
@@ -217,7 +217,7 @@ export const GovernanceStep = ({ setCurrent, setData }) => {
         <Col sm={{ span: 24 }} xs={{ span: 24 }} md={{ span: 8, offset: 1 }}>
           <Form.Item
             hasFeedback
-            validateStatus={getStatusVaild(validFields.freeze_period)}
+            validateStatus={getStatusValid(validFields.freeze_period)}
             name="freeze_period"
             rules={[
               {
@@ -249,7 +249,7 @@ export const GovernanceStep = ({ setCurrent, setData }) => {
         <Col sm={{ span: 24 }} xs={{ span: 24 }} md={{ span: 7, offset: 1 }}>
           <Form.Item
             hasFeedback
-            validateStatus={getStatusVaild(validFields.proposal_min_support)}
+            validateStatus={getStatusValid(validFields.proposal_min_support)}
             name="proposal_min_support"
             rules={[
               {
