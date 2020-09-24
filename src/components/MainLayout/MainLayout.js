@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { Layout, Drawer, Row, Button, Col } from "antd";
+import { Layout, Drawer, Row, Button } from "antd";
 import { NavLink, Route, useLocation } from "react-router-dom";
 import ReactGA from "react-ga";
+import { WalletOutlined } from "@ant-design/icons";
 
 import { SelectStablecoin } from "../SelectStablecoin/SelectStablecoin";
 import { useWindowSize } from "hooks/useWindowSize";
@@ -11,6 +12,7 @@ import { MainMenu } from "../MainMenu/MainMenu";
 import { SelectWallet } from "../SelectWallet/SelectWallet";
 import historyInstance from "historyInstance";
 import logo from "./img/logo.svg";
+import { SelectWalletModal } from "modals/SelectWalletModal/SelectWalletModal";
 
 const { Header, Content } = Layout;
 
@@ -18,6 +20,8 @@ export const MainLayout = (props) => {
   const { pathname } = useLocation();
   const [width] = useWindowSize();
   const [activeMenu, setActiveMenu] = useState(false);
+  const [visibleModal, setVisibleModal] = useState(false);
+
   useEffect(() => {
     const unlisten = historyInstance.listen((location, action) => {
       if (action === "PUSH" || action === "POP") {
@@ -31,21 +35,30 @@ export const MainLayout = (props) => {
   }, []);
   return (
     <Layout style={{ minHeight: "100vh" }}>
-      <Header style={{ background: "#fff", paddingLeft: 20 }}>
-        <Row justify={width < 840 ? "space-between" : undefined} align="middle">
+      <Header
+        style={{
+          background: "#fff",
+          paddingLeft: 20,
+          paddingRight: 20,
+        }}
+      >
+        <Row
+          justify={width < 1100 ? "space-between" : undefined}
+          align="middle"
+        >
           <NavLink to="/" className={styles.navLink}>
             <img className={styles.logo} src={logo} alt="Bonded stablecoins" />
-            <div style={{ paddingLeft: 10, paddingRight: 10 }}>
-              <span>Bonded {width > 440 && "stablecoins"}</span>
+
+            <div style={{ paddingLeft: 10 }}>
+              <span>Bonded {width > 440 ? "stablecoins" : ""}</span>
               <sup style={{ fontSize: 8 }}>Beta</sup>
             </div>
           </NavLink>
 
-          {width >= 840 ? (
+          {width >= 1100 ? (
             <MainMenu pathname={pathname} mode="horizontal" />
           ) : (
-            <>
-              <Button onClick={() => setActiveMenu(true)}>Menu</Button>
+            <div style={{ display: "flex", alignItems: "center" }}>
               <Drawer
                 title={
                   <span>
@@ -64,7 +77,14 @@ export const MainLayout = (props) => {
                   mode="vertical"
                 />
               </Drawer>
-            </>
+              {width < 1100 && width >= 320 && pathname !== "/" && (
+                <WalletOutlined
+                  onClick={() => setVisibleModal(true)}
+                  className={styles.iconWallet}
+                />
+              )}
+              <Button onClick={() => setActiveMenu(true)}>Menu</Button>
+            </div>
           )}
           {width >= 1100 && pathname !== "/" && (
             <div style={{ marginLeft: "auto" }}>
@@ -82,23 +102,10 @@ export const MainLayout = (props) => {
             : { padding: "20px 20px" }
         }
       >
-        {pathname !== "/" && width < 1100 && (
-          <Row>
-            <Col span={24}>
-              <div
-                style={{
-                  background: "#fff",
-                  padding: 10,
-                  width: "100%",
-                  marginBottom: 20,
-                }}
-              >
-                <SelectWallet width="100%" size="large" />
-              </div>
-            </Col>
-          </Row>
-        )}
-
+        <SelectWalletModal
+          visible={visibleModal}
+          onCancel={() => setVisibleModal(false)}
+        />
         <Route path="/trade/:address?" exact>
           <SelectStablecoin />
           <Statistics windowWidth={width} />
