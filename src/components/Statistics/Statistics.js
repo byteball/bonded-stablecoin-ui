@@ -77,19 +77,25 @@ export const Statistics = ({ windowWidth }) => {
     }
   }
 
+  let bPriceInversed = false;
   if ("oracles" in actualParams) {
     if (actualParams.oracles[0].op === "*") {
+      bPriceInversed = true;
       targetPrice = 1 / target_p2;
     } else {
       targetPrice = target_p2;
     }
   } else {
     if (actualParams.op1 === "*") {
+      bPriceInversed = true;
       targetPrice = 1 / target_p2;
     } else {
       targetPrice = target_p2;
     }
   }
+
+  const reserve_symbol = reserve_asset in config.reserves && config.reserves[reserve_asset].name;
+  const p2UnitsText = bPriceInversed ? `The shown price is the price of the reserve asset ${reserve_symbol || ''} in terms of Token2 (${symbol2 || stable_state.asset2}).` : `The shown price is the price of Token2 (${symbol2 || stable_state.asset2}) in terms of the reserve asset ${reserve_symbol || ''}.`;
 
   const currentPriceDifference = stable_state.p2
     ? (currentPrice - targetPrice) / targetPrice
@@ -129,25 +135,31 @@ export const Statistics = ({ windowWidth }) => {
     {
       title: "T1 price",
       descr:
-        "The current price of Token1 according to the bonding curve. It depends on supplies of Token1 and Token2. The price is shown in terms of the reserve currency.",
+        "The current price of Token1 according to the bonding curve. It depends on the supplies of Token1 and Token2. The price is shown in terms of the reserve currency.",
       value: p1 || 0,
+      precision: 6,
+      currency: reserve_asset in config.reserves && config.reserves[reserve_asset].name,
     },
     {
       title: "Current price",
       descr:
-        "The current price according to the bonding curve. It depends on supplies of Token1 and Token2.",
+        "The current price according to the bonding curve. It depends on the supplies of Token1 and Token2. " + p2UnitsText,
       value: currentPrice,
+      precision: 9,
       percent: currentPriceDifference,
     },
     {
       title: "Target price",
-      descr: "The price Token2 is pegged to. It is oracle price plus interest.",
+      descr: "The price Token2 is pegged to. It is the oracle price plus interest. " + p2UnitsText,
       value: targetPrice,
+      precision: 9,
+      currency: symbol2
     },
     {
       title: "Oracle price",
       descr: "Latest price reported by the oracle",
       value: oraclePrice,
+      precision: 9,
     },
   ];
 
@@ -181,7 +193,7 @@ export const Statistics = ({ windowWidth }) => {
                       decimals={s.decimals}
                     />
                   ) : (
-                    Number(s.value).toFixed(9)
+                    s.precision ? Number(s.value).toPrecision(s.precision) : Number(s.value).toFixed(9)
                   )}{" "}
                   <span style={{ fontSize: 12, fontWeight: "normal" }}>
                     {s.currency}

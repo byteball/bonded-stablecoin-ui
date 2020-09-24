@@ -270,7 +270,7 @@ export const Issue = () => {
             checked={convert}
             onChange={(e) => setConvert(e.target.checked)}
           >
-            Immediately convert to stable token {symbol3 || ""}
+            Immediately convert {symbol2 || ""} to stable token {symbol3 || ""}
           </Checkbox>
         )}
 
