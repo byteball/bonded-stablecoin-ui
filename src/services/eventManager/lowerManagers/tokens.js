@@ -31,8 +31,8 @@ export const tokensEventManager = async ({
     store.dispatch(reqCreateToken({ symbol, asset, type, isAuthor }));
   } else if (isRes) {
     openNotification(
-      `The symbol for ${type === 3 && "stable"} token ${
-        type !== 3 && type
+      `The symbol for ${type === 3 ? "stable" : ""} token${
+        type !== 3 ? type : ""
       } was registered`
     );
 

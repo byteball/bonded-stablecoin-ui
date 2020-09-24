@@ -57,7 +57,7 @@ export const Statistics = ({ windowWidth }) => {
     };
   }, [address]);
 
-  if (!address || windowWidth < 576) return null;
+  if (!address) return null;
   let currentPrice = 0;
   let targetPrice = 0;
 
@@ -130,7 +130,7 @@ export const Statistics = ({ windowWidth }) => {
       title: "T1 price",
       descr:
         "The current price of Token1 according to the bonding curve. It depends on supplies of Token1 and Token2. The price is shown in terms of the reserve currency.",
-      value: p1,
+      value: p1 || 0,
     },
     {
       title: "Current price",
@@ -163,8 +163,8 @@ export const Statistics = ({ windowWidth }) => {
       <Row justify="start" style={{ marginBottom: -15 }}>
         {statisticsData.map((s, i) => (
           <Col
-            xs={{ span: 20, offset: 4 }}
-            sm={{ span: 10, offset: 2 }}
+            xs={{ span: 20 }}
+            sm={{ span: 12 }}
             lg={{ span: 6, offset: 0 }}
             style={{ marginBottom: 15 }}
             key={"stat-" + i}

@@ -88,13 +88,17 @@ export const eventManager = (err, result) => {
       const { messages } = body.unit;
       const payload = getAAPayload(messages);
       if (isEqual(params, payload)) {
-        openNotification(`You have sent a request to create a new stablecoin pegged to ${payload.feed_name1} with interest ${payload.interest_rate * 100}%
+        openNotification(`You have sent a request to create a new stablecoin pegged to ${
+          payload.feed_name1
+        } with interest ${payload.interest_rate * 100}%
         `);
 
         store.dispatch(reqIssueStablecoin());
       } else {
         openNotification(
-          `Another user sent a request to create a new stablecoin pegged to ${payload.feed_name1} with interest ${payload.interest_rate * 100}%`
+          `Another user sent a request to create a new stablecoin pegged to ${
+            payload.feed_name1
+          } with interest ${payload.interest_rate * 100}%`
         );
       }
     } else if (isRes) {
@@ -126,6 +130,10 @@ export const eventManager = (err, result) => {
         messages,
         asset1,
         asset2,
+        params: state.active.params,
+        symbol1,
+        symbol2,
+        symbol3,
       });
     }
   } else if (aa_address === deposit_aa) {
