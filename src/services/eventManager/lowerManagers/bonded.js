@@ -27,7 +27,11 @@ export const bondedEventManager = ({
         );
       } else {
         openNotification(
-          "Another user sent a request to buy stablecoin tokens"
+          `Another user sent a request to buy ${
+            T1 ? T1 + " " + (symbol1 || "T1") : ""
+          } ${T1 && T2 ? " and " : ""} ${
+            T2 ? T2 + " " + (symbol2 || "T2") : ""
+          }`
         );
       }
     } else if (isEmpty(payload)) {
