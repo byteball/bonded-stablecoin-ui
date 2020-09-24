@@ -126,14 +126,14 @@ export const Statistics = ({ windowWidth }) => {
     {
       title: "Reserve",
       descr:
-        "Total amount of reserve locked to back the issuance of T1 and t2 tokens",
+        "Total amount of reserve locked to back the issuance of T1 and T2 tokens",
       value: "reserve" in stable_state ? stable_state.reserve : 0,
       decimals: actualParams.reserve_asset_decimals,
       currency:
         reserve_asset in config.reserves && config.reserves[reserve_asset].name,
     },
     {
-      title: "T1 price",
+      title: `${symbol1 || 'T1'} price`,
       descr:
         "The current price of Token1 according to the bonding curve. It depends on the supplies of Token1 and Token2. The price is shown in terms of the reserve currency.",
       value: p1 || 0,
