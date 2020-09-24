@@ -28,6 +28,13 @@ export const Statistics = ({ windowWidth }) => {
   const { supply1, supply2 } = stable_state;
   const { decimals1, decimals2, reserve_asset } = actualParams;
   const { supply } = deposit_state;
+  const s1 = supply1 / 10 ** decimals1;
+  const s2 = supply2 / 10 ** decimals2;
+  const p1 =
+    params.m *
+    s1 ** (params.m - 1) *
+    s2 ** params.n *
+    stable_state.dilution_factor;
 
   const target_p2 =
     oraclePrice &&
@@ -50,7 +57,7 @@ export const Statistics = ({ windowWidth }) => {
     };
   }, [address]);
 
-  if (!address || windowWidth < 576) return null;
+  if (!address) return null;
   let currentPrice = 0;
   let targetPrice = 0;
 
@@ -120,6 +127,12 @@ export const Statistics = ({ windowWidth }) => {
         reserve_asset in config.reserves && config.reserves[reserve_asset].name,
     },
     {
+      title: "T1 price",
+      descr:
+        "The current price of Token1 according to the bonding curve. It depends on supplies of Token1 and Token2. The price is shown in terms of the reserve currency.",
+      value: p1 || 0,
+    },
+    {
       title: "Current price",
       descr:
         "The current price according to the bonding curve. It depends on supplies of Token1 and Token2.",
@@ -150,8 +163,8 @@ export const Statistics = ({ windowWidth }) => {
       <Row justify="start" style={{ marginBottom: -15 }}>
         {statisticsData.map((s, i) => (
           <Col
-            xs={{ span: 20, offset: 4 }}
-            sm={{ span: 10, offset: 2 }}
+            xs={{ span: 20 }}
+            sm={{ span: 12 }}
             lg={{ span: 6, offset: 0 }}
             style={{ marginBottom: 15 }}
             key={"stat-" + i}

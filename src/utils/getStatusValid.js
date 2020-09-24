@@ -1,4 +1,4 @@
-export const getStatusVaild = (isValid) => {
+export const getStatusValid = (isValid) => {
   if (isValid === undefined) return undefined;
   if (isValid) {
     return "success";
