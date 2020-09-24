@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Layout, Drawer, Row, Button } from "antd";
+import { Layout, Drawer, Row, Button, Col } from "antd";
 import { NavLink, Route, useLocation } from "react-router-dom";
 import ReactGA from "react-ga";
 
@@ -31,9 +31,7 @@ export const MainLayout = (props) => {
   }, []);
   return (
     <Layout style={{ minHeight: "100vh" }}>
-      <Header
-        style={{ background: "#fff", paddingLeft: width >= 1200 ? 50 : 20 }}
-      >
+      <Header style={{ background: "#fff", paddingLeft: 20 }}>
         <Row justify={width < 840 ? "space-between" : undefined} align="middle">
           <NavLink to="/" className={styles.navLink}>
             <img className={styles.logo} src={logo} alt="Bonded stablecoins" />
@@ -79,11 +77,28 @@ export const MainLayout = (props) => {
       <Content
         className={styles.content}
         style={
-          pathname === "/" || width <= 520
+          pathname === "/" || width < 1100
             ? { padding: 0 }
-            : { padding: "30px 50px" }
+            : { padding: "20px 20px" }
         }
       >
+        {pathname !== "/" && width < 1100 && (
+          <Row>
+            <Col span={24}>
+              <div
+                style={{
+                  background: "#fff",
+                  padding: 10,
+                  width: "100%",
+                  marginBottom: 20,
+                }}
+              >
+                <SelectWallet width="100%" size="large" />
+              </div>
+            </Col>
+          </Row>
+        )}
+
         <Route path="/trade/:address?" exact>
           <SelectStablecoin />
           <Statistics windowWidth={width} />

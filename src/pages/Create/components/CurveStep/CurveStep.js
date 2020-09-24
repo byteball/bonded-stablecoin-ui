@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Form, Input, Row, Col, Button, Select, message } from "antd";
 
 import { validator } from "utils/validators";
-import { getStatusVaild } from "utils/getStatusVaild";
+import { getStatusValid } from "utils/getStatusValid";
 import { Label } from "components/Label/Label";
 
 import styles from "../../CreatePage.module.css";
@@ -184,7 +184,7 @@ export const CurverStep = ({ setCurrent, setData }) => {
         <Col sm={{ span: 24 }} xs={{ span: 24 }} md={{ span: 11 }}>
           <Form.Item
             hasFeedback
-            validateStatus={getStatusVaild(validFields.oracle1)}
+            validateStatus={getStatusValid(validFields.oracle1)}
             name="oracle1"
             label={
               <Label
@@ -206,7 +206,7 @@ export const CurverStep = ({ setCurrent, setData }) => {
         <Col sm={{ span: 24 }} xs={{ span: 24 }} md={{ span: 7, offset: 1 }}>
           <Form.Item
             hasFeedback
-            validateStatus={getStatusVaild(validFields.feed_name1)}
+            validateStatus={getStatusValid(validFields.feed_name1)}
             name="feed_name1"
             label={
               <Label
@@ -226,7 +226,7 @@ export const CurverStep = ({ setCurrent, setData }) => {
         <Col sm={{ span: 24 }} xs={{ span: 24 }} md={{ span: 4, offset: 1 }}>
           <Form.Item
             hasFeedback
-            validateStatus={getStatusVaild(validFields.op1)}
+            validateStatus={getStatusValid(validFields.op1)}
             name="op1"
             label={
               <Label
@@ -251,7 +251,7 @@ export const CurverStep = ({ setCurrent, setData }) => {
         <Col sm={{ span: 24 }} xs={{ span: 24 }} md={{ span: 11 }}>
           <Form.Item
             hasFeedback
-            validateStatus={getStatusVaild(validFields.oracle)}
+            validateStatus={getStatusValid(validFields.oracle)}
             name="oracle2"
             label={
               <Label
@@ -272,7 +272,7 @@ export const CurverStep = ({ setCurrent, setData }) => {
         <Col sm={{ span: 24 }} xs={{ span: 24 }} md={{ span: 7, offset: 1 }}>
           <Form.Item
             hasFeedback
-            validateStatus={getStatusVaild(validFields.feed_name)}
+            validateStatus={getStatusValid(validFields.feed_name)}
             name="feed_name2"
             label={
               <Label
@@ -315,7 +315,7 @@ export const CurverStep = ({ setCurrent, setData }) => {
         <Col sm={{ span: 24 }} xs={{ span: 24 }} md={{ span: 11 }}>
           <Form.Item
             hasFeedback
-            validateStatus={getStatusVaild(validFields.oracle)}
+            validateStatus={getStatusValid(validFields.oracle)}
             name="oracle3"
             label={
               <Label
@@ -336,7 +336,7 @@ export const CurverStep = ({ setCurrent, setData }) => {
         <Col sm={{ span: 24 }} xs={{ span: 24 }} md={{ span: 7, offset: 1 }}>
           <Form.Item
             hasFeedback
-            validateStatus={getStatusVaild(validFields.feed_name)}
+            validateStatus={getStatusValid(validFields.feed_name)}
             name="feed_name3"
             label={
               <Label
@@ -379,7 +379,7 @@ export const CurverStep = ({ setCurrent, setData }) => {
         <Col sm={{ span: 24 }} xs={{ span: 24 }} md={{ span: 16 }}>
           <Form.Item
             hasFeedback
-            validateStatus={getStatusVaild(validFields.reserve_asset)}
+            validateStatus={getStatusValid(validFields.reserve_asset)}
             rules={[
               {
                 validator: (rule, value) =>
@@ -419,7 +419,7 @@ export const CurverStep = ({ setCurrent, setData }) => {
         <Col sm={{ span: 24 }} xs={{ span: 24 }} md={{ span: 7, offset: 1 }}>
           <Form.Item
             hasFeedback
-            validateStatus={getStatusVaild(validFields.reserve_asset_decimals)}
+            validateStatus={getStatusValid(validFields.reserve_asset_decimals)}
             rules={[
               {
                 validator: (rule, value) =>
@@ -451,7 +451,7 @@ export const CurverStep = ({ setCurrent, setData }) => {
         <Col sm={{ span: 24 }} xs={{ span: 24 }} md={{ span: 7 }}>
           <Form.Item
             hasFeedback
-            validateStatus={getStatusVaild(validFields.decimals1)}
+            validateStatus={getStatusValid(validFields.decimals1)}
             rules={[
               {
                 validator: (rule, value) =>
@@ -477,7 +477,7 @@ export const CurverStep = ({ setCurrent, setData }) => {
         <Col sm={{ span: 24 }} xs={{ span: 24 }} md={{ span: 8, offset: 1 }}>
           <Form.Item
             hasFeedback
-            validateStatus={getStatusVaild(validFields.decimals2)}
+            validateStatus={getStatusValid(validFields.decimals2)}
             rules={[
               {
                 validator: (rule, value) =>
@@ -498,7 +498,7 @@ export const CurverStep = ({ setCurrent, setData }) => {
         </Col>
         <Col sm={{ span: 24 }} xs={{ span: 24 }} md={{ span: 7, offset: 1 }}>
           <Form.Item
-            validateStatus={getStatusVaild(validFields.leverage)}
+            validateStatus={getStatusValid(validFields.leverage)}
             rules={[
               {
                 validator: (rule, value) =>
@@ -527,7 +527,7 @@ export const CurverStep = ({ setCurrent, setData }) => {
         <Col sm={{ span: 24 }} xs={{ span: 24 }} md={{ span: 7 }}>
           <Form.Item
             hasFeedback
-            validateStatus={getStatusVaild(validFields.m)}
+            validateStatus={getStatusValid(validFields.m)}
             rules={[
               {
                 validator: (rule, value) =>
@@ -558,7 +558,7 @@ export const CurverStep = ({ setCurrent, setData }) => {
         </Col>
         <Col sm={{ span: 24 }} xs={{ span: 24 }} md={{ span: 8, offset: 1 }}>
           <Form.Item
-            validateStatus={getStatusVaild(validFields.n)}
+            validateStatus={getStatusValid(validFields.n)}
             hasFeedback
             rules={[
               {
@@ -587,7 +587,7 @@ export const CurverStep = ({ setCurrent, setData }) => {
         <Col sm={{ span: 24 }} xs={{ span: 24 }} md={{ span: 7, offset: 1 }}>
           <Form.Item
             hasFeedback
-            validateStatus={getStatusVaild(validFields.interest_rate)}
+            validateStatus={getStatusValid(validFields.interest_rate)}
             rules={[
               {
                 validator: (rule, value) =>

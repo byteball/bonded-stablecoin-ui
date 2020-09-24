@@ -8,14 +8,30 @@ export const bondedEventManager = ({
   messages,
   asset1,
   asset2,
+  params,
+  symbol1,
+  symbol2,
 }) => {
   if (isReq) {
     if ("tokens1" in payload || "tokens2" in payload) {
+      const { decimals1, decimals2 } = params;
+      const T1 = payload.tokens1 ? payload.tokens1 / 10 ** decimals1 : 0;
+      const T2 = payload.tokens2 ? payload.tokens2 / 10 ** decimals2 : 0;
       if (isAuthor) {
-        openNotification("You have sent a request to buy stablecoin tokens");
+        openNotification(
+          `You have sent a request to buy ${
+            T1 ? T1 + " " + (symbol1 || "T1") : ""
+          } ${T1 && T2 ? " and " : ""} ${
+            T2 ? T2 + " " + (symbol2 || "T2") : ""
+          }`
+        );
       } else {
         openNotification(
-          "Another user sent a request to buy stablecoin tokens"
+          `Another user sent a request to buy ${
+            T1 ? T1 + " " + (symbol1 || "T1") : ""
+          } ${T1 && T2 ? " and " : ""} ${
+            T2 ? T2 + " " + (symbol2 || "T2") : ""
+          }`
         );
       }
     } else if (isEmpty(payload)) {

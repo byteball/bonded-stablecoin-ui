@@ -28,6 +28,13 @@ export const Statistics = ({ windowWidth }) => {
   const { supply1, supply2 } = stable_state;
   const { decimals1, decimals2, reserve_asset } = actualParams;
   const { supply } = deposit_state;
+  const s1 = supply1 / 10 ** decimals1;
+  const s2 = supply2 / 10 ** decimals2;
+  const p1 =
+    params.m *
+    s1 ** (params.m - 1) *
+    s2 ** params.n *
+    stable_state.dilution_factor;
 
   const target_p2 =
     oraclePrice &&
@@ -50,7 +57,7 @@ export const Statistics = ({ windowWidth }) => {
     };
   }, [address]);
 
-  if (!address || windowWidth < 576) return null;
+  if (!address) return null;
   let currentPrice = 0;
   let targetPrice = 0;
 
@@ -70,19 +77,25 @@ export const Statistics = ({ windowWidth }) => {
     }
   }
 
+  let bPriceInversed = false;
   if ("oracles" in actualParams) {
     if (actualParams.oracles[0].op === "*") {
+      bPriceInversed = true;
       targetPrice = 1 / target_p2;
     } else {
       targetPrice = target_p2;
     }
   } else {
     if (actualParams.op1 === "*") {
+      bPriceInversed = true;
       targetPrice = 1 / target_p2;
     } else {
       targetPrice = target_p2;
     }
   }
+
+  const reserve_symbol = reserve_asset in config.reserves && config.reserves[reserve_asset].name;
+  const p2UnitsText = bPriceInversed ? `The shown price is the price of the reserve asset ${reserve_symbol || ''} in terms of Token2 (${symbol2 || stable_state.asset2}).` : `The shown price is the price of Token2 (${symbol2 || stable_state.asset2}) in terms of the reserve asset ${reserve_symbol || ''}.`;
 
   const currentPriceDifference = stable_state.p2
     ? (currentPrice - targetPrice) / targetPrice
@@ -113,28 +126,40 @@ export const Statistics = ({ windowWidth }) => {
     {
       title: "Reserve",
       descr:
-        "Total amount of reserve locked to back the issuance of T1 and t2 tokens",
+        "Total amount of reserve locked to back the issuance of T1 and T2 tokens",
       value: "reserve" in stable_state ? stable_state.reserve : 0,
       decimals: actualParams.reserve_asset_decimals,
       currency:
         reserve_asset in config.reserves && config.reserves[reserve_asset].name,
     },
     {
+      title: `${symbol1 || 'T1'} price`,
+      descr:
+        "The current price of Token1 according to the bonding curve. It depends on the supplies of Token1 and Token2. The price is shown in terms of the reserve currency.",
+      value: p1 || 0,
+      precision: 6,
+      currency: reserve_asset in config.reserves && config.reserves[reserve_asset].name,
+    },
+    {
       title: "Current price",
       descr:
-        "The current price according to the bonding curve. It depends on supplies of Token1 and Token2.",
+        "The current price according to the bonding curve. It depends on the supplies of Token1 and Token2. " + p2UnitsText,
       value: currentPrice,
+      precision: 9,
       percent: currentPriceDifference,
     },
     {
       title: "Target price",
-      descr: "The price Token2 is pegged to. It is oracle price plus interest.",
+      descr: "The price Token2 is pegged to. It is the oracle price plus interest. " + p2UnitsText,
       value: targetPrice,
+      precision: 9,
+      currency: symbol2
     },
     {
       title: "Oracle price",
       descr: "Latest price reported by the oracle",
       value: oraclePrice,
+      precision: 9,
     },
   ];
 
@@ -150,8 +175,8 @@ export const Statistics = ({ windowWidth }) => {
       <Row justify="start" style={{ marginBottom: -15 }}>
         {statisticsData.map((s, i) => (
           <Col
-            xs={{ span: 20, offset: 4 }}
-            sm={{ span: 10, offset: 2 }}
+            xs={{ span: 20 }}
+            sm={{ span: 12 }}
             lg={{ span: 6, offset: 0 }}
             style={{ marginBottom: 15 }}
             key={"stat-" + i}
@@ -168,7 +193,7 @@ export const Statistics = ({ windowWidth }) => {
                       decimals={s.decimals}
                     />
                   ) : (
-                    Number(s.value).toFixed(9)
+                    s.precision ? Number(s.value).toPrecision(s.precision) : Number(s.value).toFixed(9)
                   )}{" "}
                   <span style={{ fontSize: 12, fontWeight: "normal" }}>
                     {s.currency}

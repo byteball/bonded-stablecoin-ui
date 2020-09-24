@@ -27,7 +27,7 @@ export const Redeem = () => {
   const { p2 } = stable_state;
   return (
     <>
-      <Title level={3}>Redeem token1 ({symbol1})</Title>
+      <Title level={3}>Redeem token1 {symbol1 ? `(${symbol1})` : ""}</Title>
       <RedeemToken
         address={address}
         tokens={tokens1}
@@ -42,7 +42,7 @@ export const Redeem = () => {
         p2={p2}
         oraclePrice={oraclePrice}
       />
-      <Title level={3}>Redeem token2 ({symbol2})</Title>
+      <Title level={3}>Redeem token2 {symbol2 ? `(${symbol2})` : ""}</Title>
       <RedeemToken
         address={address}
         tokens={tokens2}

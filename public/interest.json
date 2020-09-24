@@ -1,0 +1,44 @@
+[
+	{
+		"symbol": "BTC",
+		"rate": 11,
+		"minimumAmount": 0.005,
+		"collateralRate": 1
+	},
+	{
+		"symbol": "USDT",
+		"rate": 16,
+		"minimumAmount": 50,
+		"collateralRate": 1
+	},
+	{
+		"symbol": "USDC",
+		"rate": 16,
+		"minimumAmount": 50,
+		"collateralRate": 1
+	},
+	{
+		"symbol": "BUSD",
+		"rate": 16,
+		"minimumAmount": 50,
+		"collateralRate": 1
+	},
+	{
+		"symbol": "HUSD",
+		"rate": 16,
+		"minimumAmount": 50,
+		"collateralRate": 1
+	},
+	{
+		"symbol": "DAI",
+		"rate": 16,
+		"minimumAmount": 50,
+		"collateralRate": 1
+	},
+	{
+		"symbol": "PAXG",
+		"rate": 8,
+		"minimumAmount": 50,
+		"collateralRate": 1
+	}
+]

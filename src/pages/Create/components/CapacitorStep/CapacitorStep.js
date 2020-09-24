@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Form, Input, Row, Col, Button } from "antd";
 
 import { validator } from "utils/validators";
-import { getStatusVaild } from "utils/getStatusVaild";
+import { getStatusValid } from "utils/getStatusValid";
 import { Label } from "components/Label/Label";
 
 import styles from "../../CreatePage.module.css";
@@ -61,7 +61,7 @@ export const CapacitorStep = ({ setCurrent, setData }) => {
         <Col sm={{ span: 24 }} xs={{ span: 24 }} md={{ span: 7 }}>
           <Form.Item
             hasFeedback
-            validateStatus={getStatusVaild(validFields.fee_multiplier)}
+            validateStatus={getStatusValid(validFields.fee_multiplier)}
             name="fee_multiplier"
             rules={[
               {
@@ -92,7 +92,7 @@ export const CapacitorStep = ({ setCurrent, setData }) => {
         <Col sm={{ span: 24 }} xs={{ span: 24 }} md={{ span: 8, offset: 1 }}>
           <Form.Item
             hasFeedback
-            validateStatus={getStatusVaild(validFields.moved_capacity_share)}
+            validateStatus={getStatusValid(validFields.moved_capacity_share)}
             name="moved_capacity_share"
             rules={[
               {
@@ -119,7 +119,7 @@ export const CapacitorStep = ({ setCurrent, setData }) => {
         <Col sm={{ span: 24 }} xs={{ span: 24 }} md={{ span: 7, offset: 1 }}>
           <Form.Item
             hasFeedback
-            validateStatus={getStatusVaild(validFields.threshold_distance)}
+            validateStatus={getStatusValid(validFields.threshold_distance)}
             name="threshold_distance"
             rules={[
               {
@@ -152,7 +152,7 @@ export const CapacitorStep = ({ setCurrent, setData }) => {
         <Col ssm={{ span: 24 }} xs={{ span: 24 }} md={{ span: 7 }}>
           <Form.Item
             hasFeedback
-            validateStatus={getStatusVaild(validFields.move_capacity_timeout)}
+            validateStatus={getStatusValid(validFields.move_capacity_timeout)}
             name="move_capacity_timeout"
             rules={[
               {
@@ -184,7 +184,7 @@ export const CapacitorStep = ({ setCurrent, setData }) => {
         <Col sm={{ span: 24 }} xs={{ span: 24 }} md={{ span: 8, offset: 1 }}>
           <Form.Item
             hasFeedback
-            validateStatus={getStatusVaild(validFields.slow_capacity_share)}
+            validateStatus={getStatusValid(validFields.slow_capacity_share)}
             name="slow_capacity_share"
             rules={[
               {

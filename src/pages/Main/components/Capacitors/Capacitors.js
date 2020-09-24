@@ -19,7 +19,7 @@ export const Capacitors = ({ stable_state, address, params }) => {
       params.move_capacity_timeout ||
       2 * 3600);
 
-  const isExpiry = moment().unix() > timeToNextMovement;
+  const isExpiry = moment.utc().unix() > timeToNextMovement;
   const hours = Math.round(params.move_capacity_timeout / 3600);
   const minutes = Math.round(
     (params.move_capacity_timeout - 3600 * hours) / 60
