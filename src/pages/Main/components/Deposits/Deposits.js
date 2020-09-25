@@ -68,7 +68,7 @@ export const Deposits = () => {
   if (!activeWallet) {
     return (
       <div style={{ textAlign: "center" }}>
-        Please add the address of your wallet in order to view/open deposits
+        Please add the address of your wallet in order to view/open deposits.
       </div>
     );
   }
@@ -76,7 +76,7 @@ export const Deposits = () => {
     {
       title: (
         <Label
-          label="Stable"
+          label={symbol3 || "Stable"}
           descr="Amount of stable tokens issued against the deposit"
         />
       ),
@@ -291,9 +291,9 @@ export const Deposits = () => {
         style={{ padding: 0 }}
         onClick={() => setVisibleOpenDeposit(true)}
       >
-        open a new
+        open a new one
       </Button>{" "}
-      or change your wallet address
+      or change your wallet address.
     </span>
   );
 
@@ -318,9 +318,9 @@ export const Deposits = () => {
       </div>
       <p>
         <Text type="secondary">
-          Create a deposit to exchange your {symbol2 || "interest tokens"} for{" "}
-          {symbol3 || "stable tokens"} and periodically withdraw interest as it
-          accrues
+          Create a deposit to exchange your {symbol2 || "interest tokens"} for stable tokens{" "}
+          {symbol3 || ""} and periodically withdraw interest in {symbol3 || ""} as it
+          accrues. You can trade {symbol3 || "stable tokens"} on <a href="https://oswap.io" target="_blank" rel="noopener">Oswap.io</a>.
         </Text>
       </p>
       {last_force_closed_protection_ratio && (
@@ -333,7 +333,7 @@ export const Deposits = () => {
       )}
       <p>
         <Text type="secondary">
-          Deposit cannot be closed within <b>12 hours</b> after opening
+          A new deposit cannot be closed within <b>12 hours</b> after opening.
         </Text>
       </p>
 
