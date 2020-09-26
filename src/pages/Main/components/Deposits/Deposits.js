@@ -200,7 +200,7 @@ export const Deposits = () => {
           value && config.interestRecipients.find((a) => a.address === value);
         return (
           <>
-            {!value || activeWallet === records.owner
+            {!value || value === records.owner
               ? "you"
               : (recipientName && (
                   <span style={{ fontSize: 12 }}>{recipientName.name}</span>
