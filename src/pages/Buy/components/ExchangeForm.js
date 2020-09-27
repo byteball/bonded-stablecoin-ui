@@ -590,7 +590,7 @@ export const ExchangeForm = () => {
             <div style={{ textAlign: "center" }}>
               <Text type="secondary" style={{ fontSize: 12, color: "red" }}>
                 Sorry, the minimum {String(activeCurrency).toUpperCase()} amount
-                is {ranges.min}. Please increase the number of interest tokens
+                is {ranges.min}. Please increase the {String(activeCurrency).toUpperCase()} amount.
               </Text>
             </div>
           ) : null}
