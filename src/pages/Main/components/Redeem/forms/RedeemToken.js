@@ -63,7 +63,7 @@ export const RedeemToken = ({
   }, [getFieldsValue, tokens, activeWallet, address, asset, decimals, valid]);
 
   const link = generateLink(
-    Number(tokens).toFixed(decimals) * 10 ** decimals,
+    Math.trunc(Number(tokens).toFixed(decimals) * 10 ** decimals),
     {},
     activeWallet,
     address,
@@ -97,7 +97,7 @@ export const RedeemToken = ({
     exchange && "p2" in exchange
       ? ((1 / exchange.p2 - 1 / p2) / (1 / p2)) * 100
       : 0;
-  const changeFinalPriceProcent =
+  const changeFinalPricePercent =
     exchange && exchange !== undefined && "p2" in exchange
       ? ((1 / exchange.p2 - 1 / exchange.target_p2) /
           (1 / exchange.target_p2)) *
@@ -122,14 +122,16 @@ export const RedeemToken = ({
                 value,
                 name: "r_tokens",
                 type: "number",
-                minValue: 0,
+                minValue: Number(1 / 10 ** decimals).toFixed(decimals),
                 maxDecimals: decimals,
               }),
           },
         ]}
       >
         <Input.Search
-          placeholder={`Amount of tokens${type} (${symbol || asset} — ${type === 1 ? 'interest' : 'growth'} tokens)`}
+          placeholder={`Amount of tokens${type} (${symbol || asset} — ${
+            type === 1 ? "interest" : "growth"
+          } tokens)`}
           autoComplete="off"
           style={{ marginBottom: 0 }}
           onKeyPress={(ev) => {
@@ -195,8 +197,8 @@ export const RedeemToken = ({
           <Text type="secondary" style={{ display: "block" }}>
             <b>Final price: </b>
             {(1 / exchange.p2).toFixed(reserve_asset_decimals) || "0"} (
-            {Math.abs(changeFinalPriceProcent).toFixed(2)}%{" "}
-            {changeFinalPriceProcent > 0 ? "above" : "below"} the target)
+            {Math.abs(changeFinalPricePercent).toFixed(2)}%{" "}
+            {changeFinalPricePercent > 0 ? "above" : "below"} the target)
           </Text>
         </div>
       ) : (

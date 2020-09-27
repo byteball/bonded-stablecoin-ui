@@ -1,0 +1,18 @@
+{
+	"version": "1.0",
+	"description": "Discount Stablecoins AA.",
+	"homepage_url": "https://discount.ostable.org",
+	"source_url": "https://github.com/byteball/discount-stablecoin-aa",
+	"field_descriptions": {
+		"define": "Define an asset for the stablecoin. Set the value to 1.",
+		"expire": "Record the exchange rate on the expiry date. Set the value to 1.",
+		"id": "ID of a loan.",
+		"add_collateral": "Add collateral to a loan. Set the value to 1.",
+		"repay": "Repay a loan. Set the value to 1.",
+		"seize": "Seize an undercollateralized loan. Set the value to 1.",
+		"end_auction": "End an auction. Set the value to 1.",
+		"withdraw": "Withdraw funds remaining after losing an auction. Set the value to 1.",
+		"to": "Address to withdraw to after losing an auction.",
+		"amount": "Amount to withdraw after losing an auction."
+	}
+}

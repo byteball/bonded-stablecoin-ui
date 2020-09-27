@@ -20,6 +20,10 @@ export default {
       name: "Estonian Cryptocurrency Association",
       address: "VJDEB7JEBHJWW6DPTLYYUBDAVOYKZYB4",
     },
+    {
+      name: "PolloPollo",
+      address: "UB6CSL6DSZPMACGZDEUKE4RLVWNXUPAJ",
+    },
   ],
   pegged: {
     // for landing page
