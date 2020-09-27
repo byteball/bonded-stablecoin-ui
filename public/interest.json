@@ -8,7 +8,7 @@
 	{
 		"symbol": "USDT",
 		"rate": 16,
-		"minimumAmount": 50,
+		"minimumAmount": 80,
 		"collateralRate": 1
 	},
 	{
