@@ -1,5 +1,6 @@
 import React from "react";
 import { Card, Space, Button } from "antd";
+import moment from "moment";
 import { generateLink } from "utils/generateLink";
 import { ShowDecimalsValue } from "components/ShowDecimalsValue/ShowDecimalsValue";
 import config from "config";
@@ -14,8 +15,11 @@ export const DepositsItem = ({
   setAddProtection,
   item,
   reserve_asset_decimals,
+  reserve_asset,
   timestamp,
   width,
+  symbol2,
+  symbol3,
 }) => {
   const {
     protection,
@@ -36,41 +40,53 @@ export const DepositsItem = ({
     encodeURIComponent(asset)
   );
   const receiveUrl = generateLink(1e4, { id }, activeWallet, deposit_aa);
-  const protectionView = protection
-    ? (protection / 10 ** reserve_asset_decimals).toFixed(
-        reserve_asset_decimals
-      )
-    : 0;
   const protectionRatio = Number((protection || 0) / amount).toFixed(2);
-  const recepientName =
+  const recipientName =
     interest_recipient &&
     config.interestRecipients.find((a) => a.address === interest_recipient);
   return (
     <Card
       style={{ marginBottom: 10, wordBreak: "break-all" }}
+      bodyStyle={{ paddingLeft: 0 }}
       bordered={false}
       size="small"
     >
       <div>
-        <b>ID:</b> {id}
+        <b>Opened:</b> {moment.unix(ts).format("DD-MM-YYYY HH:mm")}
       </div>
       <div>
-        <b>Stable:</b>{" "}
-        <ShowDecimalsValue decimals={decimals} value={stable_amount} />
+        <b>Stable tokens:</b>{" "}
+        <ShowDecimalsValue decimals={decimals} value={stable_amount} />{" "}
+        {symbol3}
+      </div>
+      <div>
+        <b>Interest tokens:</b>{" "}
+        <ShowDecimalsValue decimals={decimals} value={amount} /> {symbol2}
       </div>
       <div>
         <b>Interest:</b>{" "}
-        <ShowDecimalsValue decimals={decimals} value={interest} />
+        <ShowDecimalsValue decimals={decimals} value={interest} /> {symbol3}
       </div>
       <div>
         <b>Interest recipient:</b>{" "}
         {!interest_recipient || activeWallet === interest_recipient
           ? "you"
-          : (recepientName && <span>{recepientName.name}</span>) ||
+          : (recipientName && <span>{recipientName.name}</span>) ||
             interest_recipient.slice(0, 9) + "..."}
       </div>
       <div>
-        <b>Protection (ratio):</b> {protection ? protectionView : "-"}{" "}
+        <b>Protection (ratio):</b>{" "}
+        {protection ? (
+          <>
+            <ShowDecimalsValue
+              decimals={reserve_asset_decimals}
+              value={protection}
+            />{" "}
+            {reserve_asset === "base" ? "GBYTE" : ""}{" "}
+          </>
+        ) : (
+          "-"
+        )}{" "}
         {protection && `(${protectionRatio})`}
       </div>
       <Space
