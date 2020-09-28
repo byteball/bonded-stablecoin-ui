@@ -333,7 +333,7 @@ export const Deposits = () => {
         <Text type="secondary">
           Create a deposit to exchange your {symbol2 || "interest tokens"} for stable tokens{" "}
           {symbol3 || ""} and periodically withdraw interest in {symbol3 || ""} as it
-          accrues. You can trade {symbol3 || "stable tokens"} on <a href="{oswapUrl}" target="_blank" rel="noopener">Oswap.io</a> or <a href={odexUrl} target="_blank" rel="noopener">ODEX</a>.
+          accrues. You can trade {symbol3 || "stable tokens"} on <a href={oswapUrl} target="_blank" rel="noopener">Oswap.io</a> or <a href={odexUrl} target="_blank" rel="noopener">ODEX</a>.
         </Text>
       </p>
       {last_force_closed_protection_ratio && (

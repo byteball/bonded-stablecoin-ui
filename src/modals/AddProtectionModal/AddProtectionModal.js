@@ -68,7 +68,9 @@ export const AddProtectionModal = ({
               amount.value * 10 ** reserve_asset_decimals,
               { add_protection: 1, id },
               activeWallet,
-              deposit_aa
+              deposit_aa,
+              'base',
+              true
             )}
           >
             Add protection
