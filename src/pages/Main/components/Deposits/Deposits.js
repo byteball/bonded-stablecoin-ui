@@ -333,9 +333,20 @@ export const Deposits = () => {
       or change your wallet address.
     </span>
   );
-  const odexUrl = `https://odex.ooo/trade/${
-    symbol3 === "OUSD" ? "GBYTE" : symbol3
-  }/OUSD`;
+
+  const odexUrl = `https://odex.ooo/trade/${ (symbol3 === 'OUSD' ? 'GBYTE' : symbol3) }/OUSD`;
+  let oswapUrl = 'https://oswap.io/#/swap';
+  switch (symbol3) {
+    case 'OUSD':
+      oswapUrl += '/I7UKETQTWW5H25BPLIIXLZTQBAKYTTN2?reverse=1'; // OUSD to GBYTE
+      break;
+    case 'OBIT':
+      oswapUrl += '/QFIBPWBW6ADYSIZPTJ2FAHNARLHPGAN4?reverse=1'; // OUSD to OBIT
+      break;
+    case 'OAU':
+      oswapUrl += '/C3XRJVE5RGJLTZ2V3K3NLS2IY5RIQPRI'; // OUSD to OAU
+      break
+  }
 
   return (
     <>
@@ -358,18 +369,9 @@ export const Deposits = () => {
       </div>
       <p>
         <Text type="secondary">
-          Create a deposit to exchange your {symbol2 || "interest tokens"} for
-          stable tokens {symbol3 || ""} and periodically withdraw interest in{" "}
-          {symbol3 || ""} as it accrues. You can trade{" "}
-          {symbol3 || "stable tokens"} on{" "}
-          <a href="https://oswap.io" target="_blank" rel="noopener">
-            Oswap.io
-          </a>{" "}
-          or{" "}
-          <a href={odexUrl} target="_blank" rel="noopener">
-            ODEX
-          </a>
-          .
+          Create a deposit to exchange your {symbol2 || "interest tokens"} for stable tokens{" "}
+          {symbol3 || ""} and periodically withdraw interest in {symbol3 || ""} as it
+          accrues. You can trade {symbol3 || "stable tokens"} on <a href={oswapUrl} target="_blank" rel="noopener">Oswap.io</a> or <a href={odexUrl} target="_blank" rel="noopener">ODEX</a>.
         </Text>
       </p>
       {last_force_closed_protection_ratio && (
