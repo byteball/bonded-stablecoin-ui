@@ -101,7 +101,8 @@ export const OpenDepositModal = ({
     selectAddress ? { interest_recipient: selectAddress } : {},
     activeWallet,
     deposit_aa,
-    encodeURIComponent(asset)
+    encodeURIComponent(asset),
+    true
   );
   const stable_amount = Math.floor(
     amount.value * 10 ** decimals * growth_factor
