@@ -74,6 +74,35 @@ export const Deposits = () => {
   }
   const columns = [
     {
+      title: "Opened",
+      dataIndex: "ts",
+      key: "ts",
+      render: (value) => {
+        return (
+          <Tooltip title={moment.unix(value).format("DD-MM-YYYY HH:mm")}>
+            {timestamp - value > 60 * 60 * 24
+              ? moment.unix(value).format("DD-MM-YYYY")
+              : moment.unix(value).format("HH:mm")}
+          </Tooltip>
+        );
+      },
+    },
+    {
+      title: (
+        <Label
+          label={symbol2 || "Interest tokens"}
+          descr="Amount of interest tokens"
+        />
+      ),
+      dataIndex: "amount",
+      key: "interest",
+      render: (value) => {
+        return (
+          <ShowDecimalsValue decimals={actualParams.decimals2} value={value} />
+        );
+      },
+    },
+    {
       title: (
         <Label
           label={symbol3 || "Stable"}
@@ -82,15 +111,14 @@ export const Deposits = () => {
       ),
       dataIndex: "stable_amount",
       key: "stable",
-      width: "15%",
       render: (value) => {
         return (
           <ShowDecimalsValue decimals={actualParams.decimals2} value={value} />
         );
       },
     },
+
     {
-      width: "30%",
       title: (
         <Label
           label="Protection (ratio)"
@@ -102,18 +130,26 @@ export const Deposits = () => {
         />
       ),
       dataIndex: "protection",
-      key: "id",
+      key: "protection",
       render: (value, records) => {
-        const protection = value
-          ? (value / 10 ** actualParams.reserve_asset_decimals).toFixed(
-              actualParams.reserve_asset_decimals
-            )
-          : 0;
-        const ratio = Number((value || 0) / records.amount).toFixed(2);
-
+        const ratio = Number(
+          (value || 0) /
+            10 ** config.reserves.base.decimals /
+            (records.amount / 10 ** actualParams.decimals2)
+        ).toFixed(2);
         return (
           <>
-            {value ? `${protection} (${ratio})` : 0}
+            {value ? (
+              <>
+                <ShowDecimalsValue
+                  decimals={actualParams.reserve_asset_decimals}
+                  value={value}
+                />{" "}
+                ({ratio})
+              </>
+            ) : (
+              0
+            )}
             <Tooltip title="Add protection">
               <Button
                 type="link"
@@ -146,7 +182,6 @@ export const Deposits = () => {
       ),
       dataIndex: "amount",
       key: "amount",
-      width: "20%",
       render: (value, records) => {
         const new_stable_amount = Math.floor(records.amount * growth_factor);
         const interest = new_stable_amount - records.stable_amount;
@@ -272,7 +307,9 @@ export const Deposits = () => {
     }
   }
   for (let id in forceClose) {
-    deposits[id].close_interest = forceClose[id].interest;
+    if (id in deposits) {
+      deposits[id].close_interest = forceClose[id].interest;
+    }
   }
   const source = [];
   for (let id in deposits) {
@@ -296,6 +333,7 @@ export const Deposits = () => {
       or change your wallet address.
     </span>
   );
+
   const odexUrl = `https://odex.ooo/trade/${ (symbol3 === 'OUSD' ? 'GBYTE' : symbol3) }/OUSD`;
   let oswapUrl = 'https://oswap.io/#/swap';
   switch (symbol3) {
@@ -350,9 +388,9 @@ export const Deposits = () => {
         </Text>
       </p>
 
-      {width > 1200 ? (
+      {width > 1279 ? (
         <Table
-          dataSource={source}
+          dataSource={source.sort((a, b) => b.ts - a.ts)}
           columns={columns}
           onRow={(record) => {
             if (record.protection && last_force_closed_protection_ratio) {
@@ -375,9 +413,9 @@ export const Deposits = () => {
       ) : (
         <List
           pagination={{ pageSize: 10, hideOnSinglePage: true }}
-          grid={{ column: width >= 990 ? 2 : 1 }}
+          grid={{ column: 1 }}
           bordered={false}
-          dataSource={source}
+          dataSource={source.sort((a, b) => b.ts - a.ts)}
           locale={{
             emptyText: localeForEmpty,
           }}
@@ -387,6 +425,7 @@ export const Deposits = () => {
               width={width}
               decimals={actualParams.decimals2}
               reserve_asset_decimals={actualParams.reserve_asset_decimals}
+              reserve_asset={actualParams.reserve_asset}
               growth_factor={growth_factor}
               activeWallet={activeWallet}
               deposit_aa={deposit_aa}
@@ -395,6 +434,8 @@ export const Deposits = () => {
               setVisibleEditRecipient={setVisibleEditRecipient}
               setAddProtection={setAddProtection}
               setWithdrawProtection={setWithdrawProtection}
+              symbol2={symbol2}
+              symbol3={symbol3}
             />
           )}
         />
