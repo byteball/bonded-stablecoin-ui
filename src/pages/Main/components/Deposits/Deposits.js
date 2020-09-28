@@ -374,14 +374,12 @@ export const Deposits = () => {
           accrues. You can trade {symbol3 || "stable tokens"} on <a href={oswapUrl} target="_blank" rel="noopener">Oswap.io</a> or <a href={odexUrl} target="_blank" rel="noopener">ODEX</a>.
         </Text>
       </p>
-      {last_force_closed_protection_ratio ? (
         <Text type="secondary">
           <p>
             <b>Last force closed protection ratio:</b>{" "}
-            {last_force_closed_protection_ratio}
+            {last_force_closed_protection_ratio || 0}
           </p>
         </Text>
-      ) : ""}
       <p>
         <Text type="secondary">
           A new deposit cannot be closed within <b>12 hours</b> after opening.
