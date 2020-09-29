@@ -40,7 +40,12 @@ export const DepositsItem = ({
     encodeURIComponent(asset)
   );
   const receiveUrl = generateLink(1e4, { id }, activeWallet, deposit_aa);
-  const protectionRatio = Number((protection || 0) / amount).toFixed(2);
+  const protectionRatio =
+    Number(
+      (protection || 0) /
+      10 ** config.reserves.base.decimals /
+      (amount / 10 ** decimals)
+    ).toPrecision(3);
   const recipientName =
     interest_recipient &&
     config.interestRecipients.find((a) => a.address === interest_recipient);
@@ -55,13 +60,13 @@ export const DepositsItem = ({
         <b>Opened:</b> {moment.unix(ts).format("DD-MM-YYYY HH:mm")}
       </div>
       <div>
+        <b>Interest tokens:</b>{" "}
+        <ShowDecimalsValue decimals={decimals} value={amount} /> {symbol2}
+      </div>
+      <div>
         <b>Stable tokens:</b>{" "}
         <ShowDecimalsValue decimals={decimals} value={stable_amount} />{" "}
         {symbol3}
-      </div>
-      <div>
-        <b>Interest tokens:</b>{" "}
-        <ShowDecimalsValue decimals={decimals} value={amount} /> {symbol2}
       </div>
       <div>
         <b>Interest:</b>{" "}
@@ -72,7 +77,7 @@ export const DepositsItem = ({
         {!interest_recipient || activeWallet === interest_recipient
           ? "you"
           : (recipientName && <span>{recipientName.name}</span>) ||
-            interest_recipient.slice(0, 9) + "..."}
+          interest_recipient.slice(0, 9) + "..."}
       </div>
       <div>
         <b>Protection (ratio):</b>{" "}
@@ -85,8 +90,8 @@ export const DepositsItem = ({
             {reserve_asset === "base" ? "GBYTE" : ""}{" "}
           </>
         ) : (
-          "-"
-        )}{" "}
+            "-"
+          )}{" "}
         {protection && `(${protectionRatio})`}
       </div>
       <Space
