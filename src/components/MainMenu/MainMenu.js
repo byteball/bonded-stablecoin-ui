@@ -19,12 +19,8 @@ export const MainMenu = ({ mode, pathname, onClose }) => {
         <NavLink
           to={`/trade${address ? "/" + address : ""}`}
           activeClassName="selected"
-          style={{
-            color: "#0037ff",
-            fontWeight: "bold",
-          }}
         >
-          Trade
+          📈 Trade
         </NavLink>
       </Menu.Item>
       <Menu.Item key="/create">
