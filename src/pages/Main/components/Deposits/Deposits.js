@@ -136,7 +136,7 @@ export const Deposits = () => {
           (value || 0) /
             10 ** config.reserves.base.decimals /
             (records.amount / 10 ** actualParams.decimals2)
-        ).toFixed(2);
+        ).toPrecision(3);
         return (
           <>
             {value ? (
@@ -374,14 +374,14 @@ export const Deposits = () => {
           accrues. You can trade {symbol3 || "stable tokens"} on <a href={oswapUrl} target="_blank" rel="noopener">Oswap.io</a> or <a href={odexUrl} target="_blank" rel="noopener">ODEX</a>.
         </Text>
       </p>
-      {last_force_closed_protection_ratio && (
+      {last_force_closed_protection_ratio !==undefined ? (
         <Text type="secondary">
           <p>
             <b>Last force closed protection ratio:</b>{" "}
             {last_force_closed_protection_ratio}
           </p>
         </Text>
-      )}
+      ) : ""}
       <p>
         <Text type="secondary">
           A new deposit cannot be closed within <b>12 hours</b> after opening.
