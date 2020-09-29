@@ -60,13 +60,13 @@ export const DepositsItem = ({
         <b>Opened:</b> {moment.unix(ts).format("DD-MM-YYYY HH:mm")}
       </div>
       <div>
+        <b>Interest tokens:</b>{" "}
+        <ShowDecimalsValue decimals={decimals} value={amount} /> {symbol2}
+      </div>
+      <div>
         <b>Stable tokens:</b>{" "}
         <ShowDecimalsValue decimals={decimals} value={stable_amount} />{" "}
         {symbol3}
-      </div>
-      <div>
-        <b>Interest tokens:</b>{" "}
-        <ShowDecimalsValue decimals={decimals} value={amount} /> {symbol2}
       </div>
       <div>
         <b>Interest:</b>{" "}
