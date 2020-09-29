@@ -136,7 +136,7 @@ export const Deposits = () => {
           (value || 0) /
             10 ** config.reserves.base.decimals /
             (records.amount / 10 ** actualParams.decimals2)
-        ).toFixed(2);
+        ).toPrecision(3);
         return (
           <>
             {value ? (
