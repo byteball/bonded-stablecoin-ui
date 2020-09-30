@@ -347,7 +347,7 @@ export const Deposits = () => {
       oswapUrl += '/C3XRJVE5RGJLTZ2V3K3NLS2IY5RIQPRI'; // OUSD to OAU
       break
     default:
-      oswapUrl += `/${encodeURIComponent(deposit_state.asset)}`; // GBYTE to any (can't reverse)
+      oswapUrl += `/${encodeURIComponent(deposit_state.asset)}`; // GBYTE to any (doesn't support reverse)
       break;
   }
 
