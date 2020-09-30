@@ -268,7 +268,7 @@ export const Deposits = () => {
           { id: records.id },
           activeWallet,
           deposit_aa,
-          encodeURIComponent(deposit_state.asset)
+          deposit_state.asset
         );
         return (
           <Space size={10} align="center">

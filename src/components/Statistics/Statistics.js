@@ -94,8 +94,10 @@ export const Statistics = ({ windowWidth }) => {
     }
   }
 
+  const displayOraclePrice = bPriceInversed ? oraclePrice : 1 / oraclePrice;
   const reserve_symbol = reserve_asset in config.reserves && config.reserves[reserve_asset].name;
   const p2UnitsText = bPriceInversed ? `The shown price is the price of the reserve asset ${reserve_symbol || ''} in terms of Token2 (${symbol2 || stable_state.asset2}).` : `The shown price is the price of Token2 (${symbol2 || stable_state.asset2}) in terms of the reserve asset ${reserve_symbol || ''}.`;
+  const p2Unit = bPriceInversed ? symbol2 : reserve_symbol;
 
   const currentPriceDifference = stable_state.p2
     ? (currentPrice - targetPrice) / targetPrice
@@ -153,12 +155,12 @@ export const Statistics = ({ windowWidth }) => {
       descr: "The price Token2 is pegged to. It is the oracle price plus interest. " + p2UnitsText,
       value: targetPrice,
       precision: 9,
-      currency: symbol2
+      currency: p2Unit,
     },
     {
       title: "Oracle price",
       descr: "Latest price reported by the oracle",
-      value: oraclePrice,
+      value: displayOraclePrice,
       precision: 9,
     },
   ];

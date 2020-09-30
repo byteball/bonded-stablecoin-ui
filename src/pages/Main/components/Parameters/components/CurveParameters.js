@@ -1,6 +1,7 @@
 import React from "react";
 import { Label } from "components/Label/Label";
 import styles from "../Parameters.module.css";
+import config from "config";
 export const CurveParameters = ({
   params,
   oracleValue1,
@@ -157,7 +158,7 @@ export const CurveParameters = ({
 
           <span className={styles.semi}>:</span>
         </div>
-        <span>{reserve_asset === "base" ? "GBYTE" : reserve_asset}</span>
+        <span>{reserve_asset === "base" ? "GBYTE" : config.reserves[reserve_asset].name}</span>
       </div>
 
       <div className={styles.param}>

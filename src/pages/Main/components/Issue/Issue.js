@@ -123,7 +123,7 @@ export const Issue = () => {
             },
             activeWallet,
             address,
-            'base',
+            actualParams.reserve_asset,
             convert ? true : false
           )
         : "";
@@ -135,12 +135,25 @@ export const Issue = () => {
     setValidFields((v) => ({ ...v, tokens2: false }));
   }, [address, resetFields]);
 
+  let bPriceInversed = false;
+  if ("oracles" in actualParams) {
+    if (actualParams.oracles[0].op === "*")
+      bPriceInversed = true;
+  } else {
+    if (actualParams.op1 === "*")
+      bPriceInversed = true;
+  }
+
+  const new_p2 = amount !== undefined ? (bPriceInversed ? 1 / amount.p2 : amount.p2) : undefined;
+  const old_p2 = bPriceInversed ? 1 / stable_state.p2 : stable_state.p2;
+  const t_p2 = amount !== undefined ? (bPriceInversed ? 1 / amount.target_p2 : amount.target_p2) : undefined;
+
   const priceChange =
-    amount !== undefined && 1 / amount.p2 - (1 / stable_state.p2 || 0);
-  const changePricePercent = (priceChange / (1 / stable_state.p2) || 0) * 100;
+    amount !== undefined && new_p2 - (old_p2 || 0);
+  const changePricePercent = (priceChange / old_p2 || 0) * 100;
   const changeFinalPricePercent =
     amount !== undefined
-      ? ((1 / amount.p2 - 1 / amount.target_p2) / (1 / amount.target_p2)) * 100
+      ? ((new_p2 - t_p2) / t_p2) * 100
       : 0;
 
   const f = (x) => (~(x + "").indexOf(".") ? (x + "").split(".")[1].length : 0);
@@ -371,9 +384,9 @@ export const Issue = () => {
                 ).toFixed(params.reserve_asset_decimals)}{" "}
                 {params.reserve_asset === "base"
                   ? " GB"
-                  : params.reserve_asset.slice(0, 4)}
+                  : config.reserves[actualParams.reserve_asset].name}
               </Button>
-              {isActiveIssue && reservePrice && (
+              {isActiveIssue && (
                 <div>
                   ≈ {amount.reserve_needed_in_сurrency.toFixed(2)}{" "}
                   {config.reserves[actualParams.reserve_asset]

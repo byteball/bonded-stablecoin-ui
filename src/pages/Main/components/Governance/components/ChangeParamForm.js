@@ -30,7 +30,7 @@ export const ChangeParamForm = ({
     { name: param, value },
     undefined,
     governance_aa,
-    encodeURIComponent(asset)
+    asset
   );
 
   return (

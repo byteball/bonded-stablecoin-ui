@@ -13,6 +13,10 @@ export default {
       feed_name: process.env.REACT_APP_RESERVE_FEED_NAME,
       feedCurrency: "USD",
     },
+    [process.env.REACT_APP_OUSD_RESERVE_ASSET]: {
+      name: "OUSD",
+      decimals: 4,
+    },
   },
   interestRecipients: process.env.REACT_APP_TESTNET === "true" ? [] :
   [
