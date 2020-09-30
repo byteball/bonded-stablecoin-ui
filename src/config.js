@@ -25,8 +25,26 @@ export default {
       address: "UB6CSL6DSZPMACGZDEUKE4RLVWNXUPAJ",
     },
   ],
-  pegged: {
-    // for landing page
+  // for landing page
+  pegged: process.env.REACT_APP_TESTNET === "true" ?
+  {
+    USD: {
+      stableName: "OUSD",
+      interestName: "IUSD",
+      growthName: "GRD",
+      percent: 16,
+      address: "7FSSFG2Y5QHQTKVRFB3VWL6UNX3WB36O",
+    },
+    BTC: {
+      stableName: "OBIT",
+      interestName: "IBIT",
+      growthName: "GRB",
+      percent: 11,
+      address: "YMH724SHU7D6ZM4DMSP5RHQYB7OII2QQ",
+    },
+  }
+  :
+  {
     USD: {
       stableName: "OUSD",
       interestName: "IUSD",
