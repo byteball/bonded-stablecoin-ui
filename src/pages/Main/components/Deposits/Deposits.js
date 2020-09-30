@@ -145,6 +145,7 @@ export const Deposits = () => {
                   decimals={actualParams.reserve_asset_decimals}
                   value={value}
                 />{" "}
+                {actualParams.reserve_asset === "base" ? "GBYTE" : ""}{" "}
                 ({ratio})
               </>
             ) : (
