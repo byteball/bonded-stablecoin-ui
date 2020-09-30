@@ -42,8 +42,8 @@ export const changeActive = (address) => async (dispatch, getState, socket) => {
   ] = await getOraclePrice(stableInfo, params, true);
 
   const reservePrice = await socket.api.getDataFeed({
-    oracles: [config.reserves[params.reserve_asset].oracle],
-    feed_name: config.reserves[params.reserve_asset].feed_name,
+    oracles: config.reserves[params.reserve_asset] ? [config.reserves[params.reserve_asset].oracle] : [],
+    feed_name: config.reserves[params.reserve_asset] ? config.reserves[params.reserve_asset].feed_name : '',
     ifnone: "none",
   });
 
