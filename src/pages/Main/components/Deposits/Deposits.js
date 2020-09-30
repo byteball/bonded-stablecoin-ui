@@ -346,6 +346,9 @@ export const Deposits = () => {
     case 'OAU':
       oswapUrl += '/C3XRJVE5RGJLTZ2V3K3NLS2IY5RIQPRI'; // OUSD to OAU
       break
+    default:
+      oswapUrl += `/${encodeURIComponent(deposit_state.asset)}`; // GBYTE to any (can't reverse)
+      break;
   }
 
   return (
@@ -449,12 +452,14 @@ export const Deposits = () => {
         deposit_aa={deposit_aa}
       />
       <WithdrawProtectionModal
+        activeWallet={activeWallet}
         deposit_aa={deposit_aa}
         visible={withdrawProtection !== undefined}
         deposit={withdrawProtection}
         setVisible={() => setWithdrawProtection(undefined)}
       />
       <AddProtectionModal
+        activeWallet={activeWallet}
         deposit_aa={deposit_aa}
         visible={addProtection !== undefined}
         deposit={addProtection}

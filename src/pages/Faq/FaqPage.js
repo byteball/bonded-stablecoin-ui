@@ -75,9 +75,11 @@ export const FaqPage = () => {
           className={styles.panel}
         >
           <p>
-            No, they are not <a href="https://obyte.org/platform/smart-contracts" target="_blank" rel="noopener">smart contracts</a>. They are neither smart, nor
-            contracts, they are dumb programs that blindly follow the immutable
-            rules.
+            No, they are not 
+            <a href="https://obyte.org/platform/smart-contracts" target="_blank" rel="noopener">smart contracts</a>. 
+            They are neither smart, nor contracts, they are dumb programs that 
+            blindly follow the immutable rules. Some people sometimes misname 
+            Autonomous Agents as smart contracts.
           </p>
         </Panel>
 

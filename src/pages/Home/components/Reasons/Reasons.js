@@ -29,7 +29,7 @@ export const Reasons = () => (
         <div className={styles.item}>
           <div className={styles.label}>003</div>
           <div className={styles.info}>
-            They live on a DAG: no fucking miners, no blocks, no miner
+            They live on a DAG: no f-ing miners, no blocks, no miner
             manipulation, no bribing of miners with fees.
           </div>
         </div>
