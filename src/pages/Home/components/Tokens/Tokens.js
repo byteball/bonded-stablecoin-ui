@@ -41,7 +41,7 @@ export const Tokens = () => (
       <div className={styles.illustration}>
         <img alt="Interest token" src={interestIllustration} />
       </div>
-      <div className={styles.infoFirst}>
+      <div className={styles.infoSecond}>
         <div className={styles.tokensTitle}>
           IUSD &mdash; interest token that earns 16% interest in USD
         </div>
@@ -66,7 +66,7 @@ export const Tokens = () => (
       </div>
     </div>
     <div className={styles.tokens}>
-      <div className={styles.infoSecond}>
+      <div className={styles.infoFirst}>
         <div className={styles.tokensTitle}>OUSD &mdash; a USD-pegged stablecoin</div>
         <p>OUSD is essentially IUSD with interest payments stripped off.</p>
         <p>
