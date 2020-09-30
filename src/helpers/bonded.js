@@ -209,8 +209,9 @@ export const $get_exchange_result = ({
     ? ((p1 * tokens1) / 10 ** decimals1) * reservePrice
     : (p1 * tokens1) / 10 ** decimals1;
 
-  const reserve_needed_in_сurrency =
-    (reservePrice / 10 ** reserve_asset_decimals) * reserve_needed;
+  const reserve_needed_in_сurrency = reservePrice
+    ? (reservePrice / 10 ** reserve_asset_decimals) * reserve_needed
+    : reserve_needed / 10 ** reserve_asset_decimals;
 
   return {
     amountTokens2InCurrency: amountTokens2InCurrency || 0,

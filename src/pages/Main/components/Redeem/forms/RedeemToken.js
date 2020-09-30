@@ -67,7 +67,7 @@ export const RedeemToken = ({
     {},
     activeWallet,
     address,
-    encodeURIComponent(asset)
+    asset
   );
 
   let extra;
@@ -90,17 +90,31 @@ export const RedeemToken = ({
   } else {
     extra = undefined;
   }
+
+  let bPriceInversed = false;
+  if ("oracles" in actualParams) {
+    if (actualParams.oracles[0].op === "*")
+      bPriceInversed = true;
+  } else {
+    if (actualParams.op1 === "*")
+      bPriceInversed = true;
+  }
+
+  const new_p2 = exchange ? (bPriceInversed ? 1 / exchange.p2 : exchange.p2) : undefined;
+  const old_p2 = bPriceInversed ? 1 / p2 : p2;
+  const t_p2 = exchange ? (bPriceInversed ? 1 / exchange.target_p2 : exchange.target_p2) : undefined;
+
   const priceChange =
-    exchange && "p2" in exchange ? 1 / exchange.p2 - 1 / p2 : 0;
+    exchange && "p2" in exchange ? new_p2 - old_p2 : 0;
 
   const priceChangePercent =
     exchange && "p2" in exchange
-      ? ((1 / exchange.p2 - 1 / p2) / (1 / p2)) * 100
+      ? ((new_p2 - old_p2) / old_p2) * 100
       : 0;
   const changeFinalPricePercent =
-    exchange && exchange !== undefined && "p2" in exchange
-      ? ((1 / exchange.p2 - 1 / exchange.target_p2) /
-          (1 / exchange.target_p2)) *
+    exchange && "p2" in exchange
+      ? ((new_p2 - t_p2) /
+          t_p2) *
         100
       : 0;
 
@@ -196,7 +210,7 @@ export const RedeemToken = ({
 
           <Text type="secondary" style={{ display: "block" }}>
             <b>Final price: </b>
-            {(1 / exchange.p2).toFixed(reserve_asset_decimals) || "0"} (
+            {new_p2.toFixed(reserve_asset_decimals) || "0"} (
             {Math.abs(changeFinalPricePercent).toFixed(2)}%{" "}
             {changeFinalPricePercent > 0 ? "above" : "below"} the target)
           </Text>

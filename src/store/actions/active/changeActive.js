@@ -41,11 +41,12 @@ export const changeActive = (address) => async (dispatch, getState, socket) => {
     oracleValue3,
   ] = await getOraclePrice(stableInfo, params, true);
 
-  const reservePrice = await socket.api.getDataFeed({
-    oracles: [config.reserves[params.reserve_asset].oracle],
-    feed_name: config.reserves[params.reserve_asset].feed_name,
+  const reserveProperties = config.reserves[params.reserve_asset];
+  const reservePrice = config.reserves[params.reserve_asset].oracle && reserveProperties.feed_name ? await socket.api.getDataFeed({
+    oracles: [reserveProperties.oracle],
+    feed_name: reserveProperties.feed_name,
     ifnone: "none",
-  });
+  }) : undefined;
 
   const symbolByAsset1 = await socket.api.getSymbolByAsset(
     config.TOKEN_REGISTRY,
