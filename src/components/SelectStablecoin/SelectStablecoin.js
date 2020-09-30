@@ -11,30 +11,50 @@ export const SelectStablecoin = () => {
   const activeAddress = useSelector((state) => state.active.address);
   const { recentList } = useSelector((state) => state.settings);
   const dispatch = useDispatch();
+
+  const getLastFeedName = (params, stable_state) => {
+    if ("oracles" in stable_state)
+      return stable_state.oracles.length ? stable_state.oracles[stable_state.oracles.length - 1].feed_name : null;
+    else
+      return params.feed_name3 || params.feed_name2 || params.feed_name1;
+  };
+
+  // heuristics to determine the target currency/asset/index. It might fail.
+  const getTargetCurrency = (params, stable_state) => {
+    const feed_name = getLastFeedName(params, stable_state);
+    if (!feed_name)
+      return 'GBYTE';
+    if (feed_name.startsWith('GBYTE_'))
+      return feed_name.replace('GBYTE_', '');
+    if (feed_name.endsWith('_USD'))
+      return feed_name.replace('_USD', '');
+    return feed_name;
+  }
+
   const optionList = [];
 
-  for (const stable in data) {
-    const { feed_name, interest_rate } = data[stable].params;
-    const { asset_2, symbol } = data[stable];
-    const interest_rate_percent = Decimal.mul(interest_rate, 100).toNumber();
-    if (!recentList.includes(stable)) {
+  for (const aa in data) {
+    const { asset_2, symbol, params, stable_state } = data[aa];
+    const targetCurrency = getTargetCurrency(params, stable_state);
+    const interest_rate_percent = Decimal.mul(stable_state.interest_rate, 100).toNumber();
+    if (!recentList.includes(aa)) {
       optionList.push(
-        <Select.Option value={stable} key={stable}>
-          {feed_name} {String(interest_rate_percent)}% : {symbol || asset_2} (
-          {stable})
+        <Select.Option value={aa} key={aa}>
+          {targetCurrency} {String(interest_rate_percent)}% : {symbol || asset_2} (
+          {aa})
         </Select.Option>
       );
     }
   }
 
-  const optionListRecent = recentList.map((adr) => {
-    const { feed_name, interest_rate } = data[adr].params;
-    const { asset_2, symbol } = data[adr];
-    const interest_rate_percent = Decimal.mul(interest_rate, 100).toNumber();
+  const optionListRecent = recentList.map((aa) => {
+    const { asset_2, symbol, params, stable_state } = data[aa];
+    const targetCurrency = getTargetCurrency(params, stable_state);
+    const interest_rate_percent = Decimal.mul(stable_state.interest_rate, 100).toNumber();
     return (
-      <Select.Option value={adr} key={adr}>
-        {feed_name} {String(interest_rate_percent)}% : {symbol || asset_2} (
-        {adr})
+      <Select.Option value={aa} key={aa}>
+        {targetCurrency} {String(interest_rate_percent)}% : {symbol || asset_2} (
+        {aa})
       </Select.Option>
     );
   });
