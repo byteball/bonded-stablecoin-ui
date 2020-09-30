@@ -14,7 +14,9 @@ export default {
       feedCurrency: "USD",
     },
   },
-  interestRecipients: [
+  interestRecipients: process.env.REACT_APP_TESTNET === "true" ? []
+  :
+  [
     { name: "Obyte Foundation", address: "FCXZXQR353XI4FIPQL6U4G2EQJL4CCU2" },
     {
       name: "Estonian Cryptocurrency Association",
