@@ -45,7 +45,7 @@ export const changeActive = (address) => async (dispatch, getState, socket) => {
     oracles: [config.reserves[params.reserve_asset].oracle],
     feed_name: config.reserves[params.reserve_asset].feed_name,
     ifnone: "none",
-  }) : 1;
+  }) : 0;
 
   const symbolByAsset1 = await socket.api.getSymbolByAsset(
     config.TOKEN_REGISTRY,
