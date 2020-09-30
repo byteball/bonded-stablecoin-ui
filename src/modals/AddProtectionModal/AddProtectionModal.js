@@ -69,7 +69,7 @@ export const AddProtectionModal = ({
               { add_protection: 1, id },
               activeWallet,
               deposit_aa,
-              'base',
+              reserve_asset,
               true
             )}
           >
