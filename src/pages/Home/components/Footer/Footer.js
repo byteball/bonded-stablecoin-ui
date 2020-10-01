@@ -14,7 +14,6 @@ export const Footer = () => (
       <Link to="/buy">Buy</Link>
       <Link to="/trade">Trade</Link>
       <Link to="/faq">F.A.Q.</Link>
-      <Link to="/how-it-works">How it works</Link>
     </Space>
     <div className={styles.copy}>&copy; Obyte</div>
   </div>
