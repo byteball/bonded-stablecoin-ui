@@ -37,7 +37,7 @@ export const DepositsItem = ({
     { id },
     activeWallet,
     deposit_aa,
-    encodeURIComponent(asset)
+    asset
   );
   const receiveUrl = generateLink(1e4, { id }, activeWallet, deposit_aa);
   const protectionRatio =

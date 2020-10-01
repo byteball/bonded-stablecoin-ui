@@ -35,7 +35,7 @@ export const ChangeOracles = ({
     { name: "oracles", value: valuesData.join(" ").trim() },
     activeWallet,
     governance_aa,
-    amount ? encodeURIComponent(asset) : undefined
+    amount ? asset : undefined
   );
   useEffect(() => {
     resetFields();

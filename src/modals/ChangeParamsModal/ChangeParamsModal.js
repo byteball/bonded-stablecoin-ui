@@ -121,7 +121,7 @@ export const ChangeParamsModal = ({
     },
     activeWallet,
     governance_aa,
-    amount.valid ? encodeURIComponent(asset) : undefined
+    amount.valid ? asset : undefined
   );
   const handleKeyPress = (ev) => {
     if (ev.key === "Enter") {

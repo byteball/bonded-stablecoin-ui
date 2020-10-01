@@ -13,6 +13,10 @@ export default {
       feed_name: process.env.REACT_APP_RESERVE_FEED_NAME,
       feedCurrency: "USD",
     },
+    [process.env.REACT_APP_OUSD_RESERVE_ASSET]: {
+      name: "OUSD",
+      decimals: 4,
+    },
   },
   interestRecipients: [
     { name: "Obyte Foundation", address: "FCXZXQR353XI4FIPQL6U4G2EQJL4CCU2" },
