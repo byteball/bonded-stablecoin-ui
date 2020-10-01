@@ -21,9 +21,14 @@ export const SelectStablecoin = () => {
 
   // heuristics to determine the target currency/asset/index. It might fail.
   const getTargetCurrency = (params, stable_state) => {
-    const feed_name = getLastFeedName(params, stable_state);
+    let feed_name = getLastFeedName(params, stable_state);
     if (!feed_name)
       return 'GBYTE';
+    if (params.leverage) {
+      if (feed_name.includes('GBYTE') || feed_name.includes('USD'))
+        feed_name = feed_name.replace('_', '/');
+      return `${feed_name} ${params.leverage}x leverage`;
+    }
     if (feed_name.startsWith('GBYTE_'))
       return feed_name.replace('GBYTE_', '');
     if (feed_name.endsWith('_USD'))
@@ -36,11 +41,11 @@ export const SelectStablecoin = () => {
   for (const aa in data) {
     const { asset_2, symbol, params, stable_state } = data[aa];
     const targetCurrency = getTargetCurrency(params, stable_state);
-    const interest_rate_percent = Decimal.mul(stable_state.interest_rate, 100).toNumber();
+    const interest_rate_percent = stable_state ? Decimal.mul(stable_state.interest_rate, 100).toNumber() : null;
     if (!recentList.includes(aa)) {
       optionList.push(
         <Select.Option value={aa} key={aa}>
-          {targetCurrency} {String(interest_rate_percent)}% : {symbol || asset_2} (
+          {targetCurrency}{interest_rate_percent ? ` ${interest_rate_percent}% interest` : ''} : {symbol || asset_2} (
           {aa})
         </Select.Option>
       );
@@ -50,10 +55,10 @@ export const SelectStablecoin = () => {
   const optionListRecent = recentList.map((aa) => {
     const { asset_2, symbol, params, stable_state } = data[aa];
     const targetCurrency = getTargetCurrency(params, stable_state);
-    const interest_rate_percent = Decimal.mul(stable_state.interest_rate, 100).toNumber();
+    const interest_rate_percent = stable_state ? Decimal.mul(stable_state.interest_rate, 100).toNumber() : null;
     return (
       <Select.Option value={aa} key={aa}>
-        {targetCurrency} {String(interest_rate_percent)}% : {symbol || asset_2} (
+        {targetCurrency}{interest_rate_percent ? ` ${interest_rate_percent}% interest` : ''} : {symbol || asset_2} (
         {aa})
       </Select.Option>
     );
