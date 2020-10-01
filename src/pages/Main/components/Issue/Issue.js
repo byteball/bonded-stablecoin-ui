@@ -342,7 +342,7 @@ export const Issue = () => {
               {(amount &&
                 amount !== undefined &&
                 (Number(tokens1) || Number(tokens2)) &&
-                Number(1 / amount.p2).toFixed(
+                Number(new_p2).toFixed(
                   actualParams.reserve_asset_decimals
                 ) +
                   ` (${Math.abs(changeFinalPricePercent).toFixed(2)}% ${
