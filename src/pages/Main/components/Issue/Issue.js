@@ -34,7 +34,7 @@ export const Issue = () => {
   const [tokens1, setTokens1] = useState(undefined);
   const [tokens2, setTokens2] = useState(undefined);
   const [convert, setConvert] = useState(false);
-  const [enableHelp, setEnableHelp] = useState(false);
+  const [enableHelp, setEnableHelp] = useState(!activeWallet);
 
   const reserve = stable_state.reserve;
   const [amount, setAmount] = useState(undefined);
