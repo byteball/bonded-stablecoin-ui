@@ -511,7 +511,7 @@ export const CurverStep = ({ setCurrent, setData }) => {
               <Label
                 required
                 label="Leverage"
-                descr="Leverage applied to the stable token. Use 0 (the default) to track the oracle price. Use positive values to create an asset that represents leveraged long positions in the reserve asset, negative values for leveraged short positions."
+                descr="Leverage applied to Token2. Use 0 (the default) to track the oracle price. Use positive values to create an asset that represents leveraged long positions in the reserve asset, negative values for leveraged short positions."
               />
             }
           >

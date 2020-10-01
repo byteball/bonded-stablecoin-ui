@@ -63,13 +63,13 @@ export const Statistics = ({ windowWidth }) => {
 
   if ("p2" in stable_state) {
     if ("oracles" in actualParams) {
-      if (actualParams.oracles[0].op === "*") {
+      if (actualParams.oracles[0].op === "*" && !actualParams.leverage) {
         currentPrice = 1 / stable_state.p2;
       } else {
         currentPrice = stable_state.p2;
       }
     } else {
-      if (actualParams.op1 === "*") {
+      if (actualParams.op1 === "*" && !actualParams.leverage) {
         currentPrice = 1 / stable_state.p2;
       } else {
         currentPrice = stable_state.p2;
@@ -79,14 +79,14 @@ export const Statistics = ({ windowWidth }) => {
 
   let bPriceInversed = false;
   if ("oracles" in actualParams) {
-    if (actualParams.oracles[0].op === "*") {
+    if (actualParams.oracles[0].op === "*" && !actualParams.leverage) {
       bPriceInversed = true;
       targetPrice = 1 / target_p2;
     } else {
       targetPrice = target_p2;
     }
   } else {
-    if (actualParams.op1 === "*") {
+    if (actualParams.op1 === "*" && !actualParams.leverage) {
       bPriceInversed = true;
       targetPrice = 1 / target_p2;
     } else {
@@ -94,7 +94,7 @@ export const Statistics = ({ windowWidth }) => {
     }
   }
 
-  const displayOraclePrice = bPriceInversed ? oraclePrice : 1 / oraclePrice;
+  const displayOraclePrice = (bPriceInversed || actualParams.leverage) ? oraclePrice : 1 / oraclePrice;
   const reserve_symbol = reserve_asset in config.reserves && config.reserves[reserve_asset].name;
   const p2UnitsText = bPriceInversed ? `The shown price is the price of the reserve asset ${reserve_symbol || ''} in terms of Token2 (${symbol2 || stable_state.asset2}).` : `The shown price is the price of Token2 (${symbol2 || stable_state.asset2}) in terms of the reserve asset ${reserve_symbol || ''}.`;
   const p2Unit = bPriceInversed ? symbol2 : reserve_symbol;

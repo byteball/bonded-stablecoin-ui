@@ -137,10 +137,10 @@ export const Issue = () => {
 
   let bPriceInversed = false;
   if ("oracles" in actualParams) {
-    if (actualParams.oracles[0].op === "*")
+    if (actualParams.oracles[0].op === "*" && !actualParams.leverage)
       bPriceInversed = true;
   } else {
-    if (actualParams.op1 === "*")
+    if (actualParams.op1 === "*" && !actualParams.leverage)
       bPriceInversed = true;
   }
 
@@ -187,7 +187,7 @@ export const Issue = () => {
         <p>
           <Text type="secondary">
             You are the first to buy tokens of this stablecoin, so you should buy
-            token 1 and token 2 at the same time
+            token 1 and token 2 at the same time.
           </Text>
         </p>
       )}
@@ -346,7 +346,7 @@ export const Issue = () => {
               {(amount &&
                 amount !== undefined &&
                 (Number(tokens1) || Number(tokens2)) &&
-                Number(1 / amount.p2).toFixed(
+                Number(new_p2).toFixed(
                   actualParams.reserve_asset_decimals
                 ) +
                   ` (${Math.abs(changeFinalPricePercent).toFixed(2)}% ${
