@@ -13,7 +13,7 @@ export const SelectStablecoin = () => {
   const dispatch = useDispatch();
 
   const getLastFeedName = (params, stable_state) => {
-    if ("oracles" in stable_state)
+    if (stable_state && ("oracles" in stable_state))
       return stable_state.oracles.length ? stable_state.oracles[stable_state.oracles.length - 1].feed_name : null;
     else
       return params.feed_name3 || params.feed_name2 || params.feed_name1;
