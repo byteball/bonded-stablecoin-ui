@@ -47,6 +47,13 @@ export default {
       percent: 11,
       address: "YMH724SHU7D6ZM4DMSP5RHQYB7OII2QQ",
     },
+    GOLD: {
+      stableName: "OAU",
+      interestName: "IAU",
+      growthName: "GRAU",
+      percent: 1,
+      address: "VE63FHFCPXLLXK6G6HXQDO5DVLS2IDOC",
+    }
   }
   :
   {
