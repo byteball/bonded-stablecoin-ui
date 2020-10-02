@@ -17,6 +17,14 @@ export default {
       name: "OUSD",
       decimals: 4,
     },
+    [process.env.REACT_APP_OBIT_RESERVE_ASSET]: {
+      name: "OBIT",
+      decimals: 8,
+    },
+    [process.env.REACT_APP_OAU_RESERVE_ASSET]: {
+      name: "OAU",
+      decimals: 8,
+    },
   },
   interestRecipients: process.env.REACT_APP_TESTNET === "true" ? [] :
   [

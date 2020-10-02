@@ -384,7 +384,9 @@ export const Issue = () => {
                 ).toFixed(params.reserve_asset_decimals)}{" "}
                 {params.reserve_asset === "base"
                   ? " GB"
-                  : config.reserves[actualParams.reserve_asset].name}
+                  : config.reserves[actualParams.reserve_asset]
+                    ? config.reserves[actualParams.reserve_asset].name
+                    : ''}
               </Button>
               {isActiveIssue && (
                 <div>

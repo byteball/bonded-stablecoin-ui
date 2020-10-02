@@ -408,7 +408,10 @@ export const CurverStep = ({ setCurrent, setData }) => {
                 });
               }}
             >
-              {Object.keys(config.reserves).map((asset) => (
+              {Object.keys(config.reserves).filter(function(asset) {
+                if (asset) return true;
+                return false;
+              }).map((asset) => (
                 <Select.Option key={asset} value={asset}>
                   {config.reserves[asset].name}
                 </Select.Option>
