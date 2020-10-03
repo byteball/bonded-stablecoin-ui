@@ -24,12 +24,11 @@ export const Header = ({ type, setType }) => {
           <div className={styles.tokenItem}>
             <div className={styles.tokenItemGraph}>
               <Link to={`/trade/${pegged[type].address}`}>
-                <GrowthToken name={pegged[type].growthName} />
+                <StableToken name={pegged[type].stableName} />
               </Link>
             </div>
             <div className={styles.tokenItemTitle}>
-              {pegged[type].growthName}: Growth token whose value is tied to the
-              amount of {pegged[type].interestName} issued.
+              {pegged[type].stableName}: Stablecoin whose value is 1 {type}.
             </div>
           </div>
         </div>
@@ -59,11 +58,12 @@ export const Header = ({ type, setType }) => {
           <div className={styles.tokenItem}>
             <div className={styles.tokenItemGraph}>
               <Link to={`/trade/${pegged[type].address}`}>
-                <StableToken name={pegged[type].stableName} />
+                <GrowthToken name={pegged[type].growthName} />
               </Link>
             </div>
             <div className={styles.tokenItemTitle}>
-              {pegged[type].stableName}: Stablecoin whose value is 1 {type}.
+              {pegged[type].growthName}: Growth token whose value is tied to the
+              amount of {pegged[type].interestName} issued.
             </div>
           </div>
         </div>

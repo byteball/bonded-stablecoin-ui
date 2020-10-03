@@ -11,9 +11,11 @@ export const Footer = () => (
       style={{ display: "flex", justifyContent: "center" }}
       size={20}
     >
-      <Link to="/buy">Buy</Link>
-      <Link to="/trade">Trade</Link>
+      <Link className={styles.trade} to="/trade">
+        Trade
+      </Link>
       <Link to="/faq">F.A.Q.</Link>
+      <Link to="/how-it-works">How it works</Link>
     </Space>
     <div className={styles.copy}>&copy; Obyte</div>
   </div>

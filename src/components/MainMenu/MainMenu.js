@@ -15,22 +15,22 @@ export const MainMenu = ({ mode, pathname, onClose }) => {
         onClose && onClose();
       }}
     >
-      <Menu.Item key="/buy">
-        <NavLink to="/buy" activeClassName="selected">
-          Buy interest tokens
-        </NavLink>
-      </Menu.Item>
       <Menu.Item key="/trade">
         <NavLink
           to={`/trade${address ? "/" + address : ""}`}
           activeClassName="selected"
         >
-          <span role="img" aria-label="Chart">📈</span> Trade
+          📈 Trade
         </NavLink>
       </Menu.Item>
       <Menu.Item key="/create">
         <NavLink to="/create" activeClassName="selected">
           Create
+        </NavLink>
+      </Menu.Item>
+      <Menu.Item key="/buy">
+        <NavLink to="/buy" activeClassName="selected">
+          Buy interest tokens
         </NavLink>
       </Menu.Item>
       <Menu.Item key="/how-it-works">
