@@ -388,7 +388,7 @@ export const Deposits = () => {
       ) : ""}
       <p>
         <Text type="secondary">
-          A new deposit cannot be closed within <b>2 hours</b> after opening.
+          A new deposit cannot be closed within <b>12 hours</b> after opening.
         </Text>
       </p>
 

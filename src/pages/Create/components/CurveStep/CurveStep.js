@@ -649,22 +649,15 @@ export const CurverStep = ({ setCurrent, setData }) => {
         </Button>
       )}
       {checkOracle === true && (
-        <div>
-          <Button
-            onClick={() => setCheckOracle(null)}
-          >
-            Go back
-          </Button>
-          <Button
-            disabled={!nextIsActive}
-            onClick={() => {
-              setData((d) => ({ ...d, ...form.getFieldsValue() }));
-              setCurrent((c) => c + 1);
-            }}
-          >
-            Next
-          </Button>
-        </div>
+        <Button
+          disabled={!nextIsActive}
+          onClick={() => {
+            setData((d) => ({ ...d, ...form.getFieldsValue() }));
+            setCurrent((c) => c + 1);
+          }}
+        >
+          Next
+        </Button>
       )}
     </Form>
   );
