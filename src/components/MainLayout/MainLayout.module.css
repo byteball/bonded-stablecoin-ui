@@ -10,11 +10,9 @@
 }
 
 .iconWallet {
-  font-size: 24px;
   color: rgba(0, 0, 0, 0.45);
   cursor: pointer;
-  padding: 10px;
-  margin-right: 10px;
+  margin-left: 10px;
 }
 
 @media (max-width: 1200px) {
