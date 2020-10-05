@@ -20,7 +20,7 @@ export const MainMenu = ({ mode, pathname, onClose }) => {
           to={`/trade${address ? "/" + address : ""}`}
           activeClassName="selected"
         >
-          <span role="img" aria-label="Chart">📈</span> Trade
+          📈 Trade
         </NavLink>
       </Menu.Item>
       <Menu.Item key="/create">
