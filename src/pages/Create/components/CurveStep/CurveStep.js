@@ -59,6 +59,7 @@ export const CurverStep = ({ setCurrent, setData }) => {
     maxValue,
     minValue,
     isInteger,
+    canBeNegative,
   }) =>
     validator({
       value,
@@ -66,6 +67,7 @@ export const CurverStep = ({ setCurrent, setData }) => {
       maxValue,
       minValue,
       isInteger,
+      canBeNegative,
       onSuccess: () => setValidFields((v) => ({ ...v, [name]: true })),
       onError: () => setValidFields((v) => ({ ...v, [name]: false })),
     });
@@ -502,7 +504,12 @@ export const CurverStep = ({ setCurrent, setData }) => {
             rules={[
               {
                 validator: (rule, value) =>
-                  validateValue({ value, name: "leverage", type: "number" }),
+                  validateValue({
+                    value,
+                    name: "leverage",
+                    canBeNegative: true,
+                    type: "number",
+                  }),
               },
             ]}
             hasFeedback
