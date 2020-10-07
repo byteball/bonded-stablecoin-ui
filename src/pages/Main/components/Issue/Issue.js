@@ -137,10 +137,10 @@ export const Issue = () => {
 
   let bPriceInversed = false;
   if ("oracles" in actualParams) {
-    if (actualParams.oracles[0].op === "*")
+    if (actualParams.oracles[0].op === "*" && !actualParams.leverage)
       bPriceInversed = true;
   } else {
-    if (actualParams.op1 === "*")
+    if (actualParams.op1 === "*" && !actualParams.leverage)
       bPriceInversed = true;
   }
 
