@@ -408,11 +408,7 @@ export const CurverStep = ({ setCurrent, setData }) => {
                 });
               }}
             >
-              {Object.keys(config.reserves).filter(function(asset) {
-                // filter out .env reserve asset configs that are empty
-                if (asset) return true;
-                return false;
-              }).map((asset) => (
+              {Object.keys(config.reserves).filter(asset => asset).map((asset) => (
                 <Select.Option key={asset} value={asset}>
                   {config.reserves[asset].name}
                 </Select.Option>

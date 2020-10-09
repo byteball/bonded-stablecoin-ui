@@ -18,7 +18,14 @@ export default {
       decimals: 4,
     },
   },
-  interestRecipients: process.env.REACT_APP_TESTNET === "true" ? [] :
+  interestRecipients: process.env.REACT_APP_TESTNET === "true" ?
+  [
+    {
+      name: "testnet distribution address",
+      address: "5ZPGXCOGRGUUXIUU72JIENHXU6XU77BD"
+    },
+  ]
+  :
   [
     { name: "Obyte Foundation", address: "FCXZXQR353XI4FIPQL6U4G2EQJL4CCU2" },
     {
