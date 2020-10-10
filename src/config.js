@@ -13,15 +13,15 @@ let config = {
       feed_name: process.env.REACT_APP_RESERVE_FEED_NAME,
       feedCurrency: "USD",
     },
-    [process.env.REACT_APP_OUSD_RESERVE_ASSET]: {
+    [process.env.REACT_APP_OUSD_RESERVE_ASSET || '']: {
       name: "OUSD",
       decimals: 4,
     },
-    [process.env.REACT_APP_OBIT_RESERVE_ASSET]: {
+    [process.env.REACT_APP_OBIT_RESERVE_ASSET || '']: {
       name: "OBIT",
       decimals: 8,
     },
-    [process.env.REACT_APP_OAU_RESERVE_ASSET]: {
+    [process.env.REACT_APP_OAU_RESERVE_ASSET || '']: {
       name: "OAU",
       decimals: 8,
     },
