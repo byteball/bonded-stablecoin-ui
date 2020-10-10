@@ -145,6 +145,11 @@ export const Deposits = () => {
                   decimals={actualParams.reserve_asset_decimals}
                   value={value}
                 />{" "}
+                {actualParams.reserve_asset === "base"
+                  ? "GBYTE"
+                  : config.reserves[actualParams.reserve_asset]
+                    ? config.reserves[actualParams.reserve_asset].name
+                    : ''}{" "}
                 ({ratio})
               </>
             ) : (
@@ -346,6 +351,9 @@ export const Deposits = () => {
     case 'OAU':
       oswapUrl += '/C3XRJVE5RGJLTZ2V3K3NLS2IY5RIQPRI'; // OUSD to OAU
       break
+    default:
+      oswapUrl += `/${encodeURIComponent(deposit_state.asset)}`; // GBYTE to any (doesn't support reverse)
+      break;
   }
 
   return (
@@ -449,12 +457,14 @@ export const Deposits = () => {
         deposit_aa={deposit_aa}
       />
       <WithdrawProtectionModal
+        activeWallet={activeWallet}
         deposit_aa={deposit_aa}
         visible={withdrawProtection !== undefined}
         deposit={withdrawProtection}
         setVisible={() => setWithdrawProtection(undefined)}
       />
       <AddProtectionModal
+        activeWallet={activeWallet}
         deposit_aa={deposit_aa}
         visible={addProtection !== undefined}
         deposit={addProtection}

@@ -1,4 +1,4 @@
-export default {
+let config = {
   TESTNET: process.env.REACT_APP_TESTNET === "true",
   FACTORY_AA: process.env.REACT_APP_FACTORY_AA,
   TOKEN_REGISTRY: process.env.REACT_APP_TOKEN_REGISTRY,
@@ -17,8 +17,24 @@ export default {
       name: "OUSD",
       decimals: 4,
     },
+    [process.env.REACT_APP_OBIT_RESERVE_ASSET]: {
+      name: "OBIT",
+      decimals: 8,
+    },
+    [process.env.REACT_APP_OAU_RESERVE_ASSET]: {
+      name: "OAU",
+      decimals: 8,
+    },
   },
-  interestRecipients: [
+  interestRecipients: process.env.REACT_APP_TESTNET === "true" ?
+  [
+    {
+      name: "testnet distribution address",
+      address: "5ZPGXCOGRGUUXIUU72JIENHXU6XU77BD"
+    },
+  ]
+  :
+  [
     { name: "Obyte Foundation", address: "FCXZXQR353XI4FIPQL6U4G2EQJL4CCU2" },
     {
       name: "Estonian Cryptocurrency Association",
@@ -29,8 +45,33 @@ export default {
       address: "UB6CSL6DSZPMACGZDEUKE4RLVWNXUPAJ",
     },
   ],
-  pegged: {
-    // for landing page
+  // for landing page
+  pegged: process.env.REACT_APP_TESTNET === "true" ?
+  {
+    USD: {
+      stableName: "OUSD",
+      interestName: "IUSD",
+      growthName: "GRD",
+      percent: 16,
+      address: "7FSSFG2Y5QHQTKVRFB3VWL6UNX3WB36O",
+    },
+    BTC: {
+      stableName: "TOBIT",
+      interestName: "TIBIT",
+      growthName: "TGRB",
+      percent: 11,
+      address: "YMH724SHU7D6ZM4DMSP5RHQYB7OII2QQ",
+    },
+    GOLD: {
+      stableName: "OAU",
+      interestName: "IAU",
+      growthName: "GRAU",
+      percent: 1,
+      address: "VE63FHFCPXLLXK6G6HXQDO5DVLS2IDOC",
+    }
+  }
+  :
+  {
     USD: {
       stableName: "OUSD",
       interestName: "IUSD",
@@ -54,3 +95,14 @@ export default {
     },
   },
 };
+
+// cleanup empty reserve .env config values
+config.reserves = Object.keys(config.reserves)
+  .filter(asset => asset)
+  .reduce((accum, asset) => {
+    const newConfig = accum;
+    newConfig[asset] = config.reserves[asset];
+    return newConfig;
+  }, {});
+
+export default config;

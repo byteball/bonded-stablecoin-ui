@@ -238,9 +238,11 @@ export const Issue = () => {
                   "≈ " +
                     amount.amountTokens1InCurrency.toFixed(2) +
                     " " +
-                    (reservePrice
-                      ? config.reserves[actualParams.reserve_asset].feedCurrency
-                      : config.reserves[actualParams.reserve_asset].name)}
+                    (config.reserves[actualParams.reserve_asset]
+                      ? (reservePrice
+                        ? config.reserves[actualParams.reserve_asset].feedCurrency
+                        : config.reserves[actualParams.reserve_asset].name)
+                      : '')}
               </span>
             }
             disabled={enableHelp || !reserve}
@@ -267,9 +269,11 @@ export const Issue = () => {
                   "≈ " +
                     amount.amountTokens2InCurrency.toFixed(2) +
                     " " +
-                    (reservePrice
-                      ? config.reserves[actualParams.reserve_asset].feedCurrency
-                      : config.reserves[actualParams.reserve_asset].name)}
+                    (config.reserves[actualParams.reserve_asset]
+                      ? (reservePrice
+                        ? config.reserves[actualParams.reserve_asset].feedCurrency
+                        : config.reserves[actualParams.reserve_asset].name)
+                      : '')}
               </span>
             }
             placeholder={`Amount of tokens2 (${
@@ -380,14 +384,18 @@ export const Issue = () => {
                 ).toFixed(params.reserve_asset_decimals)}{" "}
                 {params.reserve_asset === "base"
                   ? " GB"
-                  : config.reserves[actualParams.reserve_asset].name}
+                  : config.reserves[actualParams.reserve_asset]
+                    ? config.reserves[actualParams.reserve_asset].name
+                    : ''}
               </Button>
               {isActiveIssue && (
                 <div>
                   ≈ {amount.reserve_needed_in_сurrency.toFixed(2)}{" "}
-                  {reservePrice
-                    ? config.reserves[actualParams.reserve_asset].feedCurrency
-                    : config.reserves[actualParams.reserve_asset].name}
+                  {config.reserves[actualParams.reserve_asset]
+                      ? (reservePrice
+                        ? config.reserves[actualParams.reserve_asset].feedCurrency
+                        : config.reserves[actualParams.reserve_asset].name)
+                      : ''}
                 </div>
               )}
             </Space>
