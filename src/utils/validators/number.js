@@ -5,10 +5,11 @@ export default (
   maxValue,
   minValue,
   isInteger,
-  maxDecimals
+  maxDecimals,
+  canBeNegative
 ) => {
   let error = null;
-  const reg = /^[0-9.]+$/g;
+  const reg = canBeNegative ? /^-?[+0-9.]+$/g : /^[0-9.]+$/g;
   const int = /^[0-9]+$/g;
   if (value === "") {
     onError && onError();
