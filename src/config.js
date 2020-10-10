@@ -1,4 +1,4 @@
-export default {
+let config = {
   TESTNET: process.env.REACT_APP_TESTNET === "true",
   FACTORY_AA: process.env.REACT_APP_FACTORY_AA,
   TOKEN_REGISTRY: process.env.REACT_APP_TOKEN_REGISTRY,
@@ -95,3 +95,14 @@ export default {
     },
   },
 };
+
+// cleanup empty reserve .env config values
+config.reserves = Object.keys(config.reserves)
+  .filter(asset => asset)
+  .reduce((accum, asset) => {
+    const newConfig = accum;
+    newConfig[asset] = config.reserves[asset];
+    return newConfig;
+  }, {});
+
+export default config;
