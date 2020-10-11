@@ -312,14 +312,18 @@ export const ExchangeForm = () => {
                 <Select.Option value="gbyte" key="c-gbyte">
                   GBYTE
                 </Select.Option>
-                {popularCurrencies.sort().map((c) => (
+                {popularCurrencies.filter(
+                    (c) => allCurrencies.includes(c)
+                  ).sort().map((c) => (
                   <Select.Option key={"c-" + c} value={c}>
                     {c.toUpperCase()}
                   </Select.Option>
                 ))}
               </Select.OptGroup>
               <Select.OptGroup label="Others">
-                {allCurrencies.sort().map((c) => (
+                {allCurrencies.filter(
+                    (c) => !popularCurrencies.includes(c)
+                  ).sort().map((c) => (
                   <Select.Option key={"c-" + c} value={c}>
                     {c.toUpperCase()}
                   </Select.Option>
