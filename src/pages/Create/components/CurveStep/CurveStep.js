@@ -160,15 +160,15 @@ export const CurverStep = ({ setCurrent, setData }) => {
       }
 
       if (!oracle1 || !feed_name1) {
-        setFieldsValue({ oracle1: undefined, op1: undefined, oracle1: undefined, feed_name1: undefined });
+        setFieldsValue({ oracle1: undefined, op1: undefined, feed_name1: undefined });
       }
 
       if (!oracle2 || !feed_name2) {
-        setFieldsValue({ oracle2: undefined, op2: undefined, oracle2: undefined, feed_name2: undefined  });
+        setFieldsValue({ oracle2: undefined, op2: undefined, feed_name2: undefined  });
       }
 
       if (!oracle3 || !feed_name3) {
-        setFieldsValue({ oracle3: undefined, op3: undefined, oracle3: undefined, feed_name3: undefined  });
+        setFieldsValue({ oracle3: undefined, op3: undefined, feed_name3: undefined  });
       }
 
       if(!oracle1 && !oracle2 && !oracle3){
