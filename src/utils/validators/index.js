@@ -13,6 +13,7 @@ export const validator = ({
   minValue,
   isInteger,
   maxDecimals,
+  canBeNegative,
 }) => {
   switch (type) {
     case "symbol": {
@@ -52,7 +53,8 @@ export const validator = ({
         maxValue,
         minValue,
         isInteger,
-        maxDecimals
+        maxDecimals,
+        canBeNegative
       );
     }
     default: {

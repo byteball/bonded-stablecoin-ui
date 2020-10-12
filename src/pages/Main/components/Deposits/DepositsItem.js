@@ -87,7 +87,11 @@ export const DepositsItem = ({
               decimals={reserve_asset_decimals}
               value={protection}
             />{" "}
-            {reserve_asset === "base" ? "GBYTE" : ""}{" "}
+            {reserve_asset === "base"
+              ? "GBYTE"
+              : config.reserves[reserve_asset]
+                ? config.reserves[reserve_asset].name
+                : ''}{" "}
           </>
         ) : (
             "-"

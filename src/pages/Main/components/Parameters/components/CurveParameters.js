@@ -158,7 +158,11 @@ export const CurveParameters = ({
 
           <span className={styles.semi}>:</span>
         </div>
-        <span>{reserve_asset === "base" ? "GBYTE" : config.reserves[reserve_asset].name}</span>
+        <span>{reserve_asset === "base"
+          ? "GBYTE"
+          : config.reserves[reserve_asset]
+            ? config.reserves[reserve_asset].name
+            : ''}</span>
       </div>
 
       <div className={styles.param}>
