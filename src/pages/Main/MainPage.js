@@ -4,6 +4,7 @@ import {
   InteractionOutlined,
   ImportOutlined,
   SlidersOutlined,
+  LineChartOutlined
 } from "@ant-design/icons";
 import { useSelector } from "react-redux";
 import { useLocation, useHistory } from "react-router-dom";
@@ -18,6 +19,7 @@ import { getParams } from "../../helpers/getParams";
 import { Parameters } from "./components/Parameters/Parameters";
 import { CapacitorIcon } from "../../components/CapacitorIcon/CapacitorIcon";
 import { GovernanceIcon } from "../../components/GovernanceIcon/GovernanceIcon";
+import { Charts } from "./components/Charts/Charts";
 
 const { TabPane } = Tabs;
 
@@ -44,18 +46,34 @@ export const MainPage = () => {
   }, []);
 
   useEffect(() => {
-    if (currentTab !== location.hash.slice(1)) {
+    const tab = location.hash ? location.hash.slice(1) : undefined;
+    if (currentTab && tab && currentTab !== tab) {
       history.replace({ hash: currentTab });
     }
   }, [currentTab]);
 
   useEffect(() => {
-    if (location.hash && location.hash.slice(1) !== currentTab) {
-      setCurrentTab(location.hash.slice(1));
-    } else if (!location.hash) {
-      setCurrentTab("buy");
+    if(address){
+      const tab = location.hash ? location.hash.slice(1) : undefined;
+      if (tab) {
+        if("reserve" in stable_state){
+          setCurrentTab(tab);
+        } else {
+          if(["buy", "parameters"].includes(tab)){
+            setCurrentTab(tab);
+          } else {
+            setCurrentTab("buy");
+          }
+        }
+      } else if (!tab) {
+        if("reserve" in stable_state){
+          setCurrentTab("charts");
+        } else {
+          setCurrentTab("buy");
+        }
+      }
     }
-  }, []);
+  }, [address]);
 
   if (address === undefined || !loaded) {
     return null;
@@ -91,6 +109,17 @@ export const MainPage = () => {
             onChange={(key) => setCurrentTab(key)}
             animated={false}
           >
+             <TabPane
+              disabled={!("reserve" in stable_state)}
+              tab={
+                <span>
+                  <LineChartOutlined /> Charts
+                </span>
+              }
+              key="charts"
+            >
+              <Charts params={actualParams}/>
+            </TabPane>
             <TabPane
               tab={
                 <span>
@@ -127,7 +156,6 @@ export const MainPage = () => {
             >
               <Deposits />
             </TabPane>
-
             <TabPane
               disabled={!("reserve" in stable_state)}
               tab={
