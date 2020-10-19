@@ -87,10 +87,10 @@ export const eventManager = (err, result) => {
     if (isReq) {
       const { messages } = body.unit;
       const payload = getAAPayload(messages);
-      const peggedAsset = payload.reserve_asset in config.reserves ? config.reserves[payload.reserve_asset].name: payload.reserve_asset.slice(0,6) + "...";
+      const reserveAsset = payload.reserve_asset in config.reserves ? config.reserves[payload.reserve_asset].name: payload.reserve_asset.slice(0,6) + "...";
       if (isEqual(params, payload)) {
         openNotification(`You have sent a request to create a new stablecoin pegged to ${
-          payload.feed_name1 || peggedAsset
+          payload.feed_name1 || reserveAsset
         } with interest ${payload.interest_rate * 100}%
         `);
 
@@ -98,7 +98,7 @@ export const eventManager = (err, result) => {
       } else {
         openNotification(
           `Another user sent a request to create a new stablecoin pegged to ${
-            payload.feed_name1 || peggedAsset
+            payload.feed_name1 || reserveAsset
           } with interest ${payload.interest_rate * 100}%`
         );
       }

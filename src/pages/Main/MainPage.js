@@ -47,7 +47,7 @@ export const MainPage = () => {
 
   useEffect(() => {
     const tab = location.hash ? location.hash.slice(1) : undefined;
-    if (currentTab && tab && currentTab !== tab) {
+    if ((currentTab && currentTab !== tab) || !tab) {
       history.replace({ hash: currentTab });
     }
   }, [currentTab]);
