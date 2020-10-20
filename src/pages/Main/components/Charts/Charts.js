@@ -80,7 +80,7 @@ export const Charts = ({ params }) => {
             const dateObject = {};
             RateDate.data.Data.Data.forEach((e) => {
               const time = moment.unix(e.time).format('DD-MM-YYYY');
-              dateObject[time] = e.close;
+              dateObject[time] = e.open;
             });
             return dateObject;
           });
@@ -105,7 +105,7 @@ export const Charts = ({ params }) => {
           `https://${config.STATS_URL}/candles/${symbol1}-${reserveToken}?period=${type}&start=${from}&end=${to}`
         );
         T1 = T1Data.data.map((v) => ({
-          value: type === "daily" ? v.close_price : v.open_price,
+          value: v.open_price,
           time: moment.utc(v.start_timestamp).unix()
         }));
       } catch (e) {
@@ -123,7 +123,7 @@ export const Charts = ({ params }) => {
         T2 = T2Data.data.map((v) => {
           const date = moment(v.start_timestamp).format(format);
           return {
-            value: inUSD ? Number(rateUSD[date]) * Number(type === "daily" ? v.close_price : v.open_price,) : Number(type === "daily" ? v.close_price : v.open_price),
+            value: inUSD ? Number(rateUSD[date]) * Number(v.open_price) : Number(v.open_price),
             time: moment.utc(v.start_timestamp).unix()
           };
         });
