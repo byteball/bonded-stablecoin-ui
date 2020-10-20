@@ -58,8 +58,8 @@ export const Charts = ({ params }) => {
           setLineSeriesT1(
             chartInstance.addAreaSeries({
               priceScaleId: 'right',
-              lineColor: 'rgba(0, 55, 255,1)',
-              bottomColor: 'rgba(0, 55, 255,0.04)',
+              lineColor: 'rgba(0, 55, 255, 1)',
+              bottomColor: 'rgba(0, 55, 255, 0.04)',
               title: `${symbol1} price (in ${reserveToken})`
             })
           );
@@ -75,7 +75,7 @@ export const Charts = ({ params }) => {
     if (inUSD) {
       if (type === "daily") {
         rateUSD = await axios
-          .get(`https://min-api.cryptocompare.com/data/v2/histoday?fsym=GBYTE&tsym=USD&toTs=${moment.utc(to, "YYYY-MM-DD").unix()}`)
+          .get(`https://min-api.cryptocompare.com/data/v2/histoday?fsym=GBYTE&tsym=USD&toTs=${moment.utc(to, "YYYY-MM-DD").unix()}&limit=2000`)
           .then((RateDate) => {
             const dateObject = {};
             RateDate.data.Data.Data.forEach((e) => {
@@ -86,7 +86,7 @@ export const Charts = ({ params }) => {
           });
       } else if (type === "hourly") {
         rateUSD = await axios
-          .get(`https://min-api.cryptocompare.com/data/v2/histohour?fsym=GBYTE&tsym=USD&toTs=${moment(to, "YYYY-MM-DD").unix()}`)
+          .get(`https://min-api.cryptocompare.com/data/v2/histohour?fsym=GBYTE&tsym=USD&toTs=${moment(to, "YYYY-MM-DD").unix()}&limit=2000`)
           .then((RateDate) => {
             const dateObject = {};
             RateDate.data.Data.Data.forEach((e) => {
@@ -119,8 +119,9 @@ export const Charts = ({ params }) => {
         T2Data = await axios.get(
           `https://${config.STATS_URL}/candles/${symbol2}-${reserveToken}?period=${type}&start=${from}&end=${now}`
         );
+        const format = type === "daily" ? 'DD-MM-YYYY' : 'DD-MM-YYYY HH';
         T2 = T2Data.data.map((v) => {
-          const date = moment(v.start_timestamp).format(type === "daily" ? 'DD-MM-YYYY' : 'DD-MM-YYYY HH');
+          const date = moment(v.start_timestamp).format(format);
           return {
             value: inUSD ? Number(rateUSD[date]) * Number(type === "daily" ? v.close_price : v.open_price,) : Number(type === "daily" ? v.close_price : v.open_price),
             time: moment.utc(v.start_timestamp).unix()
@@ -138,20 +139,18 @@ export const Charts = ({ params }) => {
       (async () => {
         if (address && lineSeriesT1 && lineSeriesT2) {
           const candleDaily = await getCandle({ type: "daily", from: "2020-09-22", to: now });
-          if (candleDaily.T1.length > 7 || candleDaily.T2.length > 7) {
+          if (candleDaily.T1.length > 83 || candleDaily.T2.length > 83) {
             if (lineSeriesT1) {
               lineSeriesT1.setData(candleDaily.T1);
               lineSeriesT1.applyOptions({
                 title: `${symbol1} price (in ${reserveToken})`
               });
-              chart.timeScale().fitContent();
             }
             if (lineSeriesT2) {
               lineSeriesT2.setData(candleDaily.T2);
               lineSeriesT2.applyOptions({
                 title: `${symbol2} price (in ${inUSD ? 'USD' : reserveToken})`
               });
-              chart.timeScale().fitContent();
             }
 
             if (lineSeriesT1 && lineSeriesT2) {
@@ -165,19 +164,18 @@ export const Charts = ({ params }) => {
               lineSeriesT1.applyOptions({
                 title: `${symbol1} price (in ${reserveToken})`
               });
-              chart.timeScale().fitContent();
             }
             if (lineSeriesT2) {
               lineSeriesT2.setData(candleHourly.T2);
               lineSeriesT2.applyOptions({
                 title: `${symbol2} price (in ${inUSD ? 'USD' : reserveToken})`
               });
-              chart.timeScale().fitContent();
             }
             if (lineSeriesT1 && lineSeriesT2) {
               setData({ T2: candleHourly.T2, T1: candleHourly.T1, loaded: true });
             }
           }
+          chart.timeScale().fitContent();
         }
       })();
     }, [address, lineSeriesT1, lineSeriesT2]
