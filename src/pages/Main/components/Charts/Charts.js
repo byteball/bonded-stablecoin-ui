@@ -52,7 +52,12 @@ export const Charts = ({ params }) => {
           setLineSeriesT2(
             chartInstance.addAreaSeries({
               priceScaleId: 'left',
-              title: `${symbol2} price (in ${inUSD ? 'USD' : reserveToken})`
+              title: `${symbol2} price (in ${inUSD ? 'USD' : reserveToken})`,
+              priceFormat: {
+                type: 'custom',
+                formatter: price => inUSD ? Math.trunc(price * 10000) / 10000 : Math.trunc(price * 10 ** params.reserve_asset_decimals) / 10 ** params.reserve_asset_decimals,
+                minMove: 0.0001
+              },
             })
           );
           setLineSeriesT1(
@@ -60,7 +65,12 @@ export const Charts = ({ params }) => {
               priceScaleId: 'right',
               lineColor: 'rgba(0, 55, 255, 1)',
               bottomColor: 'rgba(0, 55, 255, 0.04)',
-              title: `${symbol1} price (in ${reserveToken})`
+              title: `${symbol1} price (in ${reserveToken})`,
+              priceFormat: {
+                type: 'custom',
+                formatter: price => Math.trunc(price * 10 ** params.reserve_asset_decimals) / 10 ** params.reserve_asset_decimals,
+                minMove: 0.0001
+              },
             })
           );
           setChart(chartInstance);
