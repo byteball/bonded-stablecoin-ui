@@ -31,6 +31,13 @@
   font-size: 14px;
 }
 
+.providerStatus {
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  font-size: 14px;
+}
+
 @media (max-width: 576px) {
   .currency {
     padding: 0;
