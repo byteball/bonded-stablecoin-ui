@@ -139,6 +139,7 @@ export const Charts = ({ params }) => {
       (async () => {
         if (address && lineSeriesT1 && lineSeriesT2) {
           const candleDaily = await getCandle({ type: "daily", from: "2020-09-22", to: now });
+          if (!candleDaily.T1.length || !candleDaily.T2.length) return;
           if (candleDaily.T1.length > 83 || candleDaily.T2.length > 83) {
             if (lineSeriesT1) {
               lineSeriesT1.setData(candleDaily.T1);
