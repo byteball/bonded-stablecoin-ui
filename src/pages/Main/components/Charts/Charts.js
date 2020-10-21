@@ -56,7 +56,7 @@ export const Charts = ({ params }) => {
               priceFormat: {
                 type: 'custom',
                 formatter: price => inUSD ? Math.trunc(price * 10000) / 10000 : Math.trunc(price * 10 ** params.reserve_asset_decimals) / 10 ** params.reserve_asset_decimals,
-                minMove: 0.0001
+                minMove: 1 / 1e9
               },
 
             })
@@ -70,7 +70,7 @@ export const Charts = ({ params }) => {
               priceFormat: {
                 type: 'custom',
                 formatter: price => Math.trunc(price * 10 ** params.reserve_asset_decimals) / 10 ** params.reserve_asset_decimals,
-                minMove: 0.0001
+                minMove: 1 / 1e9
               },
             })
           );
