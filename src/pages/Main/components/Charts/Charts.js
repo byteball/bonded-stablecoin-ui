@@ -102,7 +102,7 @@ export const Charts = ({ params }) => {
       let T1Data;
       try {
         T1Data = await axios.get(
-          `https://${config.STATS_URL}/candles/${symbol1}-${reserveToken}?period=${type}&start=${from}&end=${to}`
+          `${config.STATS_URL}/candles/${symbol1}-${reserveToken}?period=${type}&start=${from}&end=${to}`
         );
         T1 = T1Data.data.map((v) => ({
           value: v.open_price,
@@ -117,7 +117,7 @@ export const Charts = ({ params }) => {
       let T2Data;
       try {
         T2Data = await axios.get(
-          `https://${config.STATS_URL}/candles/${symbol2}-${reserveToken}?period=${type}&start=${from}&end=${now}`
+          `${config.STATS_URL}/candles/${symbol2}-${reserveToken}?period=${type}&start=${from}&end=${now}`
         );
         const format = type === "daily" ? 'DD-MM-YYYY' : 'DD-MM-YYYY HH';
         T2 = T2Data.data.map((v) => {
@@ -139,6 +139,7 @@ export const Charts = ({ params }) => {
       (async () => {
         if (address && lineSeriesT1 && lineSeriesT2) {
           const candleDaily = await getCandle({ type: "daily", from: "2020-09-22", to: now });
+          if (!candleDaily.T1.length || !candleDaily.T2.length) return;
           if (candleDaily.T1.length > 83 || candleDaily.T2.length > 83) {
             if (lineSeriesT1) {
               lineSeriesT1.setData(candleDaily.T1);
