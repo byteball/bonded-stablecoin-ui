@@ -33,10 +33,10 @@ export const Charts = ({ params }) => {
       if (chartRef.current && chart === null) {
         const chartInstance = createChart(chartRef.current, {
           timeScale: {
-            tickMarkFormatter: (time) => moment.unix(time).format('DD/MM hh:mm')
+            tickMarkFormatter: (time) => moment.unix(time).format('DD/MM HH:mm')
           },
           localization: {
-            timeFormatter: (time) => moment.unix(time).format('DD-MM-YYYY hh:mm')
+            timeFormatter: (time) => moment.unix(time).format('DD-MM-YYYY HH:mm')
           },
           height: 400,
           rightPriceScale: {
@@ -75,7 +75,7 @@ export const Charts = ({ params }) => {
     if (inUSD) {
       if (type === "daily") {
         rateUSD = await axios
-          .get(`https://min-api.cryptocompare.com/data/v2/histoday?fsym=GBYTE&tsym=USD&toTs=${moment.utc(to, "YYYY-MM-DD").unix()}&limit=2000`)
+          .get(`https://min-api.cryptocompare.com/data/v2/histoday?fsym=GBYTE&tsym=USD&toTs=${moment().unix()}&limit=2000`)
           .then((RateDate) => {
             const dateObject = {};
             RateDate.data.Data.Data.forEach((e) => {
@@ -86,7 +86,7 @@ export const Charts = ({ params }) => {
           });
       } else if (type === "hourly") {
         rateUSD = await axios
-          .get(`https://min-api.cryptocompare.com/data/v2/histohour?fsym=GBYTE&tsym=USD&toTs=${moment(to, "YYYY-MM-DD").unix()}&limit=2000`)
+          .get(`https://min-api.cryptocompare.com/data/v2/histohour?fsym=GBYTE&tsym=USD&toTs=${moment().unix()}&limit=2000`)
           .then((RateDate) => {
             const dateObject = {};
             RateDate.data.Data.Data.forEach((e) => {
