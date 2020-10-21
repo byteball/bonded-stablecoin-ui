@@ -53,7 +53,7 @@ export const SelectStablecoin = () => {
     }
   }
 
-  const optionListRecent = recentList.filter(aa => config.reserves[data[aa].params.reserve_asset]).map((aa) => {
+  const optionListRecent = recentList.filter(aa => data[aa] && config.reserves[data[aa].params.reserve_asset]).map((aa) => {
     const { asset_2, symbol, params, stable_state } = data[aa];
     const targetCurrency = getTargetCurrency(params, stable_state);
     const interest_rate_percent = stable_state ? Decimal.mul(stable_state.interest_rate, 100).toNumber() : null;

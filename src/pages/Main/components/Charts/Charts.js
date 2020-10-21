@@ -58,6 +58,7 @@ export const Charts = ({ params }) => {
                 formatter: price => inUSD ? Math.trunc(price * 10000) / 10000 : Math.trunc(price * 10 ** params.reserve_asset_decimals) / 10 ** params.reserve_asset_decimals,
                 minMove: 0.0001
               },
+
             })
           );
           setLineSeriesT1(
