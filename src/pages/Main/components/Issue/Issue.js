@@ -133,6 +133,7 @@ export const Issue = () => {
     resetFields();
     setValidFields((v) => ({ ...v, tokens1: false }));
     setValidFields((v) => ({ ...v, tokens2: false }));
+    setEnableHelp(false);
   }, [address, resetFields]);
 
   let bPriceInversed = false;

@@ -4,6 +4,7 @@ let config = {
   TOKEN_REGISTRY: process.env.REACT_APP_TOKEN_REGISTRY,
   SIMPLESWAP_API_KEY: process.env.REACT_APP_SIMPLESWAP_API_KEY,
   BUFFER_URL: process.env.REACT_APP_BUFFER_URL,
+  STATS_URL: process.env.REACT_APP_STATS_URL,
   GA_ID: process.env.REACT_APP_GA,
   reserves: {
     base: {
