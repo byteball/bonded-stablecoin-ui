@@ -29,6 +29,7 @@ export const DepositsItem = ({
     amount,
     interest_recipient,
     ts,
+    close_interest,
   } = item;
   const new_stable_amount = Math.floor(amount * growth_factor);
   const interest = new_stable_amount - stable_amount;
@@ -109,7 +110,8 @@ export const DepositsItem = ({
             interest <= 0 ||
             (interest_recipient
               ? activeWallet !== interest_recipient
-              : activeWallet !== owner)
+              : activeWallet !== owner) ||
+            close_interest
           }
         >
           Withdraw interest
@@ -143,7 +145,8 @@ export const DepositsItem = ({
             (interest_recipient
               ? activeWallet !== interest_recipient
               : activeWallet !== owner) ||
-            ts + 2 * 3600 > timestamp
+            ts + 2 * 3600 > timestamp ||
+            close_interest
           }
         >
           Close
