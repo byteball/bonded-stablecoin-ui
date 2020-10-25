@@ -139,7 +139,12 @@ export const DepositsItem = ({
         </Button>
         <Button
           href={closeUrl}
-          disabled={owner !== activeWallet || ts + 2 * 3600 > timestamp}
+          disabled={
+            (interest_recipient
+              ? activeWallet !== interest_recipient
+              : activeWallet !== owner) ||
+            ts + 2 * 3600 > timestamp
+          }
         >
           Close
         </Button>
