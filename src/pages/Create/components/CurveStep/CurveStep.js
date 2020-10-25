@@ -105,12 +105,9 @@ export const CurverStep = ({ setCurrent, setData }) => {
           message.error("Oracle 1 is not found!");
           console.log("error", e);
         }
-      } else {
-        message.error("Not all data for oracle 1 is specified!");
-        setCheckOracle(null);
       }
 
-      if (oracle2 || feed_name2) {
+      if (oracle2 && feed_name2) {
         if (op2) {
           try {
             const data_feed = await client.api.getDataFeed({
@@ -136,7 +133,7 @@ export const CurverStep = ({ setCurrent, setData }) => {
         }
       }
 
-      if (oracle3 || feed_name3) {
+      if (oracle3 && feed_name3) {
         if (op3) {
           try {
             const data_feed = await client.api.getDataFeed({
@@ -161,12 +158,21 @@ export const CurverStep = ({ setCurrent, setData }) => {
           setCheckOracle(null);
         }
       }
-      if (!oracle2 && !feed_name2) {
-        setFieldsValue({ op2: undefined });
+
+      if (!oracle1 || !feed_name1) {
+        setFieldsValue({ oracle1: undefined, op1: undefined, feed_name1: undefined });
       }
 
-      if (!oracle3 && !feed_name3) {
-        setFieldsValue({ op3: undefined });
+      if (!oracle2 || !feed_name2) {
+        setFieldsValue({ oracle2: undefined, op2: undefined, feed_name2: undefined  });
+      }
+
+      if (!oracle3 || !feed_name3) {
+        setFieldsValue({ oracle3: undefined, op3: undefined, feed_name3: undefined  });
+      }
+
+      if(!oracle1 && !oracle2 && !oracle3){
+        setCheckOracle(true);
       }
     };
 

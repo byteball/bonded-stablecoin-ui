@@ -44,7 +44,7 @@ export const FaqPage = () => {
           className={styles.panel}
         >
           <p>
-            You can buy IUSD first, then open a <a href="trade/7FSSFG2Y5QHQTKVRFB3VWL6UNX3WB36O#deposits">deposit</a> to receive the
+            You can buy IUSD first, then open a <a href="trade/26XAPPPTTYRIOSYNCUV3NS2H57X5LZLJ#deposits">deposit</a> to receive the
             equivalent amount of OUSD. While the deposit is open, you can also
             periodically withdraw the accrued interest (16% p.a.) or choose a
             charity or your friend or relative who will receive the interest.
@@ -54,6 +54,16 @@ export const FaqPage = () => {
           <p>
             Some exchanges might also list OUSD to enable you to buy/sell the
             token for BTC or fiat.
+          </p>
+        </Panel>
+
+        <Panel
+          header="My deposit was closed, why?"
+          key="2.5"
+          className={styles.panel}
+        >
+          <p>
+            Probably it did not have enough protection. A deposit with the smallest protection can be closed by anybody by sending the required amount of OUSD. You don't lose anything when your deposit is closed as you have already received your OUSD but you stop receiving interest. To protect your deposit from closing, you need to add some GBYTE to the deposit on the <a href="trade/26XAPPPTTYRIOSYNCUV3NS2H57X5LZLJ#deposits">deposits page</a>.
           </p>
         </Panel>
 
