@@ -56,9 +56,9 @@ export const Tokens = () => (
           <a href="/trade#deposits">
             put it on a deposit
           </a>
-          , get an equivalent amount of OUSD, and periodically withdraw the
-          accrued interest. You can also redirect interest to someone else, e.g.
-          to a charity.
+          , get an equivalent amount of OUSD in exchange, and periodically withdraw the
+          accrued interest in OUSD. You can also redirect interest to someone else, e.g.
+          to a charity or another nonprofit (Estonian Cryptocurrency Association, Obyte Foundation, and <a href="https://pollopollo.org" target="_blank" rel="noopener">PolloPollo</a> are already enrolled as suggested recipients).
         </p>
         <Link className={styles.btnOpen} to="/buy">
           Buy interest tokens

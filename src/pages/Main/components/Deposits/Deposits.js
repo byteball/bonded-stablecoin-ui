@@ -288,7 +288,9 @@ export const Deposits = () => {
                 });
               }}
               disabled={
-                records.owner !== activeWallet ||
+                (records.interest_recipient
+                  ? activeWallet !== records.interest_recipient
+                  : activeWallet !== records.owner) ||
                 records.ts + 2 * 3600 > timestamp ||
                 records.close_interest
               }
@@ -438,7 +440,7 @@ export const Deposits = () => {
               activeWallet={activeWallet}
               deposit_aa={deposit_aa}
               timestamp={timestamp}
-              asset={stable_state.asset2}
+              asset={deposit_state.asset}
               setVisibleEditRecipient={setVisibleEditRecipient}
               setAddProtection={setAddProtection}
               setWithdrawProtection={setWithdrawProtection}
