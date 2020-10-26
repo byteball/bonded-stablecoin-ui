@@ -76,12 +76,13 @@ export const MainLayout = (props) => {
                   onClose={() => setActiveMenu(false)}
                   mode="vertical"
                 />
-                {width < 1100 && pathname !== "/" && (
-                  <Button onClick={() => setVisibleModal(true)} className={styles.iconWallet}>
-                    <WalletOutlined /> Select Wallet
-                  </Button>
-                )}
               </Drawer>
+              {width < 1100 && width >= 320 && pathname !== "/" && (
+                <WalletOutlined
+                  onClick={() => setVisibleModal(true)}
+                  className={styles.iconWallet}
+                />
+              )}
               <Button onClick={() => setActiveMenu(true)}>Menu</Button>
             </div>
           )}
