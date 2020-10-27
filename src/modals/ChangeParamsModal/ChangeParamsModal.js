@@ -149,7 +149,7 @@ export const ChangeParamsModal = ({
 
   const finalSupport = balance + (amount.valid ? Number(amount.value) : 0);
 
-  const validateStatus = param && (paramValue.value || Number(paramValue.value) === 0) ? validateParams[param].validator(paramValue.value) : undefined;
+  const validationStatus = param && (paramValue.value || Number(paramValue.value) === 0) ? validateParams[param].validator(paramValue.value) : undefined;
 
   const totalSupport =
     paramValue.value in supportsByValue
@@ -212,8 +212,8 @@ export const ChangeParamsModal = ({
         <Text type="secondary">Parameter value:</Text>
         <Form.Item
           hasFeedback
-          validateStatus={((!paramValue.valid && paramValue.value !== undefined) || validateStatus === false) ? "error" : undefined}
-          help={((!paramValue.valid && paramValue.value !== undefined) || validateStatus === false) ? validateParams[param].rule : undefined}
+          validateStatus={((!paramValue.valid && paramValue.value !== undefined) || validationStatus === false) ? "error" : undefined}
+          help={((!paramValue.valid && paramValue.value !== undefined) || validationStatus === false) ? validateParams[param].rule : undefined}
         >
           <Input
             placeholder={param}
@@ -248,7 +248,7 @@ export const ChangeParamsModal = ({
         </Form.Item>
       </Form>
       {
-        validateStatus && totalSupport ? (
+        validationStatus && totalSupport ? (
           <p>
             <Text type="secondary">
               <b>
@@ -261,7 +261,7 @@ export const ChangeParamsModal = ({
         ) : null
       }
       {
-        validateStatus && totalSupport ? (
+        validationStatus && totalSupport ? (
           <p>
             <Text type="secondary">
               <b>
