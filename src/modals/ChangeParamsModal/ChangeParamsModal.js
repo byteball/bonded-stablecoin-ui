@@ -19,7 +19,7 @@ export const ChangeParamsModal = ({
   balance,
   isMyVote,
   supportParamsByAddress,
-  sortSupports,
+  supportsByValue,
   base_governance
 }) => {
 
@@ -152,8 +152,8 @@ export const ChangeParamsModal = ({
   const validateStatus = param && (paramValue.value || Number(paramValue.value) === 0) ? validateParams[param].validator(paramValue.value) : undefined;
 
   const totalSupport =
-    paramValue.value in sortSupports
-      ? Number(sortSupports[paramValue.value] || 0) / 10 ** decimals +
+    paramValue.value in supportsByValue
+      ? Number(supportsByValue[paramValue.value] || 0) / 10 ** decimals +
       Number(amount.value || 0) +
       (balance - Number(supportParamsByAddress.support / 10 ** decimals) || 0)
       : Number(amount.value || 0) + (balance || 0);

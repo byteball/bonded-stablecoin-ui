@@ -40,21 +40,21 @@ export const GovernanceItem = ({
   const nameView = name.split("_").join(" ");
   const now = Date.now();
   const source = [];
-  const sortSupports = {};
+  const supportsByValue = {};
   const isChoice = !!choice;
 
   for (let address in supports) {
-    if (supports[address].value in sortSupports) {
-      sortSupports[supports[address].value] += supports[address].support;
+    if (supports[address].value in supportsByValue) {
+      supportsByValue[supports[address].value] += supports[address].support;
     } else {
-      sortSupports[supports[address].value] = supports[address].support;
+      supportsByValue[supports[address].value] = supports[address].support;
     }
   }
 
-  for (let value in sortSupports) {
+  for (let value in supportsByValue) {
     source.push({
       value: value,
-      support: sortSupports[value],
+      support: supportsByValue[value],
     });
   }
 
@@ -262,7 +262,7 @@ export const GovernanceItem = ({
         symbol={symbol}
         balance={balance}
         supportParamsByAddress={supportParamsByAddress}
-        sortSupports={sortSupports}
+        supportsByValue={supportsByValue}
         isMyVote={
           selectedParam && String(choice) === String(selectedParam.value)
         }
