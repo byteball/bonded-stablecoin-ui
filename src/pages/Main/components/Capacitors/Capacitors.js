@@ -48,9 +48,9 @@ export const Capacitors = ({ stable_state, address, params }) => {
           "
             />
           }
-          value={Number(stable_state.fast_capacity / 1e9).toFixed(9) || 0}
+          value={Number(stable_state.fast_capacity / 10 ** params.reserve_asset_decimals).toFixed(params.reserve_asset_decimals) || 0}
           suffix={currency}
-          precision={9}
+          precision={params.reserve_asset_decimals}
         />
 
         <Statistic
@@ -62,9 +62,9 @@ export const Capacitors = ({ stable_state, address, params }) => {
             "
             />
           }
-          value={Number(stable_state.slow_capacity / 1e9).toFixed(9) || 0}
+          value={Number(stable_state.slow_capacity / 10 ** params.reserve_asset_decimals).toFixed(params.reserve_asset_decimals) || 0}
           suffix={currency}
-          precision={9}
+          precision={params.reserve_asset_decimals}
         />
         <div>
           {isExpiry ? (
@@ -73,16 +73,16 @@ export const Capacitors = ({ stable_state, address, params }) => {
               value="Time is expired"
             />
           ) : (
-            <>
-              {!isNaN(timeToNextMovement) && (
-                <Countdown
-                  title="Time until the next movement"
-                  // format="D [days] HH:mm:ss"
-                  value={Math.floor(Date.now() / 1000) + timeToNextMovement}
-                />
-              )}
-            </>
-          )}
+              <>
+                {!isNaN(timeToNextMovement) && (
+                  <Countdown
+                    title="Time until the next movement"
+                    // format="D [days] HH:mm:ss"
+                    value={Math.floor(Date.now() / 1000) + timeToNextMovement}
+                  />
+                )}
+              </>
+            )}
         </div>
       </Space>
       <div style={{ marginTop: 20 }}>

@@ -17,9 +17,7 @@ export const createExchange = async ({
   curve_address,
 }) => {
   const { data } = await axios.get(
-    `https://${config.TESTNET ? "testnet." : ""}${
-      config.BUFFER_URL
-    }/create_buffer?address=${recipient.value}&curve_aa=${curve_address}`
+    `${config.BUFFER_URL}/create_buffer?address=${recipient.value}&curve_aa=${curve_address}`
   );
   const { buffer_address } = data.data;
   const create = await axios.post(
@@ -40,9 +38,7 @@ export const createExchange = async ({
   if (create && create.data) {
     const isError = await axios
       .post(
-        `https://${config.TESTNET ? "testnet." : ""}${
-          config.BUFFER_URL
-        }/create_order`,
+        `${config.BUFFER_URL}/create_order`,
         {
           provider: "simpleswap",
           provider_id: create.data.id,

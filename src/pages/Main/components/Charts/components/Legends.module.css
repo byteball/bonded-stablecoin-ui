@@ -1,0 +1,30 @@
+.wrap {
+	padding: 5px;
+	display: flex;
+	justify-content: center;
+}
+
+.legend {
+  cursor: pointer;
+  margin: 0 15px;
+}
+
+
+.rectangle {
+  display: inline-block;
+  vertical-align: middle;
+	width: 2.5em;
+	height: 1em;
+}
+
+.label {
+  margin: 0 5px;
+  line-height: 1em;
+}
+
+@media (max-width: 540px) {
+	.wrap {
+		flex-direction: column;
+		align-items: center;
+	}
+}

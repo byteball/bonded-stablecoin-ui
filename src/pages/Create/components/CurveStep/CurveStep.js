@@ -630,6 +630,7 @@ export const CurverStep = ({ setCurrent, setData }) => {
       </Row>
       {checkOracle === true && oraclePrice !== {} && (
         <div>
+          <a onClick={() => setCheckOracle(null)}>edit oracles</a>
           {oraclePrice.data_feed_1 && (
             <div style={{ color: "green", paddingTop: 5, paddingBottom: 5 }}>
               <b>Last posted price by Oracle 1: </b>

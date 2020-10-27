@@ -12,7 +12,7 @@ const { pegged } = config;
 
 export const Header = ({ type, setType }) => {
   const peggedList = Object.keys(pegged);
-  const otherList = peggedList.filter((p) => p !== type);
+  const otherList = peggedList.filter((p) => p !== type && ['USD', 'BTC', 'GOLD'].includes(p));
   return (
     <>
       <header className={styles.header}>
@@ -28,12 +28,12 @@ export const Header = ({ type, setType }) => {
               </Link>
             </div>
             <div className={styles.tokenItemTitle}>
-              {pegged[type].stableName}: Stablecoin whose value is 1 {type}.
+              {pegged[type].stableName}: Stablecoin whose value is 1 {pegged[type].target || type}.
             </div>
           </div>
         </div>
 
-        <div style={{ marginBottom: 40 }}>
+        {pegged[type].percent && <div style={{ marginBottom: 40 }}>
           <div className={styles.tokenItem}>
             <div className={styles.tokenItemGraph}>
               <Link to={`/trade/${pegged[type].address}`}>
@@ -52,7 +52,7 @@ export const Header = ({ type, setType }) => {
               </div>
             </div>
           </div>
-        </div>
+        </div>}
 
         <div style={{ marginBottom: 40 }}>
           <div className={styles.tokenItem}>
@@ -73,6 +73,7 @@ export const Header = ({ type, setType }) => {
           Select yours:{" "}
           <Select
             style={{ width: 100 }}
+            dropdownMatchSelectWidth={false}
             value={type}
             onChange={(value) => setType(value)}
           >

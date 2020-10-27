@@ -22,6 +22,7 @@ export const ExchangeView = ({ current }) => {
     amount_currency,
     currency_from,
   } = current;
+  const statusPageUrl = "https://simpleswap.io/exchange?id=" + current.id;
   const updateFn = async (id) => {
     axios
       .get(
@@ -105,6 +106,16 @@ export const ExchangeView = ({ current }) => {
           </span>
         </div>
       </Row>
+      {!["finished", "sending"].includes(status) && (<Row justify="center">
+        <div className={styles.providerStatus}>
+          <Text type="secondary">
+            Currently converting {" "}
+            <span style={{ textTransform: "uppercase" }}>
+              {currency_from}
+            </span> to GBYTE, this step is performed by simpleswap.io. For support issues, please contact them on their <a href={statusPageUrl} target="_blank" rel="noopener">status page</a>.
+          </Text>
+        </div>
+      </Row>)}
       <Row justify="center" style={{ padding: 10 }}>
         <Button onClick={() => dispatch(removeExchangePending())}>
           Go back to the form

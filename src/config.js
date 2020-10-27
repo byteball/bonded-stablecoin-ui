@@ -4,6 +4,7 @@ let config = {
   TOKEN_REGISTRY: process.env.REACT_APP_TOKEN_REGISTRY,
   SIMPLESWAP_API_KEY: process.env.REACT_APP_SIMPLESWAP_API_KEY,
   BUFFER_URL: process.env.REACT_APP_BUFFER_URL,
+  STATS_URL: process.env.REACT_APP_STATS_URL,
   GA_ID: process.env.REACT_APP_GA,
   reserves: {
     base: {
@@ -87,11 +88,34 @@ let config = {
       address: "Z7GNZCFDEWFKYOO6OIAZN7GH7DEKDHKA",
     },
     GOLD: {
+      target: "ounce of gold",
       stableName: "OAU",
       interestName: "IAU",
       growthName: "GRAU",
       percent: 8,
       address: "UCWEMOXEYFUDDBJLHIHZ3NIAX3QD2YFD",
+    },
+    GBYTE: {
+      stableName: "OGB",
+      interestName: "IGB",
+      growthName: "GRGB",
+      percent: 16,
+      address: "UH6SNZMZKHWMRM7IQZGFPD5PQULZZSBI",
+    },
+    'GBYTE leveraged 2x': {
+      stableName: "GB2",
+      interestName: "GB2",
+      growthName: "GRGB2",
+      percent: 0,
+      address: "MCZAGO47NLPO25KOOJHN22PNKEGLQ6XV",
+    },
+    'CMC marketcap': {
+      target: 'CMC total marketcap in billions',
+      stableName: "OCMC",
+      interestName: "OCMC",
+      growthName: "GRCMC",
+      percent: 0,
+      address: "RC6N2RHP32DBL5G2JN3OREZBSUNPV5WQ",
     },
   },
 };

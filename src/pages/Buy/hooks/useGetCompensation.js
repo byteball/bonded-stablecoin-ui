@@ -12,9 +12,7 @@ export const useGetCompensation = (amountCurrency, activeCurrency, rate) => {
       rate &&
       setTimeout(async () => {
         const { data } = await axios.get(
-          `https://${config.TESTNET ? "testnet." : ""}${
-            config.BUFFER_URL
-          }/get_expected_compensation?amount_in=${amountCurrency}&currency_in=${activeCurrency}&amount_out=${
+          `${config.BUFFER_URL}/get_expected_compensation?amount_in=${amountCurrency}&currency_in=${activeCurrency}&amount_out=${
             rate * amountCurrency
           }`
         );
