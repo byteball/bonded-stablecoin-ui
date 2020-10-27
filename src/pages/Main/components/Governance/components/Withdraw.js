@@ -16,14 +16,14 @@ export const Withdraw = ({ choiceParams, balance, symbol }) => {
       <p>
         <b>
           Your {symbol || "tokens1"} balance locked in governance Autonomous
-          Agent is {balance}
+          Agent is {balance}.
         </b>
       </p>
 
       {choiceParams.length > 0 && (
         <p>
-          For withdraw, you must remove support from these fields:{" "}
-          {choiceParams.join(", ")}
+          To be able to withdraw, you need to remove support from these fields:{" "}
+          {choiceParams.join(", ")}.
         </p>
       )}
 
