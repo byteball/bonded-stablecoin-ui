@@ -63,6 +63,9 @@ export const changeActive = (address) => async (dispatch, getState, socket) => {
     depositInfo.asset
   );
 
+  const governanceDef = await socket.api.getDefinition(governance);
+  const base_governance = governanceDef[1].base_aa;
+
   dispatch({
     type: CHANGE_ACTIVE,
     payload: {
@@ -76,6 +79,7 @@ export const changeActive = (address) => async (dispatch, getState, socket) => {
       oracleValue3: oracleValue3 !== "none" ? oracleValue3 : 0,
       deposit_aa: deposit,
       governance_aa: governance,
+      base_governance,
       reservePrice,
       oraclePrice,
       symbol1:
