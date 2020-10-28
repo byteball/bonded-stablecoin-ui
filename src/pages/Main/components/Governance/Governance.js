@@ -1,11 +1,10 @@
 import React from "react";
-import { Typography, Tabs } from "antd";
+import { Typography, Tabs, List } from "antd";
 import obyte from "obyte";
 import { useSelector } from "react-redux";
+import moment from 'moment';
 
 import { getParams } from "helpers/getParams";
-import { ChangeParams } from "./components/ChangeParams";
-import { SupportParams } from "./components/SupportParams";
 import { ChangeOracles } from "./components/oracles/ChangeOracles";
 import { VotedForOracle } from "./components/oracles/VotedForOracle";
 import { CurrentOracles } from "./components/oracles/CurrentOracles";
@@ -13,6 +12,7 @@ import { InfoOracle } from "./components/oracles/InfoOracle";
 import { generateOraclesString } from "helpers/generateOraclesString";
 import { Withdraw } from "./components/Withdraw";
 import { useWindowSize } from "hooks/useWindowSize.js";
+import { GovernanceItem } from "./GovernanceItem";
 
 const { Title, Text } = Typography;
 const { TabPane } = Tabs;
@@ -25,6 +25,7 @@ export const Governance = () => {
     params,
     symbol1,
     symbol2,
+    base_governance
   } = useSelector((state) => state.active);
   const { activeWallet } = useSelector((state) => state.settings);
   const actualParams = getParams(params, stable_state);
@@ -32,39 +33,35 @@ export const Governance = () => {
   if (!activeWallet) {
     return (
       <div style={{ textAlign: "center" }}>
-        Please add the address of your wallet in order to participate in governance
+        Please add the address of your wallet in order to participate in
+        governance
       </div>
     );
   }
   const initParams = {
     fee_multiplier: {
       value: actualParams["fee_multiplier"],
-      leader: actualParams["fee_multiplier"],
     },
     moved_capacity_share: {
       value: actualParams["moved_capacity_share"],
-      leader: actualParams["moved_capacity_share"],
     },
     threshold_distance: {
       value: actualParams["threshold_distance"],
-      leader: actualParams["threshold_distance"],
     },
     move_capacity_timeout: {
       value: actualParams["move_capacity_timeout"],
-      leader: actualParams["move_capacity_timeout"],
     },
     slow_capacity_share: {
       value: actualParams["slow_capacity_share"],
-      leader: actualParams["slow_capacity_share"],
     },
     interest_rate: {
       value: actualParams["interest_rate"],
-      leader: actualParams["interest_rate"],
     },
   };
   let supportParamsByAddress = {};
   const governance = {};
   const balances = {};
+  const supportList = {};
 
   for (let row in governance_state) {
     if (row.includes("challenging_period_start_ts_")) {
@@ -110,6 +107,12 @@ export const Governance = () => {
         const address = info[info.length - 1];
         const value = info[info.length - 2];
         const param = info.slice(0, -2).join("_");
+        if (!(param in supportList)) supportList[param] = []
+        supportList[param] = [...supportList[param], {
+          support: governance_state[row],
+          value,
+          address
+        }];
         if (row.includes("support_oracles")) {
           const oraclesRow = info.join("_");
 
@@ -186,6 +189,19 @@ export const Governance = () => {
     (activeWallet in balances &&
       balances[activeWallet] / 10 ** actualParams.decimals1) ||
     0;
+
+  const governanceParams = { ...initParams, ...governance };
+  const governanceList = [];
+  for (let param in governanceParams) {
+    if (param === "oracles") continue;
+    if (param === "fee_multiplier" && governanceParams[param].value < 1 && base_governance === "Y4VBXMROK5BWBKSYYAMUW7QUEZFXYBCF") continue;
+    governanceList.push({
+      ...governanceParams[param],
+      name: param,
+      supports: supportParamsByAddress[param],
+    });
+  }
+
   return (
     <div>
       <Title level={3}>Governance</Title>
@@ -211,37 +227,59 @@ export const Governance = () => {
       <Tabs defaultActiveKey="1">
         <TabPane tab="Change parameters" key="1">
           <Title level={3}>Change parameters</Title>
+          <div style={{ marginTop: 20 }}>
+            <List
+              dataSource={governanceList}
+              renderItem={(item) => {
+                const challengingStart = moment.utc(item.challenging_period_start_ts * 1000);
 
-          <ChangeParams
-            activeWallet={activeWallet}
-            governance={{ ...initParams, ...governance }}
-            governance_aa={governance_aa}
-            freeze_period={params.freeze_period}
-            asset={stable_state.asset1}
-            width={width}
-            decimals={actualParams.decimals1}
-            important_challenging_period={params.important_challenging_period}
-            regular_challenging_period={params.regular_challenging_period}
-            symbol={symbol1}
-            balance={balance}
-          />
+                challengingStart.add({
+                  second: params.regular_challenging_period
+                });
 
-          <Title level={3} style={{ marginTop: 50 }}>
-            List of voters
-          </Title>
+                const challengingStartInSeconds = challengingStart.toDate();
 
-          <SupportParams
-            governance={governance}
-            activeWallet={activeWallet}
-            asset={stable_state.asset1}
-            decimals={actualParams.decimals1}
-            governance_aa={governance_aa}
-            freeze_period={params.freeze_period}
-            supportParamsByAddress={supportParamsByAddress}
-            regular_challenging_period={actualParams.regular_challenging_period}
-            symbol={symbol1}
-            width={width}
-          />
+                return (
+                  <GovernanceItem
+                    value={item.value}
+                    width={width}
+                    name={item.name}
+                    leader={item.leader}
+                    supports={item.supports}
+                    decimals={actualParams.decimals1}
+                    governance_aa={stable_state.governance_aa}
+                    base_governance={base_governance}
+                    activeWallet={activeWallet}
+                    balance={balance}
+                    supportList={item.name in supportList ? supportList[item.name] : []}
+                    asset={stable_state.asset1}
+                    symbol={symbol1}
+                    supportParamsByAddress={
+                      item.name in supportParamsByAddress &&
+                        activeWallet in supportParamsByAddress[item.name]
+                        ? supportParamsByAddress[item.name][activeWallet]
+                        : {}
+                    }
+                    choice={
+                      activeWallet &&
+                      activeWallet in
+                      (governanceParams[item.name].choice || {}) &&
+                      governanceParams[item.name].choice[activeWallet]
+                    }
+                    challengingPeriod={challengingStartInSeconds}
+                    regularPeriod={params.regular_challenging_period}
+                    freezePeriod={
+                      item.challenging_period_start_ts
+                        ? item.challenging_period_start_ts +
+                        params.regular_challenging_period +
+                        actualParams.freeze_period
+                        : undefined
+                    }
+                  />
+                );
+              }}
+            />
+          </div>
         </TabPane>
         <TabPane
           tab="Change oracles"

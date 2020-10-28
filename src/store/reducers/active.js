@@ -35,6 +35,7 @@ export const activeReducer = (state = initialState, action) => {
         governance_state: action.payload.governance_state,
         deposit_aa: action.payload.deposit_aa,
         governance_aa: action.payload.governance_aa,
+        base_governance: action.payload.base_governance,
         symbol1: action.payload.symbol1,
         symbol2: action.payload.symbol2,
         symbol3: action.payload.symbol3,

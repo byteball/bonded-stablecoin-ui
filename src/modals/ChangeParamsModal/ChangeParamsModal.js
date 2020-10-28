@@ -6,38 +6,6 @@ import { redirect } from "utils/redirect";
 
 const { Text } = Typography;
 
-const validateParams = {
-  fee_multiplier: {
-    validator: (value) => value >= 1,
-    rule:
-      "The value of the fee_multiplier parameter must be greater than or equal to 1",
-  },
-  moved_capacity_share: {
-    validator: (value) => value > 0 && value <= 1,
-    rule:
-      "The value of the moved_capacity_share parameter must be in the range from 0 to 1",
-  },
-  threshold_distance: {
-    validator: (value) => value > 0 && value <= 0.2,
-    rule:
-      "The value of the threshold_distance parameter must be in the range from 0 to 0.2",
-  },
-  move_capacity_timeout: {
-    validator: (value) => value > 0 && Number.isInteger(Number(value)),
-    rule:
-      "The value of the move_capacity_timeout parameter must be an integer greater than 0",
-  },
-  slow_capacity_share: {
-    validator: (value) => value >= 0 && value <= 1,
-    rule:
-      "The value of the slow_capacity_share parameter must be in the range from 0 to 1",
-  },
-  interest_rate: {
-    validator: (value) => value >= 0,
-    rule:
-      "The value of the interest_rate (as a percentage) parameter must be greater than or equal to 0",
-  },
-};
 export const ChangeParamsModal = ({
   visible = false,
   param,
@@ -49,7 +17,43 @@ export const ChangeParamsModal = ({
   asset,
   value = undefined,
   balance,
+  isMyVote,
+  supportParamsByAddress,
+  supportsByValue,
+  base_governance
 }) => {
+
+  const validateParams = {
+    fee_multiplier: {
+      validator: (value) => base_governance === "Y4VBXMROK5BWBKSYYAMUW7QUEZFXYBCF" ? value >= 1 : value >= 0,
+      rule: `The value of the fee_multiplier parameter must be greater than ${base_governance === "FCFYMFIOGS363RLDLEWIDBIIBU7M7BHP" ? 1 : 0}`,
+    },
+    moved_capacity_share: {
+      validator: (value) => value > 0 && value <= 1,
+      rule:
+        "The value of the moved_capacity_share parameter must be in the range from 0 to 1",
+    },
+    threshold_distance: {
+      validator: (value) => value > 0 && value <= 0.2,
+      rule:
+        "The value of the threshold_distance parameter must be in the range from 0 to 0.2",
+    },
+    move_capacity_timeout: {
+      validator: (value) => value > 0 && Number.isInteger(Number(value)),
+      rule:
+        "The value of the move_capacity_timeout parameter must be an integer greater than 0",
+    },
+    slow_capacity_share: {
+      validator: (value) => value >= 0 && value <= 1,
+      rule:
+        "The value of the slow_capacity_share parameter must be in the range from 0 to 1",
+    },
+    interest_rate: {
+      validator: (value) => value >= 0,
+      rule:
+        "The value of the interest_rate (as a percentage) parameter must be greater than or equal to 0",
+    },
+  };
   const [amount, setAmount] = useState({
     value: undefined,
     valid: false,
@@ -61,8 +65,8 @@ export const ChangeParamsModal = ({
   });
   useEffect(() => {
     setParamValue({
-      value: value,
-      valid: value !== undefined,
+      value: value !== "undefined" && !isNaN(value) ? value : undefined,
+      valid: value !== "undefined",
     });
     setAmount({
       value: undefined,
@@ -71,7 +75,7 @@ export const ChangeParamsModal = ({
   }, [visible]); // eslint-disable-line
 
   const valueInput = useRef(null);
-
+  const supportInput = useRef(null);
   const handleChangeAmount = (ev) => {
     const value = ev.target.value;
     const reg = /^[0-9.]+$/;
@@ -100,8 +104,8 @@ export const ChangeParamsModal = ({
     } else {
       reg = /^(0|[1-9]\d*)([.,]\d+)?$/;
     }
-    if (value === "" || value === "0") {
-      setParamValue({ value, valid: undefined });
+    if (value === "") {
+      setParamValue({ value: undefined, valid: undefined });
     } else if (
       reg.test(String(value)) &&
       validateParams[param].validator(value)
@@ -113,7 +117,7 @@ export const ChangeParamsModal = ({
   };
 
   const link = generateLink(
-    amount.valid ? amount.value * 10 ** decimals : 1e4,
+    amount.valid ? Math.ceil(amount.value * 10 ** decimals) : 1e4,
     {
       name: param,
       value:
@@ -123,6 +127,7 @@ export const ChangeParamsModal = ({
     governance_aa,
     amount.valid ? asset : undefined
   );
+
   const handleKeyPress = (ev) => {
     if (ev.key === "Enter") {
       if (finalSupport !== 0 && paramValue.valid) {
@@ -131,13 +136,27 @@ export const ChangeParamsModal = ({
       }
     }
   };
+
   useEffect(() => {
     if (valueInput.current) {
-      valueInput.current.focus();
+      if (isMyVote) {
+        supportInput.current.focus();
+      } else {
+        valueInput.current.focus();
+      }
     }
   }, [visible]);
 
   const finalSupport = balance + (amount.valid ? Number(amount.value) : 0);
+
+  const validationStatus = param && (paramValue.value || Number(paramValue.value) === 0) ? validateParams[param].validator(paramValue.value) : undefined;
+
+  const totalSupport =
+    paramValue.value in supportsByValue
+      ? Number(supportsByValue[paramValue.value] || 0) / 10 ** decimals +
+      Number(amount.value || 0) +
+      (balance - Number(supportParamsByAddress.support / 10 ** decimals) || 0)
+      : Number(amount.value || 0) + (balance || 0);
 
   return (
     <Modal
@@ -153,14 +172,18 @@ export const ChangeParamsModal = ({
             key="submit"
             type="primary"
             href={link}
-            disabled={finalSupport === 0 || !paramValue.valid}
+            disabled={
+              paramValue.value === undefined || paramValue.value === "" || !paramValue.valid || isMyVote
+                ? Number(amount.value) === 0 || !amount.valid
+                : finalSupport === 0 || !paramValue.valid
+            }
             onClick={() =>
               setTimeout(() => {
                 onCancel();
               }, 100)
             }
           >
-            Vote
+            {isMyVote ? "Add support" : "Vote"}
           </Button>
         </Space>
       }
@@ -169,41 +192,87 @@ export const ChangeParamsModal = ({
         <Text type="secondary">{param && validateParams[param].rule}</Text>
       </div>
 
-      <Form size="large">
-        <Form.Item>
+      <Form size="large" layout="vertical">
+        {"value" in supportParamsByAddress &&
+          "support" in supportParamsByAddress && (
+            <p>
+              <Text type="secondary">
+                <b>
+                  Your support in favor of{" "}
+                  {param === "interest_rate"
+                    ? supportParamsByAddress.value * 100 + "%"
+                    : supportParamsByAddress.value}
+                  :
+                </b>{" "}
+                {supportParamsByAddress.support / 10 ** decimals}{" "}
+                {symbol || "tokens1"}
+              </Text>
+            </p>
+          )}
+        <Text type="secondary">Parameter value:</Text>
+        <Form.Item
+          hasFeedback
+          validateStatus={((!paramValue.valid && paramValue.value !== undefined) || validationStatus === false) ? "error" : undefined}
+          help={((!paramValue.valid && paramValue.value !== undefined) || validationStatus === false) ? validateParams[param].rule : undefined}
+        >
           <Input
             placeholder={param}
             autoComplete="off"
-            autoFocus={true}
+            autoFocus={!isMyVote}
+            disabled={isMyVote}
+            suffix={param === "interest_rate" ? "%" : undefined}
             ref={valueInput}
             onChange={handleChangeParamValue}
             value={paramValue.value}
             onKeyPress={handleKeyPress}
           />
         </Form.Item>
+        <p>
+          <Text type="secondary">
+            <b>Your current balance on the governance AA: </b>
+            {balance} {symbol || "tokens1"}
+          </Text>
+        </p>
+        {balance !== 0 && <Text type="secondary">Add more (optional):</Text>}
         <Form.Item>
           <Input
             placeholder={`Count of tokens1 (${symbol || asset})`}
             autoComplete="off"
             onChange={handleChangeAmount}
             suffix={symbol || "tokens1"}
+            autoFocus={isMyVote}
             value={amount.value}
+            ref={supportInput}
             onKeyPress={handleKeyPress}
           />
         </Form.Item>
       </Form>
-      <p>
-        <Text type="secondary">
-          <b>Your balance: </b>
-          {balance} {symbol || "tokens1"}
-        </Text>
-      </p>
-      <p>
-        <Text type="secondary">
-          <b>Final support: </b>
-          {finalSupport} {symbol || "tokens1"}
-        </Text>
-      </p>
-    </Modal>
+      {
+        validationStatus && totalSupport ? (
+          <p>
+            <Text type="secondary">
+              <b>
+                Total support for {Math.trunc(paramValue.value * 10 ** decimals) / 10 ** decimals || 0}
+                {param === "interest_rate" ? "%" : ""}:{" "}
+              </b>
+              {totalSupport} {symbol || "tokens1"}
+            </Text>
+          </p>
+        ) : null
+      }
+      {
+        validationStatus && totalSupport ? (
+          <p>
+            <Text type="secondary">
+              <b>
+                Your support for {Math.trunc(paramValue.value * 10 ** decimals) / 10 ** decimals || 0}
+                {param === "interest_rate" ? "%" : ""}:{" "}
+              </b>
+              {Number(amount.value || 0) + (balance || 0)} {symbol || "tokens1"}
+            </Text>
+          </p>
+        ) : null
+      }
+    </Modal >
   );
 };

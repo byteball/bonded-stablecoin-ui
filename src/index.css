@@ -32,3 +32,7 @@ h4.ant-typography,
 .ant-menu-vertical > .ant-menu-item-selected a {
   color: #1890ff !important;
 }
+
+.ant-table .ant-table-footer {
+  padding-left: 0 !important;
+}
