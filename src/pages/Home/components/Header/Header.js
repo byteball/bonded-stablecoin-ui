@@ -1,4 +1,5 @@
 import React from "react";
+import ReactGA from "react-ga";
 import styles from "./Header.module.css";
 import { Select } from "antd";
 import { InterestToken } from "./components/InterestToken";
@@ -23,7 +24,12 @@ export const Header = ({ type, setType }) => {
         <div style={{ marginBottom: 40 }}>
           <div className={styles.tokenItem}>
             <div className={styles.tokenItemGraph}>
-              <Link to={`/trade/${pegged[type].address}`}>
+              <Link to={`/trade/${pegged[type].address}`}
+                onClick={() => ReactGA.event({
+                  category: "Stablecoin",
+                  action: "Click to stable graph",
+                  label: pegged[type].stableName
+                })}>
                 <StableToken name={pegged[type].stableName} />
               </Link>
             </div>
@@ -36,7 +42,12 @@ export const Header = ({ type, setType }) => {
         {pegged[type].percent && <div style={{ marginBottom: 40 }}>
           <div className={styles.tokenItem}>
             <div className={styles.tokenItemGraph}>
-              <Link to={`/trade/${pegged[type].address}`}>
+              <Link to={`/buy/${pegged[type].address}`}
+                onClick={() => ReactGA.event({
+                  category: "Stablecoin",
+                  action: "Click to interest graph",
+                  label: pegged[type].interestName
+                })}>
                 <InterestToken name={pegged[type].interestName} />
               </Link>
             </div>
@@ -57,7 +68,12 @@ export const Header = ({ type, setType }) => {
         <div style={{ marginBottom: 40 }}>
           <div className={styles.tokenItem}>
             <div className={styles.tokenItemGraph}>
-              <Link to={`/trade/${pegged[type].address}`}>
+              <Link to={`/trade/${pegged[type].address}`}
+                onClick={() => ReactGA.event({
+                  category: "Stablecoin",
+                  action: "Click to growth graph",
+                  label: pegged[type].growthName
+                })}>
                 <GrowthToken name={pegged[type].growthName} />
               </Link>
             </div>
