@@ -30,7 +30,7 @@ const AppRouter = () => {
         <Route path="/how-it-works" component={HowItWorksPage} />
         <Route path="/faq" component={FaqPage} />
         <Route
-          path="/buy"
+          path="/buy/:address?"
           render={() => {
             return <BuyPage />;
           }}
