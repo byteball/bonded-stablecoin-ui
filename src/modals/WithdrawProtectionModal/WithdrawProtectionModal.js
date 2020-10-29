@@ -17,7 +17,7 @@ export const WithdrawProtectionModal = ({
     valid: undefined,
   });
   const { id, protection } = deposit;
-  const { params, deposit_aa } = useSelector((state) => state.active);
+  const { params, deposit_aa, reserve_asset_symbol } = useSelector((state) => state.active);
   const { reserve_asset, reserve_asset_decimals } = params;
 
   const amountInput = useRef(null);
@@ -101,7 +101,7 @@ export const WithdrawProtectionModal = ({
             suffix={
               reserve_asset in config.reserves
                 ? config.reserves[reserve_asset].name
-                : "reserve token"
+                : reserve_asset_symbol || "reserve token"
             }
             onKeyPress={(ev) => {
               if (ev.key === "Enter") {
@@ -117,7 +117,7 @@ export const WithdrawProtectionModal = ({
               Max. withdrawal: {protection / 10 ** reserve_asset_decimals}{" "}
               {reserve_asset in config.reserves
                 ? config.reserves[reserve_asset].name
-                : "reserve token"}
+                : reserve_asset_symbol || "reserve token"}
             </Text>
           )}
         </Form.Item>

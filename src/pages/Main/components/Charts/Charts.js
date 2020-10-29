@@ -12,7 +12,7 @@ import { useWindowSize } from 'hooks/useWindowSize';
 const { Title } = Typography;
 
 export const Charts = ({ params }) => {
-  const { symbol1, symbol2, address } = useSelector((state) => state.active);
+  const { symbol1, symbol2, address, reserve_asset_symbol } = useSelector((state) => state.active);
   const [width] = useWindowSize();
   const now = moment().format('YYYY-MM-DD');
   const chartRef = useRef(null);
@@ -21,7 +21,7 @@ export const Charts = ({ params }) => {
       ? 'GBYTE'
       : params.reserve_asset in config.reserves
         ? config.reserves[params.reserve_asset].name
-        : params.reserve_asset;
+        : reserve_asset_symbol || params.reserve_asset;
   const inUSD = reserveToken === 'GBYTE';
   const [lineSeriesT1, setLineSeriesT1] = useState(null);
   const [lineSeriesT2, setLineSeriesT2] = useState(null);

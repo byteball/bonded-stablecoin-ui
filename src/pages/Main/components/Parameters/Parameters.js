@@ -27,6 +27,7 @@ export const Parameters = () => {
     symbol1,
     symbol2,
     symbol3,
+    reserve_asset_symbol
   } = active;
   return (
     <div>
@@ -34,9 +35,8 @@ export const Parameters = () => {
 
       <div style={{ marginBottom: 10 }}>
         <a
-          href={`https://${
-            config.TESTNET ? "testnet" : ""
-          }explorer.obyte.org/#${active.address}`}
+          href={`https://${config.TESTNET ? "testnet" : ""
+            }explorer.obyte.org/#${active.address}`}
           target="_blank"
           rel="noopener"
         >
@@ -50,18 +50,10 @@ export const Parameters = () => {
           </Title>
           <CurveParameters
             params={params}
-            asset1={stable_state.asset1}
-            asset2={stable_state.asset2}
-            asset={deposit_state.asset}
             oracleValue1={oracleValue1}
             oracleValue2={oracleValue2}
             oracleValue3={oracleValue3}
-            symbol1={symbol1}
-            symbol2={symbol2}
-            symbol3={symbol3}
-            curve_aa={address}
-            deposit_aa={deposit_aa}
-            governance_aa={governance_aa}
+            reserve_asset_symbol={reserve_asset_symbol}
           />
           <Title level={4} type="secondary">
             Autonomous Agents

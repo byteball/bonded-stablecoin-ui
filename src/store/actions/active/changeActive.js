@@ -63,6 +63,11 @@ export const changeActive = (address) => async (dispatch, getState, socket) => {
     depositInfo.asset
   );
 
+  const symbolByReserveAsset = (config.reserves[params.reserve_asset] && config.reserves[params.reserve_asset].name) || await socket.api.getSymbolByAsset(
+    config.TOKEN_REGISTRY,
+    params.reserve_asset
+  );
+
   const governanceDef = await socket.api.getDefinition(governance);
   const base_governance = governanceDef[1].base_aa;
 
@@ -82,6 +87,9 @@ export const changeActive = (address) => async (dispatch, getState, socket) => {
       base_governance,
       reservePrice,
       oraclePrice,
+      reserve_asset_symbol:
+        symbolByReserveAsset !== params.reserve_asset.replace(/[+=]/, "").substr(0, 6) &&
+        symbolByReserveAsset,
       symbol1:
         symbolByAsset1 !== stableInfo.asset1.replace(/[+=]/, "").substr(0, 6) &&
         symbolByAsset1,
