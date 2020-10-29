@@ -63,7 +63,7 @@ export const changeActive = (address) => async (dispatch, getState, socket) => {
     depositInfo.asset
   );
 
-  const symbolByReserveAsset = config.reserves[params.reserve_asset] || await socket.api.getSymbolByAsset(
+  const symbolByReserveAsset = (config.reserves[params.reserve_asset] && config.reserves[params.reserve_asset].name) || await socket.api.getSymbolByAsset(
     config.TOKEN_REGISTRY,
     params.reserve_asset
   );
