@@ -27,7 +27,7 @@ export const Parameters = () => {
     symbol1,
     symbol2,
     symbol3,
-    symbol_reserve_asset
+    reserve_asset_symbol
   } = active;
   return (
     <div>
@@ -53,7 +53,7 @@ export const Parameters = () => {
             oracleValue1={oracleValue1}
             oracleValue2={oracleValue2}
             oracleValue3={oracleValue3}
-            symbol_reserve_asset={symbol_reserve_asset}
+            reserve_asset_symbol={reserve_asset_symbol}
           />
           <Title level={4} type="secondary">
             Autonomous Agents

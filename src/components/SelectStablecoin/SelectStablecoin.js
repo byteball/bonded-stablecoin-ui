@@ -3,7 +3,6 @@ import { Select, Row } from "antd";
 import { useSelector, useDispatch } from "react-redux";
 import { changeActive } from "store/actions/active/changeActive";
 import { Decimal } from "decimal.js";
-import config from "config";
 
 const { OptGroup } = Select;
 

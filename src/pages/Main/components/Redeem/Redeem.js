@@ -16,7 +16,7 @@ export const Redeem = () => {
     symbol2,
     reservePrice,
     oraclePrice,
-    symbol_reserve_asset
+    reserve_asset_symbol
   } = useSelector((state) => state.active);
   const { activeWallet } = useSelector((state) => state.settings);
   const [tokens, setTokens] = useState([]);
@@ -35,7 +35,7 @@ export const Redeem = () => {
         symbol={symbol1}
         setTokens={setTokens}
         stable_state={stable_state}
-        symbol_reserve_asset={symbol_reserve_asset}
+        reserve_asset_symbol={reserve_asset_symbol}
         actualParams={actualParams}
         activeWallet={activeWallet}
         reservePrice={reservePrice}
@@ -51,7 +51,7 @@ export const Redeem = () => {
         symbol={symbol2}
         setTokens={setTokens}
         stable_state={stable_state}
-        symbol_reserve_asset={symbol_reserve_asset}
+        reserve_asset_symbol={reserve_asset_symbol}
         actualParams={actualParams}
         reservePrice={reservePrice}
         activeWallet={activeWallet}

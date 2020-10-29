@@ -14,7 +14,7 @@ export const RedeemToken = ({
   address,
   activeWallet,
   stable_state,
-  symbol_reserve_asset,
+  reserve_asset_symbol,
   reservePrice,
   symbol,
   type,
@@ -82,7 +82,7 @@ export const RedeemToken = ({
     extra = `You will get ${(
       exchange.payout /
       10 ** reserve_asset_decimals
-    ).toFixed(reserve_asset_decimals)} ${config.reserves[reserve_asset] ? config.reserves[reserve_asset].name : symbol_reserve_asset || ""
+    ).toFixed(reserve_asset_decimals)} ${config.reserves[reserve_asset] ? config.reserves[reserve_asset].name : reserve_asset_symbol || ""
       } `;
   } else if (exchange && exchange.payout < 0) {
     extra =

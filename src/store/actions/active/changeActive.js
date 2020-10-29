@@ -87,7 +87,7 @@ export const changeActive = (address) => async (dispatch, getState, socket) => {
       base_governance,
       reservePrice,
       oraclePrice,
-      symbol_reserve_asset:
+      reserve_asset_symbol:
         symbolByReserveAsset !== params.reserve_asset.replace(/[+=]/, "").substr(0, 6) &&
         symbolByReserveAsset,
       symbol1:

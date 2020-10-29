@@ -28,7 +28,7 @@ export const MainPage = () => {
     address,
     stable_state,
     deposit_state,
-    symbol_reserve_asset,
+    reserve_asset_symbol,
     params,
     symbol1,
     symbol2,
@@ -171,7 +171,7 @@ export const MainPage = () => {
                 address={address}
                 stable_state={stable_state}
                 params={actualParams}
-                symbol_reserve_asset={symbol_reserve_asset}
+                reserve_asset_symbol={reserve_asset_symbol}
               />
             </TabPane>
 

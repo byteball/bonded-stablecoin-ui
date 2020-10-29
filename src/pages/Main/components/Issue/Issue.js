@@ -23,7 +23,7 @@ export const Issue = () => {
     symbol3,
     reservePrice,
     oraclePrice,
-    symbol_reserve_asset
+    reserve_asset_symbol
   } = useSelector((state) => state.active);
 
   const [validFields, setValidFields] = useState({
@@ -243,7 +243,7 @@ export const Issue = () => {
                     ? (reservePrice
                       ? config.reserves[actualParams.reserve_asset].feedCurrency
                       : config.reserves[actualParams.reserve_asset].name)
-                    : symbol_reserve_asset || "")}
+                    : reserve_asset_symbol || "")}
               </span>
             }
             disabled={enableHelp || !reserve}
@@ -274,7 +274,7 @@ export const Issue = () => {
                     ? (reservePrice
                       ? config.reserves[actualParams.reserve_asset].feedCurrency
                       : config.reserves[actualParams.reserve_asset].name)
-                    : symbol_reserve_asset || "")}
+                    : reserve_asset_symbol || "")}
               </span>
             }
             placeholder={`Amount of tokens2 (${symbol2 || stable_state.asset2
@@ -385,7 +385,7 @@ export const Issue = () => {
                   ? " GB"
                   : config.reserves[actualParams.reserve_asset]
                     ? config.reserves[actualParams.reserve_asset].name
-                    : symbol_reserve_asset || ""}
+                    : reserve_asset_symbol || ""}
               </Button>
               {isActiveIssue && (
                 <div>
@@ -394,7 +394,7 @@ export const Issue = () => {
                     ? (reservePrice
                       ? config.reserves[actualParams.reserve_asset].feedCurrency
                       : config.reserves[actualParams.reserve_asset].name)
-                    : symbol_reserve_asset || ""}
+                    : reserve_asset_symbol || ""}
                 </div>
               )}
             </Space>

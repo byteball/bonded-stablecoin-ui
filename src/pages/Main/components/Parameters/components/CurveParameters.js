@@ -7,7 +7,7 @@ export const CurveParameters = ({
   oracleValue1,
   oracleValue2,
   oracleValue3,
-  symbol_reserve_asset
+  reserve_asset_symbol
 }) => {
   const {
     oracle1,
@@ -163,7 +163,7 @@ export const CurveParameters = ({
           ? "GBYTE"
           : config.reserves[reserve_asset]
             ? config.reserves[reserve_asset].name
-            : symbol_reserve_asset || ''}</span>
+            : reserve_asset_symbol || ''}</span>
       </div>
 
       <div className={styles.param}>
