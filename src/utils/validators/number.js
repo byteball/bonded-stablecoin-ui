@@ -36,7 +36,7 @@ export default (
           ) {
             onSuccess && onSuccess();
             return Promise.resolve();
-          } else if (maxDecimals === undefined) {
+          } else if (!maxDecimals) {
             onSuccess && onSuccess();
             return Promise.resolve();
           } else {
