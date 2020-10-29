@@ -323,7 +323,7 @@ export const ExchangeForm = () => {
                   GBYTE
                 </Select.Option>
                 {popularCurrencies.filter(
-                  (c) => allCurrencies.includes(c)
+                  (c) => 1 // allCurrencies.includes(c)
                 ).sort().map((c) => (
                   <Select.Option key={"c-" + c} value={c}>
                     {c.toUpperCase()}
