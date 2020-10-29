@@ -15,6 +15,7 @@ export const DepositsItem = ({
   setAddProtection,
   item,
   reserve_asset_decimals,
+  symbol_reserve_asset,
   reserve_asset,
   timestamp,
   width,
@@ -92,7 +93,7 @@ export const DepositsItem = ({
               ? "GBYTE"
               : config.reserves[reserve_asset]
                 ? config.reserves[reserve_asset].name
-                : ''}{" "}
+                : symbol_reserve_asset || ''}{" "}
           </>
         ) : (
             "-"

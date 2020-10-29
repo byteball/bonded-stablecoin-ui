@@ -28,6 +28,7 @@ export const MainPage = () => {
     address,
     stable_state,
     deposit_state,
+    symbol_reserve_asset,
     params,
     symbol1,
     symbol2,
@@ -53,20 +54,20 @@ export const MainPage = () => {
   }, [currentTab]);
 
   useEffect(() => {
-    if(address){
+    if (address) {
       const tab = location.hash ? location.hash.slice(1) : undefined;
       if (tab) {
-        if("reserve" in stable_state){
+        if ("reserve" in stable_state) {
           setCurrentTab(tab);
         } else {
-          if(["buy", "parameters"].includes(tab)){
+          if (["buy", "parameters"].includes(tab)) {
             setCurrentTab(tab);
           } else {
             setCurrentTab("buy");
           }
         }
       } else if (!tab) {
-        if("reserve" in stable_state){
+        if ("reserve" in stable_state) {
           setCurrentTab("charts");
         } else {
           setCurrentTab("buy");
@@ -109,7 +110,7 @@ export const MainPage = () => {
             onChange={(key) => setCurrentTab(key)}
             animated={false}
           >
-             <TabPane
+            <TabPane
               disabled={!("reserve" in stable_state)}
               tab={
                 <span>
@@ -118,7 +119,7 @@ export const MainPage = () => {
               }
               key="charts"
             >
-              <Charts params={actualParams}/>
+              <Charts params={actualParams} />
             </TabPane>
             <TabPane
               tab={
@@ -138,12 +139,12 @@ export const MainPage = () => {
                   </Col>
                 </Row>
               ) : (
-                <Row style={{ marginTop: 20 }}>
-                  <Col span={18}>
-                    <Issue />
-                  </Col>
-                </Row>
-              )}
+                  <Row style={{ marginTop: 20 }}>
+                    <Col span={18}>
+                      <Issue />
+                    </Col>
+                  </Row>
+                )}
             </TabPane>
             <TabPane
               disabled={!("reserve" in stable_state)}
@@ -170,6 +171,7 @@ export const MainPage = () => {
                 address={address}
                 stable_state={stable_state}
                 params={actualParams}
+                symbol_reserve_asset={symbol_reserve_asset}
               />
             </TabPane>
 

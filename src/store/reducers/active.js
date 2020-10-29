@@ -39,6 +39,7 @@ export const activeReducer = (state = initialState, action) => {
         symbol1: action.payload.symbol1,
         symbol2: action.payload.symbol2,
         symbol3: action.payload.symbol3,
+        symbol_reserve_asset: action.payload.symbol_reserve_asset,
         reservePrice: action.payload.reservePrice,
         oraclePrice: action.payload.oraclePrice,
         oracleValue1: action.payload.oracleValue1,

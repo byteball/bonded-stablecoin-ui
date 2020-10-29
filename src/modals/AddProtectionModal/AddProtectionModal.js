@@ -10,7 +10,7 @@ export const AddProtectionModal = ({
   activeWallet,
   deposit = {},
 }) => {
-  const { params, deposit_aa } = useSelector((state) => state.active);
+  const { params, deposit_aa, symbol_reserve_asset } = useSelector((state) => state.active);
   const [amount, setAmount] = useState({
     value: undefined,
     valid: undefined,
@@ -91,7 +91,7 @@ export const AddProtectionModal = ({
             suffix={
               reserve_asset in config.reserves
                 ? config.reserves[reserve_asset].name
-                : "reserve token"
+                : symbol_reserve_asset || "reserve token"
             }
             onKeyPress={(ev) => {
               if (ev.key === "Enter") {

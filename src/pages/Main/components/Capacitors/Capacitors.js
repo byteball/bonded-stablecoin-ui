@@ -10,7 +10,7 @@ import config from "config";
 const { Title, Text } = Typography;
 const { Countdown } = Statistic;
 
-export const Capacitors = ({ stable_state, address, params }) => {
+export const Capacitors = ({ stable_state, address, params, symbol_reserve_asset }) => {
   const [width] = useWindowSize();
   const link = generateLink(1e4, { move_capacity: 1 }, undefined, address);
   const timeToNextMovement =
@@ -27,7 +27,7 @@ export const Capacitors = ({ stable_state, address, params }) => {
   const currency =
     params.reserve_asset in config.reserves
       ? config.reserves[params.reserve_asset].name
-      : "GBYTE";
+      : symbol_reserve_asset || "";
   return (
     <div>
       <Title level={3}>Capacitors info</Title>

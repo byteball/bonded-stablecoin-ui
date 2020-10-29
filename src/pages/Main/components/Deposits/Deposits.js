@@ -38,6 +38,7 @@ export const Deposits = () => {
     stable_state,
     symbol2,
     symbol3,
+    symbol_reserve_asset
   } = useSelector((state) => state.active);
   const actualParams = getParams(params, stable_state);
   const [timestamp, setTimestamp] = useState(moment().unix());
@@ -125,7 +126,7 @@ export const Deposits = () => {
           descr={`Additional deposit in ${
             actualParams.reserve_asset in config.reserves
               ? config.reserves[actualParams.reserve_asset].name
-              : "GBYTE"
+              : symbol_reserve_asset || "reserve asset"
           } that protects the deposit from being closed by others. The deposit with the least ratio of protection to deposit amount can be closed by anybody. There is no direct loss to you when your deposit is closed but you stop receiving interest from it.`}
         />
       ),
@@ -149,7 +150,7 @@ export const Deposits = () => {
                   ? "GBYTE"
                   : config.reserves[actualParams.reserve_asset]
                     ? config.reserves[actualParams.reserve_asset].name
-                    : ''}{" "}
+                    : symbol_reserve_asset || ''}{" "}
                 ({ratio})
               </>
             ) : (
@@ -435,6 +436,7 @@ export const Deposits = () => {
               width={width}
               decimals={actualParams.decimals2}
               reserve_asset_decimals={actualParams.reserve_asset_decimals}
+              symbol_reserve_asset={symbol_reserve_asset}
               reserve_asset={actualParams.reserve_asset}
               growth_factor={growth_factor}
               activeWallet={activeWallet}

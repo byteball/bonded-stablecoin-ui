@@ -23,6 +23,7 @@ export const Issue = () => {
     symbol3,
     reservePrice,
     oraclePrice,
+    symbol_reserve_asset
   } = useSelector((state) => state.active);
 
   const [validFields, setValidFields] = useState({
@@ -111,23 +112,23 @@ export const Issue = () => {
     link =
       amount !== undefined && amount.reserve_needed !== undefined
         ? generateLink(
-            Math.ceil(amount.reserve_needed * 1.01 + 1000),
-            {
-              tokens1:
-                Number(tokens1).toFixed(params.decimals1) *
-                  10 ** params.decimals1 || undefined,
-              tokens2:
-                Number(tokens2).toFixed(params.decimals2) *
-                  10 ** params.decimals2 || undefined,
-              tokens2_to: convert ? deposit_aa : undefined,
-            },
-            activeWallet,
-            address,
-            actualParams.reserve_asset,
-            convert ? true : false
-          )
+          Math.ceil(amount.reserve_needed * 1.01 + 1000),
+          {
+            tokens1:
+              Number(tokens1).toFixed(params.decimals1) *
+              10 ** params.decimals1 || undefined,
+            tokens2:
+              Number(tokens2).toFixed(params.decimals2) *
+              10 ** params.decimals2 || undefined,
+            tokens2_to: convert ? deposit_aa : undefined,
+          },
+          activeWallet,
+          address,
+          actualParams.reserve_asset,
+          convert ? true : false
+        )
         : "";
-  } catch {}
+  } catch { }
 
   useEffect(() => {
     resetFields();
@@ -229,21 +230,20 @@ export const Issue = () => {
           ]}
         >
           <Input
-            placeholder={`Amount of tokens1 (${
-              symbol1 || stable_state.asset1
-            } — growth tokens)`}
+            placeholder={`Amount of tokens1 (${symbol1 || stable_state.asset1
+              } — growth tokens)`}
             autoComplete="off"
             suffix={
               <span style={{ color: "#ccc" }}>
                 {amount !== undefined &&
                   "≈ " +
-                    amount.amountTokens1InCurrency.toFixed(2) +
-                    " " +
-                    (config.reserves[actualParams.reserve_asset]
-                      ? (reservePrice
-                        ? config.reserves[actualParams.reserve_asset].feedCurrency
-                        : config.reserves[actualParams.reserve_asset].name)
-                      : '')}
+                  amount.amountTokens1InCurrency.toFixed(2) +
+                  " " +
+                  (config.reserves[actualParams.reserve_asset]
+                    ? (reservePrice
+                      ? config.reserves[actualParams.reserve_asset].feedCurrency
+                      : config.reserves[actualParams.reserve_asset].name)
+                    : symbol_reserve_asset || "")}
               </span>
             }
             disabled={enableHelp || !reserve}
@@ -268,18 +268,17 @@ export const Issue = () => {
               <span style={{ color: "#ccc" }}>
                 {amount !== undefined &&
                   "≈ " +
-                    amount.amountTokens2InCurrency.toFixed(2) +
-                    " " +
-                    (config.reserves[actualParams.reserve_asset]
-                      ? (reservePrice
-                        ? config.reserves[actualParams.reserve_asset].feedCurrency
-                        : config.reserves[actualParams.reserve_asset].name)
-                      : '')}
+                  amount.amountTokens2InCurrency.toFixed(2) +
+                  " " +
+                  (config.reserves[actualParams.reserve_asset]
+                    ? (reservePrice
+                      ? config.reserves[actualParams.reserve_asset].feedCurrency
+                      : config.reserves[actualParams.reserve_asset].name)
+                    : symbol_reserve_asset || "")}
               </span>
             }
-            placeholder={`Amount of tokens2 (${
-              symbol2 || stable_state.asset2
-            } — interest tokens)`}
+            placeholder={`Amount of tokens2 (${symbol2 || stable_state.asset2
+              } — interest tokens)`}
             autoComplete="off"
           />
         </Form.Item>
@@ -329,13 +328,13 @@ export const Issue = () => {
                   {priceChange.toFixed(4)}
                   {"p2" in stable_state &&
                     " (" +
-                      (changePricePercent > 0 ? "+" : "") +
-                      changePricePercent.toFixed(2) +
-                      "%)"}
+                    (changePricePercent > 0 ? "+" : "") +
+                    changePricePercent.toFixed(2) +
+                    "%)"}
                 </>
               ) : (
-                " - "
-              )}
+                  " - "
+                )}
             </Text>
           )}
           {reserve && (
@@ -350,9 +349,8 @@ export const Issue = () => {
                 Number(new_p2).toFixed(
                   actualParams.reserve_asset_decimals
                 ) +
-                  ` (${Math.abs(changeFinalPricePercent).toFixed(2)}% ${
-                    changeFinalPricePercent > 0 ? "above" : "below"
-                  } the target)`) ||
+                ` (${Math.abs(changeFinalPricePercent).toFixed(2)}% ${changeFinalPricePercent > 0 ? "above" : "below"
+                } the target)`) ||
                 "-"}
             </Text>
           )}
@@ -381,22 +379,22 @@ export const Issue = () => {
                 Send{" "}
                 {Number(
                   (amount.reserve_needed * 1.01) /
-                    10 ** params.reserve_asset_decimals
+                  10 ** params.reserve_asset_decimals
                 ).toFixed(params.reserve_asset_decimals)}{" "}
                 {params.reserve_asset === "base"
                   ? " GB"
                   : config.reserves[actualParams.reserve_asset]
                     ? config.reserves[actualParams.reserve_asset].name
-                    : ''}
+                    : symbol_reserve_asset || ""}
               </Button>
               {isActiveIssue && (
                 <div>
                   ≈ {amount.reserve_needed_in_сurrency.toFixed(2)}{" "}
                   {config.reserves[actualParams.reserve_asset]
-                      ? (reservePrice
-                        ? config.reserves[actualParams.reserve_asset].feedCurrency
-                        : config.reserves[actualParams.reserve_asset].name)
-                      : ''}
+                    ? (reservePrice
+                      ? config.reserves[actualParams.reserve_asset].feedCurrency
+                      : config.reserves[actualParams.reserve_asset].name)
+                    : symbol_reserve_asset || ""}
                 </div>
               )}
             </Space>
