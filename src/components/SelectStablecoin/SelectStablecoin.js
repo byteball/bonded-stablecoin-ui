@@ -3,7 +3,6 @@ import { Select, Row } from "antd";
 import { useSelector, useDispatch } from "react-redux";
 import { changeActive } from "store/actions/active/changeActive";
 import { Decimal } from "decimal.js";
-import config from "config";
 
 const { OptGroup } = Select;
 
@@ -43,7 +42,7 @@ export const SelectStablecoin = () => {
     const { asset_2, symbol, params, stable_state } = data[aa];
     const targetCurrency = getTargetCurrency(params, stable_state);
     const interest_rate_percent = stable_state ? Decimal.mul(stable_state.interest_rate, 100).toNumber() : null;
-    if (!recentList.includes(aa) && config.reserves[params.reserve_asset]) {
+    if (!recentList.includes(aa)) {
       optionList.push(
         <Select.Option value={aa} key={aa}>
           {targetCurrency}{interest_rate_percent ? ` ${interest_rate_percent}% interest` : ''} : {symbol || asset_2} (
@@ -53,7 +52,7 @@ export const SelectStablecoin = () => {
     }
   }
 
-  const optionListRecent = recentList.filter(aa => data[aa] && config.reserves[data[aa].params.reserve_asset]).map((aa) => {
+  const optionListRecent = recentList.filter(aa => data[aa]).map((aa) => {
     const { asset_2, symbol, params, stable_state } = data[aa];
     const targetCurrency = getTargetCurrency(params, stable_state);
     const interest_rate_percent = stable_state ? Decimal.mul(stable_state.interest_rate, 100).toNumber() : null;

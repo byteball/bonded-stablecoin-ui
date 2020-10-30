@@ -22,6 +22,7 @@ export const Statistics = ({ windowWidth }) => {
     symbol1,
     symbol2,
     symbol3,
+    reserve_asset_symbol
   } = useSelector((state) => state.active);
   const actualParams = getParams(params, stable_state);
   const [timestamp, setTimestamp] = useState(Math.floor(Date.now() / 1000));
@@ -95,7 +96,7 @@ export const Statistics = ({ windowWidth }) => {
   }
 
   const displayOraclePrice = (bPriceInversed || actualParams.leverage) ? oraclePrice : 1 / oraclePrice;
-  const reserve_symbol = reserve_asset in config.reserves && config.reserves[reserve_asset].name;
+  const reserve_symbol = reserve_asset in config.reserves ? config.reserves[reserve_asset].name : reserve_asset_symbol || "";
   const p2UnitsText = bPriceInversed ? `The shown price is the price of the reserve asset ${reserve_symbol || ''} in terms of Token2 (${symbol2 || stable_state.asset2}).` : `The shown price is the price of Token2 (${symbol2 || stable_state.asset2}) in terms of the reserve asset ${reserve_symbol || ''}.`;
   const p2Unit = bPriceInversed ? symbol2 : reserve_symbol;
 
@@ -132,7 +133,7 @@ export const Statistics = ({ windowWidth }) => {
       value: "reserve" in stable_state ? stable_state.reserve : 0,
       decimals: actualParams.reserve_asset_decimals,
       currency:
-        reserve_asset in config.reserves && config.reserves[reserve_asset].name,
+        reserve_asset in config.reserves ? config.reserves[reserve_asset].name : reserve_asset_symbol || '',
     },
     {
       title: `${symbol1 || 'T1'} price`,
@@ -140,7 +141,7 @@ export const Statistics = ({ windowWidth }) => {
         "The current price of Token1 according to the bonding curve. It depends on the supplies of Token1 and Token2. The price is shown in terms of the reserve currency.",
       value: p1 || 0,
       precision: 6,
-      currency: reserve_asset in config.reserves && config.reserves[reserve_asset].name,
+      currency: reserve_asset in config.reserves ? config.reserves[reserve_asset].name : reserve_asset_symbol || "",
     },
     {
       title: "Current price",
@@ -195,8 +196,8 @@ export const Statistics = ({ windowWidth }) => {
                       decimals={s.decimals}
                     />
                   ) : (
-                    s.precision ? Number(s.value).toPrecision(s.precision) : Number(s.value).toFixed(9)
-                  )}{" "}
+                      s.precision ? Number(s.value).toPrecision(s.precision) : Number(s.value).toFixed(9)
+                    )}{" "}
                   <span style={{ fontSize: 12, fontWeight: "normal" }}>
                     {s.currency}
                   </span>
@@ -208,9 +209,9 @@ export const Statistics = ({ windowWidth }) => {
                   >
                     {"percent" in s &&
                       "(" +
-                        (s.percent > 0 ? "+" : "") +
-                        (s.percent * 100).toFixed(4) +
-                        "%)"}
+                      (s.percent > 0 ? "+" : "") +
+                      (s.percent * 100).toFixed(4) +
+                      "%)"}
                   </span>
                 </span>
               </div>

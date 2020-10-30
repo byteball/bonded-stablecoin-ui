@@ -14,6 +14,7 @@ export const RedeemToken = ({
   address,
   activeWallet,
   stable_state,
+  reserve_asset_symbol,
   reservePrice,
   symbol,
   type,
@@ -81,9 +82,8 @@ export const RedeemToken = ({
     extra = `You will get ${(
       exchange.payout /
       10 ** reserve_asset_decimals
-    ).toFixed(reserve_asset_decimals)} ${
-      config.reserves[reserve_asset] ? config.reserves[reserve_asset].name : ""
-    } `;
+    ).toFixed(reserve_asset_decimals)} ${config.reserves[reserve_asset] ? config.reserves[reserve_asset].name : reserve_asset_symbol || ""
+      } `;
   } else if (exchange && exchange.payout < 0) {
     extra =
       "The transaction would change the price too much, please try a smaller amount";
@@ -114,8 +114,8 @@ export const RedeemToken = ({
   const changeFinalPricePercent =
     exchange && "p2" in exchange
       ? ((new_p2 - t_p2) /
-          t_p2) *
-        100
+        t_p2) *
+      100
       : 0;
 
   return (
@@ -143,9 +143,8 @@ export const RedeemToken = ({
         ]}
       >
         <Input.Search
-          placeholder={`Amount of tokens${type} (${symbol || asset} — ${
-            type === 1 ? "interest" : "growth"
-          } tokens)`}
+          placeholder={`Amount of tokens${type} (${symbol || asset} — ${type === 1 ? "interest" : "growth"
+            } tokens)`}
           autoComplete="off"
           style={{ marginBottom: 0 }}
           onKeyPress={(ev) => {
@@ -180,44 +179,44 @@ export const RedeemToken = ({
         />
       </Form.Item>
       {exchange !== undefined &&
-      exchange !== null &&
-      valid &&
-      tokens !== "" &&
-      priceChange &&
-      exchange.payout > 0 ? (
-        <div style={{ marginBottom: 20 }}>
-          <Text type="secondary" style={{ display: "block" }}>
-            <b>Fee: </b>
-            {"fee_percent" in exchange
-              ? exchange.fee_percent.toFixed(4) + "%"
-              : "0%"}
-          </Text>
-          <Text type="secondary" style={{ display: "block" }}>
-            <b>Reward: </b>
-            {"reward_percent" in exchange
-              ? exchange.reward_percent.toFixed(4) + "%"
-              : "0%"}
-          </Text>
-          {exchange && "p2" in exchange && (
+        exchange !== null &&
+        valid &&
+        tokens !== "" &&
+        priceChange &&
+        exchange.payout > 0 ? (
+          <div style={{ marginBottom: 20 }}>
             <Text type="secondary" style={{ display: "block" }}>
-              <b>Price change: </b>
-              {priceChange > 0 ? "+" : ""}
-              {priceChange.toFixed(reserve_asset_decimals) || "0"} (
-              {priceChangePercent > 0 ? "+" : ""}
-              {priceChangePercent.toFixed(2)}%)
+              <b>Fee: </b>
+              {"fee_percent" in exchange
+                ? exchange.fee_percent.toFixed(4) + "%"
+                : "0%"}
             </Text>
-          )}
+            <Text type="secondary" style={{ display: "block" }}>
+              <b>Reward: </b>
+              {"reward_percent" in exchange
+                ? exchange.reward_percent.toFixed(4) + "%"
+                : "0%"}
+            </Text>
+            {exchange && "p2" in exchange && (
+              <Text type="secondary" style={{ display: "block" }}>
+                <b>Price change: </b>
+                {priceChange > 0 ? "+" : ""}
+                {priceChange.toFixed(reserve_asset_decimals) || "0"} (
+                {priceChangePercent > 0 ? "+" : ""}
+                {priceChangePercent.toFixed(2)}%)
+              </Text>
+            )}
 
-          <Text type="secondary" style={{ display: "block" }}>
-            <b>Final price: </b>
-            {new_p2.toFixed(reserve_asset_decimals) || "0"} (
+            <Text type="secondary" style={{ display: "block" }}>
+              <b>Final price: </b>
+              {new_p2.toFixed(reserve_asset_decimals) || "0"} (
             {Math.abs(changeFinalPricePercent).toFixed(2)}%{" "}
-            {changeFinalPricePercent > 0 ? "above" : "below"} the target)
+              {changeFinalPricePercent > 0 ? "above" : "below"} the target)
           </Text>
-        </div>
-      ) : (
-        <div />
-      )}
+          </div>
+        ) : (
+          <div />
+        )}
     </Form>
   );
 };

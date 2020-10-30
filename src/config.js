@@ -116,6 +116,7 @@ let config = {
       growthName: "GRCMC",
       percent: 0,
       address: "RC6N2RHP32DBL5G2JN3OREZBSUNPV5WQ",
+      nonGbyteReserve: true,
     },
   },
 };

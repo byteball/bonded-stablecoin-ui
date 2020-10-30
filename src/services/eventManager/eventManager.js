@@ -29,6 +29,7 @@ export const eventManager = (err, result) => {
     stable_state,
     deposit_state,
     governance_state,
+    reserve_asset_symbol,
     symbol1,
     symbol2,
     symbol3,
@@ -87,18 +88,16 @@ export const eventManager = (err, result) => {
     if (isReq) {
       const { messages } = body.unit;
       const payload = getAAPayload(messages);
-      const reserveAsset = payload.reserve_asset in config.reserves ? config.reserves[payload.reserve_asset].name: payload.reserve_asset.slice(0,6) + "...";
+      const reserveAsset = payload.reserve_asset in config.reserves ? config.reserves[payload.reserve_asset].name : reserve_asset_symbol || payload.reserve_asset.slice(0, 6) + "...";
       if (isEqual(params, payload)) {
-        openNotification(`You have sent a request to create a new stablecoin pegged to ${
-          payload.feed_name1 || reserveAsset
-        } with interest ${payload.interest_rate * 100}%
+        openNotification(`You have sent a request to create a new stablecoin pegged to ${payload.feed_name1 || reserveAsset
+          } with interest ${payload.interest_rate * 100}%
         `);
 
         store.dispatch(reqIssueStablecoin());
       } else {
         openNotification(
-          `Another user sent a request to create a new stablecoin pegged to ${
-            payload.feed_name1 || reserveAsset
+          `Another user sent a request to create a new stablecoin pegged to ${payload.feed_name1 || reserveAsset
           } with interest ${payload.interest_rate * 100}%`
         );
       }
