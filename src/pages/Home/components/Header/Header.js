@@ -24,7 +24,7 @@ export const Header = ({ type, setType }) => {
         <div style={{ marginBottom: 40 }}>
           <div className={styles.tokenItem}>
             <div className={styles.tokenItemGraph}>
-              <Link to={`/trade/${pegged[type].address}`}
+              <Link to={pegged[type].nonGbyteReserve ? `/trade/${pegged[type].address}` : `/buy/${pegged[type].address}`}
                 onClick={() => ReactGA.event({
                   category: "Stablecoin",
                   action: "Click to stable graph",
