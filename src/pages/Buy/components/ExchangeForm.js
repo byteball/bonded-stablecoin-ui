@@ -282,8 +282,8 @@ export const ExchangeForm = () => {
 
   return (
     <div>
-      {allCurrencies.length === 0 && <Alert
-        message="BTC-to-GBYTE exchange service is currently unavailable, please pay with GBYTE or try again later."
+      {!exchangeRates && activeCurrency !== "gbyte" && <Alert
+        message={`${String(activeCurrency).toUpperCase()}-to-GBYTE exchange service is currently unavailable, please pay with GBYTE or try again later.`}
         type="warning"
         style={{ marginTop: 10 }}
       />}
@@ -495,6 +495,13 @@ export const ExchangeForm = () => {
                             href="https://obyte.org/#download"
                             target="_blank"
                             rel="noopener"
+                            onClick={
+                              ReactGA.event({
+                                category: "Stablecoin",
+                                action: "Install wallet (buy for other currency)",
+                                label: activeCurrency
+                              })
+                            }
                           >
                             Install Obyte wallet
                         </a>{" "}
@@ -582,7 +589,7 @@ export const ExchangeForm = () => {
                     onClick={
                       ReactGA.event({
                         category: "Stablecoin",
-                        action: "Install wallet",
+                        action: "Install wallet (buy for GBYTE)",
                         label: "GBYTE"
                       })
                     }
