@@ -579,7 +579,6 @@ export const ExchangeForm = () => {
                     href="https://obyte.org/#download"
                     target="_blank"
                     rel="noopener"
-                    type="link"
                     onClick={
                       ReactGA.event({
                         category: "Stablecoin",
