@@ -9,7 +9,8 @@ import {
   message,
   Spin,
   Form,
-  Alert
+  Alert,
+  Result
 } from "antd";
 import ReactGA from "react-ga";
 import { ArrowRightOutlined, ArrowDownOutlined } from "@ant-design/icons";
@@ -496,11 +497,13 @@ export const ExchangeForm = () => {
                             target="_blank"
                             rel="noopener"
                             onClick={
-                              ReactGA.event({
-                                category: "Stablecoin",
-                                action: "Install wallet (buy for other currency)",
-                                label: activeCurrency
-                              })
+                              () => {
+                                ReactGA.event({
+                                  category: "Stablecoin",
+                                  action: "Install wallet (buy for other currency)",
+                                  label: activeCurrency
+                                })
+                              }
                             }
                           >
                             Install Obyte wallet
@@ -530,7 +533,7 @@ export const ExchangeForm = () => {
               </>
             ) : (
               <Row justify="center" align="middle">
-                <Spin size="large" style={{ padding: 25 }} />
+                {!exchangeRates ? <Result status="warning" /> : <Spin size="large" style={{ padding: 25 }} />}
               </Row>
             )}
         </Col>
@@ -587,11 +590,13 @@ export const ExchangeForm = () => {
                     target="_blank"
                     rel="noopener"
                     onClick={
-                      ReactGA.event({
-                        category: "Stablecoin",
-                        action: "Install wallet (buy for GBYTE)",
-                        label: "GBYTE"
-                      })
+                      () => {
+                        ReactGA.event({
+                          category: "Stablecoin",
+                          action: "Install wallet (buy for GBYTE)",
+                          label: "GBYTE"
+                        })
+                      }
                     }
                   >Install</a> it if you don't have one yet.
                 </Text>
