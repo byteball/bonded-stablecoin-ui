@@ -9,6 +9,7 @@ import {
   message,
   Spin,
   Form,
+  Alert
 } from "antd";
 import ReactGA from "react-ga";
 import { ArrowRightOutlined, ArrowDownOutlined } from "@ant-design/icons";
@@ -281,6 +282,11 @@ export const ExchangeForm = () => {
 
   return (
     <div>
+      {allCurrencies.length === 0 && <Alert
+        message="BTC-to-GBYTE exchange service is currently unavailable, please pay with GBYTE or try again later."
+        type="warning"
+        style={{ marginTop: 10 }}
+      />}
       <Row style={{ marginBottom: 20, marginTop: 50 }}>
         <Col xs={{ span: 24, offset: 0 }} md={{ span: 11 }}>
           <div style={{ marginBottom: 5 }}>
@@ -567,7 +573,22 @@ export const ExchangeForm = () => {
                 <Text type="secondary" style={{ fontSize: 10 }}>
                   1% was added to protect against price volatility, you'll get
                   this amount back if the prices don't change.
-              </Text>
+                </Text>
+                <Text type="secondary" style={{ fontSize: 14, display: "block" }}>
+                  Clicking "Buy" will open your Obyte wallet.  <a
+                    href="https://obyte.org/#download"
+                    target="_blank"
+                    rel="noopener"
+                    type="link"
+                    onClick={
+                      ReactGA.event({
+                        category: "Stablecoin",
+                        action: "Install wallet",
+                        label: "GBYTE"
+                      })
+                    }
+                  >Install</a> it if you don't have one yet.
+                </Text>
               </div>
             ) : null}
         </>
