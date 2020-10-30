@@ -11,8 +11,10 @@ export const useGetRanges = (activeCurrency) => {
       if (activeCurrency !== undefined && activeCurrency !== "gbyte") {
         const rangesData = await axios.get(
           `https://api.simpleswap.io/v1/get_ranges?api_key=${config.SIMPLESWAP_API_KEY}&currency_from=${activeCurrency}&currency_to=gbyte`
-        );
-        setRanges({ min: Number(rangesData.data.min) });
+        ).catch(() => {
+          console.log("get_ranges error")
+        });
+        rangesData && setRanges({ min: Number(rangesData.data.min) });
       } else {
         setRanges({ min: undefined });
       }
