@@ -7,6 +7,7 @@ import { CapacitorParameters } from "./components/CapacitorParameters";
 import { GovernanceParameters } from "./components/GovernanceParameters";
 import { AutonomusParameters } from "./components/AutonomusParameters";
 import { TokensParameters } from "./components/TokensParameters";
+import { DepositsParameters } from "./components/DepositsParameters";
 import styles from "./Parameters.module.css";
 import { getParams } from "helpers/getParams";
 import config from "config";
@@ -85,6 +86,10 @@ export const Parameters = () => {
             Governance
           </Title>
           <GovernanceParameters params={params} />
+          <Title level={4} type="secondary">
+            Deposits
+          </Title>
+          <DepositsParameters params={params} />
         </div>
       </div>
     </div>

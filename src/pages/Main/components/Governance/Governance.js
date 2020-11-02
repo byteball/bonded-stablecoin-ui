@@ -57,6 +57,18 @@ export const Governance = () => {
     interest_rate: {
       value: actualParams["interest_rate"],
     },
+    "deposits.min_deposit_term": {
+      value: actualParams["min_deposit_term"],
+    },
+    "deposits.challenging_period": {
+      value: actualParams["challenging_period"],
+    },
+    "deposits.challenge_immunity_period": {
+      value: actualParams["challenge_immunity_period"],
+    },
+    "deposits.reporter_share": {
+      value: actualParams["reporter_share"],
+    }
   };
   let supportParamsByAddress = {};
   const governance = {};
@@ -78,7 +90,7 @@ export const Governance = () => {
         governance[param] = {
           ...governance[param],
           leader: governance_state[row],
-          value: actualParams[param],
+          value: actualParams[param] || actualParams[param.replace("deposits.", '')]
         };
       } else {
         governance[param] = {
