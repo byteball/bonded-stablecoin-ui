@@ -437,6 +437,7 @@ export const Deposits = () => {
               decimals={actualParams.decimals2}
               reserve_asset_decimals={actualParams.reserve_asset_decimals}
               reserve_asset_symbol={reserve_asset_symbol}
+              min_deposit_term={actualParams.min_deposit_term}
               reserve_asset={actualParams.reserve_asset}
               growth_factor={growth_factor}
               activeWallet={activeWallet}
