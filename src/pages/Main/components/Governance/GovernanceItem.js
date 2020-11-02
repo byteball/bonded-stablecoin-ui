@@ -140,8 +140,8 @@ export const GovernanceItem = ({
       <Row align="top">
         <Col span={12}>
           {leader &&
-            <div>Leader: {name === "interest_rate" ? leader * 100 + "%" : leader}</div>}
-          <div>{isChoice && <div>{name === "interest_rate" ? 'My choice: ' + choice * 100 + "%" : 'My choice: ' + choice}</div>}</div>
+            <div>Leader: {name === "interest_rate" || name === "deposits.reporter_share" ? leader * 100 + "%" : leader}</div>}
+          <div>{isChoice && <div>{name === "interest_rate" || name === "deposits.reporter_share" ? 'My choice: ' + choice * 100 + "%" : 'My choice: ' + choice}</div>}</div>
         </Col>
         {challengingPeriod ? (
           <Col
