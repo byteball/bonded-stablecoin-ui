@@ -11,7 +11,7 @@ export const DepositsParameters = ({ params }) => {
     reporter_share
   } = params;
 
-  return <div>
+  return <div style={{ marginBottom: 20 }}>
     <div className={styles.param}>
       <div className={styles.labelWrap}>
         <Label

@@ -37,7 +37,7 @@ export const GovernanceItem = ({
   const [selectedParam, setSelectedParam] = useState(undefined);
   const [activeSupportValue, setActiveSupportValue] = useState(undefined);
   const [isExpired, setIsExpired] = useState(false);
-  const nameView = name.split("_").join(" ").replace("deposits.", '');
+  const nameView = name.split("_").join(" ").replace(".", ': ');
   const now = Date.now();
   const source = [];
   const supportsByValue = {};
@@ -253,7 +253,7 @@ export const GovernanceItem = ({
         value={
           selectedParam &&
           String(
-            name === "interest_rate"
+            name === "interest_rate" || name === "deposits.reporter_share"
               ? selectedParam.value * 100
               : selectedParam.value
           )

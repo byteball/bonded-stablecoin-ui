@@ -79,6 +79,10 @@ export const Parameters = () => {
         </div>
         <div className={styles.column}>
           <Title level={4} type="secondary">
+            Deposits
+          </Title>
+          <DepositsParameters params={params} />
+          <Title level={4} type="secondary">
             Capacitor
           </Title>
           <CapacitorParameters params={params} />
@@ -86,10 +90,6 @@ export const Parameters = () => {
             Governance
           </Title>
           <GovernanceParameters params={params} />
-          <Title level={4} type="secondary">
-            Deposits
-          </Title>
-          <DepositsParameters params={params} />
         </div>
       </div>
     </div>
