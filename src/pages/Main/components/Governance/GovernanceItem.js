@@ -37,7 +37,7 @@ export const GovernanceItem = ({
   const [selectedParam, setSelectedParam] = useState(undefined);
   const [activeSupportValue, setActiveSupportValue] = useState(undefined);
   const [isExpired, setIsExpired] = useState(false);
-  const nameView = name.split("_").join(" ");
+  const nameView = name.split("_").join(" ").replace(".", ': ');
   const now = Date.now();
   const source = [];
   const supportsByValue = {};
@@ -78,7 +78,7 @@ export const GovernanceItem = ({
       dataIndex: "value",
       key: "value",
       render: (value) => {
-        if (name === "interest_rate") {
+        if (name === "interest_rate" || name === "deposits.reporter_share") {
           return value * 100 + "%";
         } else {
           return value;
@@ -112,6 +112,13 @@ export const GovernanceItem = ({
       },
     },
   ];
+  let description;
+  if (!name.includes("deposits.") && name in paramsDescription) {
+    description = paramsDescription[name];
+  } else if (name.replace("deposits.", '') in paramsDescription) {
+    description = paramsDescription[name.replace("deposits.", "")];
+  }
+
   return (
     <div className={styles.itemWrap}>
       <Row>
@@ -119,24 +126,22 @@ export const GovernanceItem = ({
           <div className={styles.itemName}>
             <Label
               label={nameView}
-              descr={
-                name in paramsDescription ? paramsDescription[name] : undefined
-              }
+              descr={description}
             />
           </div>
         </Col>
         <Col span={12}>
           <div className={styles.itemCurrent}>
             Current value:{" "}
-            {name === "interest_rate" ? value * 100 + "%" : value}
+            {name === "interest_rate" || name === "deposits.reporter_share" ? value * 100 + "%" : value}
           </div>
         </Col>
       </Row>
       <Row align="top">
         <Col span={12}>
           {leader &&
-            <div>Leader: {name === "interest_rate" ? leader * 100 + "%" : leader}</div>}
-          <div>{isChoice && <div>{name === "interest_rate" ? 'My choice: ' + choice * 100 + "%" : 'My choice: ' + choice}</div>}</div>
+            <div>Leader: {name === "interest_rate" || name === "deposits.reporter_share" ? leader * 100 + "%" : leader}</div>}
+          <div>{isChoice && <div>{name === "interest_rate" || name === "deposits.reporter_share" ? 'My choice: ' + choice * 100 + "%" : 'My choice: ' + choice}</div>}</div>
         </Col>
         {challengingPeriod ? (
           <Col
@@ -248,7 +253,7 @@ export const GovernanceItem = ({
         value={
           selectedParam &&
           String(
-            name === "interest_rate"
+            name === "interest_rate" || name === "deposits.reporter_share"
               ? selectedParam.value * 100
               : selectedParam.value
           )

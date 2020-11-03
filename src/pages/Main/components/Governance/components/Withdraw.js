@@ -23,7 +23,7 @@ export const Withdraw = ({ choiceParams, balance, symbol }) => {
       {choiceParams.length > 0 && (
         <p>
           To be able to withdraw, you need to remove support from these fields:{" "}
-          {choiceParams.join(", ")}.
+          {choiceParams.join(", ").replace("deposits.", '')}.
         </p>
       )}
 

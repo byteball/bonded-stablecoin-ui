@@ -155,7 +155,7 @@ export const MainPage = () => {
               }
               key="deposits"
             >
-              <Deposits />
+              <Deposits params={actualParams} />
             </TabPane>
             <TabPane
               disabled={!("reserve" in stable_state)}

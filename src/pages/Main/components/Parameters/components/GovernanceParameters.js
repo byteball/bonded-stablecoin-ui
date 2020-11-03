@@ -13,7 +13,7 @@ export const GovernanceParameters = ({ params }) => {
   } = params;
 
   return (
-    <div style={{ marginBottom: 20 }}>
+    <div>
       <div className={styles.param}>
         <div className={styles.labelWrap}>
           <Label

@@ -15,6 +15,7 @@ export const DepositsItem = ({
   setAddProtection,
   item,
   reserve_asset_decimals,
+  min_deposit_term,
   reserve_asset_symbol,
   reserve_asset,
   timestamp,
@@ -146,7 +147,7 @@ export const DepositsItem = ({
             (interest_recipient
               ? activeWallet !== interest_recipient
               : activeWallet !== owner) ||
-            ts + 2 * 3600 > timestamp ||
+            ts + min_deposit_term > timestamp ||
             close_interest
           }
         >
