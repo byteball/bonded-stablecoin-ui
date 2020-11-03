@@ -53,6 +53,22 @@ export const ChangeParamsModal = ({
       rule:
         "The value of the interest_rate (as a percentage) parameter must be greater than or equal to 0",
     },
+    "deposits.min_deposit_term": {
+      validator: (value) => value >= 0 && Number.isInteger(Number(value)),
+      rule: "The value of the min_deposit_term parameter must be an integer greater than or equal to 0"
+    },
+    "deposits.challenging_period": {
+      validator: (value) => value >= 0 && Number.isInteger(Number(value)),
+      rule: "The value of the challenging_period parameter must be an integer greater than or equal to 0"
+    },
+    "deposits.challenge_immunity_period": {
+      validator: (value) => value >= 0 && Number.isInteger(Number(value)),
+      rule: "The value of the challenge_immunity_period parameter must be an integer greater than or equal to 0"
+    },
+    "deposits.reporter_share": {
+      validator: (value) => value >= 0 && value <= 100,
+      rule: "The value of the reporter_share (as a percentage) parameter must be in the range from 0 to 100"
+    }
   };
   const [amount, setAmount] = useState({
     value: undefined,
@@ -121,7 +137,7 @@ export const ChangeParamsModal = ({
     {
       name: param,
       value:
-        param === "interest_rate" ? paramValue.value / 100 : paramValue.value,
+        param === "interest_rate" || param === "deposits.reporter_share" ? paramValue.value / 100 : paramValue.value,
     },
     activeWallet,
     governance_aa,
@@ -160,7 +176,7 @@ export const ChangeParamsModal = ({
 
   return (
     <Modal
-      title={`Change ${param || "param"}`}
+      title={`Change ${param.replace("deposits.", '').replace("_", ' ') || "param"}`}
       visible={visible}
       onCancel={onCancel}
       footer={
@@ -199,7 +215,7 @@ export const ChangeParamsModal = ({
               <Text type="secondary">
                 <b>
                   Your support in favor of{" "}
-                  {param === "interest_rate"
+                  {param === "interest_rate" || param === "deposits.reporter_share"
                     ? supportParamsByAddress.value * 100 + "%"
                     : supportParamsByAddress.value}
                   :
@@ -216,11 +232,11 @@ export const ChangeParamsModal = ({
           help={((!paramValue.valid && paramValue.value !== undefined) || validationStatus === false) ? validateParams[param].rule : undefined}
         >
           <Input
-            placeholder={param}
+            placeholder={param.replace("deposits.", '').replace("_", ' ')}
             autoComplete="off"
             autoFocus={!isMyVote}
             disabled={isMyVote}
-            suffix={param === "interest_rate" ? "%" : undefined}
+            suffix={param === "interest_rate" || param === "deposits.reporter_share" ? "%" : undefined}
             ref={valueInput}
             onChange={handleChangeParamValue}
             value={paramValue.value}
@@ -253,7 +269,7 @@ export const ChangeParamsModal = ({
             <Text type="secondary">
               <b>
                 Total support for {Math.trunc(paramValue.value * 10 ** decimals) / 10 ** decimals || 0}
-                {param === "interest_rate" ? "%" : ""}:{" "}
+                {param === "interest_rate" || param === "deposits.reporter_share" ? "%" : ""}:{" "}
               </b>
               {totalSupport} {symbol || "tokens1"}
             </Text>
@@ -266,7 +282,7 @@ export const ChangeParamsModal = ({
             <Text type="secondary">
               <b>
                 Your support for {Math.trunc(paramValue.value * 10 ** decimals) / 10 ** decimals || 0}
-                {param === "interest_rate" ? "%" : ""}:{" "}
+                {param === "interest_rate" || param === "deposits.reporter_share" ? "%" : ""}:{" "}
               </b>
               {Number(amount.value || 0) + (balance || 0)} {symbol || "tokens1"}
             </Text>

@@ -6,22 +6,24 @@ export const governanceEventManager = ({
   isAuthor,
   governance_state,
 }) => {
-  const i = payload.name === "interest_rate";
+  const asPercentage = payload.name === "interest_rate" || payload.name === "reporter_share";
+  const name = "name" in payload ? payload.name.replace("deposits.", "") : undefined;
+  
   if (isReq) {
     if ("commit" in payload && "name" in payload) {
       const leader = governance_state["leader_" + payload.name];
       if (leader) {
         if (isAuthor) {
           openNotification(
-            `You sent a request to commit a new value of ${payload.name}: ${
-              i ? leader * 100 + "%" : leader
+            `You sent a request to commit a new value of ${name}: ${
+              asPercentage ? leader * 100 + "%" : leader
             }`
           );
         } else {
           openNotification(
             `Another user sent a request to commit the new value of ${
-              payload.name
-            }: ${i ? leader * 100 + "%" : leader}`
+              name
+            }: ${asPercentage ? leader * 100 + "%" : leader}`
           );
         }
       }
@@ -29,14 +31,14 @@ export const governanceEventManager = ({
       if (isAuthor) {
         openNotification(
           `You have sent a request to add support for the  ${
-            payload.name
-          } value of ${i ? payload.value * 100 + "%" : payload.value}`
+            name
+          } value of ${asPercentage ? payload.value * 100 + "%" : payload.value}`
         );
       } else {
         openNotification(
           `Another user sent a request to add support for the ${
-            payload.name
-          } value of ${i ? payload.value * 100 + "%" : payload.value}`
+            name
+          } value of ${asPercentage ? payload.value * 100 + "%" : payload.value}`
         );
       }
     } else if ("withdraw" in payload) {
