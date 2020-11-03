@@ -1,5 +1,6 @@
 import React from "react";
 
+import { paramsDescription } from "pages/Create/paramsDescription";
 import { Label } from "components/Label/Label";
 import styles from "../Parameters.module.css";
 
@@ -15,8 +16,7 @@ export const DepositsParameters = ({ params }) => {
     <div className={styles.param}>
       <div className={styles.labelWrap}>
         <Label
-          descr="Minimum deposit term in seconds. 
-          During this period, the deposit cannot be closed."
+          descr={paramsDescription.min_deposit_term}
           label="Min deposit term"
         />
         <span className={styles.semi}>:</span>
@@ -27,10 +27,7 @@ export const DepositsParameters = ({ params }) => {
     <div className={styles.param}>
       <div className={styles.labelWrap}>
         <Label
-          descr="The period in seconds when a deposit close attempt can be challenged. 
-          The deposit with the least protection can be closed by anybody, not just the owner. 
-          An attempt to close it starts a challenging period during which the close can be challenged by indicating another deposit with even less protection. 
-          In this case, the reporter earns part of the deposit amount while the closer loses."
+          descr={paramsDescription.challenging_period}
           label="Challenging period"
         />
         <span className={styles.semi}>:</span>
@@ -41,8 +38,7 @@ export const DepositsParameters = ({ params }) => {
     <div className={styles.param}>
       <div className={styles.labelWrap}>
         <Label
-          descr="The additional period in seconds during which a deposit cannot be used for challenging the closes of other deposits. 
-          This period applies after the minimum deposit term and after the last protection withdrawal of the less protected deposit."
+          descr={paramsDescription.challenge_immunity_period}
           label="Challenge immunity period"
         />
         <span className={styles.semi}>:</span>
@@ -53,7 +49,7 @@ export const DepositsParameters = ({ params }) => {
     <div className={styles.param}>
       <div className={styles.labelWrap}>
         <Label
-          descr="The share of the deposit amount paid to users who report invalid close attempts when a deposit to be closed is not the least protected."
+          descr={paramsDescription.reporter_share}
           label="Reporter share"
         />
         <span className={styles.semi}>:</span>
