@@ -128,7 +128,11 @@ let config = {
     "JPQKPRI5FMTQRJF4ZZMYZYDQVRD55OTC":{
       name: "Cryptocurrency oracle",
       description: "The oracle is operated by Tony Churyumoff, the founder of Obyte, since 2017. It is also an Order Provider on Obyte network."
-    }
+    },
+    "DXYWHSZ72ZDNDZ7WYZXKWBBH425C6WZN":{
+      name: "Precious metals oracle",
+      description: "The oracle is operated by Bind Creative. It is also an Order Provider on Obyte network."
+    },
   }
 };
 

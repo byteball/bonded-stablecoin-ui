@@ -38,7 +38,7 @@ export const CurveParameters = ({
 
   return (
     <div style={{ marginBottom: 20 }}>
-      {((oracles && oracles[1]) || oracle2) && (
+      {((oracles && oracles[0]) || oracle1) && (
         <>
           <div className={styles.param}>
             <div className={styles.labelWrap}>
@@ -46,7 +46,6 @@ export const CurveParameters = ({
                 descr="Address of the oracle that reports the price for the stable token"
                 label="Oracle 1"
               />
-
               <span className={styles.semi}>:</span>
             </div>
             <span>
@@ -58,6 +57,7 @@ export const CurveParameters = ({
             <div className={styles.labelWrap}>
               <Label descr="Name of the oracle’s data feed" label="Feed name 1" />
             </div>
+
             <span className={styles.semi}>:</span>
             <span>
               {oracles ? oracles[0].feed_name : feed_name1} (Latest value:{" "}
