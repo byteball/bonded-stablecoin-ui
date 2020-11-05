@@ -38,43 +38,45 @@ export const CurveParameters = ({
 
   return (
     <div style={{ marginBottom: 20 }}>
-      <div className={styles.param}>
-        <div className={styles.labelWrap}>
-          <Label
-            descr="Address of the oracle that reports the price for the stable token"
-            label="Oracle 1"
-          />
+      {((oracles && oracles[1]) || oracle2) && (
+        <>
+          <div className={styles.param}>
+            <div className={styles.labelWrap}>
+              <Label
+                descr="Address of the oracle that reports the price for the stable token"
+                label="Oracle 1"
+              />
 
-          <span className={styles.semi}>:</span>
-        </div>
-        <span>
-          {oracles ? oracles[0].oracle : oracle1}
-          <Button type="link" size="small" onClick={()=>setActiveOracle(oracles ? oracles[0].oracle : oracle1)}>(Show info)</Button>
-        </span>
-      </div>
-      <div className={styles.param}>
-        <div className={styles.labelWrap}>
-          <Label descr="Name of the oracle’s data feed" label="Feed name 1" />
-        </div>
-        <span className={styles.semi}>:</span>
-        <span>
-          {oracles ? oracles[0].feed_name : feed_name1} (Latest value:{" "}
-          {oracleValue1})
-        </span>
-      </div>
+              <span className={styles.semi}>:</span>
+            </div>
+            <span>
+              {oracles ? oracles[0].oracle : oracle1}
+              <Button type="link" size="small" onClick={()=>setActiveOracle(oracles ? oracles[0].oracle : oracle1)}>(Show info)</Button>
+            </span>
+          </div>
+          <div className={styles.param}>
+            <div className={styles.labelWrap}>
+              <Label descr="Name of the oracle’s data feed" label="Feed name 1" />
+            </div>
+            <span className={styles.semi}>:</span>
+            <span>
+              {oracles ? oracles[0].feed_name : feed_name1} (Latest value:{" "}
+              {oracleValue1})
+            </span>
+          </div>
 
-      <div className={styles.param}>
-        <div className={styles.labelWrap}>
-          <Label
-            descr="How the oracle’s price is interpreted: use ‘*’ if the oracle reports the price of the reserve currency in terms of the stable currency (this is the default). Use ‘/’ if it is the reverse, i.e. the price of the stable token in terms of the reserve asset."
-            label="Operation 1"
-          />
+          <div className={styles.param}>
+            <div className={styles.labelWrap}>
+              <Label
+                descr="How the oracle’s price is interpreted: use ‘*’ if the oracle reports the price of the reserve currency in terms of the stable currency (this is the default). Use ‘/’ if it is the reverse, i.e. the price of the stable token in terms of the reserve asset."
+                label="Operation 1"
+              />
 
-          <span className={styles.semi}>:</span>
-        </div>
-        <span>{oracles ? oracles[0].op || "*" : op1 || "*"}</span>
-      </div>
-
+              <span className={styles.semi}>:</span>
+            </div>
+            <span>{oracles ? oracles[0].op || "*" : op1 || "*"}</span>
+          </div>
+        </>)}
       {((oracles && oracles[1]) || oracle2) && (
         <>
           <div className={styles.param}>
