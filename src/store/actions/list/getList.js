@@ -15,14 +15,27 @@ export const getList = () => async (dispatch, getState, socket) => {
     type: LOAD_LIST_REQUEST,
   });
 
-  await socket.justsaying("light/new_aa_to_watch", {
-    aa: config.FACTORY_AA,
-  });
+   const watchFactories = config.FACTORY_AAS.map((aa)=>{
+    return socket.justsaying("light/new_aa_to_watch", {
+      aa,
+    });
+   });
+
+   await Promise.all(watchFactories)
 
   try {
-    data = await socket.api.getAaStateVars({
-      address: config.FACTORY_AA,
-    });
+    const getStateVars = config.FACTORY_AAS.map((address)=>{
+      return socket.api.getAaStateVars({
+        address
+      });
+     });
+
+    const stateVars = await Promise.all(getStateVars);
+
+    data = stateVars.reduce((total, currentValue)=>{
+     return Object.assign(total, currentValue)
+    }, {});
+
   } catch (e) {
     console.log("Error: ", e);
     return dispatch({

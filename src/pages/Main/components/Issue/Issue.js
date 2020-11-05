@@ -135,6 +135,9 @@ export const Issue = () => {
     setValidFields((v) => ({ ...v, tokens1: false }));
     setValidFields((v) => ({ ...v, tokens2: false }));
     setEnableHelp(false);
+    setAmount(undefined);
+    setTokens1(undefined);
+    setTokens2(undefined);
   }, [address, resetFields]);
 
   let bPriceInversed = false;
@@ -289,7 +292,8 @@ export const Issue = () => {
             checked={convert}
             onChange={(e) => setConvert(e.target.checked)}
           >
-            Immediately convert {symbol2 || ""} to stable token {symbol3 || ""}
+            Immediately convert {symbol2 || ""} to stable token {symbol3 || ""}{" "}
+            {Number(tokens2) && amount ? <span>(will receive {Number(tokens2 * amount.growth_factor).toFixed(params.decimals2)} {symbol3 || "stable tokens"})</span> : null}
           </Checkbox>
         )}
 
