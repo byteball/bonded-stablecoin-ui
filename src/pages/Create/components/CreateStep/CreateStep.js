@@ -15,7 +15,7 @@ export const CreateStep = ({ data, setCurrent }) => {
   const pendings = useSelector((state) => state.pendings.stablecoin);
   const { sendReq, addressIssued } = pendings;
   const dispatch = useDispatch();
-  const link = generateLink(1.5e4, data, undefined, config.FACTORY_AA);
+  const link = generateLink(1.5e4, data, undefined, config.FACTORY_AA[config.FACTORY_AA.length - 1]);
 
   useEffect(() => {
     dispatch(pendingIssue(data));

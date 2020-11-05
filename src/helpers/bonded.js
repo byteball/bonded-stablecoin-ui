@@ -120,6 +120,7 @@ export const $get_exchange_result = ({
     rate_update_ts,
     growth_factor
   );
+  const new_growth_factor = $get_growth_factor(interest_rate, timestamp, rate_update_ts, growth_factor);
   const distance =
     initial_p2 !== undefined ? Math.abs(initial_p2 - target_p2) / target_p2 : 0;
   const new_supply1 = supply1 + tokens1;
@@ -230,5 +231,6 @@ export const $get_exchange_result = ({
     reward_percent,
     payout,
     reserve_needed_in_сurrency,
+    growth_factor: new_growth_factor,
   };
 };
