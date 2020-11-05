@@ -15,7 +15,7 @@ export const getList = () => async (dispatch, getState, socket) => {
     type: LOAD_LIST_REQUEST,
   });
 
-   const watchFactories = config.FACTORY_AA.map((aa)=>{
+   const watchFactories = config.FACTORY_AAS.map((aa)=>{
     return socket.justsaying("light/new_aa_to_watch", {
       aa,
     });
@@ -24,7 +24,7 @@ export const getList = () => async (dispatch, getState, socket) => {
    await Promise.all(watchFactories)
 
   try {
-    const getStateVars = config.FACTORY_AA.map((address)=>{
+    const getStateVars = config.FACTORY_AAS.map((address)=>{
       return socket.api.getAaStateVars({
         address
       });

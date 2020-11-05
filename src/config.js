@@ -1,6 +1,6 @@
 let config = {
   TESTNET: process.env.REACT_APP_TESTNET === "true",
-  FACTORY_AA: process.env.REACT_APP_FACTORY_AA.split(","),
+  FACTORY_AAS: process.env.REACT_APP_FACTORY_AAS.split(","),
   TOKEN_REGISTRY: process.env.REACT_APP_TOKEN_REGISTRY,
   SIMPLESWAP_API_KEY: process.env.REACT_APP_SIMPLESWAP_API_KEY,
   BUFFER_URL: process.env.REACT_APP_BUFFER_URL,

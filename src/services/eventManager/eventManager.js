@@ -84,7 +84,7 @@ export const eventManager = (err, result) => {
         }
       }
     }
-  } else if (config.FACTORY_AA.includes(aa_address)) {
+  } else if (config.FACTORY_AAS.includes(aa_address)) {
     if (isReq) {
       const { messages } = body.unit;
       const payload = getAAPayload(messages);
