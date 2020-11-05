@@ -38,7 +38,7 @@ export const Charts = ({ params }) => {
           localization: {
             timeFormatter: (time) => moment.unix(time).format('DD-MM-YYYY HH:mm')
           },
-          height: 400,
+          height: width > 640 ? 400 : 250,
           rightPriceScale: {
             visible: true,
             borderColor: 'rgba(197, 203, 206, 1)'
@@ -216,7 +216,7 @@ export const Charts = ({ params }) => {
 
   useEffect(() => {
     if (chart && chartRef.current) {
-      chart.resize(chartRef.current.clientWidth, 400);
+      chart.resize(chartRef.current.clientWidth, width > 640 ? 400 : 250);
       chart.timeScale().fitContent();
     }
   }, [width, chart]);
@@ -233,7 +233,9 @@ export const Charts = ({ params }) => {
         handleHideT1={handleHideT1}
         handleHideT2={handleHideT2}
       />
-      <div ref={chartRef} />
+      <div style={width <= 640 ? {paddingLeft: 10, paddingRight: 10, boxSizing: "border-box"} : {}}>
+        <div ref={chartRef} />
+      </div>
     </div>
   );
 };

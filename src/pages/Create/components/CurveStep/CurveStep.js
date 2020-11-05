@@ -443,7 +443,7 @@ export const CurverStep = ({ setCurrent, setData }) => {
               <Label
                 required
                 label="Reserve decimals"
-                descr="Decimals of the reserve asset units. 9 for GBYTE."
+                descr="Decimals of the reserve asset units."
               />
             }
           >

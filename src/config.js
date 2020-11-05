@@ -1,6 +1,6 @@
 let config = {
   TESTNET: process.env.REACT_APP_TESTNET === "true",
-  FACTORY_AA: process.env.REACT_APP_FACTORY_AA,
+  FACTORY_AAS: process.env.REACT_APP_FACTORY_AAS.split(","),
   TOKEN_REGISTRY: process.env.REACT_APP_TOKEN_REGISTRY,
   SIMPLESWAP_API_KEY: process.env.REACT_APP_SIMPLESWAP_API_KEY,
   BUFFER_URL: process.env.REACT_APP_BUFFER_URL,
@@ -119,6 +119,17 @@ let config = {
       nonGbyteReserve: true,
     },
   },
+  oracleInfo: process.env.REACT_APP_TESTNET === "true" ? { 
+    "F4KHJUCLJKY4JV7M5F754LAJX4EB7M4N":{
+      name: "[TESTNET] Cryptocurrency oracle",
+      description: "The oracle is operated by Tony Churyumoff, the founder of Obyte, since 2017. It is also an Order Provider on Obyte network."
+    }
+  } : {
+    "JPQKPRI5FMTQRJF4ZZMYZYDQVRD55OTC":{
+      name: "Cryptocurrency oracle",
+      description: "The oracle is operated by Tony Churyumoff, the founder of Obyte, since 2017. It is also an Order Provider on Obyte network."
+    }
+  }
 };
 
 // cleanup empty reserve .env config values

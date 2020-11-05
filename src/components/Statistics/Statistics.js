@@ -9,6 +9,7 @@ import { getParams } from "helpers/getParams";
 
 import config from "config";
 import styles from "./Statistics.module.css";
+import { DownOutlined, UpOutlined } from "@ant-design/icons";
 
 const { Text } = Typography;
 
@@ -26,6 +27,7 @@ export const Statistics = ({ windowWidth }) => {
   } = useSelector((state) => state.active);
   const actualParams = getParams(params, stable_state);
   const [timestamp, setTimestamp] = useState(Math.floor(Date.now() / 1000));
+  const [showBlock, setShowBlock] = useState(false);
   const { supply1, supply2 } = stable_state;
   const { decimals1, decimals2, reserve_asset } = actualParams;
   const { supply } = deposit_state;
@@ -166,16 +168,25 @@ export const Statistics = ({ windowWidth }) => {
     },
   ];
 
+  const rowStyle = !showBlock && windowWidth <= 640 ? {
+    height: 40,
+    opacity: 0.3,
+    overflow: "hidden",
+    paddingBottom: 0
+  } : {  marginBottom: -15 }
+
   return (
     <div
       style={{
         marginBottom: 20,
         background: "#fff",
         padding: 20,
+        display: "block",
         boxSizing: "border-box",
+        paddingBottom: !showBlock && windowWidth <= 640 ? 0 : 20
       }}
     >
-      <Row justify="start" style={{ marginBottom: -15 }}>
+      <Row justify="start" style={rowStyle}>
         {statisticsData.map((s, i) => (
           <Col
             xs={{ span: 20 }}
@@ -219,6 +230,18 @@ export const Statistics = ({ windowWidth }) => {
           </Col>
         ))}
       </Row>
+      {windowWidth <= 640 && !showBlock && <div 
+        onClick={()=>setShowBlock(true)}
+        style={{paddingTop: 10, paddingBottom: 10, textAlign: "center", cursor: "pointer"}}
+        >
+          Show info <DownOutlined/>
+        </div>}
+      {windowWidth <= 640 && showBlock && <div 
+        onClick={()=>setShowBlock(false)}
+        style={{paddingTop: 10, textAlign: "center", cursor: "pointer"}}
+        >
+          Hide info <UpOutlined/>
+      </div>}
     </div>
   );
 };
