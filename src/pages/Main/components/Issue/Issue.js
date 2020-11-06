@@ -30,7 +30,7 @@ export const Issue = () => {
     tokens1: undefined,
     tokens2: undefined,
   });
-  const { activeWallet } = useSelector((state) => state.settings);
+  const { activeWallet, referrer } = useSelector((state) => state.settings);
   const [form] = useForm();
   const [tokens1, setTokens1] = useState(undefined);
   const [tokens2, setTokens2] = useState(undefined);
@@ -121,6 +121,7 @@ export const Issue = () => {
               Number(tokens2).toFixed(params.decimals2) *
               10 ** params.decimals2 || undefined,
             tokens2_to: convert ? deposit_aa : undefined,
+            ref: referrer
           },
           activeWallet,
           address,
@@ -171,7 +172,7 @@ export const Issue = () => {
             checked={enableHelp}
             onChange={(e) => {
               setEnableHelp(e.target.checked);
-              if (!enableHelp) {
+              if (!enableHelp && amount) {
                 setTokens1(
                   Number(amount.s1init).toFixed(actualParams.decimals1)
                 );
