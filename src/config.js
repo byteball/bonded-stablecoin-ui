@@ -64,6 +64,7 @@ let config = {
       address: "YMH724SHU7D6ZM4DMSP5RHQYB7OII2QQ",
     },
     GOLD: {
+      target: "ounce of gold",
       stableName: "OAU",
       interestName: "IAU",
       growthName: "GRAU",
@@ -122,8 +123,12 @@ let config = {
   oracleInfo: process.env.REACT_APP_TESTNET === "true" ? { 
     "F4KHJUCLJKY4JV7M5F754LAJX4EB7M4N":{
       name: "[TESTNET] Cryptocurrency oracle",
-      description: "The oracle is operated by Tony Churyumoff, the founder of Obyte, since 2017. It is also an Order Provider on Obyte network."
-    }
+      description: "The oracle is operated by Tony Churyumoff, the founder of Obyte, since 2017."
+    },
+    "E2U77O5AO5UPNSKKQEDKFGKNYWQ5467H":{
+      name: "[TESTNET] Precious metals oracle",
+      description: "The oracle is operated by tarmo888, developer of Obyte."
+    },
   } : {
     "JPQKPRI5FMTQRJF4ZZMYZYDQVRD55OTC":{
       name: "Cryptocurrency oracle",
