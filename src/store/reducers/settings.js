@@ -9,6 +9,7 @@ import {
   REMOVE_EXCHANGE_PENDING,
   UPDATE_EXCHANGE_FORM,
   ADD_REFERRER,
+  FIRST_VISIT,
 } from "../types";
 
 const initialState = {
@@ -18,6 +19,7 @@ const initialState = {
   recentList: [],
   exchanges: [],
   referrer: undefined,
+  visitedBefore: false,
   exchanges_recepient: undefined,
   pendingExchanges: undefined,
   exchangesFormInit: {
@@ -49,6 +51,12 @@ export const settingsReducer = (state = initialState, action) => {
         }
       } else {
         return state;
+      }
+    }
+    case FIRST_VISIT: {
+      return {
+        ...state,
+        visitedBefore: true
       }
     }
     case CHANGE_ACTIVE_WALLET: {

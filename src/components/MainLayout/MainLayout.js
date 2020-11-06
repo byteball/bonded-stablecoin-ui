@@ -14,8 +14,9 @@ import { SelectWallet } from "../SelectWallet/SelectWallet";
 import historyInstance from "historyInstance";
 import logo from "./img/logo.svg";
 import { SelectWalletModal } from "modals/SelectWalletModal/SelectWalletModal";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addReferrer } from "store/actions/settings/addReferrer";
+import { firstVisit } from "store/actions/settings/firstVisit";
 
 const { Header, Content } = Layout;
 
@@ -25,6 +26,7 @@ export const MainLayout = (props) => {
   const [width] = useWindowSize();
   const [activeMenu, setActiveMenu] = useState(false);
   const [visibleModal, setVisibleModal] = useState(false);
+  const {visitedBefore} = useSelector(state => state.settings);
 
   useEffect(() => {
     const unlisten = historyInstance.listen((location, action) => {
@@ -39,14 +41,19 @@ export const MainLayout = (props) => {
   }, []);
 
   useEffect(()=>{
-    if(search){
+    if (search && !visitedBefore){
       const [name, address] = search.slice(1).split("=");
-      if(name === "r" && address && obyte.utils.isValidAddress(address)){
+      if (name === "r" && address && obyte.utils.isValidAddress(address)){
         dispatch(addReferrer(address));
-        if(!hash){
-          historyInstance.replace(pathname, { search: undefined })
-        }    
-      }
+      } 
+      dispatch(firstVisit());
+      if (!hash){
+        historyInstance.replace(pathname, { search: undefined })
+      } 
+    } else if (!visitedBefore){
+      dispatch(firstVisit());
+    } else if (visitedBefore && search && !hash){
+      historyInstance.replace(pathname, { search: undefined })
     }
   }, []);
 
