@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import obyte from "obyte";
 import { Layout, Drawer, Row, Button } from "antd";
 import { NavLink, Route, useLocation } from "react-router-dom";
 import ReactGA from "react-ga";
@@ -13,11 +14,14 @@ import { SelectWallet } from "../SelectWallet/SelectWallet";
 import historyInstance from "historyInstance";
 import logo from "./img/logo.svg";
 import { SelectWalletModal } from "modals/SelectWalletModal/SelectWalletModal";
+import { useDispatch } from "react-redux";
+import { addReferrer } from "store/actions/settings/addReferrer";
 
 const { Header, Content } = Layout;
 
 export const MainLayout = (props) => {
-  const { pathname } = useLocation();
+  const { pathname, search, hash } = useLocation();
+  const dispatch = useDispatch();
   const [width] = useWindowSize();
   const [activeMenu, setActiveMenu] = useState(false);
   const [visibleModal, setVisibleModal] = useState(false);
@@ -33,6 +37,19 @@ export const MainLayout = (props) => {
       unlisten();
     };
   }, []);
+
+  useEffect(()=>{
+    if(search){
+      const [name, address] = search.slice(1).split("=");
+      if(name === "r" && address && obyte.utils.isValidAddress(address)){
+        dispatch(addReferrer(address));
+        if(!hash){
+          historyInstance.replace(pathname, { search: undefined })
+        }    
+      }
+    }
+  }, []);
+
   return (
     <Layout style={{ minHeight: "100vh" }}>
       <Header
