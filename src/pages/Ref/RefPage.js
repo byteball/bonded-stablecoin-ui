@@ -32,10 +32,10 @@ export const RefPage = ({ setWalletModalVisibility }) => {
   const { activeWallet } = useSelector(state => state.settings);
   const [loading, setLoading] = useState(true);
   const [info, setInfo] = useState({});
-  const refUrl = `https://${config.TESTNET ? "testnet." : ""}ostable.org?r=${activeWallet}`;
+  const refUrl = `https://${config.TESTNET ? "testnet." : ""}ostable.org/?r=${activeWallet}`;
   const appInfo = {
     url: refUrl,
-    title: "Obyte bonded stablecoins",
+    title: "Obyte bonded stablecoins: earn 16% interest in USD, 11% in BTC",
     hashtag: "#obyte"
   }
   useEffect(() => {
@@ -76,7 +76,7 @@ export const RefPage = ({ setWalletModalVisibility }) => {
               <Text copyable={{ onCopy: () => message.success('Your link was copied to the clipboard') }}>{refUrl}</Text>
             </div>
           </div>
-        </div> : <div className={styles.urlWrap_empty}>To get a referral link, <span onClick={setWalletModalVisibility} className={styles.addWallet}>add your wallet address</span></div>}
+        </div> : <div className={styles.urlWrap_empty}>To get a referral link, <span onClick={setWalletModalVisibility} className={styles.addWallet}>add your wallet address</span>.</div>}
         <div className={styles.info}>
           <Paragraph>
             Use it in your blogs, tweets, posts, newsletters, public profiles, videos, etc and earn referral rewards for bringing new holders into Bonded Stablecoins.
@@ -104,10 +104,10 @@ export const RefPage = ({ setWalletModalVisibility }) => {
             The larger the total balances at the end of the weekly period, the larger the reward. Your weekly reward increases if the referred users accumulate more, decreases if they redeem or sell their tokens.
           </Paragraph>
           <Paragraph>
-            The initial weekly reward is 10% of the balances of all referred users at the end of the period.
+            The initial weekly reward is <b>10% of the balances of all referred users</b> at the end of the period.
           </Paragraph>
           <Paragraph>
-            Your referrals also get rewarded for buying tokens through your link &mdash; they get 5% of their balances every week.
+            Your referrals also get rewarded for buying tokens through your link &mdash; they get <b>5% of their balances</b> every week.
           </Paragraph>
           <Paragraph>
             The total amount paid to all referrers and referred users is capped by $3,000 weekly. If the cap gets exceeded,
