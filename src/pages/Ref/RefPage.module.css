@@ -1,0 +1,49 @@
+.image {
+  width: 100%;
+  max-height: 360px;
+  margin-top: 70px;
+}
+
+.myInfo {
+  font-size: 16px;
+  font-weight: bold;
+  padding-top: 20px;
+}
+
+.urlWrap {
+  position: relative;
+  font-size: 18px;
+  font-weight: bold;
+  padding: 20px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border-radius: 20px;
+  border: 5px solid #0137FF;
+  word-break: break-all;
+}
+
+.urlWrap_empty {
+  font-size: 18px;
+  padding: 20px;
+  padding-left: 0;
+  font-weight: bold;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  border-radius: 20px;
+  border: none;
+}
+
+.info a {
+  color: #0137FF;
+}
+
+.addWallet {
+  color: #0137FF;
+  cursor: pointer;
+}
+
+@media (min-width: 1200px) {
+  .myInfo {
+    text-align: center;
+  }
+}

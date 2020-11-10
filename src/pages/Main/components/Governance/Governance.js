@@ -17,7 +17,7 @@ import { GovernanceItem } from "./GovernanceItem";
 const { Title, Text } = Typography;
 const { TabPane } = Tabs;
 
-export const Governance = () => {
+export const Governance = ({ openWalletModal }) => {
   const {
     governance_aa,
     governance_state,
@@ -32,7 +32,7 @@ export const Governance = () => {
   const [width] = useWindowSize();
   if (!activeWallet) {
     return (
-      <div style={{ textAlign: "center" }}>
+      <div style={{ textAlign: "center", cursor: "pointer", color: "#1890ff" }} onClick={openWalletModal}>
         Please add the address of your wallet in order to participate in
         governance
       </div>

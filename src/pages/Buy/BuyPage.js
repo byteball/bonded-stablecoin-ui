@@ -18,7 +18,7 @@ export const BuyPage = () => {
   }, []);
   return (
     <div>
-      <Title level={2}>Buy interest tokens</Title>
+      <Title level={1}>Buy interest tokens</Title>
       <Text type="secondary">
         Buy interest earning tokens (IUSD, IBIT, etc) for any crypto in one easy
         step.
