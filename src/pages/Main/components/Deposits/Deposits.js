@@ -25,7 +25,7 @@ import config from "config";
 
 const { Title, Text } = Typography;
 
-export const Deposits = () => {
+export const Deposits = ({ openWalletModal }) => {
   const [width] = useWindowSize();
   const [visibleEditRecipient, setVisibleEditRecipient] = useState(false);
   const [visibleOpenDeposit, setVisibleOpenDeposit] = useState(false);
@@ -68,7 +68,7 @@ export const Deposits = () => {
 
   if (!activeWallet) {
     return (
-      <div style={{ textAlign: "center" }}>
+      <div style={{ textAlign: "center", cursor: "pointer", color: "#1890ff" }} onClick={openWalletModal}>
         Please add the address of your wallet in order to view/open deposits.
       </div>
     );

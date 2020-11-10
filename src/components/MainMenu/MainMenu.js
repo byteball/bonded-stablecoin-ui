@@ -23,14 +23,19 @@ export const MainMenu = ({ mode, pathname, onClose }) => {
           <span role="img" aria-label="Chart">📈</span> Trade
         </NavLink>
       </Menu.Item>
-      <Menu.Item key="/create">
-        <NavLink to="/create" activeClassName="selected">
-          Create
-        </NavLink>
-      </Menu.Item>
       <Menu.Item key="/buy">
         <NavLink to="/buy" activeClassName="selected">
           Buy interest tokens
+        </NavLink>
+      </Menu.Item>
+      <Menu.Item key="/referral">
+        <NavLink to="/referral" activeClassName="selected">
+          Referral program
+        </NavLink>
+      </Menu.Item>
+      <Menu.Item key="/create">
+        <NavLink to="/create" activeClassName="selected">
+          Create
         </NavLink>
       </Menu.Item>
       <Menu.Item key="/how-it-works">
