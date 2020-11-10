@@ -20,12 +20,11 @@ import { firstVisit } from "store/actions/settings/firstVisit";
 
 const { Header, Content } = Layout;
 
-export const MainLayout = (props) => {
+export const MainLayout = ({ children, vWalletModal, setVWalletModal }) => {
   const { pathname, search, hash } = useLocation();
   const dispatch = useDispatch();
   const [width] = useWindowSize();
   const [activeMenu, setActiveMenu] = useState(false);
-  const [visibleModal, setVisibleModal] = useState(false);
   const {visitedBefore} = useSelector(state => state.settings);
 
   useEffect(() => {
@@ -67,7 +66,7 @@ export const MainLayout = (props) => {
         }}
       >
         <Row
-          justify={width < 1100 ? "space-between" : undefined}
+          justify={width < 1240 ? "space-between" : undefined}
           align="middle"
         >
           <NavLink to="/" className={styles.navLink}>
@@ -79,7 +78,7 @@ export const MainLayout = (props) => {
             </div>
           </NavLink>
 
-          {width >= 1100 ? (
+          {width >= 1240 ? (
             <MainMenu pathname={pathname} mode="horizontal" />
           ) : (
             <div style={{ display: "flex", alignItems: "center" }}>
@@ -101,16 +100,16 @@ export const MainLayout = (props) => {
                   mode="vertical"
                 />
               </Drawer>
-              {width < 1100 && width >= 320 && pathname !== "/" && (
+              {width < 1240 && width >= 320 && pathname !== "/" && (
                 <WalletOutlined
-                  onClick={() => setVisibleModal(true)}
+                  onClick={() => setVWalletModal(true)}
                   className={styles.iconWallet}
                 />
               )}
               <Button onClick={() => setActiveMenu(true)}>Menu</Button>
             </div>
           )}
-          {width >= 1100 && pathname !== "/" && (
+          {width >= 1240 && pathname !== "/" && (
             <div style={{ marginLeft: "auto" }}>
               <SelectWallet />
             </div>
@@ -121,22 +120,22 @@ export const MainLayout = (props) => {
       <Content
         className={styles.content}
         style={
-          pathname === "/" || width < 1100
+          pathname === "/" || width < 1240
             ? { padding: 0 }
             : { padding: "20px 20px" }
         }
       >
         <SelectWalletModal
-          visible={visibleModal}
-          onCancel={() => setVisibleModal(false)}
+          visible={vWalletModal}
+          onCancel={() => setVWalletModal(false)}
         />
         <Route path="/trade/:address?" exact>
           <SelectStablecoin />
           <Statistics windowWidth={width} />
         </Route>
-        {props.children !== undefined && props.children !== null && (
+        {children !== undefined && children !== null && (
           <div style={{ background: "#fff", padding: 20 }}>
-            {props.children}
+            {children}
           </div>
         )}
       </Content>

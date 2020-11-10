@@ -4,3 +4,4 @@ export { HomePage } from "./Home/HomePage";
 export { HowItWorksPage } from "./HowItWorks/HowItWorksPage";
 export { FaqPage } from "./Faq/FaqPage";
 export { BuyPage } from "./Buy/BuyPage";
+export { RefPage } from "./Ref/RefPage";

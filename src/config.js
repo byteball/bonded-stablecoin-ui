@@ -5,6 +5,7 @@ let config = {
   SIMPLESWAP_API_KEY: process.env.REACT_APP_SIMPLESWAP_API_KEY,
   BUFFER_URL: process.env.REACT_APP_BUFFER_URL,
   STATS_URL: process.env.REACT_APP_STATS_URL,
+  REFERRAL_URL: process.env.REACT_APP_REFERRAL_URL,
   GA_ID: process.env.REACT_APP_GA,
   reserves: {
     base: {
