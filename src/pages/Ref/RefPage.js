@@ -28,7 +28,7 @@ const columns = [
   }
 ];
 
-export const RefPage = ({ setVWalletModal }) => {
+export const RefPage = ({ setWalletModalVisibility }) => {
   const { activeWallet } = useSelector(state => state.settings);
   const [loading, setLoading] = useState(true);
   const [info, setInfo] = useState({});
@@ -59,7 +59,7 @@ export const RefPage = ({ setVWalletModal }) => {
 
   return <>
     <Title level={1} style={{ marginBottom: 30 }}>Referral program</Title>
-    <Row style={{ fontSize: 18 }} align="middle">
+    <Row style={{ fontSize: 18 }}>
       <Col xl={{ offset: 1, span: 8 }} sm={{ span: 24 }} xs={{ span: 24 }}>
         <img className={styles.image} src={RefImage} alt="Referral program" />
         {activeWallet && info && !loading && <Paragraph className={styles.myInfo}>
@@ -76,7 +76,7 @@ export const RefPage = ({ setVWalletModal }) => {
               <Text copyable={{ onCopy: () => message.success('Your link was copied to the clipboard') }}>{refUrl}</Text>
             </div>
           </div>
-        </div> : <div className={styles.urlWrap_empty}>To get a referral link, <span onClick={setVWalletModal} className={styles.addWallet}>add your wallet address</span></div>}
+        </div> : <div className={styles.urlWrap_empty}>To get a referral link, <span onClick={setWalletModalVisibility} className={styles.addWallet}>add your wallet address</span></div>}
         <div className={styles.info}>
           <Paragraph>
             Use it in your blogs, tweets, posts, newsletters, public profiles, videos, etc and earn referral rewards for bringing new holders into Bonded Stablecoins.

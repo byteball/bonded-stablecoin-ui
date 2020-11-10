@@ -18,20 +18,20 @@ import { MainLayout } from "./components/MainLayout/MainLayout";
 const AppRouter = () => {
   const connected = useSelector((state) => state.connected);
   const { loaded } = useSelector((state) => state.list);
-  const [vWalletModal, setVWalletModal] = useState(false);
+  const [walletModalVisible, setWalletModalVisibility] = useState(false); 
   
   if (!connected || !loaded) return <Spinner />;
 
   return (
     <Router history={historyInstance}>
-      <MainLayout vWalletModal={vWalletModal} setVWalletModal={setVWalletModal} >
+      <MainLayout walletModalVisible={walletModalVisible} setWalletModalVisibility={setWalletModalVisibility} >
         <HashHandler>
-          <Route path="/trade:address?" render={() => <MainPage setVWalletModal={setVWalletModal} />} />
+          <Route path="/trade:address?" render={() => <MainPage setWalletModalVisibility={setWalletModalVisibility} />} />
         </HashHandler>
         <Route path="/create" component={CreatePage} />
         <Route path="/how-it-works" component={HowItWorksPage} />
         <Route path="/faq" component={FaqPage} />
-        <Route path="/referral" render={() => <RefPage setVWalletModal={setVWalletModal} />}/>
+        <Route path="/referral" render={() => <RefPage setWalletModalVisibility={setWalletModalVisibility} />}/>
         <Route
           path="/buy/:address?"
           render={() => {

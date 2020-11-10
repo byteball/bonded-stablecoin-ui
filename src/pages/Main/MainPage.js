@@ -23,7 +23,7 @@ import { Charts } from "./components/Charts/Charts";
 
 const { TabPane } = Tabs;
 
-export const MainPage = ({ setVWalletModal }) => {
+export const MainPage = ({ setWalletModalVisibility }) => {
   const {
     address,
     stable_state,
@@ -155,7 +155,7 @@ export const MainPage = ({ setVWalletModal }) => {
               }
               key="deposits"
             >
-              <Deposits params={actualParams} openWalletModal={setVWalletModal} />
+              <Deposits params={actualParams} openWalletModal={setWalletModalVisibility} />
             </TabPane>
             <TabPane
               disabled={!("reserve" in stable_state)}
@@ -185,7 +185,7 @@ export const MainPage = ({ setVWalletModal }) => {
               }
               key="governance"
             >
-              <Governance openWalletModal={setVWalletModal} />
+              <Governance openWalletModal={setWalletModalVisibility} />
             </TabPane>
             <TabPane
               tab={

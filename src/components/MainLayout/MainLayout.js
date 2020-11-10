@@ -20,7 +20,7 @@ import { firstVisit } from "store/actions/settings/firstVisit";
 
 const { Header, Content } = Layout;
 
-export const MainLayout = ({ children, vWalletModal, setVWalletModal }) => {
+export const MainLayout = ({ children, walletModalVisible, setWalletModalVisibility }) => {
   const { pathname, search, hash } = useLocation();
   const dispatch = useDispatch();
   const [width] = useWindowSize();
@@ -102,7 +102,7 @@ export const MainLayout = ({ children, vWalletModal, setVWalletModal }) => {
               </Drawer>
               {width < 1240 && width >= 320 && pathname !== "/" && (
                 <WalletOutlined
-                  onClick={() => setVWalletModal(true)}
+                  onClick={() => setWalletModalVisibility(true)}
                   className={styles.iconWallet}
                 />
               )}
@@ -126,8 +126,8 @@ export const MainLayout = ({ children, vWalletModal, setVWalletModal }) => {
         }
       >
         <SelectWalletModal
-          visible={vWalletModal}
-          onCancel={() => setVWalletModal(false)}
+          visible={walletModalVisible}
+          onCancel={() => setWalletModalVisibility(false)}
         />
         <Route path="/trade/:address?" exact>
           <SelectStablecoin />
