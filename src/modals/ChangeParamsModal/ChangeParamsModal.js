@@ -205,7 +205,7 @@ export const ChangeParamsModal = ({
       }
     >
       <div style={{ marginBottom: 10 }}>
-        <Text type="secondary">{param && validateParams[param].rule}</Text>
+        <Text type="secondary">{param && validateParams[param] && validateParams[param].rule}</Text>
       </div>
 
       <Form size="large" layout="vertical">
