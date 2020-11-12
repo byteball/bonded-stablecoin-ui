@@ -24,7 +24,7 @@ export const HomePage = () => {
           setShownReasons(true);
           ReactGA.event({
             category: "Stablecoin",
-            action: "Show reasons"
+            action: "Shown reasons"
           })
         }
       }} />

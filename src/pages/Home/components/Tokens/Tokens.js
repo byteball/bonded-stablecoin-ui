@@ -21,7 +21,7 @@ export const Tokens = () => {
     setShown((c)=>({...c, [token]: true}));
     ReactGA.event({
       category: "Stablecoin",
-      action: `Show ${token}`
+      action: `Shown ${token}`
     });
    }
   }
