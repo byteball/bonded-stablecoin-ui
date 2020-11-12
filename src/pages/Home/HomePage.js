@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import ReactGA from "react-ga";
 
 import { Header } from "./components/Header/Header";
 import { Tokens } from "./components/Tokens/Tokens";
@@ -8,6 +9,8 @@ import styles from "./HomePage.module.css";
 
 export const HomePage = () => {
   const [type, setType] = useState("USD");
+  const [showReasons, setShowReasons] = useState(false);
+  
   useEffect(() => {
     document.title = "Bonded stablecoins";
   }, []);
@@ -16,7 +19,15 @@ export const HomePage = () => {
     <div className={styles.container}>
       <Header setType={setType} type={type} />
       <Tokens />
-      <Reasons />
+      <Reasons onEnterViewport={() => {
+        if(!showReasons){
+          setShowReasons(true);
+          ReactGA.event({
+            category: "Stablecoin",
+            action: "Show reasons"
+          })
+        }
+      }} />
       <Footer />
     </div>
   );
