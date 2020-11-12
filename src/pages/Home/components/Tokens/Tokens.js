@@ -16,7 +16,7 @@ export const Tokens = () => {
     stable: false
   });
 
-  const handleShow = (token) => {
+  const handleShown = (token) => {
    if(!shown[token]){
     setShown((c)=>({...c, [token]: true}));
     ReactGA.event({
@@ -28,9 +28,9 @@ export const Tokens = () => {
 
   return (
     <div>
-      <Interest onEnterViewport={()=>handleShow("interest")} />
-      <Stable onEnterViewport={() => handleShow("stable")}  />
-      <Growth onEnterViewport={() => handleShow("growth")}  />
+      <Interest onEnterViewport={() => handleShown("interest")} />
+      <Stable onEnterViewport={() => handleShown("stable")}  />
+      <Growth onEnterViewport={() => handleShown("growth")}  />
     </div>
   )
 }
