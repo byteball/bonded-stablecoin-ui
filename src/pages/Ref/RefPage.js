@@ -84,16 +84,16 @@ export const RefPage = ({ setWalletModalVisibility }) => {
           {activeWallet && <Paragraph>
             <Space style={{ justifyContent: "center", width: "100%" }}>
               <FacebookShareButton {...appInfo}>
-                <FacebookIcon size={36} />
+                <FacebookIcon size={36} round={true} />
               </FacebookShareButton>
               <VKShareButton {...appInfo}>
-                <VKIcon size={36} />
+                <VKIcon size={36} round={true} />
               </VKShareButton>
               <TwitterShareButton {...appInfo}>
-                <TwitterIcon size={36} />
+                <TwitterIcon size={36} round={true} />
               </TwitterShareButton>
               <TelegramShareButton {...appInfo}>
-                <TelegramIcon size={36} />
+                <TelegramIcon size={36} round={true} />
               </TelegramShareButton>
             </Space>
           </Paragraph>}
@@ -123,7 +123,7 @@ export const RefPage = ({ setWalletModalVisibility }) => {
     {activeWallet && <Table
       loading={loading}
       columns={columns}
-      footer={() => info && info.total && <div style={{ display: "flex", justifyContent: "flex-end" }} ><b>Total: {info.total} IUSD</b></div>}
+      footer={() => info && info.total && Number(info.total) !== 0 && <div style={{ display: "flex", justifyContent: "flex-end" }} ><b>Total: {info.total} IUSD</b></div>}
       dataSource={((info && info.referrals) || []).map((r) => ({ ...r, key: r.address }))}
       locale={{
         emptyText: "no referrals yet",
