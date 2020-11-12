@@ -9,7 +9,7 @@ import styles from "./HomePage.module.css";
 
 export const HomePage = () => {
   const [type, setType] = useState("USD");
-  const [showReasons, setShowReasons] = useState(false);
+  const [shownReasons, setShownReasons] = useState(false);
   
   useEffect(() => {
     document.title = "Bonded stablecoins";
@@ -20,8 +20,8 @@ export const HomePage = () => {
       <Header setType={setType} type={type} />
       <Tokens />
       <Reasons onEnterViewport={() => {
-        if(!showReasons){
-          setShowReasons(true);
+        if(!shownReasons){
+          setShownReasons(true);
           ReactGA.event({
             category: "Stablecoin",
             action: "Show reasons"

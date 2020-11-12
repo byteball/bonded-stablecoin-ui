@@ -10,15 +10,15 @@ import { Link } from "react-router-dom";
 import handleViewport from "react-in-viewport/dist/lib/handleViewport";
 
 export const Tokens = () => {
-  const [show, setShow] = useState({
+  const [shown, setShown] = useState({
     interest: false,
     growth: false,
     stable: false
   });
 
   const handleShow = (token) => {
-   if(!show[token]){
-    setShow((c)=>({...c, [token]: true}));
+   if(!shown[token]){
+    setShown((c)=>({...c, [token]: true}));
     ReactGA.event({
       category: "Stablecoin",
       action: `Show ${token}`
