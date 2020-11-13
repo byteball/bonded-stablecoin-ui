@@ -66,12 +66,12 @@ export const Charts = ({ params }) => {
           rightPriceScale: {
             visible: true,
             borderColor: 'rgba(197, 203, 206, 1)',
-            mode: PriceScaleMode.Logarithmic
+            // mode: PriceScaleMode.Logarithmic
           },
           leftPriceScale: {
             visible: true,
             borderColor: 'rgba(197, 203, 206, 1)',
-            mode: PriceScaleMode.Logarithmic
+            // mode: PriceScaleMode.Logarithmic
           }
         });
         if (chartInstance && chart === null) {
