@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 import moment from 'moment';
 import { useSelector } from 'react-redux';
-import { createChart, PriceScaleMode } from 'lightweight-charts';
+import { createChart } from 'lightweight-charts';
 import { Typography } from 'antd';
 import Decimal from 'decimal.js';
 
@@ -65,13 +65,11 @@ export const Charts = ({ params }) => {
           height: width > 640 ? 400 : 250,
           rightPriceScale: {
             visible: true,
-            borderColor: 'rgba(197, 203, 206, 1)',
-            // mode: PriceScaleMode.Logarithmic
+            borderColor: 'rgba(197, 203, 206, 1)'
           },
           leftPriceScale: {
             visible: true,
-            borderColor: 'rgba(197, 203, 206, 1)',
-            // mode: PriceScaleMode.Logarithmic
+            borderColor: 'rgba(197, 203, 206, 1)'
           }
         });
         if (chartInstance && chart === null) {
