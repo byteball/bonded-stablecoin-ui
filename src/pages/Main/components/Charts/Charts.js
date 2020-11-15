@@ -4,6 +4,7 @@ import moment from 'moment';
 import { useSelector } from 'react-redux';
 import { createChart } from 'lightweight-charts';
 import { Typography } from 'antd';
+import Decimal from 'decimal.js';
 
 import { Legends } from './components/Legends';
 import config from 'config';
@@ -28,6 +29,29 @@ export const Charts = ({ params }) => {
   const [chart, setChart] = useState(null);
   const [data, setData] = useState({ T1: [], T2: [], loaded: false });
   const [legends, setLegends] = useState({ T1: true, T2: true });
+
+  const leftSeriesOptions = {
+    priceScaleId: 'left',
+    title: `${symbol2} price (in ${inUSD ? 'USD' : reserveToken})`,
+    priceFormat: {
+      type: "custom",
+      minMove: 1 / 1e9,
+      formatter: price => Decimal(price).toPrecision(params.reserve_asset_decimals).replace(/0*$/,"").replace(/\.$/gm, '')
+    },
+  };
+
+  const rightSeriesOptions = {
+    priceScaleId: 'right',
+    lineColor: 'rgba(0, 55, 255, 1)',
+    bottomColor: 'rgba(0, 55, 255, 0.04)',
+    title: `${symbol1} price (in ${reserveToken})`,
+    priceFormat: {
+      type: "custom",
+      minMove: 1 / 1e9,
+      formatter: price => Decimal(price).toPrecision(params.reserve_asset_decimals).replace(/0*$/,"").replace(/\.$/gm, '')
+    },
+  };
+
   useEffect(
     () => {
       if (chartRef.current && chart === null) {
@@ -49,20 +73,8 @@ export const Charts = ({ params }) => {
           }
         });
         if (chartInstance && chart === null) {
-          setLineSeriesT2(
-            chartInstance.addAreaSeries({
-              priceScaleId: 'left',
-              title: `${symbol2} price (in ${inUSD ? 'USD' : reserveToken})`
-            })
-          );
-          setLineSeriesT1(
-            chartInstance.addAreaSeries({
-              priceScaleId: 'right',
-              lineColor: 'rgba(0, 55, 255, 1)',
-              bottomColor: 'rgba(0, 55, 255, 0.04)',
-              title: `${symbol1} price (in ${reserveToken})`
-            })
-          );
+          setLineSeriesT2(chartInstance.addAreaSeries(leftSeriesOptions));
+          setLineSeriesT1(chartInstance.addAreaSeries(rightSeriesOptions));
           setChart(chartInstance);
         }
       }
@@ -187,10 +199,7 @@ export const Charts = ({ params }) => {
       chart.removeSeries(lineSeriesT2);
       setLegends((l) => ({ ...l, T2: false }));
     } else {
-      const series = chart.addAreaSeries({
-        priceScaleId: 'left',
-        title: `${symbol2} price (in ${inUSD ? 'USD' : reserveToken})`
-      });
+      const series = chart.addAreaSeries(leftSeriesOptions);
       series.setData(data.T2);
       setLineSeriesT2(series);
       setLegends((l) => ({ ...l, T2: true }));
@@ -202,12 +211,7 @@ export const Charts = ({ params }) => {
       chart.removeSeries(lineSeriesT1);
       setLegends((l) => ({ ...l, T1: false }));
     } else {
-      const series = chart.addAreaSeries({
-        priceScaleId: 'right',
-        title: `${symbol1} price (in ${reserveToken})`,
-        lineColor: 'rgba(0, 55, 255,1)',
-        bottomColor: 'rgba(0, 55, 255,0.04)'
-      });
+      const series = chart.addAreaSeries(rightSeriesOptions);
       setLineSeriesT1(series);
       setLegends((l) => ({ ...l, T1: true }));
       series.setData(data.T1);
