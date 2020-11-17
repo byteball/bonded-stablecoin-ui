@@ -32,6 +32,7 @@ const AppRouter = () => {
         <Route path="/how-it-works" component={HowItWorksPage} />
         <Route path="/faq" component={FaqPage} />
         <Route path="/referral" render={() => <RefPage setWalletModalVisibility={setWalletModalVisibility} />}/>
+        <Route path="/referrals" render={() => <RefPage setWalletModalVisibility={setWalletModalVisibility} />}/>
         <Route
           path="/buy/:address?"
           render={() => {
