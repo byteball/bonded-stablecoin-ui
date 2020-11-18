@@ -7,7 +7,8 @@ import {
   LineChartOutlined
 } from "@ant-design/icons";
 import { useSelector } from "react-redux";
-import { useLocation, useHistory } from "react-router-dom";
+import { isEmpty } from "lodash";
+import { useHistory, useLocation, useParams } from "react-router-dom";
 
 import { Issue } from "./components/Issue/Issue";
 import { Redeem } from "./components/Redeem/Redeem";
@@ -22,6 +23,8 @@ import { GovernanceIcon } from "../../components/GovernanceIcon/GovernanceIcon";
 import { Charts } from "./components/Charts/Charts";
 
 const { TabPane } = Tabs;
+
+const tabList = ["buy", "charts", "deposits", "capacitor", "governance", "parameters"];
 
 export const MainPage = ({ setWalletModalVisibility }) => {
   const {
@@ -39,42 +42,60 @@ export const MainPage = ({ setWalletModalVisibility }) => {
   const { loaded } = useSelector((state) => state.list);
   const [currentTab, setCurrentTab] = useState(undefined);
   const [handleSkip, setHandleSkip] = useState(false);
+  const [tabInitialized , setTabInitialized] = useState(false);
   const actualParams = getParams(params, stable_state);
-  const location = useLocation();
+  const urlParams = useParams();
   const history = useHistory();
+  const location = useLocation();
+  const { tab } = urlParams;
+  const hash = location.hash.slice(1);
+
   useEffect(() => {
     document.title = "Bonded stablecoins - Trade";
   }, []);
 
   useEffect(() => {
-    const tab = location.hash ? location.hash.slice(1) : undefined;
-    if ((currentTab && currentTab !== tab) || !tab) {
-      history.replace({ hash: currentTab });
+    if (tabInitialized && currentTab && address && !tabList.includes(hash)) {
+      history.replace(`/trade/${address}/${currentTab || ""}${location.hash}`);
     }
-  }, [currentTab]);
+  }, [currentTab, address]);
 
   useEffect(() => {
-    if (address) {
-      const tab = location.hash ? location.hash.slice(1) : undefined;
-      if (tab) {
-        if ("reserve" in stable_state) {
-          setCurrentTab(tab);
+    if(!tabList.includes(hash)){
+      history.replace({ hash: undefined });
+    }
+  }, [address]);
+  
+  useEffect(()=>{
+    if(tabInitialized  &&  tab !== currentTab){
+      setCurrentTab(tab);
+    }
+    if(tab !== "governance" && !tabList.includes(hash)){
+      history.replace({ hash: undefined });
+    }
+  }, [tab])
+
+  useEffect(()=>{
+    if(loaded && !isEmpty(stable_state) && !tabInitialized){
+      if(tabList.includes(hash)){
+        if("reserve" in stable_state || ["parameters","charts"].includes(hash)){
+          setCurrentTab(hash);
         } else {
-          if (["buy", "parameters"].includes(tab)) {
-            setCurrentTab(tab);
-          } else {
-            setCurrentTab("buy");
-          }
+          setCurrentTab("buy-redeem");
         }
-      } else if (!tab) {
+        history.replace({ hash: undefined });
+      } else if(!tab) {
         if ("reserve" in stable_state) {
           setCurrentTab("charts");
         } else {
-          setCurrentTab("buy");
+          setCurrentTab("buy-redeem");
         }
+      } else {
+        setCurrentTab(tab);
       }
+      setTabInitialized(true);
     }
-  }, [address]);
+  }, [loaded, tabInitialized, stable_state])
 
   if (address === undefined || !loaded) {
     return null;
@@ -127,7 +148,7 @@ export const MainPage = ({ setWalletModalVisibility }) => {
                   <InteractionOutlined /> Buy/redeem
                 </span>
               }
-              key="buy"
+              key="buy-redeem"
             >
               {"reserve" in stable_state ? (
                 <Row style={{ marginTop: 20 }}>

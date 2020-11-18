@@ -129,7 +129,7 @@ export const MainLayout = ({ children, walletModalVisible, setWalletModalVisibil
           visible={walletModalVisible}
           onCancel={() => setWalletModalVisibility(false)}
         />
-        <Route path="/trade/:address?" exact>
+        <Route path="/trade/:address?/:tab?" exact>
           <SelectStablecoin />
           <Statistics windowWidth={width} />
         </Route>

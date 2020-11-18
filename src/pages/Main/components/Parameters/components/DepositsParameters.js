@@ -3,8 +3,9 @@ import React from "react";
 import { paramsDescription } from "pages/Create/paramsDescription";
 import { Label } from "components/Label/Label";
 import styles from "../Parameters.module.css";
+import { ButtonEditParams } from "./ButtonEditParams";
 
-export const DepositsParameters = ({ params }) => {
+export const DepositsParameters = ({ params, address, activeWallet }) => {
   const {
     min_deposit_term,
     challenging_period,
@@ -21,7 +22,7 @@ export const DepositsParameters = ({ params }) => {
         />
         <span className={styles.semi}>:</span>
       </div>
-      <span>{min_deposit_term}</span>
+      <span>{min_deposit_term} {activeWallet && <ButtonEditParams param="deposits.min_deposit_term" address={address} />}</span>
     </div>
 
     <div className={styles.param}>
@@ -32,7 +33,7 @@ export const DepositsParameters = ({ params }) => {
         />
         <span className={styles.semi}>:</span>
       </div>
-      <span>{challenging_period}</span>
+      <span>{challenging_period} {activeWallet && <ButtonEditParams param="deposits.challenging_period" address={address} />}</span>
     </div>
 
     <div className={styles.param}>
@@ -43,7 +44,7 @@ export const DepositsParameters = ({ params }) => {
         />
         <span className={styles.semi}>:</span>
       </div>
-      <span>{challenge_immunity_period}</span>
+      <span>{challenge_immunity_period} {activeWallet && <ButtonEditParams param="deposits.challenge_immunity_period" address={address} />}</span>
     </div>
 
     <div className={styles.param}>
@@ -54,7 +55,7 @@ export const DepositsParameters = ({ params }) => {
         />
         <span className={styles.semi}>:</span>
       </div>
-      <span>{reporter_share * 100}%</span>
+      <span>{reporter_share * 100}% {activeWallet && <ButtonEditParams param="deposits.reporter_share" address={address} />}</span>
     </div>
 
   </div>

@@ -32,7 +32,8 @@ export const GovernanceItem = ({
   freezePeriod,
   asset,
   symbol,
-  base_governance
+  base_governance,
+  refEl
 }) => {
   const [selectedParam, setSelectedParam] = useState(undefined);
   const [activeSupportValue, setActiveSupportValue] = useState(undefined);
@@ -104,7 +105,7 @@ export const GovernanceItem = ({
             type="link"
             onClick={() => setSelectedParam({ name, value: records.value })}
           >
-            {width <= 360 ? <ImportOutlined /> : (records.value === String(choice)
+            {width <= 470 ? <ImportOutlined /> : (records.value === String(choice)
               ? "add support for this value"
               : "vote for this value")}
           </Button>
@@ -120,9 +121,9 @@ export const GovernanceItem = ({
   }
 
   return (
-    <div className={styles.itemWrap}>
+    <div className={styles.itemWrap} ref={refEl}>
       <Row>
-        <Col span={12}>
+        <Col sm={{ span: 12 }} xs={{ span: 24 }}>
           <div className={styles.itemName}>
             <Label
               label={nameView}
@@ -130,7 +131,7 @@ export const GovernanceItem = ({
             />
           </div>
         </Col>
-        <Col span={12}>
+        <Col sm={{ span: 12 }}xs={{ span: 24 }}>
           <div className={styles.itemCurrent}>
             Current value:{" "}
             {name === "interest_rate" || name === "deposits.reporter_share" ? value * 100 + "%" : value}
@@ -145,10 +146,11 @@ export const GovernanceItem = ({
         </Col>
         {challengingPeriod ? (
           <Col
-            span={12}
+            xs={{ span: 24 }}
+            sm={{ span: 12 }}
             style={{ paddingRight: 10 }}
           >
-            <div style={{ textAlign: "right" }}>
+            <div className={styles.secondInfo}>
               <div>
                 {new Date() <= challengingPeriod && !isExpired ? (
                   <>
@@ -204,7 +206,8 @@ export const GovernanceItem = ({
           </Col>
         ) : (
             <Col
-              span={12}
+              xs={{ span: 24 }}
+              sm={{ span: 12 }}
               style={{
                 textAlign: "right",
                 paddingRight: 10,

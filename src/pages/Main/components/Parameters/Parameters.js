@@ -16,8 +16,8 @@ const { Title } = Typography;
 
 export const Parameters = () => {
   const active = useSelector((state) => state.active);
+  const { activeWallet } = useSelector((state) => state.settings);
   const initialParams = active.params;
-  const { address, deposit_aa, governance_aa } = active;
   const params = getParams(initialParams, active.stable_state);
   const {
     stable_state,
@@ -28,7 +28,10 @@ export const Parameters = () => {
     symbol1,
     symbol2,
     symbol3,
-    reserve_asset_symbol
+    reserve_asset_symbol,
+    deposit_aa,
+    governance_aa,
+    address
   } = active;
   return (
     <div>
@@ -55,6 +58,8 @@ export const Parameters = () => {
             oracleValue2={oracleValue2}
             oracleValue3={oracleValue3}
             reserve_asset_symbol={reserve_asset_symbol}
+            address={address}
+            activeWallet={activeWallet} 
           />
           <Title level={4} type="secondary">
             Autonomous Agents
@@ -81,11 +86,11 @@ export const Parameters = () => {
           <Title level={4} type="secondary">
             Deposits
           </Title>
-          <DepositsParameters params={params} />
+          <DepositsParameters params={params} address={address} activeWallet={activeWallet} />
           <Title level={4} type="secondary">
             Capacitor
           </Title>
-          <CapacitorParameters params={params} />
+          <CapacitorParameters params={params} address={address} activeWallet={activeWallet} />
           <Title level={4} type="secondary">
             Governance
           </Title>
