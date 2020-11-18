@@ -3,7 +3,7 @@ import { Label } from "components/Label/Label";
 import styles from "../Parameters.module.css";
 import { ButtonEditParams } from "./ButtonEditParams";
 
-export const CapacitorParameters = ({ params, address, activeWallet }) => {
+export const CapacitorParameters = ({ params, address, activeWallet, base_governance }) => {
   const {
     fee_multiplier,
     moved_capacity_share,
@@ -21,7 +21,7 @@ export const CapacitorParameters = ({ params, address, activeWallet }) => {
           />
           <span className={styles.semi}>:</span>
         </div>
-        <span>{fee_multiplier} {activeWallet && <ButtonEditParams param="fee_multiplier" address={address} />}</span>
+        <span>{fee_multiplier} {activeWallet && !(base_governance === "Y4VBXMROK5BWBKSYYAMUW7QUEZFXYBCF" && fee_multiplier < 1) && <ButtonEditParams param="fee_multiplier" address={address} />}</span>
       </div>
 
       <div className={styles.param}>
