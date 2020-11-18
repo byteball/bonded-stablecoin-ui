@@ -10,7 +10,7 @@ export const MainMenu = ({ mode, pathname, onClose }) => {
       mode={mode === "horizontal" ? "horizontal" : "vertical"}
       breakpoint="lg"
       collapsedWidth="0"
-      selectedKeys={pathname !== "/" ? pathname : undefined}
+      selectedKeys={pathname !== "/" ? (pathname.includes("trade") ? ["/trade"] : [pathname]) : []}
       onOpenChange={() => {
         onClose && onClose();
       }}
@@ -24,7 +24,7 @@ export const MainMenu = ({ mode, pathname, onClose }) => {
         </NavLink>
       </Menu.Item>
       <Menu.Item key="/buy">
-        <NavLink to="/buy" activeClassName="selected">
+        <NavLink to="/buy">
           Buy interest tokens
         </NavLink>
       </Menu.Item>
