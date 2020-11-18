@@ -79,7 +79,7 @@ export const MainPage = ({ setWalletModalVisibility }) => {
     if(loaded && !isEmpty(stable_state) && !tabInitialized){
       if(tabList.includes(hash)){
         if("reserve" in stable_state || ["parameters","charts"].includes(hash)){
-          setCurrentTab(hash);
+          setCurrentTab(hash === "buy" ? "buy-redeem" : hash);
         } else {
           setCurrentTab("buy-redeem");
         }
