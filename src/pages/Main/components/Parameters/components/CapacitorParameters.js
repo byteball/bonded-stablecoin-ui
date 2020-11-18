@@ -1,8 +1,9 @@
 import React from "react";
 import { Label } from "components/Label/Label";
 import styles from "../Parameters.module.css";
+import { ButtonEditParams } from "./ButtonEditParams";
 
-export const CapacitorParameters = ({ params }) => {
+export const CapacitorParameters = ({ params, address, activeWallet }) => {
   const {
     fee_multiplier,
     moved_capacity_share,
@@ -20,7 +21,7 @@ export const CapacitorParameters = ({ params }) => {
           />
           <span className={styles.semi}>:</span>
         </div>
-        <span>{fee_multiplier}</span>
+        <span>{fee_multiplier} {activeWallet && <ButtonEditParams param="fee_multiplier" address={address} />}</span>
       </div>
 
       <div className={styles.param}>
@@ -31,7 +32,7 @@ export const CapacitorParameters = ({ params }) => {
           />
           <span className={styles.semi}>:</span>
         </div>
-        <span>{moved_capacity_share}</span>
+        <span>{moved_capacity_share} {activeWallet && <ButtonEditParams param="moved_capacity_share" address={address}/>}</span>
       </div>
 
       <div className={styles.param}>
@@ -42,7 +43,7 @@ export const CapacitorParameters = ({ params }) => {
           />
           <span className={styles.semi}>:</span>
         </div>
-        <span>{threshold_distance}</span>
+        <span>{threshold_distance} {activeWallet && <ButtonEditParams param="threshold_distance" address={address} />}</span>
       </div>
 
       <div className={styles.param}>
@@ -53,7 +54,7 @@ export const CapacitorParameters = ({ params }) => {
           />
           <span className={styles.semi}>:</span>
         </div>
-        <span>{move_capacity_timeout}</span>
+        <span>{move_capacity_timeout} {activeWallet && <ButtonEditParams param="move_capacity_timeout" address={address} />}</span>
       </div>
       <div className={styles.param}>
         <div className={styles.labelWrap}>
@@ -63,7 +64,7 @@ export const CapacitorParameters = ({ params }) => {
           />
           <span className={styles.semi}>:</span>
         </div>
-        <span>{slow_capacity_share}</span>
+        <span>{slow_capacity_share} {activeWallet && <ButtonEditParams param="slow_capacity_share" address={address}/>}</span>
       </div>
     </div>
   );

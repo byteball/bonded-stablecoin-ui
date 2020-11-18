@@ -6,13 +6,16 @@ import { OracleInfoModal } from "modals/OracleInfoModal/OracleInfoModal";
 
 import styles from "../Parameters.module.css";
 import config from "config";
+import { ButtonEditParams } from "./ButtonEditParams";
 
 export const CurveParameters = ({
   params,
   oracleValue1,
   oracleValue2,
   oracleValue3,
-  reserve_asset_symbol
+  reserve_asset_symbol,
+  address,
+  activeWallet
 }) => {
   const [activeOracle, setActiveOracle] = useState(undefined);
   const {
@@ -271,7 +274,7 @@ export const CurveParameters = ({
 
           <span className={styles.semi}>:</span>
         </div>
-        <span>{interest_rate * 100} %</span>
+        <span>{interest_rate * 100} % {activeWallet && <ButtonEditParams param="interest_rate" address={address} />}</span>
       </div>
       <OracleInfoModal address={activeOracle} onCancel={()=>setActiveOracle(undefined)}/>
     </div>

@@ -25,7 +25,6 @@ export const Redeem = () => {
   const tokens1 = tokens1Field ? tokens1Field.value : 0;
   const tokens2 = tokens2Field ? tokens2Field.value : 0;
   const actualParams = getParams(params, stable_state);
-  const { p2 } = stable_state;
   return (
     <>
       <Title level={3}>Redeem token1 {symbol1 ? `(${symbol1})` : ""}</Title>
@@ -41,8 +40,9 @@ export const Redeem = () => {
         reservePrice={reservePrice}
         key={1}
         type={1}
-        p2={p2}
+        p2={stable_state.p2}
         oraclePrice={oraclePrice}
+        supply={stable_state.supply1 / 10 ** actualParams.decimals1}
       />
       <Title level={3}>Redeem token2 {symbol2 ? `(${symbol2})` : ""}</Title>
       <RedeemToken
@@ -57,8 +57,9 @@ export const Redeem = () => {
         activeWallet={activeWallet}
         key={2}
         type={2}
-        p2={p2}
+        p2={stable_state.p2}
         oraclePrice={oraclePrice}
+        supply={stable_state.supply2 / 10 ** actualParams.decimals2}
       />
     </>
   );

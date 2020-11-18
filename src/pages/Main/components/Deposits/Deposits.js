@@ -270,7 +270,7 @@ export const Deposits = ({ openWalletModal }) => {
     {
       render: (_, records) => {
         const closeUrl = generateLink(
-          records.stable_amount,
+          Math.ceil(records.amount * new_growth_factor),
           { id: records.id },
           activeWallet,
           deposit_aa,
@@ -289,9 +289,7 @@ export const Deposits = ({ openWalletModal }) => {
                 });
               }}
               disabled={
-                (records.interest_recipient
-                  ? activeWallet !== records.interest_recipient
-                  : activeWallet !== records.owner) ||
+                activeWallet !== records.owner ||
                 records.ts + actualParams.min_deposit_term > timestamp ||
                 records.close_interest
               }

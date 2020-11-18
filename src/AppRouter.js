@@ -26,12 +26,13 @@ const AppRouter = () => {
     <Router history={historyInstance}>
       <MainLayout walletModalVisible={walletModalVisible} setWalletModalVisibility={setWalletModalVisibility} >
         <HashHandler>
-          <Route path="/trade:address?" render={() => <MainPage setWalletModalVisibility={setWalletModalVisibility} />} />
+          <Route path="/trade/:address?/:tab?" render={() => <MainPage setWalletModalVisibility={setWalletModalVisibility} />} />
         </HashHandler>
         <Route path="/create" component={CreatePage} />
         <Route path="/how-it-works" component={HowItWorksPage} />
         <Route path="/faq" component={FaqPage} />
         <Route path="/referral" render={() => <RefPage setWalletModalVisibility={setWalletModalVisibility} />}/>
+        <Route path="/referrals" render={() => <RefPage setWalletModalVisibility={setWalletModalVisibility} />}/>
         <Route
           path="/buy/:address?"
           render={() => {

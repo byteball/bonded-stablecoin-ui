@@ -21,6 +21,7 @@ export const RedeemToken = ({
   actualParams,
   p2,
   oraclePrice,
+  supply
 }) => {
   const asset = stable_state && stable_state["asset" + type];
   const decimals = actualParams && actualParams["decimals" + type];
@@ -61,7 +62,7 @@ export const RedeemToken = ({
       });
 
     setExchange(get_exchange_result);
-  }, [getFieldsValue, tokens, activeWallet, address, asset, decimals, valid]);
+  }, [getFieldsValue, tokens, activeWallet, address, asset, decimals, valid, stable_state]);
 
   const link = generateLink(
     Math.trunc(Number(tokens).toFixed(decimals) * 10 ** decimals),
@@ -138,6 +139,7 @@ export const RedeemToken = ({
                 type: "number",
                 minValue: Number(1 / 10 ** decimals).toFixed(decimals),
                 maxDecimals: decimals,
+                maxValue: supply
               }),
           },
         ]}
@@ -159,17 +161,13 @@ export const RedeemToken = ({
               category: "Stablecoin",
               action: "Redeem token" + type,
             });
-            setTimeout(() => {
-              resetFields();
-              setExchange(null);
-            }, 100);
           }}
           enterButton={
             <Button
               type="primary"
               ref={buttonRef}
               disabled={
-                !valid || exchange === null || (exchange && exchange.payout < 0)
+                !valid || exchange === null || (exchange && exchange.payout < 0) || tokens > supply
               }
               href={link}
             >

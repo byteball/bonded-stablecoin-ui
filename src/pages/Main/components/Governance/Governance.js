@@ -1,4 +1,4 @@
-import React from "react";
+import React, { createRef, useEffect, useState } from "react";
 import { Typography, Tabs, List } from "antd";
 import obyte from "obyte";
 import { useSelector } from "react-redux";
@@ -13,6 +13,7 @@ import { generateOraclesString } from "helpers/generateOraclesString";
 import { Withdraw } from "./components/Withdraw";
 import { useWindowSize } from "hooks/useWindowSize.js";
 import { GovernanceItem } from "./GovernanceItem";
+import { useLocation } from "react-router-dom";
 
 const { Title, Text } = Typography;
 const { TabPane } = Tabs;
@@ -27,9 +28,23 @@ export const Governance = ({ openWalletModal }) => {
     symbol2,
     base_governance
   } = useSelector((state) => state.active);
+  const [currentParams, setCurrentParams] = useState(undefined);
   const { activeWallet } = useSelector((state) => state.settings);
   const actualParams = getParams(params, stable_state);
+  const location = useLocation();
   const [width] = useWindowSize();
+
+  useEffect(() => {
+    if(location.hash){
+      const param = location.hash.slice(1);
+      setCurrentParams(param);
+      goToParam(param);
+    } else if(currentParams){
+      clearGoToParam(currentParams);
+      setCurrentParams(undefined);
+    }
+  }, [location.hash, currentParams]);
+
   if (!activeWallet) {
     return (
       <div style={{ textAlign: "center", cursor: "pointer", color: "#1890ff" }} onClick={openWalletModal}>
@@ -205,6 +220,7 @@ export const Governance = ({ openWalletModal }) => {
   const governanceParams = { ...initParams, ...governance };
   const governanceList = [];
   for (let param in governanceParams) {
+    governanceParams[param].refEl = createRef();
     if (param === "oracles") continue;
     if (param === "fee_multiplier" && governanceParams[param].value < 1 && base_governance === "Y4VBXMROK5BWBKSYYAMUW7QUEZFXYBCF") continue;
     governanceList.push({
@@ -214,6 +230,22 @@ export const Governance = ({ openWalletModal }) => {
     });
   }
 
+  const goToParam = (param) => {
+    if(param && param in governanceParams && governanceParams[param].refEl.current){
+      if(location.hash){
+        governanceParams[param].refEl.current.scrollIntoView({ behavior: "smooth" });
+      }
+      
+      governanceParams[param].refEl.current.style.boxShadow = "0px 0px 21px -2px #798184";
+    }
+  }
+
+  const clearGoToParam = (param) => {
+    if(param && param in governanceParams && governanceParams[param].refEl.current){
+      governanceParams[param].refEl.current.style.boxShadow = "none";
+    }
+  }
+  
   return (
     <div>
       <Title level={3}>Governance</Title>
@@ -253,6 +285,8 @@ export const Governance = ({ openWalletModal }) => {
 
                 return (
                   <GovernanceItem
+                    key={item.name + item.value}
+                    refEl={item.refEl}
                     value={item.value}
                     width={width}
                     name={item.name}
