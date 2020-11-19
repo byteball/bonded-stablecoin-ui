@@ -31,7 +31,8 @@ export const Parameters = () => {
     reserve_asset_symbol,
     deposit_aa,
     governance_aa,
-    address
+    address,
+    base_governance
   } = active;
   return (
     <div>
@@ -90,7 +91,7 @@ export const Parameters = () => {
           <Title level={4} type="secondary">
             Capacitor
           </Title>
-          <CapacitorParameters params={params} address={address} activeWallet={activeWallet} />
+          <CapacitorParameters params={params} address={address} activeWallet={activeWallet} base_governance={base_governance} />
           <Title level={4} type="secondary">
             Governance
           </Title>
