@@ -41,7 +41,7 @@ export const CurveParameters = ({
 
   return (
     <div style={{ marginBottom: 20 }}>
-      {((oracles && oracles[0]) || oracle1) && (
+      {((oracles && oracles[0]) || (!oracles && oracle1)) && (
         <>
           <div className={styles.param}>
             <div className={styles.labelWrap}>
@@ -82,7 +82,7 @@ export const CurveParameters = ({
         </>
       )}
       
-      {((oracles && oracles[1]) || oracle2) && (
+      {((oracles && oracles[1]) || (!oracles && oracle2)) && (
         <>
           <div className={styles.param}>
             <div className={styles.labelWrap}>
@@ -125,7 +125,7 @@ export const CurveParameters = ({
         </>
       )}
 
-      {((oracles && oracles[2]) || oracle3) && (
+      {((oracles && oracles[2]) || (!oracles && oracle3)) && (
         <>
           <div className={styles.param}>
             <div className={styles.labelWrap}>
