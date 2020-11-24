@@ -32,12 +32,19 @@ export const getOraclePrice = async (
     const oraclesValues = [oracleValue1, oracleValue2, oracleValue3].filter(
       (v) => !!v
     );
-
-    return oraclesValues.reduce((result, current, index) => {
+    
+    const price =  oraclesValues.reduce((result, current, index) => {
       return oracles[index].op === "/"
         ? result / current
         : result * (current || 1);
     }, 1);
+
+    if (showOracles) {
+      return [price, oracleValue1, oracleValue2, oracleValue3];
+    } else {
+      return price;
+    }
+
   } else {
     if (params.oracle1) {
       oracleValue1 = await socket.api.getDataFeed({
@@ -70,7 +77,6 @@ export const getOraclePrice = async (
       ? price * current
       : price / current;
   }, 1);
-
   if (showOracles) {
     return [price, oracleValue1, oracleValue2, oracleValue3];
   } else {

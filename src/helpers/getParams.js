@@ -14,5 +14,9 @@ export const getParams = (params, stable_state) => {
       param in stable_state ? stable_state[param] : params[param];
   }
 
+  if("oracles" in stable_state){
+    newParams.oracles = stable_state.oracles
+  }
+  
   return { ...deposit_params, ...newParams }
 };
