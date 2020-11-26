@@ -110,7 +110,6 @@ export const ChangeParamsModal = ({
             ifnone: "none",
           });
           if (data_feed !== "none") {
-            // setOracles((v) => ({ ...v, oracle1, feed_name1, op1 }));
             setCheckOracle(true);
           } else {
             message.error("Oracle 1 is not active!");
@@ -135,7 +134,6 @@ export const ChangeParamsModal = ({
               ifnone: "none",
             });
             if (data_feed !== "none") {
-              // setOracles((v) => ({ ...v, oracle2, feed_name2, op2 }));
               setCheckOracle(true);
             } else {
               message.error("Oracle 2 is not active!");
@@ -161,7 +159,6 @@ export const ChangeParamsModal = ({
               ifnone: "none",
             });
             if (data_feed !== "none") {
-              // setOracles((v) => ({ ...v, oracle3, feed_name3, op3 }));
               setCheckOracle(true);
             } else {
               message.error("Oracle 3 is not active!");
