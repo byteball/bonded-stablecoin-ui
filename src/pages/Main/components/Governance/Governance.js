@@ -1,14 +1,10 @@
 import React, { createRef, useEffect, useState } from "react";
-import { Typography, Tabs, List } from "antd";
+import { Typography, List } from "antd";
 import obyte from "obyte";
 import { useSelector } from "react-redux";
 import moment from 'moment';
 
 import { getParams } from "helpers/getParams";
-import { ChangeOracles } from "./components/oracles/ChangeOracles";
-import { VotedForOracle } from "./components/oracles/VotedForOracle";
-import { CurrentOracles } from "./components/oracles/CurrentOracles";
-import { InfoOracle } from "./components/oracles/InfoOracle";
 import { generateOraclesString } from "helpers/generateOraclesString";
 import { Withdraw } from "./components/Withdraw";
 import { useWindowSize } from "hooks/useWindowSize.js";
@@ -16,11 +12,9 @@ import { GovernanceItem } from "./GovernanceItem";
 import { useLocation } from "react-router-dom";
 
 const { Title, Text } = Typography;
-const { TabPane } = Tabs;
 
 export const Governance = ({ openWalletModal }) => {
   const {
-    governance_aa,
     governance_state,
     stable_state,
     params,
@@ -35,11 +29,11 @@ export const Governance = ({ openWalletModal }) => {
   const [width] = useWindowSize();
 
   useEffect(() => {
-    if(location.hash){
+    if (location.hash) {
       const param = location.hash.slice(1);
       setCurrentParams(param);
       goToParam(param);
-    } else if(currentParams){
+    } else if (currentParams) {
       clearGoToParam(currentParams);
       setCurrentParams(undefined);
     }
@@ -53,7 +47,14 @@ export const Governance = ({ openWalletModal }) => {
       </div>
     );
   }
+
   const initParams = {
+    interest_rate: {
+      value: actualParams["interest_rate"],
+    },
+    "oracles": {
+      value: generateOraclesString(actualParams, stable_state.oracles),
+    },
     fee_multiplier: {
       value: actualParams["fee_multiplier"],
     },
@@ -69,9 +70,6 @@ export const Governance = ({ openWalletModal }) => {
     slow_capacity_share: {
       value: actualParams["slow_capacity_share"],
     },
-    interest_rate: {
-      value: actualParams["interest_rate"],
-    },
     "deposits.min_deposit_term": {
       value: actualParams["min_deposit_term"],
     },
@@ -85,6 +83,7 @@ export const Governance = ({ openWalletModal }) => {
       value: actualParams["reporter_share"],
     }
   };
+
   let supportParamsByAddress = {};
   const governance = {};
   const balances = {};
@@ -175,16 +174,13 @@ export const Governance = ({ openWalletModal }) => {
 
         if (!(param in governance)) governance[param] = {};
 
-        if (param.includes("oracles")) {
-        } else {
-          governance[param] = {
-            ...governance[param],
-            supports: {
-              ...governance[param].supports,
-              [value]: governance_state[row],
-            },
-          };
-        }
+        governance[param] = {
+          ...governance[param],
+          supports: {
+            ...governance[param].supports,
+            [value]: governance_state[row],
+          },
+        };
       }
     } else {
     }
@@ -207,11 +203,6 @@ export const Governance = ({ openWalletModal }) => {
     };
   }
 
-  const choice =
-    governance.oracles &&
-    governance.oracles.choice &&
-    governance.oracles.choice[activeWallet];
-
   const balance =
     (activeWallet in balances &&
       balances[activeWallet] / 10 ** actualParams.decimals1) ||
@@ -221,7 +212,6 @@ export const Governance = ({ openWalletModal }) => {
   const governanceList = [];
   for (let param in governanceParams) {
     governanceParams[param].refEl = createRef();
-    if (param === "oracles") continue;
     if (param === "fee_multiplier" && governanceParams[param].value < 1 && base_governance === "Y4VBXMROK5BWBKSYYAMUW7QUEZFXYBCF") continue;
     governanceList.push({
       ...governanceParams[param],
@@ -231,21 +221,21 @@ export const Governance = ({ openWalletModal }) => {
   }
 
   const goToParam = (param) => {
-    if(param && param in governanceParams && governanceParams[param].refEl.current){
-      if(location.hash){
+    if (param && param in governanceParams && governanceParams[param].refEl.current) {
+      if (location.hash) {
         governanceParams[param].refEl.current.scrollIntoView({ behavior: "smooth" });
       }
-      
+
       governanceParams[param].refEl.current.style.boxShadow = "0px 0px 21px -2px #798184";
     }
   }
 
   const clearGoToParam = (param) => {
-    if(param && param in governanceParams && governanceParams[param].refEl.current){
+    if (param && param in governanceParams && governanceParams[param].refEl.current) {
       governanceParams[param].refEl.current.style.boxShadow = "none";
     }
   }
-  
+
   return (
     <div>
       <Title level={3}>Governance</Title>
@@ -267,133 +257,61 @@ export const Governance = ({ openWalletModal }) => {
           0
         }
       />
+      <Title level={3} style={{ marginTop: 20 }}>Change parameters</Title>
+      <div style={{ marginTop: 20 }}>
+        <List
+          dataSource={governanceList}
+          renderItem={(item, index) => {
+            const challengingStart = moment.utc(item.challenging_period_start_ts * 1000);
 
-      <Tabs defaultActiveKey="1">
-        <TabPane tab="Change parameters" key="1">
-          <Title level={3}>Change parameters</Title>
-          <div style={{ marginTop: 20 }}>
-            <List
-              dataSource={governanceList}
-              renderItem={(item) => {
-                const challengingStart = moment.utc(item.challenging_period_start_ts * 1000);
+            challengingStart.add({
+              second: params.regular_challenging_period
+            });
 
-                challengingStart.add({
-                  second: params.regular_challenging_period
-                });
+            const challengingStartInSeconds = challengingStart.toDate();
 
-                const challengingStartInSeconds = challengingStart.toDate();
-
-                return (
-                  <GovernanceItem
-                    key={item.name + item.value}
-                    refEl={item.refEl}
-                    value={item.value}
-                    width={width}
-                    name={item.name}
-                    leader={item.leader}
-                    supports={item.supports}
-                    decimals={actualParams.decimals1}
-                    governance_aa={stable_state.governance_aa}
-                    base_governance={base_governance}
-                    activeWallet={activeWallet}
-                    balance={balance}
-                    supportList={item.name in supportList ? supportList[item.name] : []}
-                    asset={stable_state.asset1}
-                    symbol={symbol1}
-                    supportParamsByAddress={
-                      item.name in supportParamsByAddress &&
-                        activeWallet in supportParamsByAddress[item.name]
-                        ? supportParamsByAddress[item.name][activeWallet]
-                        : {}
-                    }
-                    choice={
-                      activeWallet &&
-                      activeWallet in
-                      (governanceParams[item.name].choice || {}) &&
-                      governanceParams[item.name].choice[activeWallet]
-                    }
-                    challengingPeriod={challengingStartInSeconds}
-                    regularPeriod={params.regular_challenging_period}
-                    freezePeriod={
-                      item.challenging_period_start_ts
-                        ? item.challenging_period_start_ts +
-                        params.regular_challenging_period +
-                        actualParams.freeze_period
-                        : undefined
-                    }
-                  />
-                );
-              }}
-            />
-          </div>
-        </TabPane>
-        <TabPane
-          tab="Change oracles"
-          key="2"
-          disabled={!actualParams.allow_oracle_change}
-        >
-          <Title level={3}>Change oracles</Title>
-          <InfoOracle
-            oracles={governance.oracles}
-            activeWallet={activeWallet}
-            governance_aa={governance_aa}
-            important_challenging_period={
-              actualParams.important_challenging_period
-            }
-          />
-
-          <div style={{ marginBottom: 20 }}>
-            <div
-              style={{
-                fontSize: 14,
-                color: "rgba(0, 0, 0, 0.45)",
-                marginBottom: 5,
-              }}
-            >
-              Current values
-            </div>
-            <CurrentOracles
-              oracles={stable_state.oracles}
-              param={actualParams}
-            />
-          </div>
-
-          <ChangeOracles
-            activeWallet={activeWallet}
-            governance_aa={governance_aa}
-            width={width}
-            asset={stable_state.asset1}
-            decimals={actualParams.decimals1}
-            freeze_period={actualParams.freeze_period}
-            important_challenging_period={
-              actualParams.important_challenging_period
-            }
-            challenging_period_start_ts={
-              governance.oracles &&
-              governance.oracles.challenging_period_start_ts
-            }
-            balance={balance}
-            choice={choice}
-            symbol={symbol1}
-            choiceIsEqualLeader={
-              choice && governance.oracles.choice[activeWallet]
-                ? choice === governance.oracles.leader
-                : false
-            }
-          />
-
-          <Title level={3} style={{ marginTop: 20 }}>
-            List of voters
-          </Title>
-
-          <VotedForOracle
-            oracles={governance.oracles}
-            supports={supportParamsByAddress.oracles}
-            activeWallet={activeWallet}
-            governance_aa={governance_aa}
-          />
-        </TabPane>
-      </Tabs>
+            return (
+              <GovernanceItem
+                refEl={item.refEl}
+                value={item.value}
+                width={width}
+                name={item.name}
+                leader={item.leader}
+                supports={item.supports}
+                decimals={actualParams.decimals1}
+                governance_aa={stable_state.governance_aa}
+                base_governance={base_governance}
+                activeWallet={activeWallet}
+                balance={balance}
+                supportList={item.name in supportList ? supportList[item.name] : []}
+                asset={stable_state.asset1}
+                symbol={symbol1}
+                supportParamsByAddress={
+                  item.name in supportParamsByAddress &&
+                    activeWallet in supportParamsByAddress[item.name]
+                    ? supportParamsByAddress[item.name][activeWallet]
+                    : {}
+                }
+                choice={
+                  activeWallet &&
+                  activeWallet in
+                  (governanceParams[item.name].choice || {}) &&
+                  governanceParams[item.name].choice[activeWallet]
+                }
+                challengingPeriod={challengingStartInSeconds}
+                regularPeriod={params.regular_challenging_period}
+                freezePeriod={
+                  item.challenging_period_start_ts
+                    ? item.challenging_period_start_ts +
+                    params.regular_challenging_period +
+                    actualParams.freeze_period
+                    : undefined
+                }
+              />
+            );
+          }}
+        />
+      </div>
     </div>
   );
 };

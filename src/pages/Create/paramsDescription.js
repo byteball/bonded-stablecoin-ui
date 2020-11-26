@@ -18,5 +18,6 @@ export const paramsDescription = {
   challenge_immunity_period:
     "The additional period in seconds during which a deposit cannot be used for challenging the closes of other deposits. This period applies after the minimum deposit term and after the last protection withdrawal of the less protected deposit.",
   reporter_share:
-    "The share of the deposit amount paid to users who report invalid close attempts when a deposit to be closed is not the least protected."
+    "The share of the deposit amount paid to users who report invalid close attempts when a deposit to be closed is not the least protected.",
+  oracles: "The oracles that report the price for the stable token"
 };
