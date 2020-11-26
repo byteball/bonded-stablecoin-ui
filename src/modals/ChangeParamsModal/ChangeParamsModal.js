@@ -75,7 +75,7 @@ export const ChangeParamsModal = ({
     }
   };
 
-  const [checkOracle, setCheckOracle] = useState(undefined);
+  const [checkedOracle, setCheckedOracle] = useState(undefined);
   const [oracles, setOracles] = useState({});
 
   const [amount, setAmount] = useState({
@@ -110,19 +110,19 @@ export const ChangeParamsModal = ({
             ifnone: "none",
           });
           if (data_feed !== "none") {
-            setCheckOracle(true);
+            setCheckedOracle(true);
           } else {
             message.error("Oracle 1 is not active!");
-            setCheckOracle(null);
+            setCheckedOracle(null);
           }
         } catch (e) {
-          setCheckOracle(null);
+          setCheckedOracle(null);
           message.error("Oracle 1 is not found!");
           console.log("error", e);
         }
       } else {
         message.error("Not all data for oracle 1 is specified!");
-        setCheckOracle(null);
+        setCheckedOracle(null);
       }
 
       if (oracle2 || feed_name2) {
@@ -134,19 +134,19 @@ export const ChangeParamsModal = ({
               ifnone: "none",
             });
             if (data_feed !== "none") {
-              setCheckOracle(true);
+              setCheckedOracle(true);
             } else {
               message.error("Oracle 2 is not active!");
-              setCheckOracle(null);
+              setCheckedOracle(null);
             }
           } catch (e) {
-            setCheckOracle(null);
+            setCheckedOracle(null);
             message.error("Oracle 2 is not found!");
             console.log("error", e);
           }
         } else {
           message.error("Not all data for oracle 2 is specified!");
-          setCheckOracle(null);
+          setCheckedOracle(null);
         }
       }
 
@@ -159,27 +159,27 @@ export const ChangeParamsModal = ({
               ifnone: "none",
             });
             if (data_feed !== "none") {
-              setCheckOracle(true);
+              setCheckedOracle(true);
             } else {
               message.error("Oracle 3 is not active!");
-              setCheckOracle(null);
+              setCheckedOracle(null);
             }
           } catch (e) {
-            setCheckOracle(null);
+            setCheckedOracle(null);
             message.error("Oracle is not found!");
             console.log("error", e);
           }
         } else {
           message.error("Not all data for oracle 3 is specified!");
-          setCheckOracle(null);
+          setCheckedOracle(null);
         }
       }
     };
 
-    if (checkOracle === false) {
+    if (checkedOracle === false) {
       getStatusOracle();
     }
-  }, [checkOracle]);
+  }, [checkedOracle]);
 
   useEffect(() => {
     setParamValue({
@@ -192,7 +192,7 @@ export const ChangeParamsModal = ({
     });
 
     setOracles({});
-    setCheckOracle(undefined);
+    setCheckedOracle(undefined);
   }, [visible]); // eslint-disable-line
 
   const handleChangeOracles = (name, value) => {
@@ -306,7 +306,7 @@ export const ChangeParamsModal = ({
   const supportsValue = param === "interest_rate" || param === "deposits.reporter_share" ? paramValue.value / 100 : paramValue.value;
   const totalSupport = supportsValue in supportsByValue
       ? Number(supportsByValue[supportsValue] || 0) / 10 ** decimals +
-      Number(amount.value || 0) + (balance || 0) //- Number(supportParamsByAddress.support / 10 ** decimals) 
+      Number(amount.value || 0) + (balance || 0) 
       : Number(amount.value || 0) + (balance || 0);
       
   return (
@@ -320,10 +320,10 @@ export const ChangeParamsModal = ({
           <Button key="Cancel" onClick={onCancel}>
             Cancel
           </Button>
-          {param === "oracles" && !checkOracle && !value ? <Button
+          {param === "oracles" && !checkedOracle && !value ? <Button
             key="check"
             type="primary"
-            onClick={() => setCheckOracle(false)}
+            onClick={() => setCheckedOracle(false)}
           >
             Check
               </Button> : <Button
@@ -396,7 +396,7 @@ export const ChangeParamsModal = ({
                 <Input
                   placeholder="Oracle 1"
                   autoComplete="off"
-                  disabled={checkOracle === true}
+                  disabled={checkedOracle === true}
                   style={{ width: "100%" }}
                   value={oracles.oracle1}
                   onChange={(ev) => handleChangeOracles("oracle1", ev.target.value)}
@@ -408,7 +408,7 @@ export const ChangeParamsModal = ({
                 <Input
                   placeholder="Feed name 1"
                   autoComplete="off"
-                  disabled={checkOracle === true}
+                  disabled={checkedOracle === true}
                   value={oracles.feed_name1}
                   onChange={(ev) => handleChangeOracles("feed_name1", ev.target.value)}
                 />
@@ -418,7 +418,7 @@ export const ChangeParamsModal = ({
               <Form.Item>
                 <Select
                   placeholder="Operation 1"
-                  disabled={checkOracle === true}
+                  disabled={checkedOracle === true}
                   style={{ width: "100%" }}
                   value={oracles.op1}
                   onChange={(value) => handleChangeOracles("op1", value)}
@@ -435,7 +435,7 @@ export const ChangeParamsModal = ({
                 <Input
                   placeholder="Oracle 2"
                   autoComplete="off"
-                  disabled={checkOracle === true}
+                  disabled={checkedOracle === true}
                   style={{ width: "100%" }}
                   value={oracles.oracle2}
                   onChange={(ev) => handleChangeOracles("oracle2", ev.target.value)}
@@ -447,7 +447,7 @@ export const ChangeParamsModal = ({
                 <Input
                   placeholder="Feed name 2"
                   autoComplete="off"
-                  disabled={checkOracle === true}
+                  disabled={checkedOracle === true}
                   value={oracles.feed_name2}
                   onChange={(ev) => handleChangeOracles("feed_name2", ev.target.value)}
                 />
@@ -457,7 +457,7 @@ export const ChangeParamsModal = ({
               <Form.Item>
                 <Select
                   placeholder="Operation 2"
-                  disabled={checkOracle === true}
+                  disabled={checkedOracle === true}
                   style={{ width: "100%" }}
                   value={oracles.op2}
                   onChange={(value) => handleChangeOracles("op2", value)}
@@ -474,7 +474,7 @@ export const ChangeParamsModal = ({
                 <Input
                   placeholder="Oracle 3"
                   autoComplete="off"
-                  disabled={checkOracle === true}
+                  disabled={checkedOracle === true}
                   style={{ width: "100%" }}
                   value={oracles.oracle3}
                   onChange={(ev) => handleChangeOracles("oracle3", ev.target.value)}
@@ -486,7 +486,7 @@ export const ChangeParamsModal = ({
                 <Input
                   placeholder="Feed name 3"
                   autoComplete="off"
-                  disabled={checkOracle === true}
+                  disabled={checkedOracle === true}
                   value={oracles.feed_name3}
                   onChange={(ev) => handleChangeOracles("feed_name3", ev.target.value)}
                 />
@@ -496,7 +496,7 @@ export const ChangeParamsModal = ({
               <Form.Item>
                 <Select
                   placeholder="Operation 3"
-                  disabled={checkOracle === true}
+                  disabled={checkedOracle === true}
                   style={{ width: "100%" }}
                   value={oracles.op3}
                   onChange={(value) => handleChangeOracles("op3", value)}
