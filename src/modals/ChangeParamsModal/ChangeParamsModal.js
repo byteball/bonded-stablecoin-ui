@@ -6,6 +6,7 @@ import { generateLink } from "utils/generateLink";
 import { redirect } from "utils/redirect";
 import client from "services/socket";
 import { viewParameter } from "pages/Main/components/Governance/viewParameter";
+import { percentageParams } from "pages/Main/components/Governance/components/percentageParams";
 
 const { Text } = Typography;
 
@@ -31,9 +32,9 @@ export const ChangeParamsModal = ({
       rule: `The value of the fee_multiplier parameter must be greater than ${base_governance === "FCFYMFIOGS363RLDLEWIDBIIBU7M7BHP" ? 1 : 0}`,
     },
     moved_capacity_share: {
-      validator: (value) => value > 0 && value <= 1,
+      validator: (value) => value > 0 && value <= 100,
       rule:
-        "The value of the moved_capacity_share parameter must be in the range from 0 to 1",
+        "The value of the moved_capacity_share (as a percentage) parameter must be in the range from 0 to 100",
     },
     threshold_distance: {
       validator: (value) => value > 0 && value <= 0.2,
@@ -46,9 +47,9 @@ export const ChangeParamsModal = ({
         "The value of the move_capacity_timeout parameter must be an integer greater than 0",
     },
     slow_capacity_share: {
-      validator: (value) => value >= 0 && value <= 1,
+      validator: (value) => value >= 0 && value <= 100,
       rule:
-        "The value of the slow_capacity_share parameter must be in the range from 0 to 1",
+        "The value of the slow_capacity_share (as a percentage) parameter must be in the range from 0 to 100",
     },
     interest_rate: {
       validator: (value) => value >= 0,
@@ -274,8 +275,7 @@ export const ChangeParamsModal = ({
     amount.valid ? Math.ceil(amount.value * 10 ** decimals) : 1e4,
     {
       name: param,
-      value:
-        param === "slow_capacity_share" || param === "interest_rate" || param === "deposits.reporter_share" ? paramValue.value / 100 : paramValue.value,
+      value: percentageParams.includes(param) ? paramValue.value / 100 : paramValue.value,
     },
     activeWallet,
     governance_aa,
@@ -304,7 +304,7 @@ export const ChangeParamsModal = ({
   const finalSupport = balance + (amount.valid ? Number(amount.value) : 0);
 
   const validationStatus = param && (paramValue.value || Number(paramValue.value) === 0) ? validateParams[param].validator(paramValue.value) : undefined;
-  const supportsValue = param === "slow_capacity_share" || param === "interest_rate" || param === "deposits.reporter_share" ? paramValue.value / 100 : paramValue.value;
+  const supportsValue = percentageParams.includes(param) ? paramValue.value / 100 : paramValue.value;
   const totalSupport = supportsValue in supportsByValue
       ? Number(supportsByValue[supportsValue] || 0) / 10 ** decimals +
       Number(amount.value || 0) + (balance -  (isMyVote ? Number(supportParamsByAddress.support / 10 ** decimals) : 0) || 0) 
@@ -376,7 +376,7 @@ export const ChangeParamsModal = ({
             autoComplete="off"
             autoFocus={!isMyVote}
             disabled={isMyVote || param === "oracles"}
-            suffix={param === "slow_capacity_share" || param === "interest_rate" || param === "deposits.reporter_share" ? "%" : undefined}
+            suffix={percentageParams.includes(param) ? "%" : undefined}
             ref={valueInput}
             onChange={handleChangeParamValue}
             value={paramValue.value}
@@ -535,7 +535,7 @@ export const ChangeParamsModal = ({
           <Text type="secondary">
             <p>
               <b>
-                Your supported value is {Math.trunc(paramValue.value * 10 ** decimals) / 10 ** decimals || viewParameter(paramValue.value, param, true)}{param === "interest_rate" || param === "deposits.reporter_share" ? "%" : ""}
+                Your supported value is {Math.trunc(paramValue.value * 10 ** decimals) / 10 ** decimals || viewParameter(paramValue.value, param, true)}{percentageParams.includes(param) ? "%" : ""}
               </b>
             </p>
           </Text>

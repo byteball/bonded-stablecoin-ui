@@ -12,6 +12,7 @@ import { SupportListModal } from "modals/SupportListModal/SupportListModal";
 
 import styles from "./GovernanceItem.module.css";
 import { parseOracle, viewParameter } from "./viewParameter";
+import { percentageParams } from "./components/percentageParams";
 
 const { Countdown } = Statistic;
 
@@ -102,7 +103,7 @@ export const GovernanceItem = ({
                 label={"Op" + (index + 1)}
               /> <span style={{ marginLeft: 5, marginRight: 5 }}>:</span> {item.op}</div>
           </div>)
-        } else if (name === "slow_capacity_share" || name === "interest_rate" || name === "deposits.reporter_share") {
+        } else if (percentageParams.includes(name)) {
           return value * 100 + "%";
         } else {
           return value;
@@ -306,7 +307,7 @@ export const GovernanceItem = ({
 
 export const viewParamSelected = (value, name) => {
   if (value) {
-    if (name === "slow_capacity_share" || name === "interest_rate" || name === "deposits.reporter_share") {
+    if (percentageParams.includes(name)) {
       return value * 100;
     } else if (name === "oracles") {
       return value;
