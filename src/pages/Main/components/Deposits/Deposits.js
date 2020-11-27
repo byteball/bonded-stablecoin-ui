@@ -326,7 +326,7 @@ export const Deposits = ({ openWalletModal }) => {
       source.push({ id, ...deposits[id], key: id });
     }
   }
-  const localeForEmpty = !stable_state.interest_rate ? 'Deposits are disabled when there is no interests rate.' : (
+  const localeForEmpty = stable_state.interest_rate ? (
     <span>
       You don't have any open deposits, please{" "}
       <Button
@@ -338,7 +338,7 @@ export const Deposits = ({ openWalletModal }) => {
       </Button>{" "}
       or change your wallet address.
     </span>
-  );
+  ) : 'Deposits are disabled when there is no interests rate.';
 
   const odexUrl = `https://odex.ooo/trade/${ (symbol3 === 'OUSD' ? 'GBYTE' : symbol3) }/OUSD`;
   let oswapUrl = 'https://oswap.io/#/swap';
