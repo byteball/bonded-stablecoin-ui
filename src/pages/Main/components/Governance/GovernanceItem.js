@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import moment from "moment";
-import { Col, Divider, Row, Table, Statistic, Button } from "antd";
+import { Col, Divider, Row, Table, Statistic, Button, Tooltip } from "antd";
 import { ImportOutlined } from "@ant-design/icons";
 
 import { ShowDecimalsValue } from "components/ShowDecimalsValue/ShowDecimalsValue";
@@ -11,6 +11,7 @@ import { paramsDescription } from "pages/Create/paramsDescription";
 import { SupportListModal } from "modals/SupportListModal/SupportListModal";
 
 import styles from "./GovernanceItem.module.css";
+import { parseOracle, viewParameter } from "./viewParameter";
 
 const { Countdown } = Statistic;
 
@@ -36,6 +37,7 @@ export const GovernanceItem = ({
   refEl
 }) => {
   const [selectedParam, setSelectedParam] = useState(undefined);
+  const [visible, setVisible] = useState(false);
   const [activeSupportValue, setActiveSupportValue] = useState(undefined);
   const [isExpired, setIsExpired] = useState(false);
   const nameView = name.split("_").join(" ").replace(".", ': ');
@@ -79,7 +81,28 @@ export const GovernanceItem = ({
       dataIndex: "value",
       key: "value",
       render: (value) => {
-        if (name === "interest_rate" || name === "deposits.reporter_share") {
+        if (name === "oracles") {
+          return parseOracle(value).map((item, index) => <div key={item.address + item.feed_name + index}>
+            <div style={{ display: "flex" }}>
+              <Label
+                descr={paramsDescription["oracle" + (index + 1)]}
+                label={"Oracle" + (index + 1)}
+              /> <span style={{ marginLeft: 5, marginRight: 5 }}>:</span> {width >= 700 ? item.address : <Tooltip style={{ display: "inline" }} title={item.address}>
+                <span>{item.address.slice(0, 8)}...</span>
+              </Tooltip>}
+            </div>
+            <div style={{ display: "flex" }}>
+              <Label
+                descr={paramsDescription["feed_name" + (index + 1)]}
+                label={"Feed name" + (index + 1)}
+              /> <span style={{ marginLeft: 5, marginRight: 5 }}>:</span> {item.feed_name}</div>
+            <div style={{ display: "flex" }}>
+              <Label
+                descr={paramsDescription["op" + (index + 1)]}
+                label={"Op" + (index + 1)}
+              /> <span style={{ marginLeft: 5, marginRight: 5 }}>:</span> {item.op}</div>
+          </div>)
+        } else if (name === "slow_capacity_share" || name === "interest_rate" || name === "deposits.reporter_share") {
           return value * 100 + "%";
         } else {
           return value;
@@ -103,9 +126,8 @@ export const GovernanceItem = ({
         return (
           <Button
             type="link"
-            onClick={() => setSelectedParam({ name, value: records.value })}
-          >
-            {width <= 470 ? <ImportOutlined /> : (records.value === String(choice)
+            onClick={() => { setSelectedParam({ name, value: records.value }); setVisible(true); }}>
+            {(width <= 470 || (name === "oracles" && width <= 720)) ? <ImportOutlined /> : (records.value === String(choice)
               ? "add support for this value"
               : "vote for this value")}
           </Button>
@@ -120,10 +142,14 @@ export const GovernanceItem = ({
     description = paramsDescription[name.replace("deposits.", "")];
   }
 
+  const choiceView = viewParameter(choice, name);
+  const leaderView = viewParameter(leader, name);
+  const valueView = viewParameter(value, name);
+
   return (
     <div className={styles.itemWrap} ref={refEl}>
       <Row>
-        <Col sm={{ span: 12 }} xs={{ span: 24 }}>
+        <Col sm={name === "oracles" ? { span: 24 } : { span: 12 }} xs={{ span: 24 }}>
           <div className={styles.itemName}>
             <Label
               label={nameView}
@@ -131,18 +157,18 @@ export const GovernanceItem = ({
             />
           </div>
         </Col>
-        <Col sm={{ span: 12 }}xs={{ span: 24 }}>
-          <div className={styles.itemCurrent}>
-            Current value:{" "}
-            {name === "interest_rate" || name === "deposits.reporter_share" ? value * 100 + "%" : value}
+        <Col sm={name === "oracles" ? { span: 24 } : { span: 12 }} xs={{ span: 24 }}>
+          <div className={styles.itemCurrent} style={name === "oracles" ? { textAlign: "left", wordBreak: "break-all" } : { wordBreak: "break-all" }}>
+            <span style={name === "oracles" ? { display: "block", fontSize: 14, fontWeight: "bold" } : (width <= 576 ? { fontSize: 14, fontWeight: "bold" } : { display: "inline" })}>Current value:</span>{" "}
+            {valueView}
           </div>
         </Col>
       </Row>
       <Row align="top">
-        <Col span={12}>
+        <Col sm={name === "oracles" && width < 720 ? { span: 24 } : { span: 12 }}>
           {leader &&
-            <div>Leader: {name === "interest_rate" || name === "deposits.reporter_share" ? leader * 100 + "%" : leader}</div>}
-          <div>{isChoice && <div>{name === "interest_rate" || name === "deposits.reporter_share" ? 'My choice: ' + choice * 100 + "%" : 'My choice: ' + choice}</div>}</div>
+            <div><b style={name === "oracles" ? { display: "block" } : { display: "inline" }}>Leader:</b> {leaderView}</div>}
+          <div>{isChoice && <div><b>My choice: </b>{choiceView}</div>}</div>
         </Col>
         {challengingPeriod ? (
           <Col
@@ -150,13 +176,13 @@ export const GovernanceItem = ({
             sm={{ span: 12 }}
             style={{ paddingRight: 10 }}
           >
-            <div className={styles.secondInfo}>
+            <div className={styles.secondInfo} style={name === "oracles" && width < 720 ? { textAlign: "left" } : {}}>
               <div>
                 {new Date() <= challengingPeriod && !isExpired ? (
                   <>
                     Challenging period expires in {" "}
                     <Countdown
-                      valueStyle={{ fontSize: 14, display: "inline" }}
+                      valueStyle={{ fontSize: 14, display: "inline", wordBreak: "break-all" }}
                       value={moment.utc(challengingPeriod)}
                       style={{ display: "inline" }}
                       format={regularPeriod > 86400 ? "D [days] HH:mm:ss" : "HH:mm:ss"}
@@ -169,7 +195,7 @@ export const GovernanceItem = ({
                         <Button
                           type="link"
                           style={{ padding: 0, lineHeight: "1em", height: "auto" }}
-                          onClick={() => setSelectedParam(name)}
+                          onClick={() => { setSelectedParam(name); setVisible(true); }}
                         >
                           suggest another value
                       </Button>
@@ -216,7 +242,7 @@ export const GovernanceItem = ({
               <Button
                 type="link"
                 style={{ padding: 0, lineHeight: "1em", height: "auto" }}
-                onClick={() => setSelectedParam(name)}
+                onClick={() => { setSelectedParam(name); setVisible(true); }}
               >
                 suggest another value
               </Button>
@@ -234,12 +260,12 @@ export const GovernanceItem = ({
                 dataSource={source.sort((a, b) => b.support - a.support)}
                 pagination={{ pageSize: 5, hideOnSinglePage: true }}
                 size="small"
-                rowKey={(record) => String(record.name + record.value)}
+                rowKey={(record) => String('G-I-' + record.name + record.value)}
                 footer={() => <>
                   <Button
                     type="link"
                     style={{ padding: 5 }}
-                    onClick={() => setSelectedParam(name)}
+                    onClick={() => { setSelectedParam(name); setVisible(true); }}
                   >
                     suggest another value
                   </Button>
@@ -250,19 +276,12 @@ export const GovernanceItem = ({
         </>
       )}
       <ChangeParamsModal
-        visible={!!selectedParam}
+        visible={visible}
         choice={choice}
         param={name}
-        value={
-          selectedParam &&
-          String(
-            name === "interest_rate" || name === "deposits.reporter_share"
-              ? selectedParam.value * 100
-              : selectedParam.value
-          )
-        }
+        value={selectedParam && viewParamSelected(selectedParam.value, name)}
         activeWallet={activeWallet}
-        onCancel={() => setSelectedParam(undefined)}
+        onCancel={() => setVisible(false)}
         governance_aa={governance_aa}
         base_governance={base_governance}
         asset={asset}
@@ -285,4 +304,16 @@ export const GovernanceItem = ({
   );
 };
 
+export const viewParamSelected = (value, name) => {
+  if (value) {
+    if (name === "slow_capacity_share" || name === "interest_rate" || name === "deposits.reporter_share") {
+      return value * 100;
+    } else if (name === "oracles") {
+      return value;
+    } else {
+      return value;
+    }
+  }
 
+  return undefined
+}
