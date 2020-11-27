@@ -1,6 +1,7 @@
 import React from "react";
 import { Label } from "components/Label/Label";
 import styles from "../Parameters.module.css";
+import { paramsDescription } from "pages/Create/paramsDescription";
 
 export const GovernanceParameters = ({ params }) => {
   const {
@@ -17,7 +18,7 @@ export const GovernanceParameters = ({ params }) => {
       <div className={styles.param}>
         <div className={styles.labelWrap}>
           <Label
-            descr="Whether to allow paying grants to teams that promise to promote the use of the stablecoin. Grants are voted on by Token1 holders, and if approved, they dilute Token1 holders."
+            descr={paramsDescription.allow_grants}
             label="Allow grants"
           />
           <span className={styles.semi}>:</span>
@@ -28,7 +29,7 @@ export const GovernanceParameters = ({ params }) => {
       <div className={styles.param}>
         <div className={styles.labelWrap}>
           <Label
-            descr="Whether to allow updating the oracles by Token1 holders vote after the stablecoin AA is created."
+            descr={paramsDescription.allow_oracle_change}
             label="Allow oracle change"
           />
           <span className={styles.semi}>:</span>
@@ -39,7 +40,7 @@ export const GovernanceParameters = ({ params }) => {
       <div className={styles.param}>
         <div className={styles.labelWrap}>
           <Label
-            descr="Challenging period (in seconds) for votes by Token1 holders on regular issues."
+            descr={paramsDescription.regular_challenging_period}
             label="Regular challenging period"
           />
           <span className={styles.semi}>:</span>
@@ -50,7 +51,7 @@ export const GovernanceParameters = ({ params }) => {
       <div className={styles.param}>
         <div className={styles.labelWrap}>
           <Label
-            descr="Challenging period (in seconds) for votes by Token1 holders on important issues such as changing an oracle."
+            descr={paramsDescription.important_challenging_period}
             label="Important challenging period"
           />
           <span className={styles.semi}>:</span>
@@ -61,7 +62,7 @@ export const GovernanceParameters = ({ params }) => {
       <div className={styles.param}>
         <div className={styles.labelWrap}>
           <Label
-            descr="How long (in seconds) the voting tokens of the supporters of the winning option are frozen after the decision is made."
+            descr={paramsDescription.freeze_period}
             label="Freeze period"
           />
           <span className={styles.semi}>:</span>
@@ -72,7 +73,7 @@ export const GovernanceParameters = ({ params }) => {
       <div className={styles.param}>
         <div className={styles.labelWrap}>
           <Label
-            descr="What share of the total Token1 supply should vote for a grant proposal for the proposal to be eligible to win."
+            descr={paramsDescription.proposal_min_support}
             label="Proposal min support"
           />
           <span className={styles.semi}>:</span>

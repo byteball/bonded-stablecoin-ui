@@ -8,6 +8,7 @@ import { Label } from "components/Label/Label";
 import styles from "../../CreatePage.module.css";
 import client from "services/socket";
 import config from "config";
+import { paramsDescription } from "pages/Create/paramsDescription";
 
 const { useForm } = Form;
 
@@ -199,7 +200,7 @@ export const CurverStep = ({ setCurrent, setData }) => {
                 label="Oracle 1"
                 required
                 className="label"
-                descr="Address of the oracle that reports the price for the stable token"
+                descr={paramsDescription.oracle1}
               />
             }
           >
@@ -220,7 +221,7 @@ export const CurverStep = ({ setCurrent, setData }) => {
               <Label
                 required
                 label="Feed name 1"
-                descr="Name of the oracle’s data feed"
+                descr={paramsDescription.feed_name1}
               />
             }
           >
@@ -240,7 +241,7 @@ export const CurverStep = ({ setCurrent, setData }) => {
               <Label
                 required
                 label="Operation 1"
-                descr="How the oracle’s price is interpreted: use ‘*’ if the oracle reports the price of the reserve currency in terms of the stable currency (this is the default). Use ‘/’ if it is the reverse, i.e. the price of the stable token in terms of the reserve asset."
+                descr={paramsDescription.op1}
               />
             }
           >
@@ -265,7 +266,7 @@ export const CurverStep = ({ setCurrent, setData }) => {
               <Label
                 label="Oracle 2"
                 className="label"
-                descr="Optional second oracle. Use it if you want to multiply or delete prices of different assets. E.g. to create a stablecoin pegged to TSLA, you need to divide two price feeds: GBYTE/USD and TSLA/USD."
+                descr={paramsDescription.oracle2}
               />
             }
           >
@@ -285,7 +286,7 @@ export const CurverStep = ({ setCurrent, setData }) => {
             label={
               <Label
                 label="Feed name 2"
-                descr="Name of the 2nd oracle’s data feed."
+                descr={paramsDescription.feed_name2}
               />
             }
           >
@@ -299,12 +300,11 @@ export const CurverStep = ({ setCurrent, setData }) => {
         <Col sm={{ span: 24 }} xs={{ span: 24 }} md={{ span: 4, offset: 1 }}>
           <Form.Item
             hasFeedback
-            // validateStatus={getStatusVaild(validFields.feed_name)}
             name="op2"
             label={
               <Label
                 label="Operation 2"
-                descr="What to do with the 2nd price: multiply or delete."
+                descr={paramsDescription.op2}
               />
             }
           >
@@ -329,7 +329,7 @@ export const CurverStep = ({ setCurrent, setData }) => {
               <Label
                 label="Oracle 3"
                 className="label"
-                descr="Optional 3rd oracle, like the 2nd one."
+                descr={paramsDescription.oracle3}
               />
             }
           >
@@ -349,7 +349,7 @@ export const CurverStep = ({ setCurrent, setData }) => {
             label={
               <Label
                 label="Feed name 3"
-                descr="Name of the 3rd oracle’s data feed"
+                descr={paramsDescription.feed_name3}
               />
             }
           >
@@ -363,12 +363,11 @@ export const CurverStep = ({ setCurrent, setData }) => {
         <Col sm={{ span: 24 }} xs={{ span: 24 }} md={{ span: 4, offset: 1 }}>
           <Form.Item
             hasFeedback
-            // validateStatus={getStatusVaild(validFields.feed_name)}
             name="op3"
             label={
               <Label
                 label="Operation 3"
-                descr="What to do with the 3rd price: multiply or delete."
+                descr={paramsDescription.op3}
               />
             }
           >
@@ -524,7 +523,7 @@ export const CurverStep = ({ setCurrent, setData }) => {
               <Label
                 required
                 label="Leverage"
-                descr="Leverage applied to Token2. Use 0 (the default) to track the oracle price. Use positive values to create an asset that represents leveraged long positions in the reserve asset, negative values for leveraged short positions."
+                descr={paramsDescription.leverage}
               />
             }
           >
@@ -552,13 +551,7 @@ export const CurverStep = ({ setCurrent, setData }) => {
               <Label
                 required
                 label="m"
-                descr={
-                  <span>
-                    Power m in the bonding curve r=s<sub>1</sub>
-                    <sup>m</sup> s<sub>2</sub>
-                    <sup>n</sup>
-                  </span>
-                }
+                descr={paramsDescription.m}
               />
             }
           >
@@ -584,13 +577,7 @@ export const CurverStep = ({ setCurrent, setData }) => {
               <Label
                 required
                 label="n"
-                descr={
-                  <span>
-                    Power n in the bonding curve r=s<sub>1</sub>
-                    <sup>m</sup> s<sub>2</sub>
-                    <sup>n</sup>
-                  </span>
-                }
+                descr={paramsDescription.n}
               />
             }
           >
@@ -616,7 +603,7 @@ export const CurverStep = ({ setCurrent, setData }) => {
               <Label
                 required
                 label="Interest rate"
-                descr="Interest rate that Token2 earns on top of the stable token. Type 0.1 for 10%."
+                descr={paramsDescription.interest_rate}
               />
             }
           >
