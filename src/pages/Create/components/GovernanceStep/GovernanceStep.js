@@ -6,6 +6,7 @@ import { validator } from "utils/validators";
 import { getStatusValid } from "utils/getStatusValid";
 
 import styles from "../../CreatePage.module.css";
+import { paramsDescription } from "pages/Create/paramsDescription";
 
 const { useForm } = Form;
 const initialValues = {
@@ -93,7 +94,7 @@ export const GovernanceStep = ({ setCurrent, setData }) => {
               <Label
                 required
                 label="Allow grants"
-                descr="Whether to allow paying grants to teams that promise to promote the use of the stablecoin. Grants are voted on by Token1 holders, and if approved, they dilute Token1 holders."
+                descr={paramsDescription.allow_grants}
               />
             }
             rules={[
@@ -123,7 +124,7 @@ export const GovernanceStep = ({ setCurrent, setData }) => {
               <Label
                 required
                 label="Allow oracle change"
-                descr="Whether to allow updating the oracles by Token1 holders vote after the stablecoin AA is created."
+                descr={paramsDescription.allow_oracle_change}
               />
             }
             rules={[
@@ -167,7 +168,7 @@ export const GovernanceStep = ({ setCurrent, setData }) => {
               <Label
                 required
                 label="Regular challenging period"
-                descr="Challenging period (in seconds) for votes by Token1 holders on regular issues."
+                descr={paramsDescription.regular_challenging_period}
               />
             }
           >
@@ -203,7 +204,7 @@ export const GovernanceStep = ({ setCurrent, setData }) => {
               <Label
                 required
                 label="Important challenging period"
-                descr="Challenging period (in seconds) for votes by Token1 holders on important issues such as changing an oracle."
+                descr={paramsDescription.important_challenging_period}
               />
             }
           >
@@ -235,7 +236,7 @@ export const GovernanceStep = ({ setCurrent, setData }) => {
               <Label
                 required
                 label="Freeze period"
-                descr="How long (in seconds) the voting tokens of the supporters of the winning option are frozen after the decision is made."
+                descr={paramsDescription.freeze_period}
               />
             }
           >
@@ -268,7 +269,7 @@ export const GovernanceStep = ({ setCurrent, setData }) => {
               <Label
                 required
                 label="Proposal min support"
-                descr="What share of the total Token1 supply should vote for a grant proposal for the proposal to be eligible to win."
+                descr={paramsDescription.proposal_min_support}
               />
             }
           >

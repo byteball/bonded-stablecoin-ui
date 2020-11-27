@@ -5,6 +5,7 @@ import obyte from "obyte";
 import { generateLink } from "utils/generateLink";
 import { redirect } from "utils/redirect";
 import client from "services/socket";
+import { viewParameter } from "pages/Main/components/Governance/viewParameter";
 
 const { Text } = Typography;
 
@@ -274,7 +275,7 @@ export const ChangeParamsModal = ({
     {
       name: param,
       value:
-        param === "interest_rate" || param === "deposits.reporter_share" ? paramValue.value / 100 : paramValue.value,
+        param === "slow_capacity_share" || param === "interest_rate" || param === "deposits.reporter_share" ? paramValue.value / 100 : paramValue.value,
     },
     activeWallet,
     governance_aa,
@@ -303,10 +304,10 @@ export const ChangeParamsModal = ({
   const finalSupport = balance + (amount.valid ? Number(amount.value) : 0);
 
   const validationStatus = param && (paramValue.value || Number(paramValue.value) === 0) ? validateParams[param].validator(paramValue.value) : undefined;
-  const supportsValue = param === "interest_rate" || param === "deposits.reporter_share" ? paramValue.value / 100 : paramValue.value;
+  const supportsValue = param === "slow_capacity_share" || param === "interest_rate" || param === "deposits.reporter_share" ? paramValue.value / 100 : paramValue.value;
   const totalSupport = supportsValue in supportsByValue
       ? Number(supportsByValue[supportsValue] || 0) / 10 ** decimals +
-      Number(amount.value || 0) + (balance || 0) 
+      Number(amount.value || 0) + (balance -  (isMyVote ? Number(supportParamsByAddress.support / 10 ** decimals) : 0) || 0) 
       : Number(amount.value || 0) + (balance || 0);
       
   return (
@@ -357,7 +358,7 @@ export const ChangeParamsModal = ({
               <Text type="secondary">
                 <b>
                   Your support in favor of{" "}
-                  {view(supportParamsByAddress.value, param)}{param === "oracles" ? <span> &mdash; </span> : ":"}
+                  {viewParameter(supportParamsByAddress.value, param, true)}{param === "oracles" ? <span> &mdash; </span> : ":"}
                 </b>{" "}
                 {supportParamsByAddress.support / 10 ** decimals}{" "}
                 {symbol || "tokens1"}
@@ -375,7 +376,7 @@ export const ChangeParamsModal = ({
             autoComplete="off"
             autoFocus={!isMyVote}
             disabled={isMyVote || param === "oracles"}
-            suffix={param === "interest_rate" || param === "deposits.reporter_share" ? "%" : undefined}
+            suffix={param === "slow_capacity_share" || param === "interest_rate" || param === "deposits.reporter_share" ? "%" : undefined}
             ref={valueInput}
             onChange={handleChangeParamValue}
             value={paramValue.value}
@@ -385,7 +386,7 @@ export const ChangeParamsModal = ({
         {param === "oracles" && value && <p>
           <Text type="secondary">
             <b>
-              {view(value, param)}
+              {viewParameter(value, param, true)}
             </b>
           </Text>
         </p>}
@@ -534,7 +535,7 @@ export const ChangeParamsModal = ({
           <Text type="secondary">
             <p>
               <b>
-                Your supported value is {Math.trunc(paramValue.value * 10 ** decimals) / 10 ** decimals || view(paramValue.value, param)}{param === "interest_rate" || param === "deposits.reporter_share" ? "%" : ""}
+                Your supported value is {Math.trunc(paramValue.value * 10 ** decimals) / 10 ** decimals || viewParameter(paramValue.value, param, true)}{param === "interest_rate" || param === "deposits.reporter_share" ? "%" : ""}
               </b>
             </p>
           </Text>
@@ -568,24 +569,3 @@ export const ChangeParamsModal = ({
     </Modal >
   );
 };
-
-export const view = (value, name) => {
-  if (value) {
-    if (name === "oracles") {
-      const oracles = parseOracle(value.trim());
-      return oracles.map((oracle, i) => {
-        return <span key={name + '-' + oracle + "-" + i} style={{ display: "block" }}>{oracle.address + " " + oracle.feed_name + " \"" + oracle.op + "\""}</span>;
-      })
-    } else if (name === "interest_rate" || name === "deposits.reporter_share") {
-      return value * 100 + "%"
-    } else {
-      return value;
-    }
-  }
-}
-
-export const parseOracle = (oracles) => oracles.split(" ").map((info) => ({
-  address: info.slice(0, 32),
-  op: info.slice(32, 33),
-  feed_name: info.slice(33, info.length)
-}));

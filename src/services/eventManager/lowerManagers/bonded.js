@@ -50,11 +50,11 @@ export const bondedEventManager = ({
       if (type) {
         if (isAuthor) {
           openNotification(
-            "You have sent a request to redeem the token " + type
+            "You have sent a request to redeem the  " + (type === 1 ? symbol1 || "token1" : symbol2 || "token2")
           );
         } else {
           openNotification(
-            "Another user sent a request to redeem the token " + type
+            "Another user sent a request to redeem the  " + (type === 1 ? symbol1 || "token1": symbol2 || "token2")
           );
         }
       }

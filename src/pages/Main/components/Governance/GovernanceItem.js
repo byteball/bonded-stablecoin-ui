@@ -11,19 +11,9 @@ import { paramsDescription } from "pages/Create/paramsDescription";
 import { SupportListModal } from "modals/SupportListModal/SupportListModal";
 
 import styles from "./GovernanceItem.module.css";
+import { parseOracle, viewParameter } from "./viewParameter";
 
 const { Countdown } = Statistic;
-const oracleInfo = {
-  oracle1: "Address of the oracle that reports the price for the stable token",
-  feed_name1: "Name of the oracle’s data feed",
-  op1: "How the oracle’s price is interpreted: use ‘*’ if the oracle reports the price of the reserve currency in terms of the stable currency (this is the default). Use ‘/’ if it is the reverse, i.e. the price of the stable token in terms of the reserve asset.",
-  oracle2: "Optional second oracle. Use it if you want to multiply or delete prices of different assets. E.g. to create a stablecoin pegged to TSLA, you need to divide two price feeds: GBYTE/USD and TSLA/USD.",
-  feed_name2: "Name of the 2nd oracle’s data feed.",
-  op2: "What to do with the 2nd price: multiply or delete.",
-  oracle3: "Optional 3rd oracle, like the 2nd one.",
-  feed_name3: "Name of the 3rd oracle’s data feed.",
-  op3: "What to do with the 3rd price: multiply or delete."
-}
 
 export const GovernanceItem = ({
   value,
@@ -94,7 +84,7 @@ export const GovernanceItem = ({
           return parseOracle(value).map((item, index) => <div key={item.address + item.feed_name + index}>
             <div style={{ display: "flex" }}>
               <Label
-                descr={oracleInfo["oracle" + (index + 1)]}
+                descr={paramsDescription["oracle" + (index + 1)]}
                 label={"Oracle" + (index + 1)}
               /> <span style={{ marginLeft: 5, marginRight: 5 }}>:</span> {width >= 700 ? item.address : <Tooltip style={{ display: "inline" }} title={item.address}>
                 <span>{item.address.slice(0, 8)}...</span>
@@ -102,16 +92,16 @@ export const GovernanceItem = ({
             </div>
             <div style={{ display: "flex" }}>
               <Label
-                descr={oracleInfo["feed_name" + (index + 1)]}
+                descr={paramsDescription["feed_name" + (index + 1)]}
                 label={"Feed name" + (index + 1)}
               /> <span style={{ marginLeft: 5, marginRight: 5 }}>:</span> {item.feed_name}</div>
             <div style={{ display: "flex" }}>
               <Label
-                descr={oracleInfo["op" + (index + 1)]}
+                descr={paramsDescription["op" + (index + 1)]}
                 label={"Op" + (index + 1)}
               /> <span style={{ marginLeft: 5, marginRight: 5 }}>:</span> {item.op}</div>
           </div>)
-        } else if (name === "interest_rate" || name === "deposits.reporter_share") {
+        } else if (name === "slow_capacity_share" || name === "interest_rate" || name === "deposits.reporter_share") {
           return value * 100 + "%";
         } else {
           return value;
@@ -152,9 +142,9 @@ export const GovernanceItem = ({
     description = paramsDescription[name.replace("deposits.", "")];
   }
 
-  const choiceView = view(choice, name);
-  const leaderView = view(leader, name);
-  const valueView = view(value, name);
+  const choiceView = viewParameter(choice, name);
+  const leaderView = viewParameter(leader, name);
+  const valueView = viewParameter(value, name);
 
   return (
     <div className={styles.itemWrap} ref={refEl}>
@@ -314,33 +304,9 @@ export const GovernanceItem = ({
   );
 };
 
-
-export const parseOracle = (oracles) => oracles.split(" ").map((info) => ({
-  address: info.slice(0, 32),
-  op: info.slice(32, 33),
-  feed_name: info.slice(33, info.length)
-}));
-
-export const view = (value, name) => {
-  if (value) {
-    if (name === "oracles") {
-      const oracles = parseOracle(value.trim());
-      return oracles.map((oracle, i) => {
-        return <div key={oracle + i + 'view'} style={{ fontSize: 14, wordBreak: "break-all" }}>{oracle.address + " " + oracle.feed_name + " \"" + oracle.op + "\""}</div>;
-      });
-    } else if (name === "interest_rate" || name === "deposits.reporter_share") {
-      return value * 100 + "%";
-    } else {
-      return value;
-    }
-  }
-
-  return undefined
-}
-
 export const viewParamSelected = (value, name) => {
   if (value) {
-    if (name === "interest_rate" || name === "deposits.reporter_share") {
+    if (name === "slow_capacity_share" || name === "interest_rate" || name === "deposits.reporter_share") {
       return value * 100;
     } else if (name === "oracles") {
       return value;
