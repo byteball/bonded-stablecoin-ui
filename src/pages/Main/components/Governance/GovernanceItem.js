@@ -37,6 +37,7 @@ export const GovernanceItem = ({
   refEl
 }) => {
   const [selectedParam, setSelectedParam] = useState(undefined);
+  const [visible, setVisible] = useState(false);
   const [activeSupportValue, setActiveSupportValue] = useState(undefined);
   const [isExpired, setIsExpired] = useState(false);
   const nameView = name.split("_").join(" ").replace(".", ': ');
@@ -125,8 +126,7 @@ export const GovernanceItem = ({
         return (
           <Button
             type="link"
-            onClick={() => setSelectedParam({ name, value: records.value })}
-          >
+            onClick={() => { setSelectedParam({ name, value: records.value }); setVisible(true); }}>
             {(width <= 470 || (name === "oracles" && width <= 720)) ? <ImportOutlined /> : (records.value === String(choice)
               ? "add support for this value"
               : "vote for this value")}
@@ -195,7 +195,7 @@ export const GovernanceItem = ({
                         <Button
                           type="link"
                           style={{ padding: 0, lineHeight: "1em", height: "auto" }}
-                          onClick={() => setSelectedParam(name)}
+                          onClick={() => { setSelectedParam(name); setVisible(true); }}
                         >
                           suggest another value
                       </Button>
@@ -242,7 +242,7 @@ export const GovernanceItem = ({
               <Button
                 type="link"
                 style={{ padding: 0, lineHeight: "1em", height: "auto" }}
-                onClick={() => setSelectedParam(name)}
+                onClick={() => { setSelectedParam(name); setVisible(true); }}
               >
                 suggest another value
               </Button>
@@ -265,7 +265,7 @@ export const GovernanceItem = ({
                   <Button
                     type="link"
                     style={{ padding: 5 }}
-                    onClick={() => setSelectedParam(name)}
+                    onClick={() => { setSelectedParam(name); setVisible(true); }}
                   >
                     suggest another value
                   </Button>
@@ -276,12 +276,12 @@ export const GovernanceItem = ({
         </>
       )}
       <ChangeParamsModal
-        visible={!!selectedParam}
+        visible={visible}
         choice={choice}
         param={name}
         value={selectedParam && viewParamSelected(selectedParam.value, name)}
         activeWallet={activeWallet}
-        onCancel={() => setSelectedParam(undefined)}
+        onCancel={() => setVisible(false)}
         governance_aa={governance_aa}
         base_governance={base_governance}
         asset={asset}
