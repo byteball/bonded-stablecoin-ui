@@ -1,4 +1,5 @@
 import React from "react";
+import { percentageParams } from "./components/percentageParams";
 
 export const viewParameter = (value, name, isBlock = false) => {
   if (value) {
@@ -7,7 +8,7 @@ export const viewParameter = (value, name, isBlock = false) => {
       return oracles.map((oracle, i) => {
         return <span key={name + '-' + oracle + "-" + i} style={isBlock ? { display: "block" } : { fontSize: 14, wordBreak: "break-all" }}>{oracle.address + " " + oracle.feed_name + " \"" + oracle.op + "\""}</span>;
       })
-    } else if (name === "slow_capacity_share" || name === "interest_rate" || name === "deposits.reporter_share") {
+    } else if (percentageParams.includes(name)) {
       return value * 100 + "%"
     } else {
       return value;
