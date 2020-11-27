@@ -168,7 +168,7 @@ export const MainPage = ({ setWalletModalVisibility }) => {
                 )}
             </TabPane>
             <TabPane
-              disabled={!("reserve" in stable_state)}
+              disabled={!("reserve" in stable_state) || (!stable_state.interest_rate && !deposit_state.supply)}
               tab={
                 <span>
                   <ImportOutlined /> Deposits
