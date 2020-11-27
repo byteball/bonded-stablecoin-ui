@@ -338,7 +338,7 @@ export const Deposits = ({ openWalletModal }) => {
       </Button>{" "}
       or change your wallet address.
     </span>
-  ) : 'Deposits are disabled when there is no interests rate.';
+  ) : 'Deposits are disabled when there is no interest rate.';
 
   const odexUrl = `https://odex.ooo/trade/${ (symbol3 === 'OUSD' ? 'GBYTE' : symbol3) }/OUSD`;
   let oswapUrl = 'https://oswap.io/#/swap';
