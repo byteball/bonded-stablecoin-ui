@@ -66,14 +66,7 @@ export const Deposits = ({ openWalletModal }) => {
     };
   }, []);
 
-  if (!("reserve" in stable_state) || (!stable_state.interest_rate && !deposit_state.supply)) {
-    return (
-      <div style={{ textAlign: "center" }}>
-        Deposits are disabled when there is no interests rate.
-      </div>
-    );
-  }
-  else if (!activeWallet) {
+  if (!activeWallet) {
     return (
       <div style={{ textAlign: "center", cursor: "pointer", color: "#1890ff" }} onClick={openWalletModal}>
         Please add the address of your wallet in order to view/open deposits.
@@ -333,7 +326,7 @@ export const Deposits = ({ openWalletModal }) => {
       source.push({ id, ...deposits[id], key: id });
     }
   }
-  const localeForEmpty = (
+  const localeForEmpty = !stable_state.interest_rate ? 'Deposits are disabled when there is no interests rate.' : (
     <span>
       You don't have any open deposits, please{" "}
       <Button
@@ -375,6 +368,7 @@ export const Deposits = ({ openWalletModal }) => {
       >
         <Title level={3}>Deposits</Title>
         <Button
+          disabled={!stable_state.interest_rate}
           type="primary"
           size="large"
           icon={<PlusOutlined />}
