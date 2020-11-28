@@ -172,7 +172,7 @@ export const RegisterSymbols = (props) => {
       >
         <Step title="Symbol for tokens1" />
         <Step title="Symbol for tokens2" />
-        <Step title="Symbol for stable tokens" />
+        <Step style={!props.interest ? {display: 'none'} : {}} title="Symbol for stable tokens" />
       </Steps>
       {symbolByCurrentAsset && (
         <p style={{ paddingTop: 20, maxWidth: 600 }}>
