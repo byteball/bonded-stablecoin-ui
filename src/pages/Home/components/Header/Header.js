@@ -19,7 +19,7 @@ export const Header = ({ type, setType }) => {
       <header className={styles.header}>
         <div className={styles.titleWrap}>
           <h1 className={styles.title}>Bonded stablecoins</h1>
-          <h2 className={styles.subTitle}>Choose your crypto:</h2>
+          <h2 className={styles.subTitle}>The most advanced stablecoins powered by bonding curves</h2>
         </div>
         <div style={{ marginBottom: 40 }}>
           <div className={styles.tokenItem}>
@@ -34,7 +34,12 @@ export const Header = ({ type, setType }) => {
               </Link>
             </div>
             <div className={styles.tokenItemTitle}>
-              {pegged[type].stableName}: Stablecoin whose value is 1 {pegged[type].target || type}.
+              <div>
+                {pegged[type].stableName}: Stablecoin whose value is 1 {pegged[type].target || type}.
+              </div>
+              <div className={styles.tokenItemSubTitle}>
+                For use in commerce and trading.
+              </div>
             </div>
           </div>
         </div>
@@ -58,8 +63,7 @@ export const Header = ({ type, setType }) => {
                 coin.
               </div>
               <div className={styles.tokenItemSubTitle}>
-                You can also buy {pegged[type].interestName} and redirect
-                interest to a charity.
+                For investors seeking predictable income.
               </div>
             </div>
           </div>
@@ -78,8 +82,13 @@ export const Header = ({ type, setType }) => {
               </Link>
             </div>
             <div className={styles.tokenItemTitle}>
-              {pegged[type].growthName}: Growth token whose value is tied to the
-              amount of {pegged[type].interestName} issued.
+              <div>
+                {pegged[type].growthName}: Growth token whose value is tied to the
+                amount of {pegged[type].interestName} issued.
+              </div>
+              <div className={styles.tokenItemSubTitle}>
+                For investors seeking higher income, with higher risks.
+              </div>
             </div>
           </div>
         </div>

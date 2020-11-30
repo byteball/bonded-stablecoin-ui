@@ -104,7 +104,7 @@ export const MainPage = ({ setWalletModalVisibility }) => {
     address !== "undefined" &&
     ((!symbol1 && !pendings.tokens1) ||
       (!symbol2 && !pendings.tokens2) ||
-      (!symbol3 && !pendings.tokens3))
+      (!symbol3 && !pendings.tokens3 && stable_state.interest_rate))
   ) {
     return (
       <RegisterSymbols
@@ -120,6 +120,7 @@ export const MainPage = ({ setWalletModalVisibility }) => {
         address={address}
         activeWallet={activeWallet}
         handleSkip={setHandleSkip}
+        interest={!!stable_state.interest_rate}
       />
     );
   } else
@@ -168,7 +169,7 @@ export const MainPage = ({ setWalletModalVisibility }) => {
                 )}
             </TabPane>
             <TabPane
-              disabled={!("reserve" in stable_state)}
+              disabled={!("reserve" in stable_state) || (!stable_state.interest_rate && !deposit_state.supply)}
               tab={
                 <span>
                   <ImportOutlined /> Deposits
