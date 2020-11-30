@@ -48,6 +48,9 @@ const InterestNotTracking = ({ forwardedRef }) => (
         can be changed by GRD holders). It is a <b>stable+</b> coin.
       </p>
       <p>
+        Stable+ coins are programmed to follow the growing target price, they do so thanks to bonding curve mechanics, and the programs cannot be changed.
+      </p>
+      <p>
         You can buy IUSD and hold. Or you can buy IUSD,{" "}
         <a href="/trade#deposits">
           put it on a deposit
@@ -57,7 +60,7 @@ const InterestNotTracking = ({ forwardedRef }) => (
         to a charity or another nonprofit (Estonian Cryptocurrency Association, Obyte Foundation, and <a href="https://pollopollo.org" target="_blank" rel="noopener">PolloPollo</a> are already enrolled as suggested recipients).
       </p>
       <Link className={styles.btnOpen} to="/buy">
-        Buy interest tokens
+        Buy IUSD interest tokens
       </Link>
     </div>
     <div className={styles.illustration}>
@@ -73,18 +76,18 @@ const StableNotTracking = ({ forwardedRef }) => (
     </div>
     <div className={styles.infoSecond}>
       <div className={styles.tokensTitle}>OUSD &mdash; a USD-pegged stablecoin</div>
-      <p ref={forwardedRef}>OUSD is essentially IUSD with interest payments stripped off.</p>
-      <p>
-        You get it by <a href="/trade#deposits">depositing</a> IUSD, or you can buy it on the market, or you
-        can receive it as payment for goods and services.
-      </p>
+      <p ref={forwardedRef}>OUSD is essentially IUSD with interest payments stripped off. Its price stays near 1 USD &mdash; because it is so programmed, and the programs cannot be changed.</p>
       <p>
         OUSD is a familiar unit of account best suited for payments. Unlike
         USD, it can be freely and instantly moved cross-border, and the fees
         are fractions of a cent.
       </p>
+      <p>
+        You get it by <a href="/trade#deposits">depositing</a> IUSD, or you can buy it on the market, or you
+        can receive it as payment for goods and services.
+      </p>
       <Link className={styles.btnOpen} to="/trade">
-        trade
+        Buy OUSD stablecoin
       </Link>
     </div>
   </div>
@@ -97,8 +100,8 @@ const GrowthNotTracking = ({ forwardedRef }) => (
         GRD &mdash; growth and governance token
       </div>
       <p ref={forwardedRef}>
-        Price of GRD depends on popularity of IUSD (and therefore OUSD). As
-        more IUSD tokens are issued, the price of GRD grows. When IUSD tokens
+        Price of GRD depends on the popularity of IUSD (and therefore OUSD). As
+        more IUSD tokens are issued, the price of GRD grows programmatically &mdash; this follows from the bonding curve mechanics. When IUSD tokens
         are redeemed, GRD falls in price.
       </p>
       <p>
@@ -112,7 +115,7 @@ const GrowthNotTracking = ({ forwardedRef }) => (
         <b>d</b> as some might think.
       </p>
       <Link className={styles.btnOpen} to="/trade">
-        trade
+        Buy GRD growth tokens
       </Link>
     </div>
     <div className={styles.illustration}>
