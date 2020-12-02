@@ -29,6 +29,9 @@ export const MainLayout = ({ children, walletModalVisible, setWalletModalVisibil
 
   useEffect(() => {
     const unlisten = historyInstance.listen((location, action) => {
+      if(!location.pathname.includes("governance")){
+        window.scrollTo(0, 0);
+      }
       if (action === "PUSH" || action === "POP") {
         ReactGA.pageview(location.pathname);
       }

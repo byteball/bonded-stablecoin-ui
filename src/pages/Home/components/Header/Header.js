@@ -34,11 +34,11 @@ export const Header = ({ type, setType }) => {
               </Link>
             </div>
             <div className={styles.tokenItemTitle}>
-              <div>
-                {pegged[type].stableName}: Stablecoin whose value is 1 {pegged[type].target || type}.
-              </div>
               <div className={styles.tokenItemSubTitle}>
                 For use in commerce and trading.
+              </div>
+              <div>
+                {pegged[type].stableName}: Stablecoin whose value is 1 {pegged[type].target || type}.
               </div>
             </div>
           </div>
@@ -57,13 +57,13 @@ export const Header = ({ type, setType }) => {
               </Link>
             </div>
             <div className={styles.tokenItemTitle}>
+              <div className={styles.tokenItemSubTitle}>
+                For investors seeking predictable income.
+              </div>
               <div>
                 {pegged[type].interestName}: Interest token that earns{" "}
                 {pegged[type].percent}% interest in {type} &mdash; a stable+
                 coin.
-              </div>
-              <div className={styles.tokenItemSubTitle}>
-                For investors seeking predictable income.
               </div>
             </div>
           </div>
@@ -82,12 +82,12 @@ export const Header = ({ type, setType }) => {
               </Link>
             </div>
             <div className={styles.tokenItemTitle}>
+              <div className={styles.tokenItemSubTitle}>
+                For investors seeking higher income, with higher risks.
+              </div>
               <div>
                 {pegged[type].growthName}: Growth token whose value is tied to the
                 amount of {pegged[type].interestName} issued.
-              </div>
-              <div className={styles.tokenItemSubTitle}>
-                For investors seeking higher income, with higher risks.
               </div>
             </div>
           </div>
