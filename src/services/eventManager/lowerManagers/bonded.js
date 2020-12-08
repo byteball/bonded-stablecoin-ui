@@ -1,5 +1,6 @@
 import { openNotification } from "utils/openNotification";
 import { isEmpty } from "lodash";
+import i18n from "locale/index";
 
 export const bondedEventManager = ({
   isReq,
@@ -19,19 +20,11 @@ export const bondedEventManager = ({
       const T2 = payload.tokens2 ? payload.tokens2 / 10 ** decimals2 : 0;
       if (isAuthor) {
         openNotification(
-          `You have sent a request to buy ${
-            T1 ? T1 + " " + (symbol1 || "T1") : ""
-          } ${T1 && T2 ? " and " : ""} ${
-            T2 ? T2 + " " + (symbol2 || "T2") : ""
-          }`
+          i18n.t("notification.bonded.buy.req_author", "You have sent a request to buy {{tokens1}} {{tokens2}}", {tokens1: T1 ? T1 + " " + (symbol1 || "T1") : "", tokens2: T2 ? T2 + " " + (symbol2 || "T2") : "" })
         );
       } else {
         openNotification(
-          `Another user sent a request to buy ${
-            T1 ? T1 + " " + (symbol1 || "T1") : ""
-          } ${T1 && T2 ? " and " : ""} ${
-            T2 ? T2 + " " + (symbol2 || "T2") : ""
-          }`
+          i18n.t("notification.bonded.buy.req", "Another user sent a request to buy {{tokens1}} {{tokens2}}", {tokens1: T1 ? T1 + " " + (symbol1 || "T1") : "", tokens2: T2 ? T2 + " " + (symbol2 || "T2") : ""})
         );
       }
     } else if (isEmpty(payload)) {
@@ -50,22 +43,22 @@ export const bondedEventManager = ({
       if (type) {
         if (isAuthor) {
           openNotification(
-            "You have sent a request to redeem " + (type === 1 ? symbol1 || "token1" : symbol2 || "token2")
+            i18n.t("notification.bonded.redeem.req_author", "You have sent a request to redeem {{tokens}}", {tokens: type === 1 ? symbol1 || "T1" : symbol2 || "T2"})
           );
         } else {
           openNotification(
-            "Another user sent a request to redeem " + (type === 1 ? symbol1 || "token1": symbol2 || "token2")
+            i18n.t("notification.bonded.redeem.req", "Another user sent a request to redeem {{tokens}}", {tokens: type === 1 ? symbol1 || "T1": symbol2 || "T2"})
           );
         }
       }
     } else if ("move_capacity" in payload) {
       if (isAuthor) {
         openNotification(
-          "You have sent a request to move the capacity from slow to fast pool"
+          i18n.t("notification.bonded.move_capacity.req_author", "You have sent a request to move the capacity from slow to fast pool")
         );
       } else {
         openNotification(
-          "Another user sent a request to move capacity from a slow pool to a fast pool"
+          i18n.t("notification.bonded.move_capacity.req", "Another user sent a request to move capacity from a slow pool to a fast pool")
         );
       }
     }

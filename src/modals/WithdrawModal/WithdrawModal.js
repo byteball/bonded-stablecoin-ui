@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Modal, Space, Button, Form, Input } from "antd";
+import { useTranslation } from 'react-i18next';
 
 import { redirect } from "utils/redirect";
 import { generateLink } from "utils/generateLink";
@@ -15,6 +16,7 @@ export const WithdrawModal = ({
   decimals,
 }) => {
   const amountInput = useRef();
+  const { t } = useTranslation();
   const [amount, setAmount] = useState({
     value: undefined,
     valid: false,
@@ -71,11 +73,11 @@ export const WithdrawModal = ({
     <Modal
       visible={visible}
       onCancel={onCancel}
-      title="Withdraw support"
+      title={t("modals.withdraw.title", "Withdraw support")}
       footer={
         <Space>
           <Button key="Cancel" onClick={onCancel}>
-            Cancel
+            {t("modals.common.close", "Close")}
           </Button>
           <Button
             key="submit"
@@ -93,15 +95,15 @@ export const WithdrawModal = ({
               }, 100)
             }
           >
-            Withdraw
+            {t("modals.withdraw.withdraw", "Withdraw")}
           </Button>
         </Space>
       }
     >
       <Form size="large">
-        <Form.Item extra="Leave empty if you want to withdraw the entire amount">
+        <Form.Item extra={t("modals.withdraw.amount_info", "Leave empty if you want to withdraw the entire amount")}>
           <Input
-            placeholder={`Amount withdraw (Max: ${max})`}
+            placeholder={t("modals.withdraw.amount_placeholder", "Amount withdraw (Max: {{max}})", {max})}
             autoComplete="off"
             autoFocus={true}
             onChange={handleChangeAmount}

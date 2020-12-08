@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from 'react-i18next';
 
 import { paramsDescription } from "pages/Create/paramsDescription";
 import { Label } from "components/Label/Label";
@@ -13,12 +14,14 @@ export const DepositsParameters = ({ params, address, activeWallet }) => {
     reporter_share
   } = params;
 
+  const { t } = useTranslation();
+
   return <div style={{ marginBottom: 20 }}>
     <div className={styles.param}>
       <div className={styles.labelWrap}>
         <Label
-          descr={paramsDescription.min_deposit_term}
-          label="Min deposit term"
+          descr={paramsDescription().min_deposit_term.desc}
+          label={paramsDescription().min_deposit_term.name}
         />
         <span className={styles.semi}>:</span>
       </div>
@@ -28,8 +31,8 @@ export const DepositsParameters = ({ params, address, activeWallet }) => {
     <div className={styles.param}>
       <div className={styles.labelWrap}>
         <Label
-          descr={paramsDescription.challenging_period}
-          label="Challenging period"
+          descr={paramsDescription().challenging_period.desc}
+          label={paramsDescription().challenging_period.name}
         />
         <span className={styles.semi}>:</span>
       </div>
@@ -39,8 +42,8 @@ export const DepositsParameters = ({ params, address, activeWallet }) => {
     <div className={styles.param}>
       <div className={styles.labelWrap}>
         <Label
-          descr={paramsDescription.challenge_immunity_period}
-          label="Challenge immunity period"
+          descr={paramsDescription().challenge_immunity_period.desc}
+          label={paramsDescription().challenge_immunity_period.name}
         />
         <span className={styles.semi}>:</span>
       </div>
@@ -50,8 +53,8 @@ export const DepositsParameters = ({ params, address, activeWallet }) => {
     <div className={styles.param}>
       <div className={styles.labelWrap}>
         <Label
-          descr={paramsDescription.reporter_share}
-          label="Reporter share"
+          descr={paramsDescription().reporter_share.desc}
+          label={paramsDescription().reporter_share.name}
         />
         <span className={styles.semi}>:</span>
       </div>

@@ -1,5 +1,5 @@
 import { isEqual } from "lodash";
-
+import i18n from "../../locale/index";
 import config from "config";
 import { store } from "index";
 import { tokensEventManager } from "./lowerManagers/tokens";
@@ -90,15 +90,13 @@ export const eventManager = (err, result) => {
       const payload = getAAPayload(messages);
       const reserveAsset = payload.reserve_asset in config.reserves ? config.reserves[payload.reserve_asset].name : reserve_asset_symbol || payload.reserve_asset.slice(0, 6) + "...";
       if (isEqual(params, payload)) {
-        openNotification(`You have sent a request to create a new stablecoin pegged to ${payload.feed_name1 || reserveAsset
-          } with interest ${payload.interest_rate * 100}%
-        `);
-
+        openNotification(
+          i18n.t("notification.create.req_author", "You have sent a request to create a new stablecoin pegged to {{feed_name}} with interest {{interest_rate}}%", {feed_name: payload.feed_name1 || reserveAsset, interest_rate: payload.interest_rate * 100 || 0})
+        )
         store.dispatch(reqIssueStablecoin());
       } else {
         openNotification(
-          `Another user sent a request to create a new stablecoin pegged to ${payload.feed_name1 || reserveAsset
-          } with interest ${payload.interest_rate * 100}%`
+          i18n.t("notification.create.req", "Another user sent a request to create a new stablecoin pegged to {{feed_name}} with interest {{interest_rate}}%", {feed_name: payload.feed_name1 || reserveAsset, interest_rate: payload.interest_rate * 100 || 0})
         );
       }
     } else if (isRes) {

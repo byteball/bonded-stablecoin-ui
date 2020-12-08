@@ -1,6 +1,8 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Modal, Form, Input, Space, Button, Typography } from "antd";
 import { useSelector } from "react-redux";
+import { useTranslation } from 'react-i18next';
+
 import { generateLink } from "utils/generateLink";
 import config from "config";
 
@@ -22,6 +24,7 @@ export const WithdrawProtectionModal = ({
 
   const amountInput = useRef(null);
   const withdrawBtnRef = useRef(null);
+  const { t } = useTranslation();
   const handleChangeAmount = (ev) => {
     const value = ev.target.value;
     const reg = /^[0-9.]+$/;
@@ -52,7 +55,7 @@ export const WithdrawProtectionModal = ({
   return (
     <Modal
       visible={visible}
-      title="Withdraw protection from deposit"
+      title={t("modals.withdraw_protection.title", "Withdraw protection from deposit")}
       onCancel={setVisible}
       style={{ zIndex: -1 }}
       footer={
@@ -82,10 +85,10 @@ export const WithdrawProtectionModal = ({
               deposit_aa
             )}
           >
-            Withdraw protection
+            {t("modals.withdraw_protection.withdraw_protection", "Withdraw protection")}
           </Button>
           <Button type="default" onClick={setVisible}>
-            Close
+            {t("modals.common.close", "Close")}
           </Button>
         </Space>
       }
@@ -93,7 +96,7 @@ export const WithdrawProtectionModal = ({
       <Form size="large">
         <Form.Item>
           <Input
-            placeholder="Amount"
+            placeholder={t("modals.common.amount", "Amount")}
             onChange={handleChangeAmount}
             value={amount.value}
             ref={amountInput}
@@ -114,7 +117,7 @@ export const WithdrawProtectionModal = ({
           {protection && (
             <Text type="secondary">
               {" "}
-              Max. withdrawal: {protection / 10 ** reserve_asset_decimals}{" "}
+              {t("modals.withdraw_protection.max_withdrawal", "Max. withdrawal")}: {protection / 10 ** reserve_asset_decimals}{" "}
               {reserve_asset in config.reserves
                 ? config.reserves[reserve_asset].name
                 : reserve_asset_symbol || "reserve token"}

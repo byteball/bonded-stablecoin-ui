@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Form, Input, Row, Col, Select, Button } from "antd";
+import { useTranslation } from 'react-i18next';
 
 import { Label } from "components/Label/Label";
 import { validator } from "utils/validators";
@@ -27,6 +28,8 @@ export const GovernanceStep = ({ setCurrent, setData }) => {
     allow_grants: undefined,
     allow_oracle_change: undefined,
   });
+
+  const { t } = useTranslation();
 
   const nextIsActive =
     validFields.regular_challenging_period &&
@@ -93,8 +96,8 @@ export const GovernanceStep = ({ setCurrent, setData }) => {
             label={
               <Label
                 required
-                label="Allow grants"
-                descr={paramsDescription.allow_grants}
+                label={paramsDescription().allow_grants.name}
+                descr={paramsDescription().allow_grants.desc}
               />
             }
             rules={[
@@ -109,9 +112,9 @@ export const GovernanceStep = ({ setCurrent, setData }) => {
               },
             ]}
           >
-            <Select placeholder="Allow grants" style={{ width: "100%" }}>
-              <Select.Option value={1}>Yes</Select.Option>
-              <Select.Option value={0}>No</Select.Option>
+            <Select placeholder={paramsDescription().allow_grants.name} style={{ width: "100%" }}>
+              <Select.Option value={1}>{t("create.allow", "Allow")}</Select.Option>
+              <Select.Option value={0}>{t("create.disallow", "Disallow")}</Select.Option>
             </Select>
           </Form.Item>
         </Col>
@@ -123,8 +126,8 @@ export const GovernanceStep = ({ setCurrent, setData }) => {
             label={
               <Label
                 required
-                label="Allow oracle change"
-                descr={paramsDescription.allow_oracle_change}
+                label={paramsDescription().allow_oracle_change.name}
+                descr={paramsDescription().allow_oracle_change.desc}
               />
             }
             rules={[
@@ -139,9 +142,9 @@ export const GovernanceStep = ({ setCurrent, setData }) => {
               },
             ]}
           >
-            <Select placeholder="Allow oracle change" style={{ width: "100%" }}>
-              <Select.Option value={1}>Yes</Select.Option>
-              <Select.Option value={0}>No</Select.Option>
+            <Select placeholder={paramsDescription().allow_oracle_change.name} style={{ width: "100%" }}>
+              <Select.Option value={1}>{t("create.allow", "Allow")}</Select.Option>
+              <Select.Option value={0}>{t("create.disallow", "Disallow")}</Select.Option>
             </Select>
           </Form.Item>
         </Col>
@@ -167,13 +170,13 @@ export const GovernanceStep = ({ setCurrent, setData }) => {
             label={
               <Label
                 required
-                label="Regular challenging period"
-                descr={paramsDescription.regular_challenging_period}
+                label={paramsDescription().regular_challenging_period.name}
+                descr={paramsDescription().regular_challenging_period.desc}
               />
             }
           >
             <Input
-              placeholder="Regular challenging period"
+              placeholder={paramsDescription().regular_challenging_period.name}
               style={{ width: "100%" }}
               autoComplete="off"
             />
@@ -203,13 +206,13 @@ export const GovernanceStep = ({ setCurrent, setData }) => {
             label={
               <Label
                 required
-                label="Important challenging period"
-                descr={paramsDescription.important_challenging_period}
+                label={paramsDescription().important_challenging_period.name}
+                descr={paramsDescription().important_challenging_period.desc}
               />
             }
           >
             <Input
-              placeholder="Important challenging period"
+              placeholder={paramsDescription().important_challenging_period.name}
               style={{ width: "100%" }}
               autoComplete="off"
             />
@@ -235,13 +238,13 @@ export const GovernanceStep = ({ setCurrent, setData }) => {
             label={
               <Label
                 required
-                label="Freeze period"
-                descr={paramsDescription.freeze_period}
+                label={paramsDescription().freeze_period.name}
+                descr={paramsDescription().freeze_period.desc}
               />
             }
           >
             <Input
-              placeholder="Freeze period"
+              placeholder={paramsDescription().freeze_period.name}
               style={{ width: "100%" }}
               autoComplete="off"
             />
@@ -268,13 +271,13 @@ export const GovernanceStep = ({ setCurrent, setData }) => {
             label={
               <Label
                 required
-                label="Proposal min support"
-                descr={paramsDescription.proposal_min_support}
+                label={paramsDescription().proposal_min_support.name}
+                descr={paramsDescription().proposal_min_support.desc}
               />
             }
           >
             <Input
-              placeholder="Proposal min support"
+              placeholder={paramsDescription().proposal_min_support.name}
               style={{ width: "100%" }}
               autoComplete="off"
             />
@@ -288,7 +291,7 @@ export const GovernanceStep = ({ setCurrent, setData }) => {
           setCurrent((c) => c + 1);
         }}
       >
-        Next
+        {t("create.next", "Next")}
       </Button>
     </Form>
   );

@@ -1,4 +1,5 @@
 import { isEmpty } from "lodash";
+import i18n from "../../../locale/index";
 
 import { openNotification } from "utils/openNotification";
 
@@ -13,24 +14,24 @@ export const depositsEventManager = ({
     if ("id" in payload && "change_interest_recipient" in payload) {
       if (isAuthor) {
         openNotification(
-          "You have sent a request to change the interest recipient"
+          i18n.t("notification.deposits.change_recipient.req_author", "You have sent a request to change the interest recipient")
         );
       } else {
         openNotification(
-          "Another user sent a request to change the percentage recipient"
+          i18n.t("notification.deposits.change_recipient.req", "Another user sent a request to change the percentage recipient")
         );
       }
     } else if ("id" in payload && "add_protection" in payload) {
       if (isAuthor) {
-        openNotification("You have sent a request to add protection");
+        openNotification(i18n.t("notification.deposits.add_protection.req_author", "You have sent a request to add protection"));
       } else {
-        openNotification("Another user sent a request to add protection");
+        openNotification(i18n.t("notification.deposits.add_protection.req", "Another user sent a request to add protection"));
       }
     } else if ("id" in payload && "withdraw_protection" in payload) {
       if (isAuthor) {
-        openNotification("You have sent a request to withdraw protection");
+        openNotification(i18n.t("notification.deposits.withdraw_protection.req_author", "You have sent a request to withdraw protection"));
       } else {
-        openNotification("Another user sent a request to withdraw protection");
+        openNotification(i18n.t("notification.deposits.withdraw_protection.req", "Another user sent a request to withdraw protection"));
       }
     } else if (
       "id" in payload &&
@@ -38,18 +39,18 @@ export const depositsEventManager = ({
       "weaker_id" in payload
     ) {
       if (isAuthor) {
-        openNotification("You have sent a request to challenge a force-close");
+        openNotification(i18n.t("notification.deposits.force_close.req_author", "You have sent a request to challenge a force-close"));
       } else {
         openNotification(
-          "Another user sent a request to challenge a force-close"
+          i18n.t("notification.deposits.force_close.req", "Another user sent a request to challenge a force-close")
         );
       }
     } else if ("id" in payload && "commit_force_close" in payload) {
       if (isAuthor) {
-        openNotification("You have sent a request to to commit a force close");
+        openNotification(i18n.t("notification.deposits.commit_force_close.req_author", "You have sent a request to to commit a force close"));
       } else {
         openNotification(
-          "Another user sent a request to to commit a force close"
+          i18n.t("notification.deposits.commit_force_close.req", "Another user sent a request to to commit a force close")
         );
       }
     } else if ("id" in payload) {
@@ -63,15 +64,15 @@ export const depositsEventManager = ({
 
       if (type === 1) {
         if (isAuthor) {
-          openNotification("You have sent a request to close a Deposit");
+          openNotification(i18n.t("notification.deposits.close_deposit.req_author", "You have sent a request to close a Deposit"));
         } else {
-          openNotification("Another user sent a request to close a Deposit");
+          openNotification(i18n.t("notification.deposits.close_deposit.req", "Another user sent a request to close a Deposit"));
         }
       } else {
         if (isAuthor) {
-          openNotification("You have sent a request to receive interest");
+          openNotification(i18n.t("notification.deposits.receive_interest.req_author", "You have sent a request to receive interest"));
         } else {
-          openNotification("Another user sent a request to receive interest");
+          openNotification(i18n.t("notification.deposits.receive_interest.req", "Another user sent a request to receive interest"));
         }
       }
     } else if (isEmpty(payload)) {
@@ -87,9 +88,9 @@ export const depositsEventManager = ({
       }
       if (isInterestAsset) {
         if (isAuthor) {
-          openNotification("You have sent a request to open a Deposit");
+          openNotification(i18n.t("notification.deposits.open.req_author", "You have sent a request to open a Deposit"));
         } else {
-          openNotification("Another user sent a request to open a Deposit");
+          openNotification(i18n.t("notification.deposits.open.req", "Another user sent a request to open a Deposit"));
         }
       }
     }

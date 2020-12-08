@@ -1,11 +1,15 @@
 import React, { useEffect } from "react";
 import { Collapse, Typography } from "antd";
 import { DownOutlined } from "@ant-design/icons";
+import { Trans, useTranslation } from 'react-i18next';
+
 import styles from "./FaqPage.module.css";
 
 const { Panel } = Collapse;
 const { Title } = Typography;
 export const FaqPage = () => {
+  const { t } = useTranslation();
+
   useEffect(() => {
     document.title = "Bonded stablecoins - F.A.Q.";
   }, []);
@@ -23,304 +27,321 @@ export const FaqPage = () => {
         )}
       >
         <Panel
-          header="How do I buy/sell IUSD or GRD?"
+          header={t("faq.questions.0.question", "How do I buy/sell IUSD or GRD?")}
+          key="0"
+          className={styles.panel}
+        >
+          <Trans i18nKey="faq.questions.0.answer">
+            <p>
+              You can buy or sell the tokens for GBYTE on the <a href="/trade">trading page</a> or buy IUSD from a simpler <a href="/buy">buy interest tokens page</a> of this website. The website helps
+              you to construct a request that you send to an <a href="https://obyte.org/platform/autonomous-agents" target="_blank" rel="noopener">Autonomous Agent</a> from
+              your <a href="https://obyte.org/" target="_blank" rel="noopener">Obyte</a> wallet.
+            </p>
+            <p>
+              Some exchanges might also list the tokens to enable you to buy/sell
+              them for BTC or fiat.
+            </p>
+          </Trans>
+        </Panel>
+
+        <Panel
+          header={t("faq.questions.1.question", "How do I buy/sell OUSD?")}
           key="1"
           className={styles.panel}
         >
-          <p>
-            You can buy or sell the tokens for GBYTE on the <a href="/trade">trading page</a> or buy IUSD from a simpler <a href="/buy">buy interest tokens page</a> of this website. The website helps
-            you to construct a request that you send to an <a href="https://obyte.org/platform/autonomous-agents" target="_blank" rel="noopener">Autonomous Agent</a> from
-            your <a href="https://obyte.org/" target="_blank" rel="noopener">Obyte</a> wallet.
-          </p>
-          <p>
-            Some exchanges might also list the tokens to enable you to buy/sell
-            them for BTC or fiat.
-          </p>
+          <Trans i18nKey="faq.questions.1.answer">
+            <p>
+              You can buy IUSD first, then open a <a href="trade/26XAPPPTTYRIOSYNCUV3NS2H57X5LZLJ#deposits">deposit</a> to receive the
+              equivalent amount of OUSD. While the deposit is open, you can also
+              periodically withdraw the accrued interest (16% p.a.) or choose a
+              charity or your friend or relative who will receive the interest.
+              When you don’t need OUSD any more, you can close the deposit,
+              receive your IUSD back, then sell IUSD.
+            </p>
+            <p>
+              Some exchanges might also list OUSD to enable you to buy/sell the token for BTC or fiat.
+            </p>
+          </Trans>
         </Panel>
 
         <Panel
-          header="How do I buy/sell OUSD?"
+          header={t("faq.questions.2.question", "My deposit was closed, why?")} 
           key="2"
           className={styles.panel}
         >
-          <p>
-            You can buy IUSD first, then open a <a href="trade/26XAPPPTTYRIOSYNCUV3NS2H57X5LZLJ#deposits">deposit</a> to receive the
-            equivalent amount of OUSD. While the deposit is open, you can also
-            periodically withdraw the accrued interest (16% p.a.) or choose a
-            charity or your friend or relative who will receive the interest.
-            When you don’t need OUSD any more, you can close the deposit,
-            receive your IUSD back, then sell IUSD.
-          </p>
-          <p>
-            Some exchanges might also list OUSD to enable you to buy/sell the
-            token for BTC or fiat.
-          </p>
+          <Trans i18nKey="faq.questions.2.answer">
+            <p>
+              Probably it did not have enough protection. A deposit with the smallest protection can be closed by anybody by sending the required amount of OUSD. You don't lose anything when your deposit is closed as you have already received your OUSD but you stop receiving interest. To protect your deposit from closing, you need to add some GBYTE to the deposit on the <a href="trade/26XAPPPTTYRIOSYNCUV3NS2H57X5LZLJ#deposits">deposits page</a>.
+            </p>
+          </Trans>
         </Panel>
 
         <Panel
-          header="My deposit was closed, why?"
-          key="2.5"
-          className={styles.panel}
-        >
-          <p>
-            Probably it did not have enough protection. A deposit with the smallest protection can be closed by anybody by sending the required amount of OUSD. You don't lose anything when your deposit is closed as you have already received your OUSD but you stop receiving interest. To protect your deposit from closing, you need to add some GBYTE to the deposit on the <a href="trade/26XAPPPTTYRIOSYNCUV3NS2H57X5LZLJ#deposits">deposits page</a>.
-          </p>
-        </Panel>
-
-        <Panel
-          header="Who operates the minting of all these tokens?"
+          header={t("faq.questions.3.question", "Who operates the minting of all these tokens?")}
           key="3"
           className={styles.panel}
         >
-          <p>
-            A bunch of soulless agents. They are called <a href="https://obyte.org/platform/autonomous-agents" target="_blank" rel="noopener">Autonomous Agents</a> (AAs). They
-            are truly autonomous meaning that nobody can interfere with their
-            work.
-          </p>
+          <Trans i18nKey="faq.questions.3.answer">
+            <p>
+              A bunch of soulless agents. They are called <a href="https://obyte.org/platform/autonomous-agents" target="_blank" rel="noopener">Autonomous Agents</a> (AAs). They
+              are truly autonomous meaning that nobody can interfere with their
+              work.
+            </p>
+          </Trans>
         </Panel>
 
         <Panel
-          header="Are AAs smart contracts?"
+          header={t("faq.questions.4.question", "Are AAs smart contracts?")}
           key="4"
           className={styles.panel}
         >
-          <p>
-            No, they are not <a href="https://obyte.org/platform/smart-contracts" target="_blank" rel="noopener">smart contracts</a>. They are neither smart, nor
-            contracts, they are dumb programs that blindly follow the immutable
-            rules.
-          </p>
+          <Trans i18nKey="faq.questions.4.answer">
+            <p>
+              No, they are not <a href="https://obyte.org/platform/smart-contracts" target="_blank" rel="noopener">smart contracts</a>. They are neither smart, nor
+              contracts, they are dumb programs that blindly follow the immutable
+              rules.
+            </p>
+          </Trans>
         </Panel>
 
         <Panel
-          header="IUSD constantly grows thanks to interest. Assuming this attracts new users, GRD should grow too and both token holders win, who loses then?"
+          header={t("faq.questions.5.question", "IUSD constantly grows thanks to interest. Assuming this attracts new users, GRD should grow too and both token holders win, who loses then?")}
           key="5"
           className={styles.panel}
         >
-          <p>
-            It’s not zero-sum. In the bonding curve that is used to issue the
-            tokens, the total value of the tokens is greater than the value of
-            the reserve that was initially invested to create them. So, yes, it
-            is possible for each group to win in terms of the value of their
-            assets, and not at the expense of the other group.
-          </p>
+          <Trans i18nKey="faq.questions.5.answer">
+            <p>
+              It’s not zero-sum. In the bonding curve that is used to issue the
+              tokens, the total value of the tokens is greater than the value of
+              the reserve that was initially invested to create them. So, yes, it
+              is possible for each group to win in terms of the value of their
+              assets, and not at the expense of the other group.
+            </p>
+          </Trans>
         </Panel>
 
         <Panel
-          header="Does this system run on a blockchain?"
+          header={t("faq.questions.6.question", "Does this system run on a blockchain?")}
           key="6"
           className={styles.panel}
         >
-          <p>
-            No. It runs on a DAG (Directed Acyclic Graph) based distributed
-            ledger.
-          </p>
-          <p>
-            A blockchain would be significantly less suitable for a stablecoin
-            like this because blockchains have blocks and miners. Miners would
-            be able to manipulate the order of transactions within a block in
-            order to place their own transaction before yours so that you
-            receive a worse price when buying from a bonding curve or selling to
-            it. Even non-miners can affect the order of transactions within a
-            block by offering a slightly higher fee to a miner (which works like
-            a bribe). This could expose users to significant uncertainty, risks,
-            and losses.
-          </p>
-          <p>
-            Bonded stablecoins run on <a href="https://obyte.org/" target="_blank" rel="noopener">Obyte</a> &mdash; a blockless minerless DAG
-            ledger. In a DAG these tricks don’t work. There are no miners, no
-            blocks, the positions of transactions in the DAG cannot be changed
-            by anybody, and it is impossible for any single actor to manipulate
-            the order of transactions.
-          </p>
+          <Trans i18nKey="faq.questions.6.answer">
+            <p>
+              No. It runs on a DAG (Directed Acyclic Graph) based distributed
+              ledger.
+            </p>
+            <p>
+              A blockchain would be significantly less suitable for a stablecoin
+              like this because blockchains have blocks and miners. Miners would
+              be able to manipulate the order of transactions within a block in
+              order to place their own transaction before yours so that you
+              receive a worse price when buying from a bonding curve or selling to
+              it. Even non-miners can affect the order of transactions within a
+              block by offering a slightly higher fee to a miner (which works like
+              a bribe). This could expose users to significant uncertainty, risks,
+              and losses.
+            </p>
+            <p>
+              Bonded stablecoins run on <a href="https://obyte.org/" target="_blank" rel="noopener">Obyte</a> &mdash; a blockless minerless DAG
+              ledger. In a DAG these tricks don’t work. There are no miners, no
+              blocks, the positions of transactions in the DAG cannot be changed
+              by anybody, and it is impossible for any single actor to manipulate
+              the order of transactions.
+            </p>
+          </Trans>
         </Panel>
 
         <Panel
-          header="What makes stablecoins pegged to their benchmark?"
+          header={t("faq.questions.7.question", "What makes stablecoins pegged to their benchmark?")}
           key="7"
           className={styles.panel}
         >
-          <p>
-            The price of IUSD is “attracted” to the target (benchmark) with the
-            help of a so-called capacitor.
-          </p>
-          <p>
-            Every purchase of IUSD or GRD from the bonding curve and every sale
-            to the bonding curve affect the IUSD price. If a transaction pushes
-            the price away from the target, it is “punished” with a fee, the
-            farther away from the target, the more the fee. The collected fees
-            get accumulated in a capacitor. Every transaction that corrects the
-            price back to the target, is rewarded using the funds accumulated in
-            the capacitor.
-          </p>
-          <p>
-            Due to the type of the bonding curve chosen, it is the holders of
-            GRD who are the first to react to any deviations of the price from
-            the target and correct them. For example, when too many people buy
-            IUSD, they pull the price of IUSD below the peg (because IUSD
-            token’s power in the curve formula is ½, i.e. less than 1, hence its
-            partial derivative has negative power). There are two ways to
-            correct the deviation: sell IUSD back to the curve, which is not a
-            good idea because its price is currently below the fair price; or
-            buy more GRD tokens. By buying more GRD tokens, traders push GRD
-            price up (because the power in the curve formula is 2, i.e. more
-            than 1, hence its partial derivative has positive power), therefore
-            one who buys earlier gets a better price and traders rush to be the
-            first to buy while the price is still below equilibrium.
-          </p>
-          <p>
-            Read the <a href="https://medium.com/obyte/using-multi-dimensional-bonding-curves-to-create-stablecoins-81e857b4355c" target="_blank" rel="noopener">blog article introducing bonded stablecoins</a> for more
-            details.
-          </p>
+          <Trans i18nKey="faq.questions.7.answer">
+            <p>
+              The price of IUSD is “attracted” to the target (benchmark) with the
+              help of a so-called capacitor.
+            </p>
+            <p>
+              Every purchase of IUSD or GRD from the bonding curve and every sale
+              to the bonding curve affect the IUSD price. If a transaction pushes
+              the price away from the target, it is “punished” with a fee, the
+              farther away from the target, the more the fee. The collected fees
+              get accumulated in a capacitor. Every transaction that corrects the
+              price back to the target, is rewarded using the funds accumulated in
+              the capacitor.
+            </p>
+            <p>
+              Due to the type of the bonding curve chosen, it is the holders of
+              GRD who are the first to react to any deviations of the price from
+              the target and correct them. For example, when too many people buy
+              IUSD, they pull the price of IUSD below the peg (because IUSD
+              token’s power in the curve formula is ½, i.e. less than 1, hence its
+              partial derivative has negative power). There are two ways to
+              correct the deviation: sell IUSD back to the curve, which is not a
+              good idea because its price is currently below the fair price; or
+              buy more GRD tokens. By buying more GRD tokens, traders push GRD
+              price up (because the power in the curve formula is 2, i.e. more
+              than 1, hence its partial derivative has positive power), therefore
+              one who buys earlier gets a better price and traders rush to be the
+              first to buy while the price is still below equilibrium.
+            </p>
+            <p>
+              Read the <a href="https://medium.com/obyte/using-multi-dimensional-bonding-curves-to-create-stablecoins-81e857b4355c" target="_blank" rel="noopener">blog article introducing bonded stablecoins</a> for more
+              details.
+            </p>
+          </Trans>
         </Panel>
 
-        <Panel header="What are the risks?" key="8" className={styles.panel}>
-          <p>
-            This is new unproven technology and might not work as expected.
-            Although we did our best to avoid errors while implementing the
-            system and to analyze the incentives of different user groups, both
-            technical bugs and wrong conclusions about user behavior in some
-            circumstances cannot be excluded. Nothing like this has been done
-            before and we unfortunately couldn’t gain much from the experience
-            of the predecessors.
-          </p>
+        <Panel header={t("faq.questions.8.question", "What are the risks?")} key="8" className={styles.panel}>
+          <Trans i18nKey="faq.questions.8.answer">
+            <p>
+              This is new unproven technology and might not work as expected.
+              Although we did our best to avoid errors while implementing the
+              system and to analyze the incentives of different user groups, both
+              technical bugs and wrong conclusions about user behavior in some
+              circumstances cannot be excluded. Nothing like this has been done
+              before and we unfortunately couldn’t gain much from the experience
+              of the predecessors.
+            </p>
+          </Trans>
         </Panel>
 
         <Panel
-          header="How are bonded stablecoins different from DAI, USDT, USDC, etc?"
+          header={t("faq.questions.9.question", "How are bonded stablecoins different from DAI, USDT, USDC, etc?")}
           key="9"
           className={styles.panel}
         >
-          <p>
-            One can earn interest with bonded stablecoins. One can get IUSD,
-            immediately put it on a deposit, get OUSD in exchange, use it for
-            payments in a stable currency while interest payments accumulate,
-            and withdraw interest from time to time.
-          </p>
-          <p>
-            One can also redirect interest to a good cause, e.g. to a charity.
-          </p>
+          <Trans i18nKey="faq.questions.9.answer">
+            <p>
+              One can earn interest with bonded stablecoins. One can get IUSD,
+              immediately put it on a deposit, get OUSD in exchange, use it for
+              payments in a stable currency while interest payments accumulate,
+              and withdraw interest from time to time.
+            </p>
+            <p>
+              One can also redirect interest to a good cause, e.g. to a charity.
+            </p>
+          </Trans>
         </Panel>
 
         <Panel
-          header="How do bonded stablecoins compare against discount stablecoins?"
+          header={t("faq.questions.10.question", "How do bonded stablecoins compare against discount stablecoins?")}
           key="10"
           className={styles.panel}
         >
-          <p>
-            Bonded stablecoins is our next generation stablecoin design and it
-            improves above <a href="https://discount.ostable.org" target="_blank" rel="noopener">discount stablecoins</a> in virtually all
-            dimensions. In particular:
-          </p>
-          <ul>
-            <li>
-              - bonded stablecoins do not expire any more, they are perpetual.
-            </li>
-            <li>
-              - OUSD is truly stable, there is no appreciation, it targets the
-              familiar and well-established unit of account, USD.
-            </li>
-            <li>
-              - there are no auctions any more and users don’t need to look
-              after their loans and refill collateral or risk losing their
-              collateral when its price falls abruptly.
-            </li>
-            <li>
-              - there is no overcollateralization any more, which was commonly
-              misunderstood.
-            </li>
-            <li>
-              - there is no need to balance risks against the amount of capital
-              wasted in excess collateral.
-            </li>
-          </ul>
+          <Trans i18nKey="faq.questions.10.answer">
+            <p>
+              Bonded stablecoins is our next generation stablecoin design and it
+              improves above <a href="https://discount.ostable.org" target="_blank" rel="noopener">discount stablecoins</a> in virtually all
+              dimensions. In particular:
+            </p>
+            <ul>
+              <li>
+                - bonded stablecoins do not expire any more, they are perpetual.
+              </li>
+              <li>
+                - OUSD is truly stable, there is no appreciation, it targets the
+                familiar and well-established unit of account, USD.
+              </li>
+              <li>
+                - there are no auctions any more and users don’t need to look
+                after their loans and refill collateral or risk losing their
+                collateral when its price falls abruptly.
+              </li>
+              <li>
+                - there is no overcollateralization any more, which was commonly
+                misunderstood.
+              </li>
+              <li>
+                - there is no need to balance risks against the amount of capital
+                wasted in excess collateral.
+              </li>
+            </ul>
+          </Trans>
         </Panel>
 
         <Panel
-          header="Can I trade with leverage?"
+          header={t("faq.questions.11.question", "Can I trade with leverage?")}
           key="11"
           className={styles.panel}
         >
-          <p>
-            Yes. You’ll need to create a leveraged stablecoin or use one that
-            somebody else has already created.
-          </p>
-          <p>
-            A leveraged stablecoin is a synthetic coin that tracks the price of
-            an asset to the power of 2 (for 2x leverage), 3 (for 3x leverage),
-            -1 (for a short position), -2 (for a 2x leveraged short position),
-            and so on.
-          </p>
-          <p>
-            For example, while Brent Crude is worth $40, a 2x leverage
-            stablecoin BRENT2/USD is worth 1600. If Brent goes up 25% to $50,
-            BRENT2/USD goes up to 2500 &mdash; a 56.25% gain.
-          </p>
-          <p>
-            It might seem unusual to call such coins “stablecoins” but they are
-            stable relative to an artificial “price” such as Brent squared.
-            Everything is relative after all, including stability.
-          </p>
-          <p>
-            When you{" "}
-            <a href="create">
-              create a new stablecoin
-            </a>
-            , you need to specify the desired leverage parameter. It is 0 by
-            default which for GBYTE/USD price feed means track USD price.
-            Leverage 1 would mean plain long position in GBYTE (which is
-            equivalent to just holding the reserve currency GBYTE), leverage 2
-            would mean 2x leveraged position in GBYTE vs USD, leverage 3 &mdash;
-            3x long position in GBYTE, leverage -1 &mdash; short position in
-            GBYTE, and so on.
-          </p>
-          <p>
-            Note that with this kind of leverage, you can’t be margin called and
-            liquidated.
-          </p>
-          <p> For details, see{" "}
-            <a href="https://medium.com/obyte/using-multi-dimensional-bonding-curves-to-create-stablecoins-81e857b4355c" target="_blank" rel="noopener">
-              our blog introducing bonded stablecoins
-            </a>{" "}
-            .
-          </p>
+          <Trans i18nKey="faq.questions.11.answer">
+            <p>
+              Yes. You’ll need to create a leveraged stablecoin or use one that
+              somebody else has already created.
+            </p>
+            <p>
+              A leveraged stablecoin is a synthetic coin that tracks the price of
+              an asset to the power of 2 (for 2x leverage), 3 (for 3x leverage),
+              -1 (for a short position), -2 (for a 2x leveraged short position),
+              and so on.
+            </p>
+            <p>
+              For example, while Brent Crude is worth $40, a 2x leverage
+              stablecoin BRENT2/USD is worth 1600. If Brent goes up 25% to $50,
+              BRENT2/USD goes up to 2500 &mdash; a 56.25% gain.
+            </p>
+            <p>
+              It might seem unusual to call such coins “stablecoins” but they are
+              stable relative to an artificial “price” such as Brent squared.
+              Everything is relative after all, including stability.
+            </p>
+            <p>
+              When you{" "}
+              <a href="create">
+                create a new stablecoin
+              </a>
+              , you need to specify the desired leverage parameter. It is 0 by
+              default which for GBYTE/USD price feed means track USD price.
+              Leverage 1 would mean plain long position in GBYTE (which is
+              equivalent to just holding the reserve currency GBYTE), leverage 2
+              would mean 2x leveraged position in GBYTE vs USD, leverage 3 &mdash;
+              3x long position in GBYTE, leverage -1 &mdash; short position in
+              GBYTE, and so on.
+            </p>
+            <p>
+              Note that with this kind of leverage, you can’t be margin called and
+              liquidated.
+            </p>
+            <p>For details, see 
+              <a href="https://medium.com/obyte/using-multi-dimensional-bonding-curves-to-create-stablecoins-81e857b4355c" target="_blank" rel="noopener">
+                our blog introducing bonded stablecoins
+              </a>{" "}
+              .
+            </p>
+          </Trans>
         </Panel>
 
         <Panel
-          header="I want to trade a stablecoin pegged to asset X but it doesn’t exist"
+          header={t("faq.questions.12.question", "I want to trade a stablecoin pegged to asset X but it doesn’t exist")}
           key="12"
           className={styles.panel}
         >
-          <p>
-            If an oracle that posts the price of X already exists, you can
-            {" "}<a href="create">create the corresponding stablecoin</a>{" "}
-            right away!
-          </p>
-          <p>
-            If there is no such oracle yet &mdash; create the oracle. You have to be a
-            developer though. There are sources of{" "}
-            <a href="https://github.com/byteball/oracle-example" target="_blank" rel="noopener">
-              {" "}
-              example oracle
-            </a>{" "}
-            to help you get started. If you are not a developer and cannot hire
-            one, signal your demand in{" "}
-            <a href="https://discord.obyte.org/" target="_blank" rel="noopener">
-              Obyte discord
-            </a>
-            .
-          </p>
+          <Trans i18nKey="faq.questions.12.answer">
+            <p>
+              If an oracle that posts the price of X already exists, you can 
+              <a href="create">create the corresponding stablecoin</a> 
+              right away!
+            </p>
+            <p>
+              If there is no such oracle yet - create the oracle. You have to be a
+              developer though. There are sources of 
+              <a href="https://github.com/byteball/oracle-example" target="_blank" rel="noopener">example oracle</a> 
+              to help you get started. If you are not a developer and cannot hire one, signal your demand in 
+              <a href="https://discord.obyte.org/" target="_blank" rel="noopener">
+                Obyte discord
+              </a>.
+            </p>
+          </Trans>
         </Panel>
       </Collapse>
       <div className={styles.action}>
-        Any other questions? Read the{" "}
-        <a href="https://medium.com/obyte/using-multi-dimensional-bonding-curves-to-create-stablecoins-81e857b4355c" target="_blank" rel="noopener">
-          introductory article
-        </a>{" "}
-        or ask on{" "}
-        <a href="https://discord.obyte.org/" target="_blank">
-          Discord
-        </a>
-        .
+        <Trans i18nKey="faq.action">
+          Any other questions? Read the 
+          <a 
+          href="https://medium.com/obyte/using-multi-dimensional-bonding-curves-to-create-stablecoins-81e857b4355c"
+          target="_blank" rel="noopener"> introductory article </a> or ask on <a href="https://discord.obyte.org/" target="_blank">Discord</a>.
+        </Trans>
       </div>
     </div>
   );

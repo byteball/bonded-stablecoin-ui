@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Form, Input, Button, Typography } from "antd";
 import ReactGA from "react-ga";
+import { useTranslation } from 'react-i18next';
 
 import { validator } from "utils/validators";
 import { generateLink } from "utils/generateLink";
@@ -33,6 +34,7 @@ export const RedeemToken = ({
   const buttonRef = useRef(null);
   const [tokens, setTokens] = useState(undefined);
   const [form] = useForm();
+  const { t } = useTranslation();
   const { getFieldsValue, resetFields } = form;
 
   const validateValue = (params) => {
@@ -80,14 +82,9 @@ export const RedeemToken = ({
     tokens !== "" &&
     exchange.payout > 0
   ) {
-    extra = `You will get ${(
-      exchange.payout /
-      10 ** reserve_asset_decimals
-    ).toFixed(reserve_asset_decimals)} ${config.reserves[reserve_asset] ? config.reserves[reserve_asset].name : reserve_asset_symbol || ""
-      } `;
+    extra = t("trade.tabs.buy_redeem.will_receive",  "You will get {{amount}} {{symbol}}", {amount: (exchange.payout / 10 ** reserve_asset_decimals).toFixed(reserve_asset_decimals), symbol: config.reserves[reserve_asset] ? config.reserves[reserve_asset].name : reserve_asset_symbol || ''});
   } else if (exchange && exchange.payout < 0) {
-    extra =
-      "The transaction would change the price too much, please try a smaller amount";
+    extra = t("trade.tabs.buy_redeem.big_change", "The transaction would change the price too much, please try a smaller amount");
   } else {
     extra = undefined;
   }
@@ -145,8 +142,7 @@ export const RedeemToken = ({
         ]}
       >
         <Input.Search
-          placeholder={`Amount of tokens${type} (${symbol || asset} — ${type === 1 ? "interest" : "growth"
-            } tokens)`}
+          placeholder={t(`trade.tabs.buy_redeem.amount${type}_placeholder`, `Amount of tokens${type} ({{symbolOrAsset}} — ${type === 1 ? "interest" : "growth"} tokens)`, {symbolOrAsset: symbol || asset})}
           autoComplete="off"
           style={{ marginBottom: 0 }}
           onKeyPress={(ev) => {
@@ -171,7 +167,7 @@ export const RedeemToken = ({
               }
               href={link}
             >
-              Redeem
+              {t("trade.tabs.buy_redeem.redeem", "Redeem")}
             </Button>
           }
         />
@@ -184,20 +180,20 @@ export const RedeemToken = ({
         exchange.payout > 0 ? (
           <div style={{ marginBottom: 20 }}>
             <Text type="secondary" style={{ display: "block" }}>
-              <b>Fee: </b>
+              <b>{t("trade.tabs.buy_redeem.fee", "Fee")}: </b>
               {"fee_percent" in exchange
                 ? exchange.fee_percent.toFixed(4) + "%"
                 : "0%"}
             </Text>
             <Text type="secondary" style={{ display: "block" }}>
-              <b>Reward: </b>
+              <b>{t("trade.tabs.buy_redeem.reward", "Reward")}: </b>
               {"reward_percent" in exchange
                 ? exchange.reward_percent.toFixed(4) + "%"
                 : "0%"}
             </Text>
             {exchange && "p2" in exchange && (
               <Text type="secondary" style={{ display: "block" }}>
-                <b>Price change: </b>
+                <b>{t("trade.tabs.buy_redeem.price_change", "Price change")}: </b>
                 {priceChange > 0 ? "+" : ""}
                 {priceChange.toFixed(reserve_asset_decimals) || "0"} (
                 {priceChangePercent > 0 ? "+" : ""}
@@ -206,10 +202,10 @@ export const RedeemToken = ({
             )}
 
             <Text type="secondary" style={{ display: "block" }}>
-              <b>Final price: </b>
+              <b>{t("trade.tabs.buy_redeem.final_price", "Final price")}: </b>
               {new_p2.toFixed(reserve_asset_decimals) || "0"} (
             {Math.abs(changeFinalPricePercent).toFixed(2)}%{" "}
-              {changeFinalPricePercent > 0 ? "above" : "below"} the target)
+              {changeFinalPricePercent > 0 ? t("trade.tabs.buy_redeem.above_target", "above the target") : t("trade.tabs.buy_redeem.below_target", "below the target")})
           </Text>
           </div>
         ) : (

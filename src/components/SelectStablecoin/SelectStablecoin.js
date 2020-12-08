@@ -1,6 +1,7 @@
 import React from "react";
 import { Select, Row } from "antd";
 import { useSelector, useDispatch } from "react-redux";
+import { useTranslation } from 'react-i18next';
 import { changeActive } from "store/actions/active/changeActive";
 import { Decimal } from "decimal.js";
 
@@ -11,6 +12,7 @@ export const SelectStablecoin = () => {
   const activeAddress = useSelector((state) => state.active.address);
   const { recentList } = useSelector((state) => state.settings);
   const dispatch = useDispatch();
+  const { t } = useTranslation();
 
   const getLastFeedName = (params, stable_state) => {
     if (stable_state && ("oracles" in stable_state))
@@ -77,7 +79,7 @@ export const SelectStablecoin = () => {
       <Row>
         <Select
           size="large"
-          placeholder="Please select a stablecoin"
+          placeholder={t("select_stablecoin.placeholder", "Please select a stablecoin")}
           style={{ width: "100%" }}
           showSearch={true}
           value={activeAddress || undefined}
@@ -87,10 +89,10 @@ export const SelectStablecoin = () => {
           }}
         >
           {optionListRecent.length > 0 && (
-            <OptGroup label="Recent">{optionListRecent}</OptGroup>
+            <OptGroup label={t("select_stablecoin.recent", "Recent")}>{optionListRecent}</OptGroup>
           )}
           {optionList.length > 0 && (
-            <OptGroup label={optionListRecent.length > 0 ? "Other" : "All"}>
+            <OptGroup label={optionListRecent.length > 0 ? t("select_stablecoin.other", "Other") : t("select_stablecoin.all", "All")}>
               {optionList}
             </OptGroup>
           )}

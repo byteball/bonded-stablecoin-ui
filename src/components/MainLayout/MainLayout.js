@@ -4,6 +4,7 @@ import { Layout, Drawer, Row, Button } from "antd";
 import { NavLink, Route, useLocation } from "react-router-dom";
 import ReactGA from "react-ga";
 import { WalletOutlined } from "@ant-design/icons";
+import { useTranslation } from 'react-i18next';
 
 import { SelectStablecoin } from "../SelectStablecoin/SelectStablecoin";
 import { useWindowSize } from "hooks/useWindowSize";
@@ -17,6 +18,7 @@ import { SelectWalletModal } from "modals/SelectWalletModal/SelectWalletModal";
 import { useDispatch, useSelector } from "react-redux";
 import { addReferrer } from "store/actions/settings/addReferrer";
 import { firstVisit } from "store/actions/settings/firstVisit";
+import { SelectLanguage } from "components/SelectLanguage/SelectLanguage";
 
 const { Header, Content } = Layout;
 
@@ -24,6 +26,7 @@ export const MainLayout = ({ children, walletModalVisible, setWalletModalVisibil
   const { pathname, search, hash } = useLocation();
   const dispatch = useDispatch();
   const [width] = useWindowSize();
+  const { t } = useTranslation();
   const [activeMenu, setActiveMenu] = useState(false);
   const {visitedBefore} = useSelector(state => state.settings);
 
@@ -103,20 +106,27 @@ export const MainLayout = ({ children, walletModalVisible, setWalletModalVisibil
                   mode="vertical"
                 />
               </Drawer>
+              
               {width < 1240 && width >= 320 && pathname !== "/" && (
                 <WalletOutlined
                   onClick={() => setWalletModalVisibility(true)}
                   className={styles.iconWallet}
+                  style={{ marginLeft: "auto" }}
                 />
               )}
-              <Button onClick={() => setActiveMenu(true)}>Menu</Button>
+              <Button onClick={() => setActiveMenu(true)}>{t("main_menu.menu", "Menu")}</Button>
+              <div style={{ width: 70, marginLeft: "auto" }}><SelectLanguage /></div>
             </div>
           )}
+
           {width >= 1240 && pathname !== "/" && (
-            <div style={{ marginLeft: "auto" }}>
+            <div style={{ marginLeft: "auto", display: "flex"}}>
               <SelectWallet />
+              <div style={{ width: 70, marginLeft: "auto" }}><SelectLanguage /></div>
             </div>
           )}
+
+          {pathname === "/" && width >= 1240 && <div style={{ width: 70, marginLeft: "auto" }}><SelectLanguage /></div>}
         </Row>
       </Header>
 

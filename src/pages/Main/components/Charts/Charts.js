@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 import { createChart } from 'lightweight-charts';
 import { Typography } from 'antd';
 import Decimal from 'decimal.js';
+import { useTranslation } from 'react-i18next';
 
 import { Legends } from './components/Legends';
 import config from 'config';
@@ -17,6 +18,7 @@ export const Charts = ({ params }) => {
   const [width] = useWindowSize();
   const now = moment().format('YYYY-MM-DD');
   const chartRef = useRef(null);
+  const { t } = useTranslation();
   const reserveToken =
     params.reserve_asset === 'base'
       ? 'GBYTE'
@@ -156,13 +158,13 @@ export const Charts = ({ params }) => {
             if (lineSeriesT1) {
               lineSeriesT1.setData(candleDaily.T1);
               lineSeriesT1.applyOptions({
-                title: `${symbol1} price (in ${reserveToken})`
+                title: t("trade.tabs.charts.legend", "{{symbol}} price (in {{currency}})", {symbol: symbol1, currency: reserveToken})
               });
             }
             if (lineSeriesT2) {
               lineSeriesT2.setData(candleDaily.T2);
               lineSeriesT2.applyOptions({
-                title: `${symbol2} price (in ${inUSD ? 'USD' : reserveToken})`
+                title: t("trade.tabs.charts.legend", "{{symbol}} price (in {{currency}})", {symbol: symbol2, currency: inUSD ? 'USD' : reserveToken})
               });
             }
 
@@ -175,13 +177,13 @@ export const Charts = ({ params }) => {
             if (lineSeriesT1) {
               lineSeriesT1.setData(candleHourly.T1);
               lineSeriesT1.applyOptions({
-                title: `${symbol1} price (in ${reserveToken})`
+                title: t("trade.tabs.charts.legend", "{{symbol}} price (in {{currency}})", {symbol: symbol1, currency: reserveToken})
               });
             }
             if (lineSeriesT2) {
               lineSeriesT2.setData(candleHourly.T2);
               lineSeriesT2.applyOptions({
-                title: `${symbol2} price (in ${inUSD ? 'USD' : reserveToken})`
+                title: t("trade.tabs.charts.legend", "{{symbol}} price (in {{currency}})", {symbol: symbol2, currency: inUSD ? 'USD' : reserveToken})
               });
             }
             if (lineSeriesT1 && lineSeriesT2) {
@@ -227,7 +229,7 @@ export const Charts = ({ params }) => {
 
   return (
     <div>
-      <Title level={3}>Charts</Title>
+      <Title level={3}>{t("trade.tabs.charts.title", "Charts")}</Title>
       <Legends
         inUSD={inUSD}
         legends={legends}
