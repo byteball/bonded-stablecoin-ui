@@ -97,7 +97,7 @@ export const paramsDescription = () => ({
   },
   oracle2: {
     name: i18n.t("params.oracle2.name", "Oracle 2"),
-    desc: i18n.t("params.oracle2.desc", "Optional second oracle. Use it if you want to multiply or delete prices of different assets. E.g. to create a stablecoin pegged to TSLA, you need to divide two price feeds: GBYTE/USD and TSLA/USD.")
+    desc: i18n.t("params.oracle2.desc", "Optional second oracle. Use it if you want to multiply or divide prices of different assets. E.g. to create a stablecoin pegged to TSLA, you need to divide two price feeds: GBYTE/USD and TSLA/USD.")
   },
   feed_name2: {
     name: i18n.t("params.feed_name2.name", "Feed name 2"),
@@ -105,7 +105,7 @@ export const paramsDescription = () => ({
   },
   op2: {
     name: i18n.t("params.op2.name", "Operation 2"),
-    desc: i18n.t("params.op2.desc", "What to do with the 2nd price: multiply or delete.")
+    desc: i18n.t("params.op2.desc", "What to do with the 2nd price: multiply or divide.")
   },
   oracle3: {
     name: i18n.t("params.oracle3.name", "Oracle 3"),
@@ -113,11 +113,11 @@ export const paramsDescription = () => ({
   },
   feed_name3: {
     name: i18n.t("params.feed_name3.name", "Feed name 3"),
-    desc: i18n.t("params.feed_name3.desc", "Name of the 3nd oracle’s data feed.")
+    desc: i18n.t("params.feed_name3.desc", "Name of the 3rd oracle’s data feed.")
   },
   op3: {
     name: i18n.t("params.op3.name", "Operation 3"),
-    desc: i18n.t("params.op3.desc", "What to do with the 3nd price: multiply or delete.")
+    desc: i18n.t("params.op3.desc", "What to do with the 3rd price: multiply or divide.")
   },
   allow_grants: {
     name: i18n.t("params.allow_grants.name", "Allow grants"),
