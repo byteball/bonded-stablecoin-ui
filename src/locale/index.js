@@ -13,7 +13,7 @@ i18n
         translation: ru
       }
     },
-    lng: "gb",
+    lng: "en",
     keySeparator: ".", // we do not use keys in form messages.welcome
 
     interpolation: {
