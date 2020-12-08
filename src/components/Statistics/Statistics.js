@@ -102,8 +102,8 @@ export const Statistics = ({ windowWidth }) => {
   const displayOraclePrice = (bPriceInversed || actualParams.leverage) ? oraclePrice : 1 / oraclePrice;
   const reserve_symbol = reserve_asset in config.reserves ? config.reserves[reserve_asset].name : reserve_asset_symbol || "";
   const p2UnitsText = bPriceInversed 
-  ? t("trade.statistic.p2UnitsText.inversed", `The shown price is the price of the reserve asset ${reserve_symbol || ''} in terms of Token2 (${symbol2 || stable_state.asset2}).`, {reserveSymbolOrAsset: reserve_symbol || '', symbol2orAsset: symbol2 || stable_state.asset2}) 
-  : t("trade.statistic.p2UnitsText.inversed",`The shown price is the price of Token2 (${symbol2 || stable_state.asset2}) in terms of the reserve asset ${reserve_symbol || ''}.`, {symbol2OrAsset: symbol2 || stable_state.asset2, reserveSymbol: reserve_symbol || ''});
+  ? t("trade.statistic.p2UnitsText.inversed", "The shown price is the price of the reserve asset {{reserveSymbolOrAsset}} in terms of Token2 ({{symbol2orAsset}}).", {reserveSymbolOrAsset: reserve_symbol || '', symbol2orAsset: symbol2 || stable_state.asset2}) 
+  : t("trade.statistic.p2UnitsText.inversed", "The shown price is the price of Token2 ({{symbol2OrAsset}}) in terms of the reserve asset {{reserveSymbol}}.", {symbol2OrAsset: symbol2 || stable_state.asset2, reserveSymbol: reserve_symbol || ''});
   const p2Unit = bPriceInversed ? symbol2 : reserve_symbol;
 
   const currentPriceDifference = stable_state.p2
