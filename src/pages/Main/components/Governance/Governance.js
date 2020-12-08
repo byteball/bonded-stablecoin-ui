@@ -246,8 +246,7 @@ export const Governance = ({ openWalletModal }) => {
           <Trans i18nKey="trade.tabs.governance.desc" symbol1={symbol1} symbol2={symbol2}>
             {{symbol1: symbol1 || "T1"}} holders can vote to change various
             parameters of the stablecoin and ensure its success. <br /> The value
-            of {{symbol1: symbol1 || "T1"}} grows as more{" "}
-            {{symbol2: symbol2 || "T2"}} tokens are bought.
+            of {{symbol1: symbol1 || "T1"}} grows as more {{symbol2: symbol2 || "T2"}} tokens are bought.
           </Trans>
         </Text>
       </p>
