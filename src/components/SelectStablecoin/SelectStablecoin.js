@@ -35,6 +35,8 @@ export const SelectStablecoin = () => {
       return feed_name.replace('GBYTE_', '');
     if (feed_name.endsWith('_USD'))
       return feed_name.replace('_USD', '');
+    if (feed_name.endsWith('_BTC'))
+      return feed_name.replace('_BTC', '');
     return feed_name;
   }
 

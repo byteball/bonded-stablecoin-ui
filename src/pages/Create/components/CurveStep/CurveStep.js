@@ -30,7 +30,7 @@ export const CurverStep = ({ setCurrent, setData }) => {
   const { getFieldsValue, setFieldsValue } = form;
   const { t } = useTranslation();
   const [checkOracle, setCheckOracle] = useState(null);
-  const [oraclePrice, setOraclePrice] = useState({});
+  const [oraclePrice, setOraclePrice] = useState({price: 1});
   const [validFields, setValidFields] = useState({
     m: true,
     n: true,
@@ -98,7 +98,7 @@ export const CurverStep = ({ setCurrent, setData }) => {
           });
           if (data_feed !== "none") {
             setCheckOracle(true);
-            setOraclePrice((d) => ({ ...d, data_feed_1: data_feed }));
+            setOraclePrice((d) => ({ ...d, data_feed_1: data_feed, price: d.price*(op1 === "/" ? 1 / data_feed : data_feed) }));
           } else {
             message.error("Oracle 1 is not active!");
             setCheckOracle(null);
@@ -120,7 +120,7 @@ export const CurverStep = ({ setCurrent, setData }) => {
             });
             if (data_feed !== "none") {
               setCheckOracle(true);
-              setOraclePrice((d) => ({ ...d, data_feed_2: data_feed }));
+              setOraclePrice((d) => ({ ...d, data_feed_2: data_feed, price: d.price*(op2 === "/" ? 1 / data_feed : data_feed) }));
             } else {
               message.error("Oracle 2 is not active!");
               setCheckOracle(null);
@@ -146,7 +146,7 @@ export const CurverStep = ({ setCurrent, setData }) => {
             });
             if (data_feed !== "none") {
               setCheckOracle(true);
-              setOraclePrice((d) => ({ ...d, data_feed_3: data_feed }));
+              setOraclePrice((d) => ({ ...d, data_feed_3: data_feed, price: d.price*(op3 === "/" ? 1 / data_feed : data_feed) }));
             } else {
               message.error("Oracle 3 is not active!");
               setCheckOracle(null);
@@ -619,7 +619,14 @@ export const CurverStep = ({ setCurrent, setData }) => {
       </Row>
       {checkOracle === true && oraclePrice !== {} && (
         <div>
-          <a onClick={() => setCheckOracle(null)}>{t("create.edit_oracles", "edit oracles")}</a>
+          <a
+            onClick={() => {
+              setCheckOracle(null);
+              setOraclePrice({price: 1});
+            }}
+          >
+            {t("create.edit_oracles", "edit oracles")}
+          </a>
           {oraclePrice.data_feed_1 && (
             <div style={{ color: "green", paddingTop: 5, paddingBottom: 5 }}>
               <b>{t("create.last_posted", "Last posted price by Oracle ")}1: </b>
@@ -636,6 +643,12 @@ export const CurverStep = ({ setCurrent, setData }) => {
             <div style={{ color: "green", paddingTop: 5, paddingBottom: 5 }}>
               <b>{t("create.last_posted", "Last posted price by Oracle ")}3: </b>
               {oraclePrice.data_feed_3}
+            </div>
+          )}
+          {oraclePrice.price && (
+            <div style={{ color: "green", paddingTop: 5, paddingBottom: 5 }}>
+              <b>Target price: </b>
+              {oraclePrice.price}
             </div>
           )}
         </div>
