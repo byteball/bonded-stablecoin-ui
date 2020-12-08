@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import moment from "moment";
 import { Col, Divider, Row, Table, Statistic, Button, Tooltip } from "antd";
+import { useTranslation } from 'react-i18next';
 import { ImportOutlined } from "@ant-design/icons";
 
 import { ShowDecimalsValue } from "components/ShowDecimalsValue/ShowDecimalsValue";
@@ -41,6 +42,7 @@ export const GovernanceItem = ({
   const [visible, setVisible] = useState(false);
   const [activeSupportValue, setActiveSupportValue] = useState(undefined);
   const [isExpired, setIsExpired] = useState(false);
+  const { t } = useTranslation();
   const nameView = name.split("_").join(" ").replace(".", ': ');
   const now = Date.now();
   const source = [];
@@ -78,7 +80,7 @@ export const GovernanceItem = ({
 
   const columns = [
     {
-      title: "Value",
+      title: t("trade.tabs.governance.value", "Value"),
       dataIndex: "value",
       key: "value",
       render: (value) => {
@@ -111,7 +113,7 @@ export const GovernanceItem = ({
       },
     },
     {
-      title: "Support",
+      title: t("trade.tabs.governance.support", "Support"),
       dataIndex: "support",
       key: "support",
       render: (value, records) => {
@@ -129,38 +131,32 @@ export const GovernanceItem = ({
             type="link"
             onClick={() => { setSelectedParam({ name, value: records.value }); setVisible(true); }}>
             {(width <= 470 || (name === "oracles" && width <= 720)) ? <ImportOutlined /> : (records.value === String(choice)
-              ? "add support for this value"
-              : "vote for this value")}
+              ? t("trade.tabs.governance.add_support", "add support for this value")
+              : t("trade.tabs.governance.vote_for_this", "vote for this value"))}
           </Button>
         );
       },
     },
   ];
-  let description;
-  if (!name.includes("deposits.") && name in paramsDescription) {
-    description = paramsDescription[name];
-  } else if (name.replace("deposits.", '') in paramsDescription) {
-    description = paramsDescription[name.replace("deposits.", "")];
-  }
 
   const choiceView = viewParameter(choice, name);
   const leaderView = viewParameter(leader, name);
   const valueView = viewParameter(value, name);
-
+  const info = paramsDescription();
   return (
     <div className={styles.itemWrap} ref={refEl}>
       <Row>
         <Col sm={name === "oracles" ? { span: 24 } : { span: 12 }} xs={{ span: 24 }}>
           <div className={styles.itemName}>
             <Label
-              label={nameView}
-              descr={description}
+              label={info[name.replace("deposits.", '')].name}
+              descr={info[name.replace("deposits.", '')].desc}
             />
           </div>
         </Col>
         <Col sm={name === "oracles" ? { span: 24 } : { span: 12 }} xs={{ span: 24 }}>
           <div className={styles.itemCurrent} style={name === "oracles" ? { textAlign: "left", wordBreak: "break-all" } : { wordBreak: "break-all" }}>
-            <span style={name === "oracles" ? { display: "block", fontSize: 14, fontWeight: "bold" } : (width <= 576 ? { fontSize: 14, fontWeight: "bold" } : { display: "inline" })}>Current value:</span>{" "}
+            <span style={name === "oracles" ? { display: "block", fontSize: 14, fontWeight: "bold" } : (width <= 576 ? { fontSize: 14, fontWeight: "bold" } : { display: "inline" })}>{t("trade.tabs.governance.current_value", "Current value")}:</span>{" "}
             {valueView}
           </div>
         </Col>
@@ -168,8 +164,8 @@ export const GovernanceItem = ({
       <Row align="top">
         <Col sm={name === "oracles" && width < 720 ? { span: 24 } : { span: 12 }}>
           {leader &&
-            <div><b style={name === "oracles" ? { display: "block" } : { display: "inline" }}>Leader:</b> {leaderView}</div>}
-          <div>{isChoice && <div><b>My choice: </b>{choiceView}</div>}</div>
+            <div><b style={name === "oracles" ? { display: "block" } : { display: "inline" }}>{t("trade.tabs.governance.leader", "Leader")}:</b> {leaderView}</div>}
+          <div>{isChoice && <div><b>{t("trade.tabs.governance.my_choice", "My choice")}: </b>{choiceView}</div>}</div>
         </Col>
         {challengingPeriod ? (
           <Col
@@ -181,7 +177,7 @@ export const GovernanceItem = ({
               <div>
                 {new Date() <= challengingPeriod && !isExpired ? (
                   <>
-                    Challenging period expires in {" "}
+                   {t("trade.tabs.governance.expires_period", "Challenging period expires in")} {" "}
                     <Countdown
                       valueStyle={{ fontSize: 14, display: "inline", wordBreak: "break-all" }}
                       value={moment.utc(challengingPeriod)}
@@ -198,8 +194,8 @@ export const GovernanceItem = ({
                           style={{ padding: 0, lineHeight: "1em", height: "auto" }}
                           onClick={() => { setSelectedParam(name); setVisible(true); }}
                         >
-                          suggest another value
-                      </Button>
+                          {t("trade.tabs.governance.another_value", "suggest another value")}
+                        </Button>
                       </div>}
                       {leader && <Button
                         type="link"
@@ -211,7 +207,7 @@ export const GovernanceItem = ({
                           leader === undefined
                         }
                       >
-                        commit
+                        {t("trade.tabs.governance.commit", "commit")}
                       </Button>}
                     </div>
                   )}
@@ -226,8 +222,8 @@ export const GovernanceItem = ({
                     (choice && choice === leader && freezePeriod > now)
                   }
                 >
-                  remove support
-              </Button>
+                  {t("trade.tabs.governance.remove_support", "remove support")}
+                </Button>
               </div>}
             </div>
           </Col>
@@ -245,7 +241,7 @@ export const GovernanceItem = ({
                 style={{ padding: 0, lineHeight: "1em", height: "auto" }}
                 onClick={() => { setSelectedParam(name); setVisible(true); }}
               >
-                suggest another value
+                {t("trade.tabs.governance.another_value", "suggest another value")}
               </Button>
             </Col>
           )}
@@ -268,7 +264,7 @@ export const GovernanceItem = ({
                     style={{ padding: 5 }}
                     onClick={() => { setSelectedParam(name); setVisible(true); }}
                   >
-                    suggest another value
+                    {t("trade.tabs.governance.another_value", "suggest another value")}
                   </Button>
                 </>}
               />

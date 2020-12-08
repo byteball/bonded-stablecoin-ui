@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Form, Input, Row, Col, Button } from "antd";
+import { useTranslation } from 'react-i18next';
 
 import { validator } from "utils/validators";
 import { getStatusValid } from "utils/getStatusValid";
@@ -19,6 +20,7 @@ const initialValues = {
 
 export const CapacitorStep = ({ setCurrent, setData }) => {
   const [form] = useForm();
+  const { t } = useTranslation();
   const [validFields, setValidFields] = useState({
     fee_multiplier: true,
     moved_capacity_share: true,
@@ -78,13 +80,13 @@ export const CapacitorStep = ({ setCurrent, setData }) => {
             label={
               <Label
                 required
-                label="Fee multiplier"
-                descr={paramsDescription.fee_multiplier}
+                label={paramsDescription().fee_multiplier.name}
+                descr={paramsDescription().fee_multiplier.desc}
               />
             }
           >
             <Input
-              placeholder="Fee multiplier"
+              placeholder={paramsDescription().fee_multiplier.name}
               style={{ width: "100%" }}
               autoComplete="off"
             />
@@ -109,12 +111,12 @@ export const CapacitorStep = ({ setCurrent, setData }) => {
             label={
               <Label
                 required
-                label="Moved capacity share"
-                descr={paramsDescription.moved_capacity_share}
+                label={paramsDescription().moved_capacity_share.name}
+                descr={paramsDescription().moved_capacity_share.desc}
               />
             }
           >
-            <Input placeholder="Moved capacity share" autoComplete="off" />
+            <Input placeholder={paramsDescription().moved_capacity_share.name} autoComplete="off" />
           </Form.Item>
         </Col>
         <Col sm={{ span: 24 }} xs={{ span: 24 }} md={{ span: 7, offset: 1 }}>
@@ -136,13 +138,13 @@ export const CapacitorStep = ({ setCurrent, setData }) => {
             label={
               <Label
                 required
-                label="Threshold distance"
-                descr={paramsDescription.threshold_distance}
+                label={paramsDescription().threshold_distance.name}
+                descr={paramsDescription().threshold_distance.desc}
               />
             }
           >
             <Input
-              placeholder="Threshold distance"
+              placeholder={paramsDescription().threshold_distance.name}
               style={{ width: "100%" }}
               autoComplete="off"
             />
@@ -170,13 +172,13 @@ export const CapacitorStep = ({ setCurrent, setData }) => {
             label={
               <Label
                 required
-                label="Move capacity timeout"
-                descr={paramsDescription.move_capacity_timeout}
+                label={paramsDescription().move_capacity_timeout.name}
+                descr={paramsDescription().move_capacity_timeout.desc}
               />
             }
           >
             <Input
-              placeholder="Move capacity timeout"
+              placeholder={paramsDescription().move_capacity_timeout.name}
               style={{ width: "100%" }}
               autoComplete="off"
             />
@@ -200,12 +202,12 @@ export const CapacitorStep = ({ setCurrent, setData }) => {
             label={
               <Label
                 required
-                label="Slow capacity share"
-                descr={paramsDescription.slow_capacity_share}
+                label={paramsDescription().slow_capacity_share.name}
+                descr={paramsDescription().slow_capacity_share.desc}
               />
             }
           >
-            <Input placeholder="Slow capacity share" autoComplete="off" />
+            <Input placeholder={paramsDescription().slow_capacity_share.name} autoComplete="off" />
           </Form.Item>
         </Col>
       </Row>
@@ -216,7 +218,7 @@ export const CapacitorStep = ({ setCurrent, setData }) => {
           setCurrent((c) => c + 1);
         }}
       >
-        Next
+        {t("create.next", "Next")}
       </Button>
     </Form>
   );

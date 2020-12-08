@@ -1,6 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { Typography } from "antd";
+import { useTranslation } from 'react-i18next';
 
 import { CurveParameters } from "./components/CurveParameters";
 import { CapacitorParameters } from "./components/CapacitorParameters";
@@ -17,6 +18,7 @@ const { Title } = Typography;
 export const Parameters = () => {
   const active = useSelector((state) => state.active);
   const { activeWallet } = useSelector((state) => state.settings);
+  const { t } = useTranslation();
   const initialParams = active.params;
   const params = getParams(initialParams, active.stable_state);
   const {
@@ -36,7 +38,7 @@ export const Parameters = () => {
   } = active;
   return (
     <div>
-      <Title level={3}>Parameters of the stablecoin</Title>
+      <Title level={3}>{t("trade.tabs.parameters.title", "Parameters of the stablecoin")}</Title>
 
       <div style={{ marginBottom: 10 }}>
         <a
@@ -45,13 +47,13 @@ export const Parameters = () => {
           target="_blank"
           rel="noopener"
         >
-          View on explorer
+          {t("trade.tabs.parameters.view", "View on explorer")}
         </a>
       </div>
       <div className={styles.wrap}>
         <div style={{ paddingRight: 20 }}>
           <Title level={4} type="secondary">
-            Curve
+            {t("trade.tabs.parameters.title_curve", "Curve")}
           </Title>
           <CurveParameters
             params={params}
@@ -60,10 +62,10 @@ export const Parameters = () => {
             oracleValue3={oracleValue3}
             reserve_asset_symbol={reserve_asset_symbol}
             address={address}
-            activeWallet={activeWallet} 
+            activeWallet={activeWallet}
           />
           <Title level={4} type="secondary">
-            Autonomous Agents
+            {t("trade.tabs.parameters.title_autonomous_agents", "Autonomous Agents")}
           </Title>
           <AutonomusParameters
             curve_aa={address}
@@ -72,7 +74,7 @@ export const Parameters = () => {
           />
 
           <Title level={4} type="secondary">
-            Tokens
+            {t("trade.tabs.parameters.title_tokens", "Tokens")}
           </Title>
           <TokensParameters
             asset1={stable_state.asset1}
@@ -85,15 +87,15 @@ export const Parameters = () => {
         </div>
         <div className={styles.column}>
           <Title level={4} type="secondary">
-            Deposits
+            {t("trade.tabs.parameters.title_deposits", "Deposits")}
           </Title>
           <DepositsParameters params={params} address={address} activeWallet={activeWallet} />
           <Title level={4} type="secondary">
-            Capacitor
+            {t("trade.tabs.parameters.title_capacitor", "Capacitor")}
           </Title>
           <CapacitorParameters params={params} address={address} activeWallet={activeWallet} base_governance={base_governance} />
           <Title level={4} type="secondary">
-            Governance
+            {t("trade.tabs.parameters.title_governance", "Governance")}
           </Title>
           <GovernanceParameters params={params} />
         </div>

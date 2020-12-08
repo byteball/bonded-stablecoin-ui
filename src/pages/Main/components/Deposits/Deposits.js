@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Table, Button, Space, List, Typography, Tooltip } from "antd";
+import { Trans, useTranslation } from 'react-i18next';
 import {
   PlusOutlined,
   EditOutlined,
@@ -40,6 +41,7 @@ export const Deposits = ({ openWalletModal }) => {
     symbol3,
     reserve_asset_symbol
   } = useSelector((state) => state.active);
+  const { t } = useTranslation();
   const actualParams = getParams(params, stable_state);
   const [timestamp, setTimestamp] = useState(moment().unix());
   const { activeWallet } = useSelector((state) => state.settings);
@@ -69,13 +71,13 @@ export const Deposits = ({ openWalletModal }) => {
   if (!activeWallet) {
     return (
       <div style={{ textAlign: "center", cursor: "pointer", color: "#1890ff" }} onClick={openWalletModal}>
-        Please add the address of your wallet in order to view/open deposits.
+        {t("trade.tabs.deposits.no_auth", "Please add the address of your wallet in order to view/open deposits.")}
       </div>
     );
   }
   const columns = [
     {
-      title: "Opened",
+      title: t("trade.tabs.deposits.opened", "Opened"),
       dataIndex: "ts",
       key: "ts",
       render: (value) => {
@@ -91,8 +93,8 @@ export const Deposits = ({ openWalletModal }) => {
     {
       title: (
         <Label
-          label={symbol2 || "Interest tokens"}
-          descr="Amount of interest tokens"
+          label={symbol2 || t("trade.tabs.deposits.interest_title", "Interest tokens")}
+          descr={t("trade.tabs.deposits.interest_title_desc", "Amount of interest tokens")}
         />
       ),
       dataIndex: "amount",
@@ -106,8 +108,8 @@ export const Deposits = ({ openWalletModal }) => {
     {
       title: (
         <Label
-          label={symbol3 || "Stable"}
-          descr="Amount of stable tokens issued against the deposit"
+          label={symbol3 || t("trade.tabs.deposits.stable_title", "Stable tokens")}
+          descr={t("trade.tabs.deposits.stable_title_desc", "Amount of stable tokens issued against the deposit")}
         />
       ),
       dataIndex: "stable_amount",
@@ -122,12 +124,12 @@ export const Deposits = ({ openWalletModal }) => {
     {
       title: (
         <Label
-          label="Protection (ratio)"
-          descr={`Additional deposit in ${
-            actualParams.reserve_asset in config.reserves
+          label={t("trade.tabs.deposits.protection", "Protection (ratio)")}
+          descr={t("trade.tabs.deposits.protection_desc", `Additional deposit in {{reserve}} that protects the deposit from being closed by others. The deposit with the least ratio of protection to deposit amount can be closed by anybody. There is no direct loss to you when your deposit is closed but you stop receiving interest from it.`, {
+              reserve: actualParams.reserve_asset in config.reserves
               ? config.reserves[actualParams.reserve_asset].name
               : reserve_asset_symbol || "reserve asset"
-          } that protects the deposit from being closed by others. The deposit with the least ratio of protection to deposit amount can be closed by anybody. There is no direct loss to you when your deposit is closed but you stop receiving interest from it.`}
+            })}
         />
       ),
       dataIndex: "protection",
@@ -135,8 +137,8 @@ export const Deposits = ({ openWalletModal }) => {
       render: (value, records) => {
         const ratio = Number(
           (value || 0) /
-            10 ** config.reserves.base.decimals /
-            (records.amount / 10 ** actualParams.decimals2)
+          10 ** config.reserves.base.decimals /
+          (records.amount / 10 ** actualParams.decimals2)
         ).toPrecision(3);
         return (
           <>
@@ -154,9 +156,9 @@ export const Deposits = ({ openWalletModal }) => {
                 ({ratio})
               </>
             ) : (
-              0
-            )}
-            <Tooltip title="Add protection">
+                0
+              )}
+            <Tooltip title={t("trade.tabs.deposits.add_protection", "Add protection")}>
               <Button
                 type="link"
                 disabled={records.owner !== activeWallet}
@@ -165,7 +167,7 @@ export const Deposits = ({ openWalletModal }) => {
                 icon={<DownloadOutlined />}
               />
             </Tooltip>
-            <Tooltip title="Withdraw protection">
+            <Tooltip title={t("trade.tabs.deposits.withdraw_protection", "Withdraw protection")}>
               <Button
                 disabled={
                   records.owner !== activeWallet ||
@@ -184,7 +186,7 @@ export const Deposits = ({ openWalletModal }) => {
     },
     {
       title: (
-        <Label label="Interest" descr="Interest available for withdrawal" />
+        <Label label={t("trade.tabs.deposits.interest", "Interest")} descr={t("trade.tabs.deposits.interest_desc", "Interest available for withdrawal")} />
       ),
       dataIndex: "amount",
       key: "amount",
@@ -200,12 +202,12 @@ export const Deposits = ({ openWalletModal }) => {
                 value={records.close_interest}
               />
             ) : (
-              <ShowDecimalsValue
-                decimals={actualParams.decimals2}
-                value={interest}
-              />
-            )}
-            <Tooltip title="Withdraw interest">
+                <ShowDecimalsValue
+                  decimals={actualParams.decimals2}
+                  value={interest}
+                />
+              )}
+            <Tooltip title={t("trade.tabs.deposits.withdraw_interest","Withdraw interest")}>
               <Button
                 type="link"
                 href={generateLink(
@@ -231,8 +233,8 @@ export const Deposits = ({ openWalletModal }) => {
     {
       title: (
         <Label
-          label="Interest recipient"
-          descr="Who receives interest (deposit owner by default)"
+          label={t("trade.tabs.deposits.interest_recipient","Interest recipient")}
+          descr={t("trade.tabs.deposits.interest_recipient_desc","Who receives interest (deposit owner by default)")}
         />
       ),
       dataIndex: "interest_recipient",
@@ -242,13 +244,13 @@ export const Deposits = ({ openWalletModal }) => {
         return (
           <>
             {!value || value === records.owner
-              ? "you"
+              ? t("trade.tabs.deposits.you","you")
               : (recipientName && (
-                  <span style={{ fontSize: 12 }}>{recipientName.name}</span>
-                )) ||
-                value.slice(0, 9) + "..."}
+                <span style={{ fontSize: 12 }}>{recipientName.name}</span>
+              )) ||
+              value.slice(0, 9) + "..."}
 
-            <Tooltip title="Edit interest recipient">
+            <Tooltip title={t("trade.tabs.deposits.edit_interest_recipient", "Edit interest recipient")}>
               <Button
                 type="link"
                 size="small"
@@ -294,7 +296,7 @@ export const Deposits = ({ openWalletModal }) => {
                 records.close_interest
               }
             >
-              Close
+              {t("trade.tabs.deposits.close", "Close")}
             </Button>
           </Space>
         );
@@ -327,20 +329,21 @@ export const Deposits = ({ openWalletModal }) => {
     }
   }
   const localeForEmpty = stable_state.interest_rate ? (
-    <span>
+    <Trans i18nKey="trade.tabs.deposits.for_empty">
       You don't have any open deposits, please{" "}
-      <Button
-        type="link"
-        style={{ padding: 0 }}
-        onClick={() => setVisibleOpenDeposit(true)}
-      >
-        open a new one
+        <Button
+          type="link"
+          style={{ padding: 0 }}
+          onClick={() => setVisibleOpenDeposit(true)}
+        >
+          open a new one
       </Button>{" "}
       or change your wallet address.
-    </span>
-  ) : 'Deposits are disabled when there is no interest rate.';
+    </Trans>
+  ) : t("trade.tabs.deposits.disabled");
 
-  const odexUrl = `https://odex.ooo/trade/${ (symbol3 === 'OUSD' ? 'GBYTE' : symbol3) }/OUSD`;
+  const hours = actualParams.min_deposit_term / 3600;
+  const odexUrl = `https://odex.ooo/trade/${(symbol3 === 'OUSD' ? 'GBYTE' : symbol3)}/OUSD`;
   let oswapUrl = 'https://oswap.io/#/swap';
   switch (symbol3) {
     case 'OUSD':
@@ -366,7 +369,7 @@ export const Deposits = ({ openWalletModal }) => {
           marginBottom: 10,
         }}
       >
-        <Title level={3}>Deposits</Title>
+        <Title level={3}>{t("trade.tabs.deposits.title", "Deposits")}</Title>
         <Button
           disabled={!stable_state.interest_rate}
           type="primary"
@@ -374,27 +377,29 @@ export const Deposits = ({ openWalletModal }) => {
           icon={<PlusOutlined />}
           onClick={() => setVisibleOpenDeposit(true)}
         >
-          Open deposit
+          {t("trade.tabs.deposits.open", "Open deposit")}
         </Button>
       </div>
       <p>
         <Text type="secondary">
-          Create a deposit to exchange your {symbol2 || "interest tokens"} for stable tokens{" "}
-          {symbol3 || ""} and periodically withdraw interest in {symbol3 || ""} as it
-          accrues. You can trade {symbol3 || "stable tokens"} on <a href={oswapUrl} target="_blank" rel="noopener">Oswap.io</a> or <a href={odexUrl} target="_blank" rel="noopener">ODEX</a>.
+          <Trans i18nKey="trade.tabs.deposits.create" symbol3={symbol3} symbol2={symbol2}>
+            Create a deposit to exchange your {{symbol2: symbol2 || "T2"}} for stable tokens {{symbol3: symbol3 || "t3"}} and periodically withdraw interest in {{symbol3: symbol3 || "T3"}} as it accrues. You can trade {{symbol3: symbol3 || "T3"}} on <a href={oswapUrl} target="_blank" rel="noopener">Oswap.io</a> or <a href={odexUrl} target="_blank" rel="noopener">ODEX</a>.
+          </Trans>
         </Text>
       </p>
-      {last_force_closed_protection_ratio !==undefined ? (
+      {last_force_closed_protection_ratio !== undefined ? (
         <Text type="secondary">
           <p>
-            <b>Last force closed protection ratio:</b>{" "}
+            <b>{t("trade.tabs.deposits.protection_ratio", "Last force closed protection ratio")}:</b>{" "}
             {last_force_closed_protection_ratio}
           </p>
         </Text>
       ) : ""}
       <p>
         <Text type="secondary">
-          A new deposit cannot be closed within <b>{actualParams.min_deposit_term / 3600} hours</b> after opening.
+          <Trans i18nKey="trade.tabs.deposits.close_info" hours={hours}>
+            A new deposit cannot be closed within <b>{{ hours }} hours</b> after opening.
+          </Trans>
         </Text>
       </p>
 
@@ -421,37 +426,37 @@ export const Deposits = ({ openWalletModal }) => {
           pagination={{ pageSize: 20, hideOnSinglePage: true }}
         />
       ) : (
-        <List
-          pagination={{ pageSize: 10, hideOnSinglePage: true }}
-          grid={{ column: 1 }}
-          bordered={false}
-          dataSource={source.sort((a, b) => b.ts - a.ts)}
-          locale={{
-            emptyText: localeForEmpty,
-          }}
-          renderItem={(item) => (
-            <DepositsItem
-              item={item}
-              width={width}
-              decimals={actualParams.decimals2}
-              reserve_asset_decimals={actualParams.reserve_asset_decimals}
-              reserve_asset_symbol={reserve_asset_symbol}
-              min_deposit_term={actualParams.min_deposit_term}
-              reserve_asset={actualParams.reserve_asset}
-              growth_factor={growth_factor}
-              activeWallet={activeWallet}
-              deposit_aa={deposit_aa}
-              timestamp={timestamp}
-              asset={deposit_state.asset}
-              setVisibleEditRecipient={setVisibleEditRecipient}
-              setAddProtection={setAddProtection}
-              setWithdrawProtection={setWithdrawProtection}
-              symbol2={symbol2}
-              symbol3={symbol3}
-            />
-          )}
-        />
-      )}
+          <List
+            pagination={{ pageSize: 10, hideOnSinglePage: true }}
+            grid={{ column: 1 }}
+            bordered={false}
+            dataSource={source.sort((a, b) => b.ts - a.ts)}
+            locale={{
+              emptyText: localeForEmpty,
+            }}
+            renderItem={(item) => (
+              <DepositsItem
+                item={item}
+                width={width}
+                decimals={actualParams.decimals2}
+                reserve_asset_decimals={actualParams.reserve_asset_decimals}
+                reserve_asset_symbol={reserve_asset_symbol}
+                min_deposit_term={actualParams.min_deposit_term}
+                reserve_asset={actualParams.reserve_asset}
+                growth_factor={growth_factor}
+                activeWallet={activeWallet}
+                deposit_aa={deposit_aa}
+                timestamp={timestamp}
+                asset={deposit_state.asset}
+                setVisibleEditRecipient={setVisibleEditRecipient}
+                setAddProtection={setAddProtection}
+                setWithdrawProtection={setWithdrawProtection}
+                symbol2={symbol2}
+                symbol3={symbol3}
+              />
+            )}
+          />
+        )}
       <EditRecipientModal
         visible={!!visibleEditRecipient}
         id={visibleEditRecipient.id}

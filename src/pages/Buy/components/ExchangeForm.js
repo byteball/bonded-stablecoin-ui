@@ -12,6 +12,7 @@ import {
   Alert,
   Result
 } from "antd";
+import { Trans, useTranslation } from 'react-i18next';
 import ReactGA from "react-ga";
 import { ArrowRightOutlined, ArrowDownOutlined } from "@ant-design/icons";
 import { useSelector, useDispatch } from "react-redux";
@@ -42,6 +43,7 @@ export const ExchangeForm = () => {
   );
   const { reservePrice } = useSelector((state) => state.active);
   const dispatch = useDispatch();
+  const { t } = useTranslation();
   const params = useParams();
   const [width] = useWindowSize();
   const { data, loaded } = useSelector((state) => state.list);
@@ -237,12 +239,10 @@ export const ExchangeForm = () => {
       curve_address: activeTokenAdr,
       after: ({ isError }) => {
         if (!isError) {
-          message.success(
-            "The exchange was successfully added to the list and is waiting for payment"
-          );
+          message.success(t("buy.exchange_success", "The exchange was successfully added to the list and is waiting for payment"));
           dispatch(addExchangeRecepient(recipient.value));
         } else {
-          message.error("An error occurred, please try again later");
+          message.error(t("buy.exchange_error", "An error occurred, please try again later"));
         }
         ReactGA.event({
           category: "Stablecoin",
@@ -284,7 +284,7 @@ export const ExchangeForm = () => {
   return (
     <div>
       {!exchangeRates && activeCurrency !== "gbyte" && <Alert
-        message={`${String(activeCurrency).toUpperCase()}-to-GBYTE exchange service is currently unavailable, please pay with GBYTE or try again later.`}
+        message={t("buy.exchange_warning", "{{currency}}-to-GBYTE exchange service is currently unavailable, please pay with GBYTE or try again later.", {currency: String(activeCurrency).toUpperCase()})}
         type="warning"
         style={{ marginTop: 10 }}
       />}
@@ -292,14 +292,16 @@ export const ExchangeForm = () => {
         <Col xs={{ span: 24, offset: 0 }} md={{ span: 11 }}>
           <div style={{ marginBottom: 5 }}>
             <Text type="secondary">
-              You <b>send</b>
+              <Trans i18nKey="buy.you_send">
+                You <b>send</b>
+              </Trans>
             </Text>
           </div>
           <Input.Group compact>
             <Input
               style={{ width: "50%" }}
               size="large"
-              placeholder={`Amount ${ranges && ranges.min ? "Min. " + ranges.min : ""
+              placeholder={`${t("buy.amount", "Amount")} ${ranges && ranges.min ? "Min. " + ranges.min : ""
                 }  ${ranges && ranges.max ? " Max. " + ranges.max : ""}`}
               onChange={handleAmountCurrency}
               value={isNaN(amountCurrency) ? undefined : amountCurrency}
@@ -318,14 +320,14 @@ export const ExchangeForm = () => {
               style={{ width: "50%" }}
               size="large"
               showSearch
-              placeholder="Currency to pay"
+              placeholder={t("buy.currency_to_pay", "Currency to pay")}
               onChange={(c) => {
                 setActiveCurrency(c);
               }}
               disabled={isCreated}
               value={activeCurrency}
             >
-              <Select.OptGroup label="Popular cryptocurrencies">
+              <Select.OptGroup label={t("buy.popular_cryptocurrencies", "Popular cryptocurrencies")}>
                 <Select.Option value="gbyte" key="c-gbyte">
                   GBYTE
                 </Select.Option>
@@ -337,7 +339,7 @@ export const ExchangeForm = () => {
                   </Select.Option>
                 ))}
               </Select.OptGroup>
-              <Select.OptGroup label="Others">
+              <Select.OptGroup label={t("buy.others", "Others")}>
                 {allCurrencies.filter(
                   (c) => !popularCurrencies.includes(c)
                 ).sort().map((c) => (
@@ -350,7 +352,7 @@ export const ExchangeForm = () => {
           </Input.Group>
           {activeCurrency && activeCurrency !== "gbyte" && (
             <span style={{ fontSize: 10 }}>
-              You get a better rate if you pay in GBYTE
+              {t("buy.better_rate", "You get a better rate if you pay in GBYTE")}
             </span>
           )}
         </Col>
@@ -374,7 +376,9 @@ export const ExchangeForm = () => {
               <>
                 <div style={{ marginBottom: 5 }}>
                   <Text type="secondary">
-                    You <b>get</b>
+                    <Trans i18nKey="buy.you_get">
+                      You <b>get</b>
+                    </Trans>
                   </Text>
                 </div>
                 <Input.Group compact>
@@ -395,13 +399,13 @@ export const ExchangeForm = () => {
                                 exchangeRates *
                                 reservePrice
                               ).toFixed(2)}{" "}
-                        USD
+                            USD
                           </span>
                         ) : (
                           <span />
                         )
                     }
-                    placeholder="Amount"
+                    placeholder={t("buy.amount", "Amount")}
                     prefix={activeCurrency !== "gbyte" ? "≈" : ""}
                     value={isNaN(amountToken) ? undefined : amountToken}
                     onChange={(ev) =>
@@ -426,7 +430,7 @@ export const ExchangeForm = () => {
                     size="large"
                     showSearch
                     disabled={isCreated}
-                    placeholder="The token you will receive"
+                    placeholder={t("buy.will_receive", "The token you will receive")}
                     onChange={(c) => setActiveTokenAdr(c)}
                     value={activeTokenAdr}
                   >
@@ -443,16 +447,13 @@ export const ExchangeForm = () => {
                 {activeCurrency !== "gbyte" && currentTokenData && (
                   <>
                     <Text type="secondary">
-                      Your{" "}
+                      <Trans i18nKey="buy.first_exchanged">
+                      Your <span style={{ textTransform: "uppercase" }}>{{activeCurrency}}</span>{" "}
+                      will be first exchanged for GBYTE, then GBYTE converted to {" "}
+                      {{symbol: currentTokenData.symbol ||
+                      currentTokenData.asset_2.slice(0, 5) + "..."}}.{" "}
                       <span style={{ textTransform: "uppercase" }}>
-                        {activeCurrency}
-                      </span>{" "}
-                    will be first exchanged for GBYTE, then GBYTE converted to{" "}
-                      {currentTokenData.symbol ||
-                        currentTokenData.asset_2.slice(0, 5) + "..."}
-                    .{" "}
-                      <span style={{ textTransform: "uppercase" }}>
-                        {activeCurrency}
+                        {{activeCurrency}}
                       </span>{" "}
                     to GBYTE exchange is performed by{" "}
                       <a
@@ -461,26 +462,22 @@ export const ExchangeForm = () => {
                         rel="noopener"
                       >
                         simpleswap.io
-                    </a>
-                    .{" "}
+                    </a>.
+                    </Trans>
                     </Text>
 
                     {amountCurrency &&
                       (compensation ? (
                         <div>
                           <Text type="secondary">
-                            Obyte compensates part of the exchange fees.
-                        </Text>
+                            {t("buy.compensates", "Obyte compensates part of the exchange fees.")}
+                          </Text>
                         </div>
                       ) : (
                           <div style={{ marginTop: 5 }}>
                             <Text type="secondary">
-                              Obyte compensates part of the exchange fees but
-                              today's quota is already depleted and the quoted price
-                              includes the full fees. To get a better rate, try
-                              again after the quota resets at midnight UTC or buy
-                              with GBYTE now.
-                        </Text>
+                              {t("buy.compensates_depleted", "Obyte compensates part of the exchange fees but today's quota is already depleted and the quoted price includes the full fees. To get a better rate, try again after the quota resets at midnight UTC or buy with GBYTE now.")}
+                            </Text>
                           </div>
                         ))}
                   </>
@@ -492,25 +489,23 @@ export const ExchangeForm = () => {
                       style={{ width: "100%", marginTop: 20 }}
                       extra={
                         <span>
-                          <a
-                            href="https://obyte.org/#download"
-                            target="_blank"
-                            rel="noopener"
-                            onClick={
-                              () => {
-                                ReactGA.event({
-                                  category: "Stablecoin",
-                                  action: "Install wallet (buy for other currency)",
-                                  label: activeCurrency
-                                })
-                              }
-                            }
-                          >
-                            Install Obyte wallet
-                        </a>{" "}
-                        if you don't have one yet, and copy/paste your address
-                        here.
-                      </span>
+                          <Trans i18nKey="buy.install">
+                            <a
+                              href="https://obyte.org/#download"
+                              target="_blank"
+                              rel="noopener"
+                              onClick={
+                                () => {
+                                  ReactGA.event({
+                                    category: "Stablecoin",
+                                    action: "Install wallet (buy for other currency)",
+                                    label: activeCurrency
+                                  })
+                                }
+                              }>Install Obyte wallet</a> 
+                            if you don't have one yet, and copy/paste your address here.
+                          </Trans>
+                        </span>
                       }
                       validateStatus={
                         recipient.valid !== undefined
@@ -581,24 +576,24 @@ export const ExchangeForm = () => {
             Number(amountCurrency) !== 0 ? (
               <div style={{ textAlign: "center" }}>
                 <Text type="secondary" style={{ fontSize: 10 }}>
-                  1% was added to protect against price volatility, you'll get
-                  this amount back if the prices don't change.
+                  {t("buy.volatility", "1% was added to protect against price volatility, you'll get this amount back if the prices don't change.")}
                 </Text>
                 <Text type="secondary" style={{ fontSize: 14, display: "block" }}>
-                  Clicking "Buy" will open your Obyte wallet.  <a
-                    href="https://obyte.org/#download"
-                    target="_blank"
-                    rel="noopener"
-                    onClick={
-                      () => {
-                        ReactGA.event({
-                          category: "Stablecoin",
-                          action: "Install wallet (buy for GBYTE)",
-                          label: "GBYTE"
-                        })
-                      }
-                    }
-                  >Install</a> it if you don't have one yet.
+                  <Trans i18nKey="buy.open_wallet">
+                    Clicking "Buy" will open your Obyte wallet.
+                    <a href="https://obyte.org/#download"
+                      target="_blank"
+                      rel="noopener"
+                      onClick={
+                        () => {
+                          ReactGA.event({
+                            category: "Stablecoin",
+                            action: "Install wallet (buy for GBYTE)",
+                            label: "GBYTE"
+                          })
+                        }
+                      }>Install</a> it if you don't have one yet.
+                  </Trans>
                 </Text>
               </div>
             ) : null}
@@ -626,7 +621,7 @@ export const ExchangeForm = () => {
                   handleClickExchange();
                 }}
               >
-                Buy
+                {t("buy.buy", "Buy")}
             </Button>
             </Row>
             {activeCurrency &&
@@ -635,16 +630,19 @@ export const ExchangeForm = () => {
               Number(ranges.min) > amountCurrency ? (
                 <div style={{ textAlign: "center" }}>
                   <Text type="secondary" style={{ fontSize: 12, color: "red" }}>
-                    Sorry, the minimum {String(activeCurrency).toUpperCase()} amount
-                is {ranges.min}. Please increase the {String(activeCurrency).toUpperCase()} amount.
-              </Text>
+                    <Trans activeCurrency={String(activeCurrency).toUpperCase()} min={ranges.min}>
+                      Sorry, the minimum {{activeCurrency: String(activeCurrency).toUpperCase()}} amount is {{min: ranges.min}}. Please increase the {{activeCurrency: String(activeCurrency).toUpperCase()}} amount.
+                    </Trans>
+                  </Text>
                 </div>
               ) : null}
           </>
         )}
       <div style={{ fontSize: 16, textAlign: "center", padding: 10 }}>
-        For buying growth tokens (GRD, GRB, etc) and redemption, go to the{" "}
-        <Link to="/trade">trading page</Link>.
+        <Trans i18nKey="buy.buying_growth">
+          For buying growth tokens (GRD, GRB, etc) and redemption, go to the{" "}
+          <Link to="/trade">trading page</Link>.
+        </Trans>
       </div>
     </div>
   );

@@ -1,3 +1,5 @@
+import i18n from "../../locale/index";
+
 export default (
   value,
   onSuccess,
@@ -18,14 +20,14 @@ export default (
   if (reg.test(value)) {
     if (Number(value) > minValue || minValue === undefined) {
       if (maxValue && Number(value) > maxValue) {
-        error = `Max value is ${maxValue}`;
+        error = i18n.t("validator.max_value", "Max value is {{maxValue}}", {value: maxValue});
       } else {
         if (isInteger) {
           if (int.test(value)) {
             onSuccess && onSuccess();
             return Promise.resolve();
           } else {
-            error = "Value must be an integer";
+            error = i18n.t("validator.integer", "Value must be an integer");
           }
         } else {
           if (
@@ -40,15 +42,15 @@ export default (
             onSuccess && onSuccess();
             return Promise.resolve();
           } else {
-            error = `Max decimals is ${maxDecimals}`;
+            error = i18n.t("validator.max_decimals", "Max decimals is {{value}}", {value: maxDecimals});
           }
         }
       }
     } else {
-      error = `Min value is ${minValue}`;
+      error = i18n.t("validator.min_value", "Min value is {{value}}", {value: minValue});
     }
   } else {
-    error = "This field is not valid";
+    error = i18n.t("validator.not_valid", "This field is not valid");
   }
   onError && onError();
   return Promise.reject(error);

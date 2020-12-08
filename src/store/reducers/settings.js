@@ -10,12 +10,14 @@ import {
   UPDATE_EXCHANGE_FORM,
   ADD_REFERRER,
   FIRST_VISIT,
+  CHANGE_LANGUAGE,
 } from "../types";
 
 const initialState = {
   wallets: [],
   activeWallet: null,
   recent: null,
+  lang: "gb",
   recentList: [],
   exchanges: [],
   referrer: undefined,
@@ -32,6 +34,12 @@ const initialState = {
 
 export const settingsReducer = (state = initialState, action) => {
   switch (action.type) {
+    case CHANGE_LANGUAGE: {
+      return {
+        ...state,
+        lang: action.payload
+      }
+    }
     case ADD_WALLET: {
       if (!state.wallets.find((w) => w === action.payload)) {
         return {

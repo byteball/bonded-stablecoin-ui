@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Button, Form, Input, Modal } from "antd";
+import { useTranslation } from 'react-i18next';
 import { useDispatch } from "react-redux";
 import obyte from "obyte";
 import { addWallet } from "store/actions/settings/addWallet";
@@ -7,6 +8,7 @@ import { addWallet } from "store/actions/settings/addWallet";
 export const AddWalletAddressModal = ({ visible, setShowWalletModal }) => {
   const dispatch = useDispatch();
   const addressInput = useRef(null);
+  const { t } = useTranslation();
   const [address, setAddress] = useState({
     value: undefined,
     valid: undefined,
@@ -51,12 +53,12 @@ export const AddWalletAddressModal = ({ visible, setShowWalletModal }) => {
   return (
     <Modal
       visible={visible}
-      title="Add Wallet"
+      title={t("modals.add_wallet.title", "Add Wallet")}
       style={{ zIndex: -1 }}
       onCancel={handleCancel}
       footer={[
         <Button key="close" onClick={handleCancel}>
-          Close
+          {t("modals.common.close", "Close")}
         </Button>,
         <Button
           key="add"
@@ -64,14 +66,14 @@ export const AddWalletAddressModal = ({ visible, setShowWalletModal }) => {
           disabled={!address.valid}
           onClick={() => handleAdd(address.value)}
         >
-          Add
+          {t("modals.common.add", "Add")}
         </Button>,
       ]}
     >
       <Form size="large">
         <Form.Item hasFeedback={true} validateStatus={validateStatus}>
           <Input
-            placeholder="Wallet address"
+            placeholder={t("modals.add_wallet.wallet_address", "Wallet address")}
             value={address.value}
             onChange={handleChange}
             ref={addressInput}

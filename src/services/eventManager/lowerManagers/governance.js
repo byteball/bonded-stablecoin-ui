@@ -1,4 +1,5 @@
 import { openNotification } from "utils/openNotification";
+import i18n from "../../../locale/index";
 
 export const governanceEventManager = ({
   isReq,
@@ -15,40 +16,32 @@ export const governanceEventManager = ({
       if (leader) {
         if (isAuthor) {
           openNotification(
-            `You sent a request to commit a new value of ${name}: ${
-              asPercentage ? leader * 100 + "%" : leader
-            }`
+            i18n.t("governance.commit.req_author", "You sent a request to commit a new value of {{name}}: {{value}}", {name, value: asPercentage ? leader * 100 + "%" : leader})
           );
         } else {
           openNotification(
-            `Another user sent a request to commit the new value of ${
-              name
-            }: ${asPercentage ? leader * 100 + "%" : leader}`
+            i18n.t("governance.commit.req", "Another user sent a request to commit the new value of {{name}}: {{value}}", {name, value: asPercentage ? leader * 100 + "%" : leader})
           );
         }
       }
     } else if ("name" in payload && "value" in payload) {
       if (isAuthor) {
         openNotification(
-          `You have sent a request to add support for the  ${
-            name
-          } value of ${asPercentage ? payload.value * 100 + "%" : payload.value}`
+          i18n.t("governance.add_support.req_author", "You have sent a request to add support for the {{name}} value of {{value}}", {name, value: asPercentage ? payload.value * 100 + "%" : payload.value})
         );
       } else {
         openNotification(
-          `Another user sent a request to add support for the ${
-            name
-          } value of ${asPercentage ? payload.value * 100 + "%" : payload.value}`
+          i18n.t("governance.add_support.req", "Another user sent a request to add support for the {{name}} value of {{value}}", {name, value: asPercentage ? payload.value * 100 + "%" : payload.value})
         );
       }
     } else if ("withdraw" in payload) {
       if (isAuthor) {
         openNotification(
-          "You have sent a request to withdraw your balance from governance"
+          i18n.t("governance.withdraw.req_author", "You have sent a request to withdraw your balance from governance")
         );
       } else {
         openNotification(
-          "Another user sent a request to withdraw their balance from governance"
+          i18n.t("governance.withdraw.req", "Another user sent a request to withdraw their balance from governance")
         );
       }
     }

@@ -1,5 +1,6 @@
 import React, { createRef, useEffect, useState } from "react";
 import { Typography, List } from "antd";
+import { Trans, useTranslation } from 'react-i18next';
 import obyte from "obyte";
 import { useSelector } from "react-redux";
 import moment from 'moment';
@@ -26,6 +27,7 @@ export const Governance = ({ openWalletModal }) => {
   const { activeWallet } = useSelector((state) => state.settings);
   const actualParams = getParams(params, stable_state);
   const location = useLocation();
+  const { t } = useTranslation();
   const [width] = useWindowSize();
 
   useEffect(() => {
@@ -42,15 +44,14 @@ export const Governance = ({ openWalletModal }) => {
   if (!activeWallet) {
     return (
       <div style={{ textAlign: "center", cursor: "pointer", color: "#1890ff" }} onClick={openWalletModal}>
-        Please add the address of your wallet in order to participate in
-        governance
+        {t("trade.tabs.governance.no_auth", "Please add the address of your wallet in order to participate in governance")}
       </div>
     );
   }
 
   const initParams = {
     interest_rate: {
-      value: actualParams["interest_rate"],
+      value: actualParams["interest_rate"] || "0",
     },
     "oracles": {
       value: generateOraclesString(actualParams, stable_state.oracles),
@@ -213,7 +214,7 @@ export const Governance = ({ openWalletModal }) => {
   for (let param in governanceParams) {
     governanceParams[param].refEl = createRef();
     if (param === "fee_multiplier" && governanceParams[param].value < 1 && base_governance === "Y4VBXMROK5BWBKSYYAMUW7QUEZFXYBCF") continue;
-    if(param === "oracles" && !actualParams.allow_oracle_change) continue;
+    if (param === "oracles" && !actualParams.allow_oracle_change) continue;
     governanceList.push({
       ...governanceParams[param],
       name: param,
@@ -239,13 +240,15 @@ export const Governance = ({ openWalletModal }) => {
 
   return (
     <div>
-      <Title level={3}>Governance</Title>
+      <Title level={3}>{t("trade.tabs.governance.title", "Governance")}</Title>
       <p>
         <Text type="secondary">
-          {symbol1 ? symbol1 : "Token1"} holders can vote to change various
-          parameters of the stablecoin and ensure its success. <br /> The value
-          of {symbol1 ? symbol1 : "token1"} grows as more{" "}
-          {symbol2 ? symbol2 : "token2"} tokens are bought.
+          <Trans i18nKey="trade.tabs.governance.desc" symbol1={symbol1} symbol2={symbol2}>
+            {{symbol1: symbol1 || "T1"}} holders can vote to change various
+            parameters of the stablecoin and ensure its success. <br /> The value
+            of {{symbol1: symbol1 || "T1"}} grows as more{" "}
+            {{symbol2: symbol2 || "T2"}} tokens are bought.
+          </Trans>
         </Text>
       </p>
 
@@ -258,7 +261,7 @@ export const Governance = ({ openWalletModal }) => {
           0
         }
       />
-      <Title level={3} style={{ marginTop: 20 }}>Change parameters</Title>
+      <Title level={3} style={{ marginTop: 20 }}>{t("trade.tabs.governance.change_parameters", "Change parameters")}</Title>
       <div style={{ marginTop: 20 }}>
         <List
           dataSource={governanceList}

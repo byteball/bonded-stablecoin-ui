@@ -1,10 +1,12 @@
 import { Row, Typography, Button, Col } from "antd";
 import { LoadingOutlined, CheckCircleOutlined } from "@ant-design/icons";
 import React, { useEffect, useState } from "react";
+import { useTranslation, Trans } from 'react-i18next';
+import axios from "axios";
+
 import styles from "./ExchangeView.module.css";
 import { useDispatch } from "react-redux";
 import { removeExchangePending } from "store/actions/settings/removeExchangePending";
-import axios from "axios";
 import config from "config";
 
 const { Text, Paragraph } = Typography;
@@ -12,7 +14,7 @@ const { Text, Paragraph } = Typography;
 export const ExchangeView = ({ current }) => {
   const dispatch = useDispatch();
   const [status, setStatus] = useState(undefined);
-
+  const { t } = useTranslation();
   const {
     address,
     address_from,
@@ -49,22 +51,22 @@ export const ExchangeView = ({ current }) => {
         )}
       </Row>
       <Row justify="center" className={styles.auto}>
-        <Text>This page will be updated automatically</Text>
+        <Text>{t("buy.updated", "This page will be updated automatically")}</Text>
       </Row>
       <Row justify="center">
         <div>
-          <b>Status:</b>{" "}
+          <b>{t("buy.status", "Status")}:</b>{" "}
           {status ? (
             <span>{status}</span>
           ) : (
-            <Text type="secondary">loading status...</Text>
+            <Text type="secondary">{t("buy.status_loading", "loading status...")}</Text>
           )}
         </div>
       </Row>
       <Row justify="center">
         <Col xs={{ span: 24 }} md={{ span: 12 }}>
           <div className={styles.currency}>
-            <b>You send:</b>{" "}
+          <Trans i18nKey="buy.you_send">You <b>send</b></Trans>{": "}
             <span style={{ textTransform: "uppercase" }}>
               {amount_currency}{" "}
               <span style={{ textTransform: "uppercase" }}>
@@ -75,7 +77,7 @@ export const ExchangeView = ({ current }) => {
         </Col>
         <Col xs={{ span: 24 }} md={{ span: 12 }}>
           <div className={styles.currency}>
-            <b>You get:</b>{" "}
+            <Trans i18nKey="buy.you_get">You <b>get</b></Trans>{": "}
             <span>
               {amount_token} {symbol || asset.slice(0, 4) + "..."}
             </span>
@@ -85,9 +87,9 @@ export const ExchangeView = ({ current }) => {
       <Row justify="center">
         <div className={styles.addressWrap}>
           <b>
-            Send{" "}
-            <span style={{ textTransform: "uppercase" }}>{currency_from}</span>{" "}
-            to address:{" "}
+            <Trans i18nKey="buy.send_to_address" currency_from={currency_from}>
+              Send <span style={{ textTransform: "uppercase" }}>{{currency_from}}</span> to address: 
+            </Trans>
           </b>
           <span>
             <Paragraph copyable className={styles.address}>
@@ -98,7 +100,7 @@ export const ExchangeView = ({ current }) => {
       </Row>
       <Row justify="center">
         <div className={styles.addressWrap}>
-          <b>Recipient address: </b>
+          <b>{t("buy.recipient_address", "Recipient address")}: </b>
           <span>
             <Paragraph copyable className={styles.address}>
               {address}
@@ -109,16 +111,17 @@ export const ExchangeView = ({ current }) => {
       {!["finished", "sending"].includes(status) && (<Row justify="center">
         <div className={styles.providerStatus}>
           <Text type="secondary">
-            Currently converting {" "}
-            <span style={{ textTransform: "uppercase" }}>
-              {currency_from}
-            </span> to GBYTE, this step is performed by simpleswap.io. For support issues, please contact them on their <a href={statusPageUrl} target="_blank" rel="noopener">status page</a>.
+            <Trans i18nKey="buy.currently_converting" currency_from={currency_from}>
+              Currently converting <span style={{ textTransform: "uppercase" }}>
+                {{currency_from}}
+              </span> to GBYTE, this step is performed by simpleswap.io. For support issues, please contact them on their <a href={statusPageUrl} target="_blank" rel="noopener">status page</a>.
+            </Trans>
           </Text>
         </div>
       </Row>)}
       <Row justify="center" style={{ padding: 10 }}>
         <Button onClick={() => dispatch(removeExchangePending())}>
-          Go back to the form
+          {t("buy.go_back", "Go back to the form")}
         </Button>
       </Row>
     </div>

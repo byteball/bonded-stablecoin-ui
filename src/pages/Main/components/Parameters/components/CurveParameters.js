@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import { Button } from "antd";
+import { useTranslation } from 'react-i18next';
 
 import { Label } from "components/Label/Label";
 import { OracleInfoModal } from "modals/OracleInfoModal/OracleInfoModal";
@@ -19,6 +20,7 @@ export const CurveParameters = ({
   activeWallet
 }) => {
   const [activeOracle, setActiveOracle] = useState(undefined);
+  const { t } = useTranslation();
   const {
     oracle1,
     oracle2,
@@ -47,24 +49,24 @@ export const CurveParameters = ({
           <div className={styles.param}>
             <div className={styles.labelWrap}>
               <Label
-                descr={paramsDescription.oracle1}
-                label="Oracle 1"
+                descr={paramsDescription().oracle1.desc}
+                label={paramsDescription().oracle1.name}
               />
 
               <span className={styles.semi}>:</span>
             </div>
             <span>
               {oracles ? oracles[0].oracle : oracle1}
-              <Button type="link" size="small" onClick={()=>setActiveOracle(oracles ? oracles[0].oracle : oracle1)}>(Show info)</Button>
+              <Button type="link" size="small" onClick={()=>setActiveOracle(oracles ? oracles[0].oracle : oracle1)}>({t("trade.tabs.parameters.show_info", "Show info")})</Button>
             </span>
           </div>
           <div className={styles.param}>
             <div className={styles.labelWrap}>
-              <Label descr={paramsDescription.feed_name1} label="Feed name 1" />
+              <Label descr={paramsDescription().feed_name1.desc} label={paramsDescription().feed_name1.name} />
             </div>
             <span className={styles.semi}>:</span>
             <span>
-              {oracles ? oracles[0].feed_name : feed_name1} (Latest value:{" "}
+              {oracles ? oracles[0].feed_name : feed_name1} ({t("trade.tabs.parameters.latest_value", "Latest value")}:{" "}
               {oracleValue1})
             </span>
           </div>
@@ -72,8 +74,8 @@ export const CurveParameters = ({
           <div className={styles.param}>
             <div className={styles.labelWrap}>
               <Label
-                descr={paramsDescription.op1}
-                label="Operation 1"
+                descr={paramsDescription().op1.desc}
+                label={paramsDescription().op1.name}
               />
 
               <span className={styles.semi}>:</span>
@@ -88,26 +90,26 @@ export const CurveParameters = ({
           <div className={styles.param}>
             <div className={styles.labelWrap}>
               <Label
-                descr={paramsDescription.oracle2}
-                label="Oracle 2"
+                descr={paramsDescription().oracle2.desc}
+                label={paramsDescription().oracle2.name}
               />
 
               <span className={styles.semi}>:</span>
             </div>
             <span>{oracles ? oracles[1].oracle : oracle2}</span>
-            <Button type="link" size="small" onClick={()=>setActiveOracle(oracles ? oracles[1].oracle : oracle2)}>(Show info)</Button>
+            <Button type="link" size="small" onClick={()=>setActiveOracle(oracles ? oracles[1].oracle : oracle2)}>({t("trade.tabs.parameters.show_info", "Show info")})</Button>
           </div>
           <div className={styles.param}>
             <div className={styles.labelWrap}>
               <Label
-                descr={paramsDescription.feed_name2}
-                label="Feed name 2"
+                descr={paramsDescription().feed_name2.desc}
+                label={paramsDescription().feed_name2.name}
               />
 
               <span className={styles.semi}>:</span>
             </div>
             <span>
-              {oracles ? oracles[1].feed_name : feed_name2} (Latest value:{" "}
+              {oracles ? oracles[1].feed_name : feed_name2} ({t("trade.tabs.parameters.latest_value", "Latest value")}:{" "}
               {oracleValue2})
             </span>
           </div>
@@ -115,8 +117,8 @@ export const CurveParameters = ({
           <div className={styles.param}>
             <div className={styles.labelWrap}>
               <Label
-                descr={paramsDescription.op2}
-                label="Operation 2"
+                descr={paramsDescription().op2.desc}
+                label={paramsDescription().op2.name}
               />
 
               <span className={styles.semi}>:</span>
@@ -131,26 +133,26 @@ export const CurveParameters = ({
           <div className={styles.param}>
             <div className={styles.labelWrap}>
               <Label
-                descr={paramsDescription.oracle3}
-                label="Oracle 3"
+                descr={paramsDescription().oracle3.desc}
+                label={paramsDescription().oracle3.name}
               />
 
               <span className={styles.semi}>:</span>
             </div>
             <span>{oracles ? oracles[2].oracle : oracle3}</span>
-            <Button type="link" size="small" onClick={()=>setActiveOracle(oracles ? oracles[2].oracle : oracle3)}>(Show info)</Button>
+            <Button type="link" size="small" onClick={()=>setActiveOracle(oracles ? oracles[2].oracle : oracle3)}>({t("trade.tabs.parameters.show_info", "Show info")})</Button>
           </div>
           <div className={styles.param}>
             <div className={styles.labelWrap}>
               <Label
-                descr={paramsDescription.feed_name3}
-                label="Feed name 3"
+                descr={paramsDescription().feed_name3.desc}
+                label={paramsDescription().feed_name3.name}
               />
 
               <span className={styles.semi}>:</span>
             </div>
             <span>
-              {oracles ? oracles[2].feed_name : feed_name3} (Latest value:{" "}
+              {oracles ? oracles[2].feed_name : feed_name3} ({t("trade.tabs.parameters.latest_value", "Latest value")}:{" "}
               {oracleValue3})
             </span>
           </div>
@@ -158,8 +160,8 @@ export const CurveParameters = ({
           <div className={styles.param}>
             <div className={styles.labelWrap}>
               <Label
-                descr={paramsDescription.op3}
-                label="Operation 3"
+                descr={paramsDescription().op3.desc}
+                label={paramsDescription().op3.name}
               />
 
               <span className={styles.semi}>:</span>
@@ -172,8 +174,8 @@ export const CurveParameters = ({
       <div className={styles.param}>
         <div className={styles.labelWrap}>
           <Label
-            descr={paramsDescription.reserve_asset}
-            label="Reserve asset"
+            descr={paramsDescription().reserve_asset.desc}
+            label={paramsDescription().reserve_asset.name}
           />
 
           <span className={styles.semi}>:</span>
@@ -188,8 +190,8 @@ export const CurveParameters = ({
       <div className={styles.param}>
         <div className={styles.labelWrap}>
           <Label
-            descr={paramsDescription.reserve_decimals}
-            label="Reserve decimals"
+            descr={paramsDescription().reserve_decimals.desc}
+            label={paramsDescription().reserve_decimals.name}
           />
 
           <span className={styles.semi}>:</span>
@@ -199,7 +201,7 @@ export const CurveParameters = ({
 
       <div className={styles.param}>
         <div className={styles.labelWrap}>
-          <Label descr={paramsDescription.decimals1} label="Decimals 1" />
+          <Label descr={paramsDescription().decimals1.desc} label={paramsDescription().decimals1.name} />
 
           <span className={styles.semi}>:</span>
         </div>
@@ -209,8 +211,8 @@ export const CurveParameters = ({
       <div className={styles.param}>
         <div className={styles.labelWrap}>
           <Label
-            descr={paramsDescription.decimals2}
-            label="Decimals 2"
+            descr={paramsDescription().decimals2.desc}
+            label={paramsDescription().decimals2.name}
           />
 
           <span className={styles.semi}>:</span>
@@ -221,8 +223,8 @@ export const CurveParameters = ({
       <div className={styles.param}>
         <div className={styles.labelWrap}>
           <Label
-            descr={paramsDescription.leverage}
-            label="Leverage"
+            descr={paramsDescription().leverage.desc}
+            label={paramsDescription().leverage.name}
           />
 
           <span className={styles.semi}>:</span>
@@ -233,8 +235,8 @@ export const CurveParameters = ({
       <div className={styles.param}>
         <div className={styles.labelWrap}>
           <Label
-            descr={paramsDescription.m}
-            label="m"
+            descr={paramsDescription().m.desc}
+            label={paramsDescription().m.name}
           />
 
           <span className={styles.semi}>:</span>
@@ -245,8 +247,8 @@ export const CurveParameters = ({
       <div className={styles.param}>
         <div className={styles.labelWrap}>
           <Label
-            descr={paramsDescription.n}
-            label="n"
+            descr={paramsDescription().n.desc}
+            label={paramsDescription().n.name}
           />
 
           <span className={styles.semi}>:</span>
@@ -257,8 +259,8 @@ export const CurveParameters = ({
       <div className={styles.param}>
         <div className={styles.labelWrap}>
           <Label
-            descr={paramsDescription.interest_rate}
-            label="Interest rate"
+            descr={paramsDescription().interest_rate.desc}
+            label={paramsDescription().interest_rate.name}
           />
 
           <span className={styles.semi}>:</span>

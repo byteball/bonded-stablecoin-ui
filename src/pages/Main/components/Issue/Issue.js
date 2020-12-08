@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Form, Input, Typography, Button, Checkbox, Row, Space } from "antd";
 import { useSelector } from "react-redux";
 import ReactGA from "react-ga";
+import { useTranslation } from 'react-i18next';
 
 import { validator } from "utils/validators";
 import { $get_exchange_result } from "helpers/bonded";
@@ -36,7 +37,7 @@ export const Issue = () => {
   const [tokens2, setTokens2] = useState(undefined);
   const [convert, setConvert] = useState(false);
   const [enableHelp, setEnableHelp] = useState(false);
-
+  const { t } = useTranslation();
   const reserve = stable_state.reserve;
   const [amount, setAmount] = useState(undefined);
 
@@ -166,7 +167,7 @@ export const Issue = () => {
   return (
     <>
       <Row justify="space-between" align="middle">
-        <Title level={3}>Buy tokens</Title>
+        <Title level={3}>{t("trade.tabs.buy_redeem.title_buy", "Buy tokens")}</Title>
         {reserve && (
           <Checkbox
             checked={enableHelp}
@@ -185,21 +186,20 @@ export const Issue = () => {
             }}
             style={{ marginBottom: 12 }}
           >
-            Set token1 amount to minimize fees
+            {t("trade.tabs.buy_redeem.minimize", "Set token1 amount to minimize fees")}
           </Checkbox>
         )}
       </Row>
       {!reserve && (
         <p>
           <Text type="secondary">
-            You are the first to buy tokens of this stablecoin, so you should buy
-            token 1 and token 2 at the same time.
+            {t("trade.tabs.buy_redeem.first", "You are the first to buy tokens of this stablecoin, so you should buy token 1 and token 2 at the same time.")}
           </Text>
         </p>
       )}
       <p>
         <Text type="secondary">
-          How many tokens of each type you want to buy
+          {t("trade.tabs.buy_redeem.subtitle_buy", "How many tokens of each type you want to buy")}
         </Text>
       </p>
       <Form
@@ -234,8 +234,7 @@ export const Issue = () => {
           ]}
         >
           <Input
-            placeholder={`Amount of tokens1 (${symbol1 || stable_state.asset1
-              } — growth tokens)`}
+            placeholder={t("trade.tabs.buy_redeem.amount1_placeholder", "Amount of tokens1 ({{symbolOrAsset}} — growth tokens)", {symbolOrAsset: symbol1 || stable_state.asset1})}
             autoComplete="off"
             suffix={
               <span style={{ color: "#ccc" }}>
@@ -281,8 +280,7 @@ export const Issue = () => {
                     : reserve_asset_symbol || "")}
               </span>
             }
-            placeholder={`Amount of tokens2 (${symbol2 || stable_state.asset2
-              } — interest tokens)`}
+            placeholder={t("trade.tabs.buy_redeem.amount2_placeholder", "Amount of tokens2 ({{symbolOrAsset}} — interest tokens)", {symbolOrAsset: symbol2 || stable_state.asset2})}
             autoComplete="off"
           />
         </Form.Item>
@@ -292,15 +290,14 @@ export const Issue = () => {
             style={{ marginBottom: 20 }}
             checked={convert}
             onChange={(e) => setConvert(e.target.checked)}
-          >
-            Immediately convert {symbol2 || ""} to stable token {symbol3 || ""}{" "}
-            {Number(tokens2) && amount ? <span>(will receive {Number(tokens2 * amount.growth_factor).toFixed(params.decimals2)} {symbol3 || "stable tokens"})</span> : null}
+          > {t("trade.tabs.buy_redeem.convert", "Immediately convert {{symbol2}} to stable token {{symbol3}}", {symbol2: symbol2 || "T2", symbol3: symbol3 || "T3"})}
+            {Number(tokens2) && amount ? <span> ({t("trade.tabs.buy_redeem.will_receive", `will receive {{amount}} {{symbol}}`, {amount: Number(tokens2 * amount.growth_factor).toFixed(params.decimals2), symbol: symbol3 || "stable tokens"})})</span> : null}
           </Checkbox>
         )}
 
         <>
           <Text type="secondary" style={{ display: "block" }}>
-            <b>Fee:</b>{" "}
+            <b>{t("trade.tabs.buy_redeem.fee", "Fee")}:</b>{" "}
             {(amount &&
               amount !== undefined &&
               amount.fee !== 0 &&
@@ -311,7 +308,7 @@ export const Issue = () => {
             %
           </Text>
           <Text type="secondary" style={{ display: "block" }}>
-            <b>Reward:</b>{" "}
+            <b>{t("trade.tabs.buy_redeem.reward", "Reward")}:</b>{" "}
             {(amount &&
               amount !== undefined &&
               amount.reward !== 0 &&
@@ -326,7 +323,7 @@ export const Issue = () => {
               type="secondary"
               style={{ display: "block", marginBottom: reserve ? 0 : 20 }}
             >
-              <b>{"p2" in stable_state ? "Price change: " : "Price: "}</b>
+              <b>{"p2" in stable_state ? t("trade.tabs.buy_redeem.price_change", "Price change") + ": " : t("trade.tabs.buy_redeem.price", "Price") + ": "}</b>
               {isActiveIssue ? (
                 <>
                   {priceChange > 0 ? "+" : ""}
@@ -347,21 +344,19 @@ export const Issue = () => {
               type="secondary"
               style={{ display: "block", marginBottom: 20 }}
             >
-              <b>Final price:</b>{" "}
+              <b>{t("trade.tabs.buy_redeem.final_price", "Final price")}:</b>{" "}
               {(amount &&
                 amount !== undefined &&
                 (Number(tokens1) || Number(tokens2)) &&
                 Number(new_p2).toFixed(
                   actualParams.reserve_asset_decimals
                 ) +
-                ` (${Math.abs(changeFinalPricePercent).toFixed(2)}% ${changeFinalPricePercent > 0 ? "above" : "below"
-                } the target)`) ||
-                "-"}
+                ` (${Math.abs(changeFinalPricePercent).toFixed(2)}% ${changeFinalPricePercent > 0 ? t("trade.tabs.buy_redeem.above_target", "above the target") : t("trade.tabs.buy_redeem.below_target", "below the target")})`) || "-"}
             </Text>
           )}
         </>
         {(isActiveIssue === undefined || !isActiveIssue) && (
-          <Button disabled={true}>Send</Button>
+          <Button disabled={true}>{t("trade.tabs.buy_redeem.send", "Send")}</Button>
         )}
         {amount && isActiveIssue !== undefined && isActiveIssue ? (
           <>
@@ -381,7 +376,7 @@ export const Issue = () => {
                   !isActiveIssue
                 }
               >
-                Send{" "}
+                {t("trade.tabs.buy_redeem.send", "Send")}{" "}
                 {Number(
                   (amount.reserve_needed * 1.01) /
                   10 ** params.reserve_asset_decimals
@@ -405,8 +400,7 @@ export const Issue = () => {
             </Space>
             <div>
               <Text type="secondary" style={{ fontSize: 10 }}>
-                1% was added to protect against price volatility, you'll get
-                this amount back if the prices don't change.
+              {t("trade.tabs.buy_redeem.protect", "1% was added to protect against price volatility, you'll get this amount back if the prices don't change.")}
               </Text>
             </div>
           </>

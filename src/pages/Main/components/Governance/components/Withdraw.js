@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { Button } from "antd";
 import { useSelector } from "react-redux";
+import { useTranslation } from 'react-i18next';
 
 import { WithdrawModal } from "modals/WithdrawModal/WithdrawModal";
 
 export const Withdraw = ({ choiceParams, balance, symbol }) => {
+  const { t } = useTranslation();
   const [visible, setVisible] = useState(false);
   const { params, stable_state, symbol1, governance_aa } = useSelector(
     (state) => state.active
@@ -15,24 +17,23 @@ export const Withdraw = ({ choiceParams, balance, symbol }) => {
     <>
       <p>
         <b>
-          Your {symbol || "tokens1"} balance locked in governance Autonomous
-          Agent is {balance}.
+          {t("trade.tabs.governance.withdraw.balance", "Your {{symbol}} balance locked in governance Autonomous Agent is {{balance}}.", {balance, symbol: symbol || "T1"})}
         </b>
       </p>
 
       {choiceParams.length > 0 && (
         <p>
-          To be able to withdraw, you need to remove support from these fields:{" "}
-          {choiceParams.join(", ").replace("deposits.", '')}.
+          {t("trade.tabs.governance.withdraw.fields", "To be able to withdraw, you need to remove support from these fields")}:{" "}
+          {choiceParams.map((p) => t(`params.${p.replace("deposits.", '')}.name`, p.replace("deposits.", ''))).join(", ").toLowerCase()}.
         </p>
       )}
-
+      {/* {t("trade.tabs.parameters." + choiceParams).join(", ")}. */}
       <Button
         disabled={choiceParams.length > 0 || balance === 0}
         type="primary"
         onClick={() => setVisible(true)}
       >
-        Withdraw
+        {t("trade.tabs.governance.withdraw.withdraw", "Withdraw")}
       </Button>
 
       <WithdrawModal

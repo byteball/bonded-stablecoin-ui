@@ -17,8 +17,8 @@ export const CapacitorParameters = ({ params, address, activeWallet, base_govern
       <div className={styles.param}>
         <div className={styles.labelWrap}>
           <Label
-            descr={paramsDescription.fee_multiplier}
-            label="Fee multiplier"
+            descr={paramsDescription().fee_multiplier.desc}
+            label={paramsDescription().fee_multiplier.name}
           />
           <span className={styles.semi}>:</span>
         </div>
@@ -28,8 +28,8 @@ export const CapacitorParameters = ({ params, address, activeWallet, base_govern
       <div className={styles.param}>
         <div className={styles.labelWrap}>
           <Label
-            descr={paramsDescription.moved_capacity_share}
-            label="Moved capacity share"
+            descr={paramsDescription().moved_capacity_share.desc}
+            label={paramsDescription().moved_capacity_share.name}
           />
           <span className={styles.semi}>:</span>
         </div>
@@ -39,8 +39,8 @@ export const CapacitorParameters = ({ params, address, activeWallet, base_govern
       <div className={styles.param}>
         <div className={styles.labelWrap}>
           <Label
-            descr={paramsDescription.threshold_distance}
-            label="Threshold distance"
+            descr={paramsDescription().threshold_distance.desc}
+            label={paramsDescription().threshold_distance.name}
           />
           <span className={styles.semi}>:</span>
         </div>
@@ -50,8 +50,8 @@ export const CapacitorParameters = ({ params, address, activeWallet, base_govern
       <div className={styles.param}>
         <div className={styles.labelWrap}>
           <Label
-            descr={paramsDescription.move_capacity_timeout}
-            label="Move capacity timeout"
+            descr={paramsDescription().move_capacity_timeout.desc}
+            label={paramsDescription().move_capacity_timeout.name}
           />
           <span className={styles.semi}>:</span>
         </div>
@@ -60,8 +60,8 @@ export const CapacitorParameters = ({ params, address, activeWallet, base_govern
       <div className={styles.param}>
         <div className={styles.labelWrap}>
           <Label
-            descr={paramsDescription.slow_capacity_share}
-            label="Slow capacity share"
+            descr={paramsDescription().slow_capacity_share.desc}
+            label={paramsDescription().slow_capacity_share.name}
           />
           <span className={styles.semi}>:</span>
         </div>

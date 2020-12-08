@@ -1,12 +1,14 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Modal, Form, Input, Button, Space, Typography, Select, Row, Col, message } from "antd";
 import obyte from "obyte";
+import { useTranslation } from 'react-i18next';
 
 import { generateLink } from "utils/generateLink";
 import { redirect } from "utils/redirect";
 import client from "services/socket";
 import { viewParameter } from "pages/Main/components/Governance/viewParameter";
 import { percentageParams } from "pages/Main/components/Governance/components/percentageParams";
+import { paramsDescription } from "pages/Create/paramsDescription";
 
 const { Text } = Typography;
 
@@ -26,54 +28,50 @@ export const ChangeParamsModal = ({
   supportsByValue,
   base_governance
 }) => {
+  const { t } = useTranslation();
   const validateParams = {
     fee_multiplier: {
       validator: (value) => base_governance === "Y4VBXMROK5BWBKSYYAMUW7QUEZFXYBCF" ? value >= 1 : value >= 0,
-      rule: `The value of the fee_multiplier parameter must be greater than ${base_governance === "FCFYMFIOGS363RLDLEWIDBIIBU7M7BHP" ? 1 : 0}`,
+      rule: t("modals.change_param.valid.fee_multiplier", `The value of the fee_multiplier parameter must be greater than {{value}}`, {value: base_governance === "FCFYMFIOGS363RLDLEWIDBIIBU7M7BHP" ? 1 : 0}),
     },
     moved_capacity_share: {
       validator: (value) => value > 0 && value <= 100,
-      rule:
-        "The value of the moved_capacity_share (as a percentage) parameter must be in the range from 0 to 100",
+      rule: t("modals.change_param.valid.moved_capacity_share", "The value of the moved_capacity_share (as a percentage) parameter must be in the range from 0 to 100")
     },
     threshold_distance: {
       validator: (value) => value > 0 && value <= 0.2,
-      rule:
-        "The value of the threshold_distance parameter must be in the range from 0 to 0.2",
+      rule: t("modals.change_param.valid.threshold_distance", "The value of the threshold_distance parameter must be in the range from 0 to 0.2")
     },
     move_capacity_timeout: {
       validator: (value) => value > 0 && Number.isInteger(Number(value)),
-      rule:
-        "The value of the move_capacity_timeout parameter must be an integer greater than 0",
+      rule: t("modals.change_param.valid.move_capacity_timeout", "The value of the move_capacity_timeout parameter must be an integer greater than 0"),
     },
     slow_capacity_share: {
       validator: (value) => value >= 0 && value <= 100,
-      rule:
-        "The value of the slow_capacity_share (as a percentage) parameter must be in the range from 0 to 100",
+      rule: t("modals.change_param.valid.slow_capacity_share", "The value of the slow_capacity_share (as a percentage) parameter must be in the range from 0 to 100")
     },
     interest_rate: {
       validator: (value) => value >= 0,
-      rule:
-        "The value of the interest_rate (as a percentage) parameter must be greater than or equal to 0",
+      rule: t("modals.change_param.valid.interest_rate", "The value of the interest_rate (as a percentage) parameter must be greater than or equal to 0")
     },
     oracles: {
       validator: (value) => !!value,
     },
     "deposits.min_deposit_term": {
       validator: (value) => value >= 0 && Number.isInteger(Number(value)),
-      rule: "The value of the min_deposit_term parameter must be an integer greater than or equal to 0"
+      rule: t("modals.change_param.valid.min_deposit_term", "The value of the min_deposit_term parameter must be an integer greater than or equal to 0")
     },
     "deposits.challenging_period": {
       validator: (value) => value >= 0 && Number.isInteger(Number(value)),
-      rule: "The value of the challenging_period parameter must be an integer greater than or equal to 0"
+      rule: t("modals.change_param.valid.challenging_period", "The value of the challenging_period parameter must be an integer greater than or equal to 0")
     },
     "deposits.challenge_immunity_period": {
       validator: (value) => value >= 0 && Number.isInteger(Number(value)),
-      rule: "The value of the challenge_immunity_period parameter must be an integer greater than or equal to 0"
+      rule: t("modals.change_param.valid.challenge_immunity_period", "The value of the challenge_immunity_period parameter must be an integer greater than or equal to 0")
     },
     "deposits.reporter_share": {
       validator: (value) => value >= 0 && value <= 100,
-      rule: "The value of the reporter_share (as a percentage) parameter must be in the range from 0 to 100"
+      rule: t("modals.change_param.valid.reporter_share", "The value of the reporter_share (as a percentage) parameter must be in the range from 0 to 100")
     }
   };
 
@@ -312,21 +310,21 @@ export const ChangeParamsModal = ({
       
   return (
     <Modal
-      title={`Change ${param.replace("deposits.", '').replace("_", ' ') || "param"}`}
+      title={t("modals.change_param.title", "Change {{param}}", {param: param.replace("deposits.", '').replace("_", ' ') || "param"})}
       visible={visible}
       onCancel={onCancel}
       width={700}
       footer={
         <Space>
           <Button key="Cancel" onClick={onCancel}>
-            Cancel
+            {t("modals.common.close", "Close")}
           </Button>
           {param === "oracles" && !checkedOracle && !value ? <Button
             key="check"
             type="primary"
             onClick={() => setCheckedOracle(false)}
           >
-            Check
+            {t("modals.common.check", "Check")}
               </Button> : <Button
               key="submit"
               type="primary"
@@ -342,7 +340,7 @@ export const ChangeParamsModal = ({
                 }, 100)
               }
             >
-              {isMyVote ? "Add support" : "Vote"}
+              {isMyVote ? t("modals.change_param.add_support", "Add support") : t("modals.change_param.vote", "Vote")}
             </Button>}
         </Space>
       }
@@ -357,15 +355,15 @@ export const ChangeParamsModal = ({
             <p>
               <Text type="secondary">
                 <b>
-                  Your support in favor of{" "}
+                  {t("modals.change_param.your_support_value", "Your support in favor of")}{" "}
                   {viewParameter(supportParamsByAddress.value, param, true)}{param === "oracles" ? <span> &mdash; </span> : ":"}
                 </b>{" "}
                 {supportParamsByAddress.support / 10 ** decimals}{" "}
-                {symbol || "tokens1"}
+                {symbol || "T1"}
               </Text>
             </p>
           )}
-        <Text type="secondary">Parameter value:</Text>
+        <Text type="secondary">{t("modals.change_param.param_value", "Parameter value")}:</Text>
         {param !== "oracles" && <Form.Item
           hasFeedback
           validateStatus={((!paramValue.valid && paramValue.value !== undefined) || validationStatus === false) ? "error" : undefined}
@@ -395,7 +393,7 @@ export const ChangeParamsModal = ({
             <Col sm={{ span: 24 }} xs={{ span: 24 }} md={{ span: 11 }}>
               <Form.Item>
                 <Input
-                  placeholder="Oracle 1"
+                  placeholder={paramsDescription().oracle2.name}
                   autoComplete="off"
                   disabled={checkedOracle === true}
                   style={{ width: "100%" }}
@@ -407,7 +405,7 @@ export const ChangeParamsModal = ({
             <Col sm={{ span: 24 }} xs={{ span: 24 }} md={{ span: 7, offset: 1 }}>
               <Form.Item>
                 <Input
-                  placeholder="Feed name 1"
+                  placeholder={paramsDescription().feed_name1.name}
                   autoComplete="off"
                   disabled={checkedOracle === true}
                   value={oracles.feed_name1}
@@ -418,7 +416,7 @@ export const ChangeParamsModal = ({
             <Col sm={{ span: 24 }} xs={{ span: 24 }} md={{ span: 4, offset: 1 }}>
               <Form.Item>
                 <Select
-                  placeholder="Operation 1"
+                  placeholder={paramsDescription().op1.name}
                   disabled={checkedOracle === true}
                   style={{ width: "100%" }}
                   value={oracles.op1}
@@ -434,7 +432,7 @@ export const ChangeParamsModal = ({
             <Col sm={{ span: 24 }} xs={{ span: 24 }} md={{ span: 11 }}>
               <Form.Item>
                 <Input
-                  placeholder="Oracle 2"
+                  placeholder={paramsDescription().oracle2.name}
                   autoComplete="off"
                   disabled={checkedOracle === true}
                   style={{ width: "100%" }}
@@ -446,7 +444,7 @@ export const ChangeParamsModal = ({
             <Col sm={{ span: 24 }} xs={{ span: 24 }} md={{ span: 7, offset: 1 }}>
               <Form.Item>
                 <Input
-                  placeholder="Feed name 2"
+                  placeholder={paramsDescription().feed_name2.name}
                   autoComplete="off"
                   disabled={checkedOracle === true}
                   value={oracles.feed_name2}
@@ -457,7 +455,7 @@ export const ChangeParamsModal = ({
             <Col sm={{ span: 24 }} xs={{ span: 24 }} md={{ span: 4, offset: 1 }}>
               <Form.Item>
                 <Select
-                  placeholder="Operation 2"
+                  placeholder={paramsDescription().op2.name}
                   disabled={checkedOracle === true}
                   style={{ width: "100%" }}
                   value={oracles.op2}
@@ -473,7 +471,7 @@ export const ChangeParamsModal = ({
             <Col sm={{ span: 24 }} xs={{ span: 24 }} md={{ span: 11 }}>
               <Form.Item>
                 <Input
-                  placeholder="Oracle 3"
+                  placeholder={paramsDescription().oracle3.name}
                   autoComplete="off"
                   disabled={checkedOracle === true}
                   style={{ width: "100%" }}
@@ -485,7 +483,7 @@ export const ChangeParamsModal = ({
             <Col sm={{ span: 24 }} xs={{ span: 24 }} md={{ span: 7, offset: 1 }}>
               <Form.Item>
                 <Input
-                  placeholder="Feed name 3"
+                  placeholder={paramsDescription().feed_name3.name}
                   autoComplete="off"
                   disabled={checkedOracle === true}
                   value={oracles.feed_name3}
@@ -496,7 +494,7 @@ export const ChangeParamsModal = ({
             <Col sm={{ span: 24 }} xs={{ span: 24 }} md={{ span: 4, offset: 1 }}>
               <Form.Item>
                 <Select
-                  placeholder="Operation 3"
+                  placeholder={paramsDescription().op3.name}
                   disabled={checkedOracle === true}
                   style={{ width: "100%" }}
                   value={oracles.op3}
@@ -511,17 +509,17 @@ export const ChangeParamsModal = ({
         </div>}
         <p>
           <Text type="secondary">
-            <b>Your current balance on the governance AA: </b>
+            <b>{t("modals.change_param.your_balance", "Your current balance on the governance AA")}: </b>
             {balance} {symbol || "tokens1"}
           </Text>
         </p>
-        {balance !== 0 && <Text type="secondary">Add more (optional):</Text>}
+        {balance !== 0 && <Text type="secondary">{t("modals.change_param.add_more", "Add more (optional)")}:</Text>}
         <Form.Item>
           <Input
-            placeholder={`Count of tokens1 (${symbol || asset})`}
+            placeholder={t("modals.change_param.count_tokens", "Количество Т1 ({{symbol}})", {symbol: symbol || asset})}
             autoComplete="off"
             onChange={handleChangeAmount}
-            suffix={symbol || "tokens1"}
+            suffix={symbol || "T1"}
             autoFocus={isMyVote}
             value={amount.value}
             ref={supportInput}
@@ -535,7 +533,7 @@ export const ChangeParamsModal = ({
           <Text type="secondary">
             <p>
               <b>
-                Your supported value is {Math.trunc(paramValue.value * 10 ** decimals) / 10 ** decimals || viewParameter(paramValue.value, param, true)}{percentageParams.includes(param) ? "%" : ""}
+                {t("modals.change_param.your_supported_value", "Your supported value is")} {Math.trunc(paramValue.value * 10 ** decimals) / 10 ** decimals || viewParameter(paramValue.value, param, true)}{percentageParams.includes(param) ? "%" : ""}
               </b>
             </p>
           </Text>
@@ -547,7 +545,7 @@ export const ChangeParamsModal = ({
           <p>
             <Text type="secondary">
               <b>
-                Total support for this value: {" "}
+                {t("modals.change_param.total_support", "Total support for this value")}: {" "}
               </b>
               {totalSupport} {symbol || "tokens1"}
             </Text>
@@ -559,7 +557,7 @@ export const ChangeParamsModal = ({
           <p>
             <Text type="secondary">
               <b>
-                Your support for this value: {" "}
+                {t("modals.change_param.your_support", "Your support for this value")}: {" "}
               </b>
               {Number(amount.value || 0) + (balance || 0)} {symbol || "tokens1"}
             </Text>

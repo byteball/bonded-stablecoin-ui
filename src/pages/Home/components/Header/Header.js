@@ -2,6 +2,7 @@ import React from "react";
 import ReactGA from "react-ga";
 import styles from "./Header.module.css";
 import { Select } from "antd";
+import { Trans, useTranslation } from 'react-i18next';
 import { InterestToken } from "./components/InterestToken";
 import { StableToken } from "./components/StableToken";
 import { GrowthToken } from "./components/GrowthToken";
@@ -12,14 +13,15 @@ const { Option } = Select;
 const { pegged } = config;
 
 export const Header = ({ type, setType }) => {
+  const { t } = useTranslation();
   const peggedList = Object.keys(pegged);
   const otherList = peggedList.filter((p) => p !== type && ['USD', 'BTC', 'GOLD'].includes(p));
   return (
     <>
       <header className={styles.header}>
         <div className={styles.titleWrap}>
-          <h1 className={styles.title}>Bonded stablecoins</h1>
-          <h2 className={styles.subTitle}>The most advanced stablecoins powered by bonding curves</h2>
+          <h1 className={styles.title}>{t("home.header.title", "Bonded stablecoins")}</h1>
+          <h2 className={styles.subTitle}>{t("home.header.desc", "The most advanced stablecoins powered by bonding curves")}</h2>
         </div>
         <div style={{ marginBottom: 40 }}>
           <div className={styles.tokenItem}>
@@ -35,10 +37,10 @@ export const Header = ({ type, setType }) => {
             </div>
             <div className={styles.tokenItemTitle}>
               <div className={styles.tokenItemSubTitle}>
-                For use in commerce and trading.
+                {t("home.header.stable.for", "For use in commerce and trading.")}
               </div>
               <div>
-                {pegged[type].stableName}: Stablecoin whose value is 1 {pegged[type].target || type}.
+                {t("home.header.stable.info", "{{name}}: Stablecoin whose value is 1 {{target}}.", {name: pegged[type].target || type, target: pegged[type].stableName})}
               </div>
             </div>
           </div>
@@ -58,12 +60,10 @@ export const Header = ({ type, setType }) => {
             </div>
             <div className={styles.tokenItemTitle}>
               <div className={styles.tokenItemSubTitle}>
-                For investors seeking predictable income.
+                {t("home.header.interest.for", "For investors seeking predictable income.")}
               </div>
               <div>
-                {pegged[type].interestName}: Interest token that earns{" "}
-                {pegged[type].percent}% interest in {type} &mdash; a stable+
-                coin.
+                {t("home.header.interest.info", "{{name}} Interest token that earns {{percent}}% interest in {{type}} — a stable+ coin.", {name: pegged[type].interestName, percent: pegged[type].percent, type})}
               </div>
             </div>
           </div>
@@ -83,17 +83,17 @@ export const Header = ({ type, setType }) => {
             </div>
             <div className={styles.tokenItemTitle}>
               <div className={styles.tokenItemSubTitle}>
-                For investors seeking higher income, with higher risks.
+                {t("home.header.growth.for", "For investors seeking higher income, with higher risks.")}
               </div>
               <div>
-                {pegged[type].growthName}: Growth token whose value is tied to the
-                amount of {pegged[type].interestName} issued.
+              {t("home.header.growth.info", "{{growthName}}: Growth token whose value is tied to the amount of {{interestName}} issued.", {growthName: pegged[type].growthName, interestName: pegged[type].interestName})}
               </div>
             </div>
           </div>
         </div>
         <div className={styles.action}>
-          Need similar coins pegged to {otherList.join(", ")} or some other
+          <Trans i18nKey={"home.header.need_similar_coins"} other={otherList.join(", ")}>
+          Need similar coins pegged to {{other: otherList.join(", ")}} or some other
           asset? <br />
           Select yours:{" "}
           <Select
@@ -113,6 +113,7 @@ export const Header = ({ type, setType }) => {
             create new ones
           </a>
           .
+          </Trans>
         </div>
       </header>
     </>

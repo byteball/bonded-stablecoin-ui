@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Router, Route } from "react-router-dom";
 import { useSelector } from "react-redux";
 import historyInstance from "./historyInstance";
@@ -14,12 +14,20 @@ import {
 import { Spinner } from "./components/Spinner/Spinner";
 import { HashHandler } from "./components/HashHandler/HashHandler";
 import { MainLayout } from "./components/MainLayout/MainLayout";
+import i18 from './locale/index';
 
 const AppRouter = () => {
   const connected = useSelector((state) => state.connected);
   const { loaded } = useSelector((state) => state.list);
+  const { lang } = useSelector((state) => state.settings);
   const [walletModalVisible, setWalletModalVisibility] = useState(false); 
   
+  useEffect(()=>{
+    if(lang && loaded && connected){
+      i18.changeLanguage(lang);
+    }
+  }, [lang, loaded, connected]);
+
   if (!connected || !loaded) return <Spinner />;
 
   return (
