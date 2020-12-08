@@ -447,7 +447,7 @@ export const ExchangeForm = () => {
                 {activeCurrency !== "gbyte" && currentTokenData && (
                   <>
                     <Text type="secondary">
-                      <Trans i18nKey="buy.first_exchanged">
+                      <Trans i18nKey="buy.first_exchanged" activeCurrency={activeCurrency} symbol={currentTokenData.symbol || currentTokenData.asset_2.slice(0, 5) + "..."}>
                       Your <span style={{ textTransform: "uppercase" }}>{{activeCurrency}}</span>{" "}
                       will be first exchanged for GBYTE, then GBYTE converted to {" "}
                       {{symbol: currentTokenData.symbol ||
@@ -629,7 +629,7 @@ export const ExchangeForm = () => {
               ranges.min &&
               Number(ranges.min) > amountCurrency ? (
                 <div style={{ textAlign: "center" }}>
-                  <Text type="secondary" style={{ fontSize: 12, color: "red" }}>
+                  <Text i18nKey="buy.min" type="secondary" style={{ fontSize: 12, color: "red" }}>
                     <Trans activeCurrency={String(activeCurrency).toUpperCase()} min={ranges.min}>
                       Sorry, the minimum {{activeCurrency: String(activeCurrency).toUpperCase()}} amount is {{min: ranges.min}}. Please increase the {{activeCurrency: String(activeCurrency).toUpperCase()}} amount.
                     </Trans>
