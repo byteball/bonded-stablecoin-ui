@@ -10,8 +10,8 @@ export const SelectLanguage = () => {
   
   return (
     <Select size="large" style={{ width: "100%"}} dropdownStyle={{ margin: 20 }} bordered={false} value={lang || "usa"} size="large" onChange={(value) => { dispatch(changeLanguage(value)) }}>
-      <Select.Option style={{ paddingLeft: 20, paddingRight: 20 }} value="ru"><div><Flag code="ru" style={{ border: "1px solid #ddd" }} width="30" /></div></Select.Option>
       <Select.Option style={{ paddingLeft: 20, paddingRight: 20 }} value="usa"><div><Flag code="usa" style={{ border: "1px solid #ddd" }} width="30" /></div></Select.Option>
+      <Select.Option style={{ paddingLeft: 20, paddingRight: 20 }} value="ru"><div><Flag code="ru" style={{ border: "1px solid #ddd" }} width="30" /></div></Select.Option>
     </Select>
   )
     
