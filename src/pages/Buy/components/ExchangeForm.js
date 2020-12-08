@@ -629,8 +629,8 @@ export const ExchangeForm = () => {
               ranges.min &&
               Number(ranges.min) > amountCurrency ? (
                 <div style={{ textAlign: "center" }}>
-                  <Text i18nKey="buy.min" type="secondary" style={{ fontSize: 12, color: "red" }}>
-                    <Trans activeCurrency={String(activeCurrency).toUpperCase()} min={ranges.min}>
+                  <Text type="secondary" style={{ fontSize: 12, color: "red" }}>
+                    <Trans i18nKey="buy.min" activeCurrency={String(activeCurrency).toUpperCase()} min={ranges.min}>
                       Sorry, the minimum {{activeCurrency: String(activeCurrency).toUpperCase()}} amount is {{min: ranges.min}}. Please increase the {{activeCurrency: String(activeCurrency).toUpperCase()}} amount.
                     </Trans>
                   </Text>
