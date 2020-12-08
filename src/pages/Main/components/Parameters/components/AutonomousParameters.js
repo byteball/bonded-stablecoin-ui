@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import styles from "../Parameters.module.css";
 import config from "config";
 
-export const AutonomusParameters = ({
+export const AutonomousParameters = ({
   deposit_aa,
   curve_aa,
   governance_aa,

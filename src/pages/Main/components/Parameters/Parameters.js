@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { CurveParameters } from "./components/CurveParameters";
 import { CapacitorParameters } from "./components/CapacitorParameters";
 import { GovernanceParameters } from "./components/GovernanceParameters";
-import { AutonomusParameters } from "./components/AutonomusParameters";
+import { AutonomousParameters } from "./components/AutonomousParameters";
 import { TokensParameters } from "./components/TokensParameters";
 import { DepositsParameters } from "./components/DepositsParameters";
 import styles from "./Parameters.module.css";
@@ -67,7 +67,7 @@ export const Parameters = () => {
           <Title level={4} type="secondary">
             {t("trade.tabs.parameters.title_autonomous_agents", "Autonomous Agents")}
           </Title>
-          <AutonomusParameters
+          <AutonomousParameters
             curve_aa={address}
             deposit_aa={deposit_aa}
             governance_aa={governance_aa}
