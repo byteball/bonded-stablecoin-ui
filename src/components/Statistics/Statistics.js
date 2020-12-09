@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Row, Col, Typography } from "antd";
 import { useSelector } from "react-redux";
+import { useTranslation, Trans } from 'react-i18next';
 import { Label } from "components/Label/Label";
 import { ShowDecimalsValue } from "components/ShowDecimalsValue/ShowDecimalsValue";
 
@@ -28,6 +29,7 @@ export const Statistics = ({ windowWidth }) => {
   const actualParams = getParams(params, stable_state);
   const [timestamp, setTimestamp] = useState(Math.floor(Date.now() / 1000));
   const [showBlock, setShowBlock] = useState(false);
+  const { t } = useTranslation();
   const { supply1, supply2 } = stable_state;
   const { decimals1, decimals2, reserve_asset } = actualParams;
   const { supply } = deposit_state;
@@ -99,7 +101,9 @@ export const Statistics = ({ windowWidth }) => {
 
   const displayOraclePrice = (bPriceInversed || actualParams.leverage) ? oraclePrice : 1 / oraclePrice;
   const reserve_symbol = reserve_asset in config.reserves ? config.reserves[reserve_asset].name : reserve_asset_symbol || "";
-  const p2UnitsText = bPriceInversed ? `The shown price is the price of the reserve asset ${reserve_symbol || ''} in terms of Token2 (${symbol2 || stable_state.asset2}).` : `The shown price is the price of Token2 (${symbol2 || stable_state.asset2}) in terms of the reserve asset ${reserve_symbol || ''}.`;
+  const p2UnitsText = bPriceInversed 
+  ? t("trade.statistic.p2UnitsText.inversed", "The shown price is the price of the reserve asset {{reserveSymbolOrAsset}} in terms of Token2 ({{symbol2orAsset}}).", {reserveSymbolOrAsset: reserve_symbol || '', symbol2orAsset: symbol2 || stable_state.asset2}) 
+  : t("trade.statistic.p2UnitsText.not_inversed", "The shown price is the price of Token2 ({{symbol2OrAsset}}) in terms of the reserve asset {{reserveSymbol}}.", {symbol2OrAsset: symbol2 || stable_state.asset2, reserveSymbol: reserve_symbol || ''});
   const p2Unit = bPriceInversed ? symbol2 : reserve_symbol;
 
   const currentPriceDifference = stable_state.p2
@@ -108,61 +112,58 @@ export const Statistics = ({ windowWidth }) => {
 
   const statisticsData = [
     {
-      title: "Tokens1 supply",
+      title: t("trade.statistic.token1_supply.name", "Tokens1 supply"),
       currency: symbol1,
-      descr: "Total supply of Token1 (growth tokens)",
+      descr: t("trade.statistic.token1_supply.desc", "Total supply of Token1 (growth tokens)"),
       value: supply1 || 0,
       decimals: decimals1,
     },
     {
-      title: "Tokens2 supply",
+      title: t("trade.statistic.token2_supply.name", "Tokens2 supply"),
       currency: symbol2,
-      descr: "Total supply of Token2 (interest tokens)",
+      descr: t("trade.statistic.token2_supply.desc", "Total supply of Token2 (interest tokens)"),
       value: supply2 || 0,
       decimals: decimals2,
     },
     {
-      title: "Stable tokens supply",
+      title: t("trade.statistic.token_stable_supply.name", "Stable tokens supply"),
       currency: symbol3,
-      descr: "Total supply of the stable tokens",
+      descr: t("trade.statistic.token_stable_supply.desc", "Total supply of the stable tokens"),
       value: supply || 0,
       decimals: decimals2,
     },
     {
-      title: "Reserve",
-      descr:
-        "Total amount of reserve locked to back the issuance of T1 and T2 tokens",
+      title: t("trade.statistic.reserve.name", "Reserve"),
+      descr: t("trade.statistic.reserve.desc", "Total amount of reserve locked to back the issuance of T1 and T2 tokens"),
       value: "reserve" in stable_state ? stable_state.reserve : 0,
       decimals: actualParams.reserve_asset_decimals,
       currency:
         reserve_asset in config.reserves ? config.reserves[reserve_asset].name : reserve_asset_symbol || '',
     },
     {
-      title: `${symbol1 || 'T1'} price`,
-      descr:
-        "The current price of Token1 according to the bonding curve. It depends on the supplies of Token1 and Token2. The price is shown in terms of the reserve currency.",
+      title: t("trade.statistic.token1_price.name", "{{symbol1}} price", {symbol1: symbol1 || "T1"}),
+      descr: t("trade.statistic.token1_price.desc", "The current price of Token1 according to the bonding curve. It depends on the supplies of Token1 and Token2. The price is shown in terms of the reserve currency."),
       value: p1 || 0,
       precision: 6,
       currency: reserve_asset in config.reserves ? config.reserves[reserve_asset].name : reserve_asset_symbol || "",
     },
     {
-      title: "Current price",
-      descr:
-        "The current price according to the bonding curve. It depends on the supplies of Token1 and Token2. " + p2UnitsText,
+      title: t("trade.statistic.current_price.name", "Current price"),
+      descr: t("trade.statistic.current_price.desc", "The current price according to the bonding curve. It depends on the supplies of Token1 and Token2. ") + " " + p2UnitsText,
       value: currentPrice,
       precision: 9,
       percent: currentPriceDifference,
     },
     {
-      title: "Target price",
-      descr: "The price Token2 is pegged to. It is the oracle price plus interest. " + p2UnitsText,
+      title: t("trade.statistic.target_price.name", "Target price"),
+      descr: t("trade.statistic.target_price.desc", "The price Token2 is pegged to. It is the oracle price plus interest. ") + " " + p2UnitsText,
       value: targetPrice,
       precision: 9,
       currency: p2Unit,
     },
     {
-      title: "Oracle price",
-      descr: "Latest price reported by the oracle",
+      title: t("trade.statistic.oracle_price.name", "Oracle price"),
+      descr: t("trade.statistic.oracle_price.desc", "Latest price reported by the oracle"),
       value: displayOraclePrice,
       precision: 9,
     },
@@ -234,13 +235,13 @@ export const Statistics = ({ windowWidth }) => {
         onClick={()=>setShowBlock(true)}
         style={{paddingTop: 10, paddingBottom: 10, textAlign: "center", cursor: "pointer"}}
         >
-          Show info <DownOutlined/>
+          <Trans defaults="Show info" i18nKey="trade.statistic.show" /> <DownOutlined/>
         </div>}
       {windowWidth <= 640 && showBlock && <div 
         onClick={()=>setShowBlock(false)}
         style={{paddingTop: 10, textAlign: "center", cursor: "pointer"}}
         >
-          Hide info <UpOutlined/>
+          <Trans defaults="Hide info" i18nKey="trade.statistic.hide" /> <UpOutlined/>
       </div>}
     </div>
   );

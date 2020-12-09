@@ -1,6 +1,7 @@
 import React from "react";
 import { Card, Space, Button } from "antd";
 import moment from "moment";
+import { Trans, useTranslation } from 'react-i18next';
 import { generateLink } from "utils/generateLink";
 import { ShowDecimalsValue } from "components/ShowDecimalsValue/ShowDecimalsValue";
 import config from "config";
@@ -35,6 +36,7 @@ export const DepositsItem = ({
   } = item;
   const new_stable_amount = Math.floor(amount * growth_factor);
   const interest = new_stable_amount - stable_amount;
+  const { t } = useTranslation();
   const closeUrl = generateLink(
     stable_amount,
     { id },
@@ -60,30 +62,30 @@ export const DepositsItem = ({
       size="small"
     >
       <div>
-        <b>Opened:</b> {moment.unix(ts).format("DD-MM-YYYY HH:mm")}
+        <b>{t("trade.tabs.deposits.opened", "Opened")}:</b> {moment.unix(ts).format("DD-MM-YYYY HH:mm")}
       </div>
       <div>
-        <b>Interest tokens:</b>{" "}
+        <b>{t("trade.tabs.deposits.interest_title", "Interest tokens")}:</b>{" "}
         <ShowDecimalsValue decimals={decimals} value={amount} /> {symbol2}
       </div>
       <div>
-        <b>Stable tokens:</b>{" "}
+        <b>{t("trade.tabs.deposits.stable_title", "Stable tokens")}:</b>{" "}
         <ShowDecimalsValue decimals={decimals} value={stable_amount} />{" "}
         {symbol3}
       </div>
       <div>
-        <b>Interest:</b>{" "}
+        <b>{t("trade.tabs.deposits.interest", "Interest")}:</b>{" "}
         <ShowDecimalsValue decimals={decimals} value={interest} /> {symbol3}
       </div>
       <div>
-        <b>Interest recipient:</b>{" "}
+        <b>{t("trade.tabs.deposits.interest_recipient","Interest recipient")}:</b>{" "}
         {!interest_recipient || activeWallet === interest_recipient
           ? "you"
           : (recipientName && <span>{recipientName.name}</span>) ||
           interest_recipient.slice(0, 9) + "..."}
       </div>
       <div>
-        <b>Protection (ratio):</b>{" "}
+        <b>{t("trade.tabs.deposits.protection", "Protection (ratio)")}:</b>{" "}
         {protection ? (
           <>
             <ShowDecimalsValue
@@ -104,7 +106,7 @@ export const DepositsItem = ({
       <Space
         size={10}
         style={{ marginTop: 10 }}
-        direction={width >= 800 ? "horizontal" : "vertical"}
+        direction={width >= 900 ? "horizontal" : "vertical"}
       >
         <Button
           href={receiveUrl}
@@ -116,7 +118,7 @@ export const DepositsItem = ({
             close_interest
           }
         >
-          Withdraw interest
+          {t("trade.tabs.deposits.withdraw_interest","Withdraw interest")}
         </Button>
         <Button
           disabled={owner !== activeWallet}
@@ -127,19 +129,19 @@ export const DepositsItem = ({
             })
           }
         >
-          Edit recipient
+          {t("trade.tabs.deposits.edit_interest_recipient", "Edit interest recipient")}
         </Button>
         <Button
           disabled={owner !== activeWallet}
           onClick={() => setAddProtection(item)}
         >
-          Add protection
+          {t("trade.tabs.deposits.add_protection", "Add protection")}
         </Button>
         <Button
           disabled={owner !== activeWallet || !protection || protection === 0}
           onClick={() => setWithdrawProtection(item)}
         >
-          Withdraw protection
+          {t("trade.tabs.deposits.withdraw_protection", "Withdraw protection")}
         </Button>
         <Button
           href={closeUrl}
@@ -151,7 +153,7 @@ export const DepositsItem = ({
             close_interest
           }
         >
-          Close
+          {t("trade.tabs.deposits.close", "Close")}
         </Button>
       </Space>
     </Card>

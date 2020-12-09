@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Typography, Steps, Input, Form, Button, Space } from "antd";
+import { useTranslation } from 'react-i18next';
 import config from "config";
 import socket from "services/socket";
 import { isBoolean } from "lodash";
@@ -31,6 +32,7 @@ export const RegisterSymbols = (props) => {
   const [token, setToken] = useState(initStateValue);
   const [tokenSupport, setTokenSupport] = useState(initStateValue);
   const [descr, setDescr] = useState(initStateValue);
+  const { t } = useTranslation();
 
   const currentAsset = props["asset" + currentSymbol];
   const currentDecimals =
@@ -153,16 +155,15 @@ export const RegisterSymbols = (props) => {
   let helpSymbol = undefined;
   if (isBoolean(isAvailable)) {
     if (isAvailable) {
-      helpSymbol = `Symbol name ${token.value} is available, you can register it`;
+      helpSymbol = t("reg_symbol.available", "Symbol name {{value}} is available, you can register it", { value: token.value });
     } else {
-      helpSymbol =
-        "This token name is already taken. This will start a dispute";
+      helpSymbol = t("reg_symbol.taken", "This token name is already taken. This will start a dispute");
     }
   }
   return (
     <div>
       <Title level={3} type="secondary">
-        Register symbols
+        {t("reg_symbol.title", "Register symbols")}
       </Title>
 
       <Steps
@@ -170,17 +171,14 @@ export const RegisterSymbols = (props) => {
         style={{ marginTop: 20 }}
         direction={width > 800 ? "horizontal" : "vertical"}
       >
-        <Step title="Symbol for tokens1" />
-        <Step title="Symbol for tokens2" />
-        <Step style={!props.interest ? {display: 'none'} : {}} title="Symbol for stable tokens" />
+        <Step title={t("reg_symbol.step", "Symbol for tokens{{token}}", { token: "1" })} />
+        <Step title={t("reg_symbol.step", "Symbol for tokens{{token}}", { token: "2" })} />
+        <Step style={!props.interest ? { display: 'none' } : {}} title={t("reg_symbol.step_stable", "Symbol for stable tokens")} />
       </Steps>
       {symbolByCurrentAsset && (
         <p style={{ paddingTop: 20, maxWidth: 600 }}>
           <Text type="secondary">
-            This stablecoin already has a symbol {symbolByCurrentAsset} assigned
-            to it. Attempting to assign a new symbol will start a dispute
-            process which can take more than 30 days. The symbol that gets more
-            support (in terms of GBYTE deposits) eventually wins.
+            {t("reg_symbol.taken_desc", "This stablecoin already has a symbol {{symbol}} assigned to it. Attempting to assign a new symbol will start a dispute process which can take more than 30 days. The symbol that gets more support (in terms of GBYTE deposits) eventually wins.", { symbol: symbolByCurrentAsset })}
           </Text>
         </p>
       )}
@@ -194,7 +192,7 @@ export const RegisterSymbols = (props) => {
           }
         >
           <Input
-            placeholder="Symbol"
+            placeholder={t("reg_symbol.symbol", "Symbol")}
             allowClear
             autoFocus={true}
             disabled={isBoolean(isAvailable)}
@@ -206,7 +204,7 @@ export const RegisterSymbols = (props) => {
         {isAvailable !== undefined && isAvailable !== null && (
           <Form.Item>
             <Input
-              placeholder="Support (Min amount 0.1 GB)"
+              placeholder={t("reg_symbol.placeholder_support", "Support (Min amount 0.1 GB)")}
               suffix="GB"
               autoComplete="off"
               value={tokenSupport.value}
@@ -219,14 +217,14 @@ export const RegisterSymbols = (props) => {
           <Form.Item>
             <Form.Item
               hasFeedback
-              // validateStatus={descr && !descr.valid ? "error" : null}
+            // validateStatus={descr && !descr.valid ? "error" : null}
             >
               <Input.TextArea
                 style={{ fontSize: 16 }}
                 rows={5}
                 value={descr.value}
                 onChange={handleChangeDescr}
-                placeholder="Description of an asset (up to 140 characters)"
+                placeholder={t("reg_symbol.placeholder_desc", "Description of an asset (up to 140 characters)")}
               />
             </Form.Item>
           </Form.Item>
@@ -242,24 +240,24 @@ export const RegisterSymbols = (props) => {
                 loading={isAvailable === null}
                 disabled={token.value === "" || !token.valid}
               >
-                Check availability
+                {t("reg_symbol.check_availability", "Check availability")}
               </Button>
             ) : (
-              <Button
-                disabled={!token.valid || !tokenSupport.valid}
-                key="btn-reg"
-                href={generateLink(
-                  tokenSupport.value * 1e9,
-                  data,
-                  props.activeWallet,
-                  config.TOKEN_REGISTRY
-                )}
-              >
-                {isAvailable && !symbolByCurrentAsset
-                  ? "Register"
-                  : "Register anyway"}
-              </Button>
-            )}
+                <Button
+                  disabled={!token.valid || !tokenSupport.valid}
+                  key="btn-reg"
+                  href={generateLink(
+                    tokenSupport.value * 1e9,
+                    data,
+                    props.activeWallet,
+                    config.TOKEN_REGISTRY
+                  )}
+                >
+                  {isAvailable && !symbolByCurrentAsset
+                    ? t("reg_symbol.register", "Register")
+                    : t("reg_symbol.register_anyway", "Register anyway")}
+                </Button>
+              )}
             <Button
               type="link"
               danger
@@ -267,7 +265,7 @@ export const RegisterSymbols = (props) => {
                 props.handleSkip(true);
               }}
             >
-              Skip
+              {t("reg_symbol.skip", "Skip")}
             </Button>
           </Space>
         </Form.Item>

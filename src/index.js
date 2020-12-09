@@ -9,6 +9,7 @@ import "./index.css";
 import AppRouter from "./AppRouter";
 import configureStore from "./store";
 import config from "./config";
+import './locale/index';
 
 ReactGA.initialize(config.GA_ID);
 

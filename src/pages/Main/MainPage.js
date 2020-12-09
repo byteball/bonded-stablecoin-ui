@@ -9,6 +9,7 @@ import {
 import { useSelector } from "react-redux";
 import { isEmpty } from "lodash";
 import { useHistory, useLocation, useParams } from "react-router-dom";
+import { useTranslation } from 'react-i18next';
 
 import { Issue } from "./components/Issue/Issue";
 import { Redeem } from "./components/Redeem/Redeem";
@@ -49,6 +50,7 @@ export const MainPage = ({ setWalletModalVisibility }) => {
   const location = useLocation();
   const { tab } = urlParams;
   const hash = location.hash.slice(1);
+  const { t } = useTranslation();
 
   useEffect(() => {
     document.title = "Bonded stablecoins - Trade";
@@ -136,7 +138,7 @@ export const MainPage = ({ setWalletModalVisibility }) => {
               disabled={!("reserve" in stable_state)}
               tab={
                 <span>
-                  <LineChartOutlined /> Charts
+                  <LineChartOutlined /> {t("trade.tabs.charts.name", "Charts")}
                 </span>
               }
               key="charts"
@@ -146,7 +148,7 @@ export const MainPage = ({ setWalletModalVisibility }) => {
             <TabPane
               tab={
                 <span>
-                  <InteractionOutlined /> Buy/redeem
+                  <InteractionOutlined /> {t("trade.tabs.buy_redeem.name", "Buy/redeem")}
                 </span>
               }
               key="buy-redeem"
@@ -172,7 +174,7 @@ export const MainPage = ({ setWalletModalVisibility }) => {
               disabled={!("reserve" in stable_state) || (!stable_state.interest_rate && !deposit_state.supply)}
               tab={
                 <span>
-                  <ImportOutlined /> Deposits
+                  <ImportOutlined /> {t("trade.tabs.deposits.name", "Deposits")}
                 </span>
               }
               key="deposits"
@@ -184,7 +186,7 @@ export const MainPage = ({ setWalletModalVisibility }) => {
               tab={
                 <span>
                   <CapacitorIcon />
-                  Capacitors
+                  {t("trade.tabs.capacitor.name", "Capacitors")}
                 </span>
               }
               key="capacitor"
@@ -202,7 +204,7 @@ export const MainPage = ({ setWalletModalVisibility }) => {
               tab={
                 <span>
                   <GovernanceIcon />
-                  Governance
+                  {t("trade.tabs.governance.name", "Governance")}
                 </span>
               }
               key="governance"
@@ -213,7 +215,7 @@ export const MainPage = ({ setWalletModalVisibility }) => {
               tab={
                 <span>
                   <SlidersOutlined />
-                  Parameters
+                  {t("trade.tabs.parameters.name", "Parameters")}
                 </span>
               }
               key="parameters"

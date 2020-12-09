@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Typography } from "antd";
 import { useSelector } from "react-redux";
+import { useTranslation } from 'react-i18next';
 
 import { RedeemToken } from "./forms/RedeemToken";
 import { getParams } from "helpers/getParams";
@@ -20,6 +21,7 @@ export const Redeem = () => {
   } = useSelector((state) => state.active);
   const { activeWallet } = useSelector((state) => state.settings);
   const [tokens, setTokens] = useState([]);
+  const { t } = useTranslation();
   const tokens1Field = tokens.find((t) => t.name[0] === "r_tokens1");
   const tokens2Field = tokens.find((t) => t.name[0] === "r_tokens2");
   const tokens1 = tokens1Field ? tokens1Field.value : 0;
@@ -27,7 +29,7 @@ export const Redeem = () => {
   const actualParams = getParams(params, stable_state);
   return (
     <>
-      <Title level={3}>Redeem token1 {symbol1 ? `(${symbol1})` : ""}</Title>
+      <Title level={3}>{t("trade.tabs.buy_redeem.title_redeem", "Redeem token{{number}} {{symbol}}", { number: 1, symbol: symbol1 ? "(" + symbol1 + ")" : "" })}</Title>
       <RedeemToken
         address={address}
         tokens={tokens1}
@@ -44,7 +46,7 @@ export const Redeem = () => {
         oraclePrice={oraclePrice}
         supply={stable_state.supply1 / 10 ** actualParams.decimals1}
       />
-      <Title level={3}>Redeem token2 {symbol2 ? `(${symbol2})` : ""}</Title>
+      <Title level={3}>{t("trade.tabs.buy_redeem.title_redeem", "Redeem token{{number}} {{symbol}}", { number: 2, symbol: symbol2 ? "(" + symbol2 + ")" : "" })}</Title>
       <RedeemToken
         address={address}
         tokens={tokens2}

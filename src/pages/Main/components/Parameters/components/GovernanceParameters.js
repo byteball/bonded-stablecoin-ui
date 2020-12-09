@@ -1,4 +1,6 @@
 import React from "react";
+import { useTranslation } from 'react-i18next';
+
 import { Label } from "components/Label/Label";
 import styles from "../Parameters.module.css";
 import { paramsDescription } from "pages/Create/paramsDescription";
@@ -13,35 +15,37 @@ export const GovernanceParameters = ({ params }) => {
     proposal_min_support,
   } = params;
 
+  const { t } = useTranslation();
+
   return (
     <div>
       <div className={styles.param}>
         <div className={styles.labelWrap}>
           <Label
-            descr={paramsDescription.allow_grants}
-            label="Allow grants"
+            descr={paramsDescription().allow_grants.desc}
+            label={paramsDescription().allow_grants.name}
           />
           <span className={styles.semi}>:</span>
         </div>
-        <span>{allow_grants ? "allow" : "disallow"}</span>
+        <span>{allow_grants ? t("create.allow", "allow") : t("create.disallow","disallow")}</span>
       </div>
 
       <div className={styles.param}>
         <div className={styles.labelWrap}>
           <Label
-            descr={paramsDescription.allow_oracle_change}
-            label="Allow oracle change"
+            descr={paramsDescription().allow_oracle_change.desc}
+            label={paramsDescription().allow_oracle_change.name}
           />
           <span className={styles.semi}>:</span>
         </div>
-        <span>{allow_oracle_change ? "allow" : "disallow"}</span>
+        <span>{allow_oracle_change ? t("create.allow", "allow") : t("create.disallow","disallow")}</span>
       </div>
 
       <div className={styles.param}>
         <div className={styles.labelWrap}>
           <Label
-            descr={paramsDescription.regular_challenging_period}
-            label="Regular challenging period"
+            descr={paramsDescription().regular_challenging_period.desc}
+            label={paramsDescription().regular_challenging_period.name}
           />
           <span className={styles.semi}>:</span>
         </div>
@@ -51,8 +55,8 @@ export const GovernanceParameters = ({ params }) => {
       <div className={styles.param}>
         <div className={styles.labelWrap}>
           <Label
-            descr={paramsDescription.important_challenging_period}
-            label="Important challenging period"
+            descr={paramsDescription().important_challenging_period.desc}
+            label={paramsDescription().important_challenging_period.name}
           />
           <span className={styles.semi}>:</span>
         </div>
@@ -62,8 +66,8 @@ export const GovernanceParameters = ({ params }) => {
       <div className={styles.param}>
         <div className={styles.labelWrap}>
           <Label
-            descr={paramsDescription.freeze_period}
-            label="Freeze period"
+            descr={paramsDescription().freeze_period.desc}
+            label={paramsDescription().freeze_period.name}
           />
           <span className={styles.semi}>:</span>
         </div>
@@ -73,8 +77,8 @@ export const GovernanceParameters = ({ params }) => {
       <div className={styles.param}>
         <div className={styles.labelWrap}>
           <Label
-            descr={paramsDescription.proposal_min_support}
-            label="Proposal min support"
+            descr={paramsDescription().proposal_min_support.desc}
+            label={paramsDescription().proposal_min_support.name}
           />
           <span className={styles.semi}>:</span>
         </div>

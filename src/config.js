@@ -89,6 +89,13 @@ let config = {
       percent: 11,
       address: "Z7GNZCFDEWFKYOO6OIAZN7GH7DEKDHKA",
     },
+    ETH: {
+      stableName: "OETH",
+      interestName: "ITH",
+      growthName: "GRETH",
+      percent: 64,
+      address: "HXFNVF4ENNIEJZHS2MQLG4AKQ4SAXUNH",
+    },
     GOLD: {
       target: "ounce of gold",
       stableName: "OAU",

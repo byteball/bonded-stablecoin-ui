@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Button, Form, Input, Modal, Space, Select, Divider } from "antd";
+import { useTranslation } from 'react-i18next';
 import obyte from "obyte";
 
 import { generateLink } from "utils/generateLink";
@@ -14,6 +15,7 @@ export const EditRecipientModal = ({
   current,
 }) => {
   const selectRef = useRef(null);
+  const { t } = useTranslation();
   const [selectAddress, setSelectAddress] = useState(undefined);
   const [address, setAddress] = useState({
     value: undefined,
@@ -60,13 +62,13 @@ export const EditRecipientModal = ({
   return (
     <Modal
       visible={visible}
-      title="Edit interest recipient"
+      title={t("modals.edit_recipient.title", "Edit interest recipient")}
       style={{ zIndex: -1 }}
       onCancel={handleCancel}
       footer={
         <Space size={10}>
           <Button key="close" onClick={handleCancel}>
-            Close
+            {t("modals.common.close", "Close")}
           </Button>
           <Button
             key="add"
@@ -79,7 +81,7 @@ export const EditRecipientModal = ({
               }, 100)
             }
           >
-            Edit
+            {t("modals.common.edit", "Edit")}
           </Button>
         </Space>
       }
@@ -87,7 +89,7 @@ export const EditRecipientModal = ({
       <Form size="large">
         <Form.Item>
           <Select
-            placeholder="Select interest recepient"
+            placeholder={t("modals.edit_recipient.select", "Select interest recipient")} 
             value={selectAddress}
             ref={selectRef}
             defaultValue={selectAddress}
@@ -103,7 +105,7 @@ export const EditRecipientModal = ({
                   style={{ display: "flex", flexWrap: "nowrap", padding: 8 }}
                 >
                   <Input
-                    placeholder="Address of the new interest recipient"
+                    placeholder={t("modals.edit_recipient.new_address", "Address of the new interest recipient")}
                     value={address.value}
                     onChange={handleChange}
                     style={{ marginRight: 10 }}
@@ -137,14 +139,14 @@ export const EditRecipientModal = ({
                     }}
                     disabled={!address.valid}
                   >
-                    Add your own
+                    {t("modals.edit_recipient.add_your_own", "Add your own")}
                   </Button>
                 </div>
               </div>
             )}
           >
             <Select.Option key="Me" value={activeWallet}>
-              Me
+              {t("modals.edit_recipient.me", "Me")}
             </Select.Option>
             {recipients.map((r) => (
               <Select.Option key={r.address} value={r.address}>

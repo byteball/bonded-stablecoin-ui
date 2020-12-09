@@ -1,5 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Modal, Form, Input, Space, Button } from "antd";
+import { useTranslation } from 'react-i18next';
+
 import { generateLink } from "utils/generateLink";
 import config from "config";
 import { useSelector } from "react-redux";
@@ -17,6 +19,7 @@ export const AddProtectionModal = ({
   });
   const amountInputRef = useRef(null);
   const addBtnRef = useRef(null);
+  const { t } = useTranslation();
 
   const { id } = deposit;
   const { reserve_asset, reserve_asset_decimals } = params;
@@ -50,7 +53,7 @@ export const AddProtectionModal = ({
   return (
     <Modal
       visible={visible}
-      title="Add protection to deposit"
+      title={t("modals.add_protection.title", "Add protection to deposit")}
       onCancel={setVisible}
       style={{ zIndex: -1 }}
       footer={
@@ -73,10 +76,10 @@ export const AddProtectionModal = ({
               true
             )}
           >
-            Add protection
+            {t("modals.add_protection.btn", "Add protection")}
           </Button>
           <Button type="default" onClick={setVisible}>
-            Close
+            {t("modals.common.close", "Close")}
           </Button>
         </Space>
       }
@@ -84,7 +87,7 @@ export const AddProtectionModal = ({
       <Form size="large">
         <Form.Item>
           <Input
-            placeholder="Amount"
+            placeholder={t("modals.common.amount", "Amount")}
             onChange={handleChangeAmount}
             value={amount.value}
             ref={amountInputRef}

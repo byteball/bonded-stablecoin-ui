@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Form, Input, Row, Col, Button, Select, message } from "antd";
+import { useTranslation } from 'react-i18next';
 
 import { validator } from "utils/validators";
 import { getStatusValid } from "utils/getStatusValid";
@@ -27,8 +28,9 @@ const initialValues = {
 export const CurverStep = ({ setCurrent, setData }) => {
   const [form] = useForm();
   const { getFieldsValue, setFieldsValue } = form;
+  const { t } = useTranslation();
   const [checkOracle, setCheckOracle] = useState(null);
-  const [oraclePrice, setOraclePrice] = useState({});
+  const [oraclePrice, setOraclePrice] = useState({price: 1});
   const [validFields, setValidFields] = useState({
     m: true,
     n: true,
@@ -96,7 +98,7 @@ export const CurverStep = ({ setCurrent, setData }) => {
           });
           if (data_feed !== "none") {
             setCheckOracle(true);
-            setOraclePrice((d) => ({ ...d, data_feed_1: data_feed }));
+            setOraclePrice((d) => ({ ...d, data_feed_1: data_feed, price: d.price*(op1 === "/" ? 1 / data_feed : data_feed) }));
           } else {
             message.error("Oracle 1 is not active!");
             setCheckOracle(null);
@@ -118,7 +120,7 @@ export const CurverStep = ({ setCurrent, setData }) => {
             });
             if (data_feed !== "none") {
               setCheckOracle(true);
-              setOraclePrice((d) => ({ ...d, data_feed_2: data_feed }));
+              setOraclePrice((d) => ({ ...d, data_feed_2: data_feed, price: d.price*(op2 === "/" ? 1 / data_feed : data_feed) }));
             } else {
               message.error("Oracle 2 is not active!");
               setCheckOracle(null);
@@ -144,7 +146,7 @@ export const CurverStep = ({ setCurrent, setData }) => {
             });
             if (data_feed !== "none") {
               setCheckOracle(true);
-              setOraclePrice((d) => ({ ...d, data_feed_3: data_feed }));
+              setOraclePrice((d) => ({ ...d, data_feed_3: data_feed, price: d.price*(op3 === "/" ? 1 / data_feed : data_feed) }));
             } else {
               message.error("Oracle 3 is not active!");
               setCheckOracle(null);
@@ -197,15 +199,15 @@ export const CurverStep = ({ setCurrent, setData }) => {
             name="oracle1"
             label={
               <Label
-                label="Oracle 1"
+                label={paramsDescription().oracle1.name}
                 required
                 className="label"
-                descr={paramsDescription.oracle1}
+                descr={paramsDescription().oracle1.desc}
               />
             }
           >
             <Input
-              placeholder="Oracle 1"
+              placeholder={paramsDescription().oracle1.name}
               autoComplete="off"
               disabled={checkOracle === true}
               style={{ width: "100%" }}
@@ -220,13 +222,13 @@ export const CurverStep = ({ setCurrent, setData }) => {
             label={
               <Label
                 required
-                label="Feed name 1"
-                descr={paramsDescription.feed_name1}
+                label={paramsDescription().feed_name1.name}
+                descr={paramsDescription().feed_name1.desc}
               />
             }
           >
             <Input
-              placeholder="Feed name 1"
+              placeholder={paramsDescription().feed_name1.name}
               autoComplete="off"
               disabled={checkOracle === true}
             />
@@ -240,13 +242,13 @@ export const CurverStep = ({ setCurrent, setData }) => {
             label={
               <Label
                 required
-                label="Operation 1"
-                descr={paramsDescription.op1}
+                label={paramsDescription().op1.name}
+                descr={paramsDescription().op1.desc}
               />
             }
           >
             <Select
-              placeholder="Operation 1"
+              placeholder={paramsDescription().op1.name}
               disabled={checkOracle === true}
               style={{ width: "100%" }}
             >
@@ -264,14 +266,14 @@ export const CurverStep = ({ setCurrent, setData }) => {
             name="oracle2"
             label={
               <Label
-                label="Oracle 2"
+                label={paramsDescription().oracle2.name}
                 className="label"
-                descr={paramsDescription.oracle2}
+                descr={paramsDescription().oracle2.desc}
               />
             }
           >
             <Input
-              placeholder="Oracle 2"
+              placeholder={paramsDescription().oracle2.name}
               autoComplete="off"
               disabled={checkOracle === true}
               style={{ width: "100%" }}
@@ -285,13 +287,13 @@ export const CurverStep = ({ setCurrent, setData }) => {
             name="feed_name2"
             label={
               <Label
-                label="Feed name 2"
-                descr={paramsDescription.feed_name2}
+                label={paramsDescription().feed_name2.name}
+                descr={paramsDescription().feed_name2.desc}
               />
             }
           >
             <Input
-              placeholder="Feed name 2"
+              placeholder={paramsDescription().feed_name2.name}
               autoComplete="off"
               disabled={checkOracle === true}
             />
@@ -303,13 +305,13 @@ export const CurverStep = ({ setCurrent, setData }) => {
             name="op2"
             label={
               <Label
-                label="Operation 2"
-                descr={paramsDescription.op2}
+                label={paramsDescription().op2.name}
+                descr={paramsDescription().op2.desc}
               />
             }
           >
             <Select
-              placeholder="Operation 2"
+              placeholder={paramsDescription().op2.name}
               disabled={checkOracle === true}
               style={{ width: "100%" }}
             >
@@ -327,14 +329,14 @@ export const CurverStep = ({ setCurrent, setData }) => {
             name="oracle3"
             label={
               <Label
-                label="Oracle 3"
+                label={paramsDescription().oracle3.name}
                 className="label"
-                descr={paramsDescription.oracle3}
+                descr={paramsDescription().oracle3.desc}
               />
             }
           >
             <Input
-              placeholder="Oracle 3"
+              placeholder={paramsDescription().oracle3.name}
               autoComplete="off"
               disabled={checkOracle === true}
               style={{ width: "100%" }}
@@ -348,13 +350,13 @@ export const CurverStep = ({ setCurrent, setData }) => {
             name="feed_name3"
             label={
               <Label
-                label="Feed name 3"
-                descr={paramsDescription.feed_name3}
+                label={paramsDescription().feed_name3.name}
+                descr={paramsDescription().feed_name3.desc}
               />
             }
           >
             <Input
-              placeholder="Feed name 3"
+              placeholder={paramsDescription().feed_name3.name}
               autoComplete="off"
               disabled={checkOracle === true}
             />
@@ -366,13 +368,13 @@ export const CurverStep = ({ setCurrent, setData }) => {
             name="op3"
             label={
               <Label
-                label="Operation 3"
-                descr={paramsDescription.op3}
+                label={paramsDescription().op3.name}
+                descr={paramsDescription().op3.desc}
               />
             }
           >
             <Select
-              placeholder="Operation 3"
+              placeholder={paramsDescription().op3.name}
               disabled={checkOracle === true}
               style={{ width: "100%" }}
             >
@@ -401,13 +403,13 @@ export const CurverStep = ({ setCurrent, setData }) => {
             label={
               <Label
                 required
-                label="Reserve asset"
-                descr="Asset used as reserve to back the issuance of Token1 and Token2. GBYTE is the default."
+                label={paramsDescription().reserve_asset.name}
+                descr={paramsDescription().reserve_asset.desc}
               />
             }
           >
             <Select
-              placeholder="Reserve asset"
+              placeholder={paramsDescription().reserve_asset.name}
               style={{ width: "100%" }}
               onChange={(value) => {
                 setFieldsValue({
@@ -441,13 +443,13 @@ export const CurverStep = ({ setCurrent, setData }) => {
             label={
               <Label
                 required
-                label="Reserve decimals"
-                descr="Decimals of the reserve asset units."
+                label={paramsDescription().reserve_decimals.name}
+                descr={paramsDescription().reserve_decimals.desc}
               />
             }
           >
             <Input
-              placeholder="Reserve decimals"
+              placeholder={paramsDescription().reserve_decimals.name}
               autoComplete="off"
               disabled={true}
             />
@@ -469,13 +471,13 @@ export const CurverStep = ({ setCurrent, setData }) => {
             label={
               <Label
                 required
-                label="Decimals 1"
-                descr="Decimals of Token1 (growth token)"
+                label={paramsDescription().decimals1.name}
+                descr={paramsDescription().decimals1.desc}
               />
             }
           >
             <Input
-              placeholder="Decimals 1"
+              placeholder={paramsDescription().decimals1.name}
               style={{ width: "100%" }}
               autoComplete="off"
             />
@@ -495,12 +497,12 @@ export const CurverStep = ({ setCurrent, setData }) => {
             label={
               <Label
                 required
-                label="Decimals 2"
-                descr="Decimals of Token2 (interest token, or stable token if interest is 0)"
+                label={paramsDescription().decimals2.name}
+                descr={paramsDescription().decimals2.desc}
               />
             }
           >
-            <Input placeholder="Decimals 2" autoComplete="off" />
+            <Input placeholder={paramsDescription().decimals2.name} autoComplete="off" />
           </Form.Item>
         </Col>
         <Col sm={{ span: 24 }} xs={{ span: 24 }} md={{ span: 7, offset: 1 }}>
@@ -522,13 +524,13 @@ export const CurverStep = ({ setCurrent, setData }) => {
             label={
               <Label
                 required
-                label="Leverage"
-                descr={paramsDescription.leverage}
+                label={paramsDescription().leverage.name}
+                descr={paramsDescription().leverage.desc}
               />
             }
           >
             <Input
-              placeholder="Leverage"
+              placeholder={paramsDescription().leverage.name}
               style={{ width: "100%" }}
               autoComplete="off"
             />
@@ -550,13 +552,13 @@ export const CurverStep = ({ setCurrent, setData }) => {
             label={
               <Label
                 required
-                label="m"
-                descr={paramsDescription.m}
+                label={paramsDescription().m.name}
+                descr={paramsDescription().m.desc}
               />
             }
           >
             <Input
-              placeholder="m"
+              placeholder={paramsDescription().m.name}
               style={{ width: "100%" }}
               autoComplete="off"
             />
@@ -576,12 +578,12 @@ export const CurverStep = ({ setCurrent, setData }) => {
             label={
               <Label
                 required
-                label="n"
-                descr={paramsDescription.n}
+                label={paramsDescription().n.name}
+                descr={paramsDescription().n.desc}
               />
             }
           >
-            <Input placeholder="n" autoComplete="off" />
+            <Input placeholder={paramsDescription().n.name} autoComplete="off" />
           </Form.Item>
         </Col>
         <Col sm={{ span: 24 }} xs={{ span: 24 }} md={{ span: 7, offset: 1 }}>
@@ -602,13 +604,13 @@ export const CurverStep = ({ setCurrent, setData }) => {
             label={
               <Label
                 required
-                label="Interest rate"
-                descr={paramsDescription.interest_rate}
+                label={paramsDescription().interest_rate.name}
+                descr={paramsDescription().interest_rate.desc}
               />
             }
           >
             <Input
-              placeholder="Interest rate"
+              placeholder={paramsDescription().interest_rate.name}
               style={{ width: "100%" }}
               autoComplete="off"
             />
@@ -617,23 +619,36 @@ export const CurverStep = ({ setCurrent, setData }) => {
       </Row>
       {checkOracle === true && oraclePrice !== {} && (
         <div>
-          <a onClick={() => setCheckOracle(null)}>edit oracles</a>
+          <a
+            onClick={() => {
+              setCheckOracle(null);
+              setOraclePrice({price: 1});
+            }}
+          >
+            {t("create.edit_oracles", "edit oracles")}
+          </a>
           {oraclePrice.data_feed_1 && (
             <div style={{ color: "green", paddingTop: 5, paddingBottom: 5 }}>
-              <b>Last posted price by Oracle 1: </b>
+              <b>{t("create.last_posted", "Last posted price by Oracle ")}1: </b>
               {oraclePrice.data_feed_1}
             </div>
           )}
           {oraclePrice.data_feed_2 && (
             <div style={{ color: "green", paddingTop: 5, paddingBottom: 5 }}>
-              <b>Last posted price by Oracle 2: </b>
+              <b>{t("create.last_posted", "Last posted price by Oracle ")}2: </b>
               {oraclePrice.data_feed_2}
             </div>
           )}
           {oraclePrice.data_feed_3 && (
             <div style={{ color: "green", paddingTop: 5, paddingBottom: 5 }}>
-              <b>Last posted price by Oracle 3: </b>
+              <b>{t("create.last_posted", "Last posted price by Oracle ")}3: </b>
               {oraclePrice.data_feed_3}
+            </div>
+          )}
+          {oraclePrice.price && (
+            <div style={{ color: "green", paddingTop: 5, paddingBottom: 5 }}>
+              <b>Target price: </b>
+              {oraclePrice.price}
             </div>
           )}
         </div>
@@ -643,7 +658,7 @@ export const CurverStep = ({ setCurrent, setData }) => {
           loading={checkOracle === false}
           onClick={() => setCheckOracle(false)}
         >
-          Check oracles
+          {t("create.check", "Check oracles")}
         </Button>
       )}
       {checkOracle === true && (
@@ -654,7 +669,7 @@ export const CurverStep = ({ setCurrent, setData }) => {
             setCurrent((c) => c + 1);
           }}
         >
-          Next
+          {t("create.next", "Next")}
         </Button>
       )}
     </Form>
