@@ -82,7 +82,7 @@ export const RedeemToken = ({
     tokens !== "" &&
     exchange.payout > 0
   ) {
-    extra = t("trade.tabs.buy_redeem.will_receive",  "You will get {{amount}} {{symbol}}", {amount: (exchange.payout / 10 ** reserve_asset_decimals).toFixed(reserve_asset_decimals), symbol: config.reserves[reserve_asset] ? config.reserves[reserve_asset].name : reserve_asset_symbol || ''});
+    extra = t("trade.tabs.buy_redeem.redeem_will_receive",  "You will get {{amount}} {{symbol}}", {amount: (exchange.payout / 10 ** reserve_asset_decimals).toFixed(reserve_asset_decimals), symbol: config.reserves[reserve_asset] ? config.reserves[reserve_asset].name : reserve_asset_symbol || ''});
   } else if (exchange && exchange.payout < 0) {
     extra = t("trade.tabs.buy_redeem.big_change", "The transaction would change the price too much, please try a smaller amount");
   } else {

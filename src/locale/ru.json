@@ -130,7 +130,8 @@
         "amount1_placeholder": "Количество T1 ({{symbolOrAsset}} — токены роста)",
         "amount2_placeholder": "Количество T2 ({{symbolOrAsset}} — процентные токены)",
         "convert": "Немедленно конвертировать {{symbol2}} в стабильные токены {{symbol3}}",
-        "will_receive": "Вы получите {{amount}} {{symbol}}",
+        "issue_will_receive": "получите {{amount}} {{symbol}}",
+        "redeem_will_receive": "Вы получите {{amount}} {{symbol}}",
         "fee": "Комиссия",
         "reward": "Награда",
         "price": "Цена",
@@ -427,7 +428,8 @@
   },
   "modals": {
     "add_protection": {
-      "title": "Добавить защиту на депозит"
+      "title": "Добавить защиту на депозит",
+      "btn": "Добавить защиту"
     },
     "add_wallet": {
       "title": "Добавить кошелек",

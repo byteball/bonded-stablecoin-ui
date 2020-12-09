@@ -32,7 +32,7 @@ export const ChangeParamsModal = ({
   const validateParams = {
     fee_multiplier: {
       validator: (value) => base_governance === "Y4VBXMROK5BWBKSYYAMUW7QUEZFXYBCF" ? value >= 1 : value >= 0,
-      rule: t("modals.change_param.valid.fee_multiplier", `The value of the fee_multiplier parameter must be greater than {{value}}`, {value: base_governance === "FCFYMFIOGS363RLDLEWIDBIIBU7M7BHP" ? 1 : 0}),
+      rule: t("modals.change_param.valid.fee_multiplier", "The value of the fee_multiplier parameter must be greater than {{value}}", {value: base_governance === "FCFYMFIOGS363RLDLEWIDBIIBU7M7BHP" ? 1 : 0}),
     },
     moved_capacity_share: {
       validator: (value) => value > 0 && value <= 100,

@@ -125,7 +125,7 @@ export const Deposits = ({ openWalletModal }) => {
       title: (
         <Label
           label={t("trade.tabs.deposits.protection", "Protection (ratio)")}
-          descr={t("trade.tabs.deposits.protection_desc", `Additional deposit in {{reserve}} that protects the deposit from being closed by others. The deposit with the least ratio of protection to deposit amount can be closed by anybody. There is no direct loss to you when your deposit is closed but you stop receiving interest from it.`, {
+          descr={t("trade.tabs.deposits.protection_desc", "Additional deposit in {{reserve}} that protects the deposit from being closed by others. The deposit with the least ratio of protection to deposit amount can be closed by anybody. There is no direct loss to you when your deposit is closed but you stop receiving interest from it.", {
               reserve: actualParams.reserve_asset in config.reserves
               ? config.reserves[actualParams.reserve_asset].name
               : reserve_asset_symbol || "reserve asset"
@@ -340,7 +340,7 @@ export const Deposits = ({ openWalletModal }) => {
       </Button>{" "}
       or change your wallet address.
     </Trans>
-  ) : t("trade.tabs.deposits.disabled");
+  ) : t("trade.tabs.deposits.disabled", "Deposits are disabled when there is no interest rate.");
 
   const hours = actualParams.min_deposit_term / 3600;
   const odexUrl = `https://odex.ooo/trade/${(symbol3 === 'OUSD' ? 'GBYTE' : symbol3)}/OUSD`;

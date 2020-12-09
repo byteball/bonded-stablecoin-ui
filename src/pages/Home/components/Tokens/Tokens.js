@@ -129,7 +129,7 @@ const GrowthNotTracking = ({ forwardedRef }) => {
           </p>
         </Trans>
         <Link className={styles.btnOpen} to="/trade">
-          {t("home.tokens.stable.btn", "Buy GRD growth tokens")}
+          {t("home.tokens.growth.btn", "Buy GRD growth tokens")}
         </Link>
       </div>
       <div className={styles.illustration}>

@@ -121,7 +121,7 @@ export const Statistics = ({ windowWidth }) => {
     {
       title: t("trade.statistic.token2_supply.name", "Tokens2 supply"),
       currency: symbol2,
-      descr: t("trade.statistic.token1_supply.desc", "Total supply of Token2 (interest tokens)"),
+      descr: t("trade.statistic.token2_supply.desc", "Total supply of Token2 (interest tokens)"),
       value: supply2 || 0,
       decimals: decimals2,
     },
@@ -141,7 +141,7 @@ export const Statistics = ({ windowWidth }) => {
         reserve_asset in config.reserves ? config.reserves[reserve_asset].name : reserve_asset_symbol || '',
     },
     {
-      title: t("trade.statistic.token1_price.name", `${symbol1 || 'T1'} price`, {symbol1: symbol1 || "T1"}),
+      title: t("trade.statistic.token1_price.name", "{{symbol1}} price", {symbol1: symbol1 || "T1"}),
       descr: t("trade.statistic.token1_price.desc", "The current price of Token1 according to the bonding curve. It depends on the supplies of Token1 and Token2. The price is shown in terms of the reserve currency."),
       value: p1 || 0,
       precision: 6,

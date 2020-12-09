@@ -36,9 +36,7 @@ export const Capacitors = ({ stable_state, address, params, reserve_asset_symbol
       <Title level={3}>{t("trade.tabs.capacitor.title", "Capacitors info")}</Title>
       <p>
         <Text type="secondary">
-          {t("trade.tabs.capacitor.desc", `Capacitors store fees charged from users who moved the price away from
-          the peg. They are used to reward those who move the price back to the
-          peg.`)}
+          {t("trade.tabs.capacitor.desc", "Capacitors store fees charged from users who moved the price away from the peg. They are used to reward those who move the price back to the peg.")}
         </Text>
       </p>
       <Space size="large" direction={width > 680 ? "horizontal" : "vertical"}>
@@ -88,7 +86,7 @@ export const Capacitors = ({ stable_state, address, params, reserve_asset_symbol
         <Title level={3}>{t("trade.tabs.capacitor.move.title", "Move the capacity to fast pool")}</Title>
         <p>
           <Text type="secondary">
-            {t("trade.tabs.capacitor.move.desc", `The capacity can be moved from the slow to the fast pool if the price goes off-peg by more than ${params.threshold_distance * 100}% and stays there for more than ${hours} h. ${minutes} m.`, {threshold_distance: params.threshold_distance * 100, hours, minutes})}
+            {t("trade.tabs.capacitor.move.desc", "The capacity can be moved from the slow to the fast pool if the price goes off-peg by more than {{threshold_distance}}% and stays there for more than {{hours}} h. {{minutes}} m.", {threshold_distance: params.threshold_distance * 100, hours, minutes})}
           </Text>
         </p>
         <Button type="primary" href={link} disabled={!isExpiry}>

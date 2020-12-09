@@ -76,7 +76,7 @@ export const AddProtectionModal = ({
               true
             )}
           >
-            {t("modals.common.add", "Add protection")}
+            {t("modals.add_protection.btn", "Add protection")}
           </Button>
           <Button type="default" onClick={setVisible}>
             {t("modals.common.close", "Close")}

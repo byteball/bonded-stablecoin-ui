@@ -113,8 +113,8 @@ export const GovernanceStep = ({ setCurrent, setData }) => {
             ]}
           >
             <Select placeholder={paramsDescription().allow_grants.name} style={{ width: "100%" }}>
-              <Select.Option value={1}>{t("create.allow", "Allow")}</Select.Option>
-              <Select.Option value={0}>{t("create.disallow", "Disallow")}</Select.Option>
+              <Select.Option value={1}>{t("create.allow", "allow")}</Select.Option>
+              <Select.Option value={0}>{t("create.disallow", "disallow")}</Select.Option>
             </Select>
           </Form.Item>
         </Col>
@@ -143,8 +143,8 @@ export const GovernanceStep = ({ setCurrent, setData }) => {
             ]}
           >
             <Select placeholder={paramsDescription().allow_oracle_change.name} style={{ width: "100%" }}>
-              <Select.Option value={1}>{t("create.allow", "Allow")}</Select.Option>
-              <Select.Option value={0}>{t("create.disallow", "Disallow")}</Select.Option>
+              <Select.Option value={1}>{t("create.allow", "allow")}</Select.Option>
+              <Select.Option value={0}>{t("create.disallow", "disallow")}</Select.Option>
             </Select>
           </Form.Item>
         </Col>

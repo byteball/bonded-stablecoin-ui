@@ -171,17 +171,14 @@ export const RegisterSymbols = (props) => {
         style={{ marginTop: 20 }}
         direction={width > 800 ? "horizontal" : "vertical"}
       >
-        <Step title={t("reg_symbol.step", "Symbol for tokens1", { token: "1" })} />
-        <Step title={t("reg_symbol.step", "Symbol for tokens2", { token: "2" })} />
+        <Step title={t("reg_symbol.step", "Symbol for tokens{{token}}", { token: "1" })} />
+        <Step title={t("reg_symbol.step", "Symbol for tokens{{token}}", { token: "2" })} />
         <Step style={!props.interest ? { display: 'none' } : {}} title={t("reg_symbol.step_stable", "Symbol for stable tokens")} />
       </Steps>
       {symbolByCurrentAsset && (
         <p style={{ paddingTop: 20, maxWidth: 600 }}>
           <Text type="secondary">
-            {t("reg_symbol.taken_desc", `This stablecoin already has a symbol {{symbol}} assigned 
-            to it. Attempting to assign a new symbol will start a dispute 
-            process which can take more than 30 days. The symbol that gets more 
-            support (in terms of GBYTE deposits) eventually wins.`, { symbol: symbolByCurrentAsset })}
+            {t("reg_symbol.taken_desc", "This stablecoin already has a symbol {{symbol}} assigned to it. Attempting to assign a new symbol will start a dispute process which can take more than 30 days. The symbol that gets more support (in terms of GBYTE deposits) eventually wins.", { symbol: symbolByCurrentAsset })}
           </Text>
         </p>
       )}

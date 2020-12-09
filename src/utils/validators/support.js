@@ -6,7 +6,7 @@ export default (value, onSuccess, onError, maxValue) => {
   if (reg.test(value)) {
     if (Number(value) >= 0.1) {
       if (maxValue && Number(value) > maxValue) {
-        error = i18n.t("validator.max_support",`Max amount is {{value}} GBYTE`, {value: maxValue});
+        error = i18n.t("validator.max_support", "Max amount is {{value}} GBYTE", {value: maxValue});
       } else {
         onSuccess && onSuccess();
         return Promise.resolve();

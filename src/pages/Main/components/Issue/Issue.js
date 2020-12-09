@@ -291,7 +291,7 @@ export const Issue = () => {
             checked={convert}
             onChange={(e) => setConvert(e.target.checked)}
           > {t("trade.tabs.buy_redeem.convert", "Immediately convert {{symbol2}} to stable token {{symbol3}}", {symbol2: symbol2 || "T2", symbol3: symbol3 || "T3"})}
-            {Number(tokens2) && amount ? <span> ({t("trade.tabs.buy_redeem.will_receive", `will receive {{amount}} {{symbol}}`, {amount: Number(tokens2 * amount.growth_factor).toFixed(params.decimals2), symbol: symbol3 || "stable tokens"})})</span> : null}
+            {Number(tokens2) && amount ? <span> ({t("trade.tabs.buy_redeem.issue_will_receive", "will receive {{amount}} {{symbol}}", {amount: Number(tokens2 * amount.growth_factor).toFixed(params.decimals2), symbol: symbol3 || "stable tokens"})})</span> : null}
           </Checkbox>
         )}
 
