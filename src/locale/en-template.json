@@ -520,6 +520,7 @@
     },
     "header": {
       "title": "Bonded stablecoins",
+      "btn_buy": "Buy {{token}}",
       "desc": "The most advanced stablecoins powered by bonding curves",
       "stable": {
         "for": "For use in commerce and trading.",
@@ -527,7 +528,7 @@
       },
       "interest": {
         "for": "For investors seeking predictable income.",
-        "info": "{{name}} Interest token that earns {{percent}}% interest in {{type}} — a stable+ coin."
+        "info": "{{name}}: Interest token that earns {{percent}}% interest in {{type}} — a stable+ coin."
       },
       "growth": {
         "for": "For investors seeking higher income, with higher risks.",
