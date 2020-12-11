@@ -24,7 +24,6 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
     "react-share": "^4.3.1",
-    "react-world-flags": "^1.4.0",
     "redux": "^4.0.5",
     "redux-persist": "^6.0.0",
     "redux-thunk": "^2.3.0"
