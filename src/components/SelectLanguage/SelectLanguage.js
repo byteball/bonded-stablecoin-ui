@@ -20,8 +20,8 @@ export const SelectLanguage = () => {
   const dispatch = useDispatch();
   const { pathname } = useLocation();
 
-  const urlWithoutLang = langs.find((lang) => lang.name.includes(pathname.split("/")[1])) ? pathname.slice(3) : pathname;
-
+  const urlWithoutLang = langs.find((lang) => lang.name.includes(pathname.split("/")[1])) ? pathname.slice(pathname.split("/")[1].length + 1) : pathname;
+  
   return (
     <Select style={{ width: "100%" }} dropdownStyle={{ margin: 20 }} bordered={false} value={lang || "en"} size="large" onChange={(value) => {
       dispatch(changeLanguage(value));
