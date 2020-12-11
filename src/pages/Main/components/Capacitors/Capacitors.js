@@ -7,14 +7,12 @@ import { useWindowSize } from "hooks/useWindowSize";
 import { generateLink } from "utils/generateLink";
 import { Label } from "components/Label/Label";
 import config from "config";
-import { useSelector } from "react-redux";
 
 const { Title, Text } = Typography;
 const { Countdown } = Statistic;
 
 export const Capacitors = ({ stable_state, address, params, reserve_asset_symbol }) => {
   const [width] = useWindowSize();
-  const { lang } = useSelector((state) => state.settings)
   const { t } = useTranslation();
   const link = generateLink(1e4, { move_capacity: 1 }, undefined, address);
   const timeToNextMovement =

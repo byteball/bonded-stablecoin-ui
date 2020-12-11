@@ -28,7 +28,7 @@ export const MainLayout = ({ children, walletModalVisible, setWalletModalVisibil
   const [width] = useWindowSize();
   const { t } = useTranslation();
   const [activeMenu, setActiveMenu] = useState(false);
-  const {visitedBefore} = useSelector(state => state.settings);
+  const {visitedBefore, lang} = useSelector(state => state.settings);
 
   useEffect(() => {
     const unlisten = historyInstance.listen((location, action) => {
@@ -75,13 +75,13 @@ export const MainLayout = ({ children, walletModalVisible, setWalletModalVisibil
           justify={width < 1240 ? "space-between" : undefined}
           align="middle"
         >
-          <NavLink to="/" className={styles.navLink}>
+          <NavLink to={lang !== "en" ? `/${lang}`: "/"} className={styles.navLink}>
             <img className={styles.logo} src={logo} alt="Bonded stablecoins" />
 
-            <div style={{ paddingLeft: 10 }}>
-              <span>Bonded {width > 440 ? "stablecoins" : ""}</span>
+            {width > 440 && <div style={{ paddingLeft: 10 }}>
+              <span>Bonded stablecoins</span>
               <sup style={{ fontSize: 8 }}>Beta</sup>
-            </div>
+            </div>}
           </NavLink>
 
           {width >= 1240 ? (
@@ -119,21 +119,21 @@ export const MainLayout = ({ children, walletModalVisible, setWalletModalVisibil
             </div>
           )}
 
-          {width >= 1240 && pathname !== "/" && (
+          {width >= 1240 && pathname !== "/" && pathname !== "/ru" && pathname !== "/en"  && (
             <div style={{ marginLeft: "auto", display: "flex"}}>
               <SelectWallet />
               <div style={{ width: 70, marginLeft: "auto" }}><SelectLanguage /></div>
             </div>
           )}
 
-          {pathname === "/" && width >= 1240 && <div style={{ width: 70, marginLeft: "auto" }}><SelectLanguage /></div>}
+          {(pathname === "/ru" || pathname === "/en" || pathname === "/") && width >= 1240 && <div style={{ width: 70, marginLeft: "auto" }}><SelectLanguage /></div>}
         </Row>
       </Header>
 
       <Content
         className={styles.content}
         style={
-          pathname === "/" || width < 1240
+          pathname === "/ru" || pathname === "/en" || pathname === "/" || width < 1240
             ? { padding: 0 }
             : { padding: "20px 20px" }
         }
@@ -142,7 +142,7 @@ export const MainLayout = ({ children, walletModalVisible, setWalletModalVisibil
           visible={walletModalVisible}
           onCancel={() => setWalletModalVisibility(false)}
         />
-        <Route path="/trade/:address?/:tab?" exact>
+        <Route path="/:lang?/trade/:address?/:tab?" exact>
           <SelectStablecoin />
           <Statistics windowWidth={width} />
         </Route>

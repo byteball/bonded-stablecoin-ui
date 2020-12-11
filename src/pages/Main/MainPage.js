@@ -39,7 +39,7 @@ export const MainPage = ({ setWalletModalVisibility }) => {
     symbol3,
   } = useSelector((state) => state.active);
   const pendings = useSelector((state) => state.pendings);
-  const { activeWallet } = useSelector((state) => state.settings);
+  const { activeWallet, lang } = useSelector((state) => state.settings);
   const { loaded } = useSelector((state) => state.list);
   const [currentTab, setCurrentTab] = useState(undefined);
   const [handleSkip, setHandleSkip] = useState(false);
@@ -51,16 +51,17 @@ export const MainPage = ({ setWalletModalVisibility }) => {
   const { tab } = urlParams;
   const hash = location.hash.slice(1);
   const { t } = useTranslation();
+  const basename = lang && lang !== "en" ? "/" + lang : "";
 
   useEffect(() => {
     document.title = "Bonded stablecoins - Trade";
   }, []);
 
   useEffect(() => {
-    if (tabInitialized && currentTab && address && !tabList.includes(hash)) {
-      history.replace(`/trade/${address}/${currentTab || ""}${location.hash}`);
+    if (loaded && tabInitialized && currentTab && address && !tabList.includes(hash)) {
+      history.replace(`${basename}/trade/${address}/${currentTab || ""}${location.hash}`);
     }
-  }, [currentTab, address]);
+  }, [currentTab, loaded, address]);
 
   useEffect(() => {
     if(!tabList.includes(hash)){

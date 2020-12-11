@@ -21,6 +21,19 @@
   display: inline-block;
 }
 
+.link_wrap a {
+  background-color: #0037ff;
+  text-transform: uppercase;
+  font-size: 16px;
+  padding: 5px 10px;
+  box-sizing: border-box;
+  margin-top: 10px;
+  border-radius: 5px;
+  color: #ffffff;
+  text-decoration: none;
+  display: inline-block;
+}
+
 .header {
   padding-top: 20px;
   /* background-image: url("./img/hero-bg2.svg"); */

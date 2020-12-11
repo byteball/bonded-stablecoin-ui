@@ -8,7 +8,7 @@ import { Decimal } from "decimal.js";
 const { OptGroup } = Select;
 
 export const SelectStablecoin = () => {
-  const { data, loading } = useSelector((state) => state.list);
+  const { data, loading, loaded } = useSelector((state) => state.list);
   const activeAddress = useSelector((state) => state.active.address);
   const { recentList } = useSelector((state) => state.settings);
   const dispatch = useDispatch();
@@ -56,7 +56,7 @@ export const SelectStablecoin = () => {
     }
   }
 
-  const optionListRecent = recentList.filter(aa => data[aa]).map((aa) => {
+  const optionListRecent = loaded && recentList.filter(aa => data[aa]).map((aa) => {
     const { asset_2, symbol, params, stable_state } = data[aa];
     const targetCurrency = getTargetCurrency(params, stable_state);
     const interest_rate_percent = stable_state ? Decimal.mul(stable_state.interest_rate, 100).toNumber() : null;
