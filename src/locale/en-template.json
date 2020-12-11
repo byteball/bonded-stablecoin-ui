@@ -528,7 +528,7 @@
       },
       "interest": {
         "for": "For investors seeking predictable income.",
-        "info": "{{name}} Interest token that earns {{percent}}% interest in {{type}} — a stable+ coin."
+        "info": "{{name}}: Interest token that earns {{percent}}% interest in {{type}} — a stable+ coin."
       },
       "growth": {
         "for": "For investors seeking higher income, with higher risks.",

@@ -46,7 +46,7 @@ export const Header = ({ type, setType }) => {
                 {t("home.header.stable.for", "For use in commerce and trading.")}
               </div>
               <div>
-                {t("home.header.stable.info", "{{name}}: Stablecoin whose value is 1 {{target}}.", { name: pegged[type].target || type, target: pegged[type].stableName })}
+                {t("home.header.stable.info", "{{name}}: Stablecoin whose value is 1 {{target}}.", { target: pegged[type].target || type, name: pegged[type].stableName })}
               </div>
               <div className={styles.link_wrap}>
                 <Link to={stableLink}
@@ -77,7 +77,7 @@ export const Header = ({ type, setType }) => {
                 {t("home.header.interest.for", "For investors seeking predictable income.")}
               </div>
               <div>
-                {t("home.header.interest.info", "{{name}} Interest token that earns {{percent}}% interest in {{type}} — a stable+ coin.", { name: pegged[type].interestName, percent: pegged[type].percent, type })}
+                {t("home.header.interest.info", "{{name}}: Interest token that earns {{percent}}% interest in {{type}} — a stable+ coin.", { name: pegged[type].interestName, percent: pegged[type].percent, type })}
               </div>
               <div className={styles.link_wrap}>
                 <Link to={interestLink}
