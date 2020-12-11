@@ -1,20 +1,24 @@
 import React from "react";
 import { Select } from "antd";
-import Flag from 'react-world-flags';
 import { useDispatch, useSelector } from "react-redux";
 import { changeLanguage } from "store/actions/settings/changeLanguage";
 import { useLocation } from "react-router-dom";
 import historyInstance from "historyInstance";
+
+import ru from "./flags/ru.svg"
+import usa from "./flags/usa.svg"
+
 export const langs = [
   {
     name: "en",
-    flag: "usa"
+    flag: usa
   },
   {
     name: "ru",
-    flag: "ru"
+    flag: ru
   }
 ];
+
 export const SelectLanguage = () => {
   const { lang } = useSelector((state) => state.settings);
   const dispatch = useDispatch();
@@ -27,7 +31,7 @@ export const SelectLanguage = () => {
       dispatch(changeLanguage(value));
       historyInstance.replace((lang && value !== "en" ? "/" + value : "") + (urlWithoutLang !== "/" ? urlWithoutLang : ""))
     }}>
-      {langs.map((lang) => <Select.Option style={{ paddingLeft: 20, paddingRight: 20 }} value={lang.name}><div><Flag code={lang.flag} style={{ border: "1px solid #ddd" }} width="30" /></div></Select.Option>)}
+      {langs.map((lang) => <Select.Option key={lang.name} style={{ paddingLeft: 20, paddingRight: 20 }} value={lang.name}><div><img alt={lang.name} src={lang.flag} style={{ border: "1px solid #ddd" }} width="30" /></div></Select.Option>)}
     </Select>
   )
 }
