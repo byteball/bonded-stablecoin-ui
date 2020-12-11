@@ -12,5 +12,5 @@ module.exports = {
 	verbose: false,
 	locales: ['en'],
 	input: ['../**/*.js'],
-	output: '$LOCALE.json',
+	output: '$LOCALE-template.json',
 }

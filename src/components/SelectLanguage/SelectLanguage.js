@@ -30,6 +30,4 @@ export const SelectLanguage = () => {
       {langs.map((lang) => <Select.Option style={{ paddingLeft: 20, paddingRight: 20 }} value={lang.name}><div><Flag code={lang.flag} style={{ border: "1px solid #ddd" }} width="30" /></div></Select.Option>)}
     </Select>
   )
-
-
 }
