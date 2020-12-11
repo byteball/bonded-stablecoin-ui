@@ -520,6 +520,7 @@
     },
     "header": {
       "title": "Bonded stablecoins",
+      "btn_buy": "Buy {{token}}",
       "desc": "The most advanced stablecoins powered by bonding curves",
       "stable": {
         "for": "For use in commerce and trading.",

@@ -6,47 +6,49 @@ import { useTranslation } from 'react-i18next';
 
 export const MainMenu = ({ mode, pathname, onClose }) => {
   const { address } = useSelector((state) => state.active);
+  const { lang } = useSelector((state) => state.settings);
   const { t } = useTranslation();
+  const basename = lang && lang !== "en" ? "/" + lang : "";
   return (
     <Menu
       mode={mode === "horizontal" ? "horizontal" : "vertical"}
       breakpoint="lg"
       collapsedWidth="0"
-      selectedKeys={pathname !== "/" ? (pathname.includes("trade") ? ["/trade"] : [pathname]) : []}
+      selectedKeys={pathname !== "/" ? (pathname.includes("trade") ? ["/" + lang + "/trade"] : [pathname]) : []}
       onOpenChange={() => {
         onClose && onClose();
       }}
     >
       <Menu.Item key="/trade">
         <NavLink
-          to={`/trade${address ? "/" + address : ""}`}
+          to={`${basename}/trade${address ? "/" + address : ""}`}
           activeClassName="selected"
         >
           <span role="img" aria-label="Chart">📈</span> {t("main_menu.trade", "Trade")}
         </NavLink>
       </Menu.Item>
-      <Menu.Item key="/buy" style={{ marginRight: 10 }}>
-        <NavLink to="/buy">
+      <Menu.Item key={`${basename}/buy`} style={{ marginRight: 10 }}>
+        <NavLink to={`${basename}/buy`} replace={true}>
           {t("main_menu.buy", "Buy interest tokens")}
         </NavLink>
       </Menu.Item>
-      <Menu.Item key="/referral" style={{ marginRight: 10 }}>
-        <NavLink to="/referral" activeClassName="selected" style={{ margin: 0, padding: 0 }}>
+      <Menu.Item key={`${basename}/referral`} style={{ marginRight: 10 }}>
+        <NavLink to={`${basename}/referral`} activeClassName="selected" style={{ margin: 0, padding: 0 }}>
           {t("main_menu.referral", "Referral program")}
         </NavLink>
       </Menu.Item>
-      <Menu.Item key="/create">
-        <NavLink to="/create" activeClassName="selected">
+      <Menu.Item key={`${basename}/create`}>
+        <NavLink to={`${basename}/create`} activeClassName="selected">
           {t("main_menu.create", "Create")}
         </NavLink>
       </Menu.Item>
-      <Menu.Item key="/how-it-works">
-        <NavLink to="/how-it-works" activeClassName="selected">
+      <Menu.Item key={`${basename}/how-it-works`}>
+        <NavLink to={`${basename}/how-it-works`} activeClassName="selected">
           {t("main_menu.how", "How it works")}
         </NavLink>
       </Menu.Item>
-      <Menu.Item key="/faq">
-        <NavLink to="/faq" activeClassName="selected">
+      <Menu.Item key={`${basename}/faq`}>
+        <NavLink to={`${basename}/faq`} activeClassName="selected">
           F.A.Q.
         </NavLink>
       </Menu.Item>

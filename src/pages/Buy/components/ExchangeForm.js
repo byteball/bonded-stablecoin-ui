@@ -33,7 +33,6 @@ import { useWindowSize } from "hooks/useWindowSize";
 import { popularCurrencies } from "../popularCurrencies";
 import { useGetCompensation } from "../hooks/useGetCompensation";
 import { updateExchangesForm } from "store/actions/settings/updateExchangesForm";
-import historyInstance from "historyInstance";
 
 const { Text } = Typography;
 
@@ -78,9 +77,8 @@ export const ExchangeForm = () => {
     if (loaded) {
       if (params.address) {
         setAmountCurrency("0.1")
-        setActiveCurrency("btc");
+        setActiveCurrency("gbyte");
         setActiveTokenAdr(params.address);
-        historyInstance.replace("/buy")
       } else {
         if (exchangesFormInit.currentCurrency === "gbyte") {
           setAmountToken(exchangesFormInit.amountToken);

@@ -43,7 +43,6 @@ export const GovernanceItem = ({
   const [activeSupportValue, setActiveSupportValue] = useState(undefined);
   const [isExpired, setIsExpired] = useState(false);
   const { t } = useTranslation();
-  const nameView = name.split("_").join(" ").replace(".", ': ');
   const now = Date.now();
   const source = [];
   const supportsByValue = {};

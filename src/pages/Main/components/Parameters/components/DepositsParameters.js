@@ -1,5 +1,4 @@
 import React from "react";
-import { useTranslation } from 'react-i18next';
 
 import { paramsDescription } from "pages/Create/paramsDescription";
 import { Label } from "components/Label/Label";
@@ -13,8 +12,6 @@ export const DepositsParameters = ({ params, address, activeWallet }) => {
     challenge_immunity_period,
     reporter_share
   } = params;
-
-  const { t } = useTranslation();
 
   return <div style={{ marginBottom: 20 }}>
     <div className={styles.param}>

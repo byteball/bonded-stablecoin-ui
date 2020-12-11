@@ -1,7 +1,7 @@
 import React from "react";
 import { Card, Space, Button } from "antd";
 import moment from "moment";
-import { Trans, useTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import { generateLink } from "utils/generateLink";
 import { ShowDecimalsValue } from "components/ShowDecimalsValue/ShowDecimalsValue";
 import config from "config";

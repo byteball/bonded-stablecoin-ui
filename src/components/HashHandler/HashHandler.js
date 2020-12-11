@@ -9,6 +9,7 @@ import socket from "services/socket";
 import history from "../../historyInstance";
 import { changeActive } from "store/actions/active/changeActive";
 import config from "config";
+import { langs } from "components/SelectLanguage/SelectLanguage";
 
 export const HashHandler = ({ children }) => {
   const { loaded, data } = useSelector((state) => state.list);
@@ -16,17 +17,17 @@ export const HashHandler = ({ children }) => {
   const { recent } = useSelector((state) => state.settings);
   const dispatch = useDispatch();
 
+  const splitUrl = history.location.pathname.split("/").slice(1);
+  const startIndex = langs.find((lang) => lang.name === splitUrl[0]) ? 1 : 0;
   useEffect(() => {
-    const splitUrl = history.location.pathname.split("/").slice(1);
-
     (async () => {
       if (loaded) {
         if (
-          splitUrl[0] === "trade" &&
-          splitUrl[1] !== "" && 
-          splitUrl[1] !== undefined
+          splitUrl[startIndex] === "trade" &&
+          splitUrl[startIndex + 1] !== "" &&
+          splitUrl[startIndex + 1] !== undefined
         ) {
-          const symbolOrAddress = splitUrl[1];
+          const symbolOrAddress = splitUrl[startIndex + 1];
           if (obyte.utils.isValidAddress(symbolOrAddress)) {
             if (address !== symbolOrAddress) {
               if (symbolOrAddress in data) {
