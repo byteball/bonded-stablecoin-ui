@@ -9,6 +9,7 @@ import socket from "services/socket";
 import history from "../../historyInstance";
 import { changeActive } from "store/actions/active/changeActive";
 import config from "config";
+import { langs } from "components/SelectLanguage/SelectLanguage";
 
 export const HashHandler = ({ children }) => {
   const { loaded, data } = useSelector((state) => state.list);
@@ -17,7 +18,7 @@ export const HashHandler = ({ children }) => {
   const dispatch = useDispatch();
 
   const splitUrl = history.location.pathname.split("/").slice(1);
-  const startIndex = splitUrl[0] === "en" || splitUrl[0] === "ru" ? 1 : 0;
+  const startIndex = langs.find((lang) => lang.name === splitUrl[0]) ? 1 : 0;
   useEffect(() => {
     (async () => {
       if (loaded) {

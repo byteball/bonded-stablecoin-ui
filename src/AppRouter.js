@@ -15,6 +15,7 @@ import { Spinner } from "./components/Spinner/Spinner";
 import { HashHandler } from "./components/HashHandler/HashHandler";
 import { MainLayout } from "./components/MainLayout/MainLayout";
 import i18 from './locale/index';
+import { langs } from "components/SelectLanguage/SelectLanguage";
 
 const AppRouter = () => {
   const [walletModalVisible, setWalletModalVisibility] = useState(false);
@@ -29,26 +30,29 @@ const AppRouter = () => {
   }, [lang, loaded, connected]);
 
   if (!connected || !loaded) return <Spinner />;
+  
+  const langsName = langs.map((lang) => lang.name)
+  const basename = `/:lang(${langsName.join("|")})?`;
 
   return (
     <Router history={historyInstance}>
       <MainLayout walletModalVisible={walletModalVisible} setWalletModalVisibility={setWalletModalVisibility} >
         <HashHandler>
-          <Route path="/:lang(en|ru)?/trade/:address?/:tab?" render={() => <MainPage setWalletModalVisibility={setWalletModalVisibility} />} />
+          <Route path={`${basename}/trade/:address?/:tab?`} render={() => <MainPage setWalletModalVisibility={setWalletModalVisibility} />} />
         </HashHandler>
-        <Route path="/:lang(en|ru)?/create" component={CreatePage} />
-        <Route path="/:lang(en|ru)?/how-it-works" component={HowItWorksPage} />
-        <Route path="/:lang(en|ru)?/faq" component={FaqPage} />
-        <Route path="/:lang(en|ru)?/referral" render={() => <RefPage setWalletModalVisibility={setWalletModalVisibility} />} />
-        <Route path="/:lang(en|ru)?/referrals" render={() => <RefPage setWalletModalVisibility={setWalletModalVisibility} />} />
+        <Route path={`${basename}/create`} component={CreatePage} />
+        <Route path={`${basename}/how-it-works`} component={HowItWorksPage} />
+        <Route path={`${basename}/faq`} component={FaqPage} />
+        <Route path={`${basename}/referral`} render={() => <RefPage setWalletModalVisibility={setWalletModalVisibility} />} />
+        <Route path={`${basename}/referrals`} render={() => <RefPage setWalletModalVisibility={setWalletModalVisibility} />} />
         <Route
-          path="/:lang(en|ru)?/buy/:address?"
+          path={`${basename}/buy/:address?`}
           render={() => {
             return <BuyPage />;
           }}
         />
 
-        <Route path="/:lang(en|ru)?" component={HomePage} exact />
+        <Route path={basename} component={HomePage} exact />
       </MainLayout>
     </Router>
   );

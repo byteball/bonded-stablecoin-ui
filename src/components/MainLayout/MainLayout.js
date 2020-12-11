@@ -18,7 +18,7 @@ import { SelectWalletModal } from "modals/SelectWalletModal/SelectWalletModal";
 import { useDispatch, useSelector } from "react-redux";
 import { addReferrer } from "store/actions/settings/addReferrer";
 import { firstVisit } from "store/actions/settings/firstVisit";
-import { SelectLanguage } from "components/SelectLanguage/SelectLanguage";
+import { langs, SelectLanguage } from "components/SelectLanguage/SelectLanguage";
 
 const { Header, Content } = Layout;
 
@@ -119,21 +119,21 @@ export const MainLayout = ({ children, walletModalVisible, setWalletModalVisibil
             </div>
           )}
 
-          {width >= 1240 && pathname !== "/" && pathname !== "/ru" && pathname !== "/en"  && (
+          {width >= 1240 && pathname !== "/" && !langs.find((lang) => "/" + lang.name === pathname) && (
             <div style={{ marginLeft: "auto", display: "flex"}}>
               <SelectWallet />
               <div style={{ width: 70, marginLeft: "auto" }}><SelectLanguage /></div>
             </div>
           )}
 
-          {(pathname === "/ru" || pathname === "/en" || pathname === "/") && width >= 1240 && <div style={{ width: 70, marginLeft: "auto" }}><SelectLanguage /></div>}
+          {(pathname === "/" || langs.find((lang) => "/" + lang.name === pathname)) && width >= 1240 && <div style={{ width: 70, marginLeft: "auto" }}><SelectLanguage /></div>}
         </Row>
       </Header>
 
       <Content
         className={styles.content}
         style={
-          pathname === "/ru" || pathname === "/en" || pathname === "/" || width < 1240
+          pathname === "/" || langs.find((lang) => "/" + lang.name === pathname) || width < 1240
             ? { padding: 0 }
             : { padding: "20px 20px" }
         }
