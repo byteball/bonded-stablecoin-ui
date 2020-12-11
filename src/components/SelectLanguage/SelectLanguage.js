@@ -9,7 +9,7 @@ export const SelectLanguage = () => {
   const dispatch = useDispatch();
   
   return (
-    <Select size="large" style={{ width: "100%"}} dropdownStyle={{ margin: 20 }} bordered={false} value={lang || "en"} size="large" onChange={(value) => { dispatch(changeLanguage(value)) }}>
+    <Select size="large" style={{ width: "100%"}} dropdownStyle={{ margin: 20 }} bordered={false} value={lang || "en"} onChange={(value) => { dispatch(changeLanguage(value)) }}>
       <Select.Option style={{ paddingLeft: 20, paddingRight: 20 }} value="en"><div><Flag code="usa" style={{ border: "1px solid #ddd" }} width="30" /></div></Select.Option>
       <Select.Option style={{ paddingLeft: 20, paddingRight: 20 }} value="ru"><div><Flag code="ru" style={{ border: "1px solid #ddd" }} width="30" /></div></Select.Option>
     </Select>
