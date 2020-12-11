@@ -4,17 +4,20 @@ import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useTranslation } from 'react-i18next';
 
-export const MainMenu = ({ mode, pathname, onClose }) => {
+export const MainMenu = ({ mode, pathname, onClose, width }) => {
   const { address } = useSelector((state) => state.active);
   const { lang } = useSelector((state) => state.settings);
   const { t } = useTranslation();
   const basename = lang && lang !== "en" ? "/" + lang : "";
+
   return (
     <Menu
       mode={mode === "horizontal" ? "horizontal" : "vertical"}
       breakpoint="lg"
+      overflowedIndicator=". . ."
       collapsedWidth="0"
-      selectedKeys={pathname !== "/" ? (pathname.includes("trade") ? ["/" + lang + "/trade"] : [pathname]) : []}
+      style={{border: "none", width: (width < 1340 && mode === "horizontal" ? width - 40 - 205 - 250 - 70 - 30 : 760) }}
+      selectedKeys={pathname !== "/" ? (pathname.includes("trade") ? ["/trade"] : [pathname]) : []}
       onOpenChange={() => {
         onClose && onClose();
       }}

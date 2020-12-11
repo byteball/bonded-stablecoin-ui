@@ -69,10 +69,11 @@ export const MainLayout = ({ children, walletModalVisible, setWalletModalVisibil
           background: "#fff",
           paddingLeft: 20,
           paddingRight: 20,
+          height: "100%"
         }}
       >
         <Row
-          justify={width < 1240 ? "space-between" : undefined}
+          justify={width < 990 ? "space-between" : undefined}
           align="middle"
         >
           <NavLink to={lang !== "en" ? `/${lang}`: "/"} className={styles.navLink}>
@@ -84,8 +85,8 @@ export const MainLayout = ({ children, walletModalVisible, setWalletModalVisibil
             </div>}
           </NavLink>
 
-          {width >= 1240 ? (
-            <MainMenu pathname={pathname} mode="horizontal" />
+          {width >= 990 ? (
+            <MainMenu pathname={pathname} width={width} mode="horizontal" />
           ) : (
             <div style={{ display: "flex", alignItems: "center" }}>
               <Drawer
@@ -107,7 +108,7 @@ export const MainLayout = ({ children, walletModalVisible, setWalletModalVisibil
                 />
               </Drawer>
               
-              {width < 1240 && width >= 320 && pathname !== "/" && (
+              {width < 990 && width >= 320 && pathname !== "/" && (
                 <WalletOutlined
                   onClick={() => setWalletModalVisibility(true)}
                   className={styles.iconWallet}
@@ -119,14 +120,14 @@ export const MainLayout = ({ children, walletModalVisible, setWalletModalVisibil
             </div>
           )}
 
-          {width >= 1240 && pathname !== "/" && !langs.find((lang) => "/" + lang.name === pathname) && (
+          {width >= 990 && pathname !== "/" && !langs.find((lang) => "/" + lang.name === pathname) && (
             <div style={{ marginLeft: "auto", display: "flex"}}>
               <SelectWallet />
               <div style={{ width: 70, marginLeft: "auto" }}><SelectLanguage /></div>
             </div>
           )}
 
-          {(pathname === "/" || langs.find((lang) => "/" + lang.name === pathname)) && width >= 1240 && <div style={{ width: 70, marginLeft: "auto" }}><SelectLanguage /></div>}
+          {(pathname === "/" || langs.find((lang) => "/" + lang.name === pathname)) && width >= 990 && <div style={{ width: 70, marginLeft: "auto" }}><SelectLanguage /></div>}
         </Row>
       </Header>
 
