@@ -9,6 +9,7 @@ import { useSelector } from "react-redux";
 export const Footer = () => {
   const { lang } = useSelector((state) => state.settings);
   const { t } = useTranslation();
+  const basename = lang && lang !== "en" ? "/" + lang : "";
   return (
     <div>
       <Space
@@ -16,11 +17,11 @@ export const Footer = () => {
         style={{ display: "flex", justifyContent: "center" }}
         size={20}
       >
-        <Link className={styles.trade} to={`/${lang}/trade`}>
+        <Link className={styles.trade} to={`${basename}/trade`}>
           {t("main_menu.trade", "Trade")}
         </Link>
-        <Link to={`/${lang}/faq`}>F.A.Q.</Link>
-        <Link to={`/${lang}/how-it-works`}>{t("main_menu.how", "How it works")}</Link>
+        <Link to={`${basename}/faq`}>F.A.Q.</Link>
+        <Link to={`${basename}/how-it-works`}>{t("main_menu.how", "How it works")}</Link>
       </Space>
       <div className={styles.copy}>&copy; Obyte</div>
     </div>
