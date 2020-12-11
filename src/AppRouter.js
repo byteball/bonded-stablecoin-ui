@@ -30,9 +30,9 @@ const AppRouter = () => {
   }, [lang, loaded, connected]);
 
   if (!connected || !loaded) return <Spinner />;
-  
-  const langsName = langs.map((lang) => lang.name)
-  const basename = `/:lang(${langsName.join("|")})?`;
+
+  const langNames = langs.map((lang) => lang.name)
+  const basename = `/:lang(${langNames.join("|")})?`;
 
   return (
     <Router history={historyInstance}>
