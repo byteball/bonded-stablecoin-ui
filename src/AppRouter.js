@@ -11,7 +11,6 @@ import {
   BuyPage,
   RefPage
 } from "./pages";
-import { Spinner } from "./components/Spinner/Spinner";
 import { HashHandler } from "./components/HashHandler/HashHandler";
 import { MainLayout } from "./components/MainLayout/MainLayout";
 import i18 from './locale/index';
@@ -19,17 +18,13 @@ import { langs } from "components/SelectLanguage/SelectLanguage";
 
 const AppRouter = () => {
   const [walletModalVisible, setWalletModalVisibility] = useState(false);
-  const connected = useSelector((state) => state.connected);
-  const { loaded } = useSelector((state) => state.list);
   const { lang } = useSelector((state) => state.settings);
 
   useEffect(() => {
-    if (lang && loaded && connected) {
-      i18.changeLanguage(lang);
-    }
-  }, [lang, loaded, connected]);
+    i18.changeLanguage(lang);
+  }, [lang]);
 
-  if (!connected || !loaded) return <Spinner />;
+  // if (!connected || !loaded) return <Spinner />;
 
   const langNames = langs.map((lang) => lang.name)
   const basename = `/:lang(${langNames.join("|")})?`;
