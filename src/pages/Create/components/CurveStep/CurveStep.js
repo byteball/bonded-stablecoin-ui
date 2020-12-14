@@ -647,7 +647,7 @@ export const CurverStep = ({ setCurrent, setData }) => {
           )}
           {oraclePrice.price && (
             <div style={{ color: "green", paddingTop: 5, paddingBottom: 5 }}>
-              <b>Target price: </b>
+              <b>{t("create.target_price", "Target price")}: </b>
               {oraclePrice.price}
             </div>
           )}

@@ -1,9 +1,11 @@
 import React, { useState, useRef, useEffect } from "react";
-import { Button, Form, Input, Modal } from "antd";
-import { useTranslation } from 'react-i18next';
+import { Button, Form, Input, Modal, Typography } from "antd";
+import { useTranslation, Trans } from 'react-i18next';
 import { useDispatch } from "react-redux";
 import obyte from "obyte";
 import { addWallet } from "store/actions/settings/addWallet";
+
+const { Text } = Typography;
 
 export const AddWalletAddressModal = ({ visible, setShowWalletModal }) => {
   const dispatch = useDispatch();
@@ -71,7 +73,17 @@ export const AddWalletAddressModal = ({ visible, setShowWalletModal }) => {
       ]}
     >
       <Form size="large">
-        <Form.Item hasFeedback={true} validateStatus={validateStatus}>
+        <Form.Item hasFeedback={true} validateStatus={validateStatus}
+          extra={
+            <p>
+              <Text type="secondary">
+                <Trans i18nKey="modals.add_wallet.desc">
+                  Insert your Obyte wallet address. If you don't have Obyte wallet yet,{" "}
+                  <a href="https://obyte.org/#download" target="_blank" rel="noopener">install</a> it.
+                </Trans>
+              </Text>
+            </p>
+          }>
           <Input
             placeholder={t("modals.add_wallet.wallet_address", "Wallet address")}
             value={address.value}

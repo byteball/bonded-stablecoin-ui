@@ -1,5 +1,5 @@
 import { Modal } from "antd";
-
+import i18n from "../../../../locale/index";
 import { RESPONSE_ISSUE_STABLECOIN } from "../../../types/pendings";
 import { changeActive } from "../../active/changeActive";
 import { resetIssueStablecoin } from "../../pendings/resetIssueStablecoin";
@@ -62,9 +62,9 @@ export const resCreateStable = ({
 
       if (pendingParam !== null && isEqual) {
         const modal = Modal.confirm({
-          title: "The stablecoin you created is ready to use, go to it?",
-          okText: "Yes",
-          cancelText: "No",
+          title: i18n.t("notification.create.res", "The stablecoin you created is ready to use, go to it?"),
+          okText: i18n.t("notification.create.yes", "Yes"),
+          cancelText: i18n.t("notification.create.no", "No"),
           onOk: () => {
             dispatch(changeActive(address));
             modal.destroy();

@@ -6,7 +6,7 @@ import styles from "./Reasons.module.css";
 const ReasonsNotTracking = ({ forwardedRef }) => {
   const { t } = useTranslation();
   return (
-    <div>
+    <div className={styles.wrap}>
       <div className={styles.title}>
         {t("home.reasons.title", "007 reasons why bonded stablecoins are the best stablecoins ever")}
       </div>
