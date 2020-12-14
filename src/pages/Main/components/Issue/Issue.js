@@ -168,27 +168,6 @@ export const Issue = () => {
     <>
       <Row justify="space-between" align="middle">
         <Title level={3}>{t("trade.tabs.buy_redeem.title_buy", "Buy tokens")}</Title>
-        {reserve && (
-          <Checkbox
-            checked={enableHelp}
-            onChange={(e) => {
-              setEnableHelp(e.target.checked);
-              if (!enableHelp && amount) {
-                setTokens1(
-                  Number(amount.s1init).toFixed(actualParams.decimals1)
-                );
-                setFieldsValue({
-                  tokens1: Number(amount.s1init).toFixed(
-                    actualParams.decimals1
-                  ),
-                });
-              }
-            }}
-            style={{ marginBottom: 12 }}
-          >
-            {t("trade.tabs.buy_redeem.minimize", "Set token1 amount to minimize fees")}
-          </Checkbox>
-        )}
       </Row>
       {!reserve && (
         <p>
@@ -220,6 +199,26 @@ export const Issue = () => {
       >
         <Form.Item
           name="tokens1"
+          extra={reserve && (
+            <Checkbox
+              checked={enableHelp}
+              onChange={(e) => {
+                setEnableHelp(e.target.checked);
+                if (!enableHelp && amount) {
+                  setTokens1(
+                    Number(amount.s1init).toFixed(actualParams.decimals1)
+                  );
+                  setFieldsValue({
+                    tokens1: Number(amount.s1init).toFixed(
+                      actualParams.decimals1
+                    ),
+                  });
+                }
+              }}
+            >
+              {t("trade.tabs.buy_redeem.minimize", "Set token1 amount to minimize fees")}
+            </Checkbox>
+          )}
           rules={[
             {
               validator: (rule, value) =>
@@ -254,6 +253,14 @@ export const Issue = () => {
         </Form.Item>
         <Form.Item
           name="tokens2"
+          extra={params.interest_rate !== 0 && (
+            <Checkbox
+              checked={convert}
+              onChange={(e) => setConvert(e.target.checked)}
+            > {t("trade.tabs.buy_redeem.convert", "Immediately convert {{symbol2}} to stable token {{symbol3}}", {symbol2: symbol2 || "T2", symbol3: symbol3 || "T3"})}
+              {Number(tokens2) && amount ? <span> ({t("trade.tabs.buy_redeem.issue_will_receive", "will receive {{amount}} {{symbol}}", {amount: Number(tokens2 * amount.growth_factor).toFixed(params.decimals2), symbol: symbol3 || "stable tokens"})})</span> : null}
+            </Checkbox>
+          )}
           rules={[
             {
               validator: (rule, value) =>
@@ -284,17 +291,6 @@ export const Issue = () => {
             autoComplete="off"
           />
         </Form.Item>
-
-        {params.interest_rate !== 0 && (
-          <Checkbox
-            style={{ marginBottom: 20 }}
-            checked={convert}
-            onChange={(e) => setConvert(e.target.checked)}
-          > {t("trade.tabs.buy_redeem.convert", "Immediately convert {{symbol2}} to stable token {{symbol3}}", {symbol2: symbol2 || "T2", symbol3: symbol3 || "T3"})}
-            {Number(tokens2) && amount ? <span> ({t("trade.tabs.buy_redeem.issue_will_receive", "will receive {{amount}} {{symbol}}", {amount: Number(tokens2 * amount.growth_factor).toFixed(params.decimals2), symbol: symbol3 || "stable tokens"})})</span> : null}
-          </Checkbox>
-        )}
-
         <>
           <Text type="secondary" style={{ display: "block" }}>
             <b>{t("trade.tabs.buy_redeem.fee", "Fee")}:</b>{" "}

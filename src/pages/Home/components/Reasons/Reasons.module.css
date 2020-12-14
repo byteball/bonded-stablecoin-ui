@@ -25,28 +25,18 @@
 .label {
   padding: 15px;
   box-sizing: border-box;
-  /* background-color: #fbfbfb; */
   font-size: 42px;
   border: 8px solid black;
   border-radius: 50%;
   font-weight: bold;
   margin-right: 30px;
   position: relative;
-
-  /* text-decoration: underline; */
 }
 
-/* .label:before {
-  content: "";
-  display: block;
-  width: 100%;
-  border-bottom: 8px solid black;
-  border-radius: 4px;
-  box-sizing: border-box;
-  position: absolute;
-  left: 0;
-  bottom: -30px;
-} */
+.wrap {
+  background: url("./img/bond.svg") bottom right no-repeat;
+  background-size: 60% 60%;
+}
 
 .info {
   font-size: 16px;
@@ -59,6 +49,10 @@
   }
   .info {
     font-size: 16px;
+  }
+  .wrap {
+    background: url("./img/bond.svg") bottom right no-repeat;
+    background-size: contain;
   }
 }
 

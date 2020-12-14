@@ -153,7 +153,6 @@ export const Charts = ({ params }) => {
       (async () => {
         if (address && lineSeriesT1 && lineSeriesT2) {
           const candleDaily = await getCandle({ type: "daily", from: "2020-09-22", to: now });
-          if (!candleDaily.T1.length || !candleDaily.T2.length) return;
           if (candleDaily.T1.length > 83 || candleDaily.T2.length > 83) {
             if (lineSeriesT1) {
               lineSeriesT1.setData(candleDaily.T1);
@@ -172,7 +171,7 @@ export const Charts = ({ params }) => {
               setData({ T2: candleDaily.T2, T1: candleDaily.T1, loaded: true });
             }
           } else {
-            const firstTimeCandle = moment.unix(candleDaily.T1[0].time).format("YYYY-MM-DD");
+            const firstTimeCandle = candleDaily.T1[0] ? moment.unix(candleDaily.T1[0].time).format("YYYY-MM-DD") : now;
             const candleHourly = await getCandle({ type: "hourly", from: firstTimeCandle, to: now });
             if (lineSeriesT1) {
               lineSeriesT1.setData(candleHourly.T1);
