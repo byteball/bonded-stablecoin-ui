@@ -2,7 +2,7 @@
 
 import React, { useEffect } from "react";
 import obyte from "obyte";
-import { message } from "antd";
+import { message, Spin } from "antd";
 import { useSelector, useDispatch } from "react-redux";
 import socket from "services/socket";
 
@@ -81,5 +81,7 @@ export const HashHandler = ({ children }) => {
     // eslint-disable-next-line
   }, [dispatch, loaded]);
 
-  return <div>{children}</div>;
+  return address ? <div>{children}</div> : <div style={{ display: "flex", justifyContent: "center" }}>
+    <Spin size="large" />
+  </div>;
 };

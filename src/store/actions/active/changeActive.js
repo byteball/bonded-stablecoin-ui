@@ -1,11 +1,16 @@
-import { CHANGE_ACTIVE } from "../../types";
+import { CHANGE_ACTIVE, REQ_CHANGE_ACTIVE } from "../../types";
 import config from "config";
 import { addRecentStablecoin } from "../settings/addRecentStablecoin";
 import { getOraclePrice } from "helpers/getOraclePrice";
 
 export const changeActive = (address) => async (dispatch, getState, socket) => {
-  const store = getState();
 
+  dispatch({
+    type: REQ_CHANGE_ACTIVE
+  });
+
+  const store = getState();
+  
   if (!store.list.loaded || !address) return null;
   if (!(address in store.list.data)) return null;
 

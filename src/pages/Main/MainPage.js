@@ -6,7 +6,7 @@ import {
   SlidersOutlined,
   LineChartOutlined
 } from "@ant-design/icons";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { isEmpty } from "lodash";
 import { useHistory, useLocation, useParams } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
@@ -22,6 +22,7 @@ import { Parameters } from "./components/Parameters/Parameters";
 import { CapacitorIcon } from "../../components/CapacitorIcon/CapacitorIcon";
 import { GovernanceIcon } from "../../components/GovernanceIcon/GovernanceIcon";
 import { Charts } from "./components/Charts/Charts";
+import { changeActive } from "store/actions/active/changeActive";
 
 const { TabPane } = Tabs;
 
@@ -37,6 +38,7 @@ export const MainPage = ({ setWalletModalVisibility }) => {
     symbol1,
     symbol2,
     symbol3,
+    loading
   } = useSelector((state) => state.active);
   const pendings = useSelector((state) => state.pendings);
   const { activeWallet, lang } = useSelector((state) => state.settings);
@@ -44,10 +46,12 @@ export const MainPage = ({ setWalletModalVisibility }) => {
   const [currentTab, setCurrentTab] = useState(undefined);
   const [handleSkip, setHandleSkip] = useState(false);
   const [tabInitialized , setTabInitialized] = useState(false);
+  const [addressInitialized, setAddressInitialized] = useState(false);
   const actualParams = getParams(params, stable_state);
   const urlParams = useParams();
   const history = useHistory();
   const location = useLocation();
+  const dispatch = useDispatch();
   const { tab } = urlParams;
   const hash = location.hash.slice(1);
   const { t } = useTranslation();
@@ -58,17 +62,24 @@ export const MainPage = ({ setWalletModalVisibility }) => {
   }, []);
 
   useEffect(() => {
-    if (loaded && tabInitialized && currentTab && address && !tabList.includes(hash)) {
+    if ((addressInitialized || !urlParams.address) && !loading && loaded && tabInitialized && currentTab && address && !tabList.includes(hash)) {
       history.replace(`${basename}/trade/${address}/${currentTab || ""}${location.hash}`);
     }
-  }, [currentTab, loaded, address]);
+  }, [currentTab, loaded, address, addressInitialized, loading]);
 
   useEffect(() => {
     if(!tabList.includes(hash)){
       history.replace({ hash: undefined });
     }
   }, [address]);
-  
+
+  useEffect(() => {
+    if (urlParams.address && address !== urlParams.address){
+      dispatch(changeActive(urlParams.address));
+    }
+    setAddressInitialized(true);
+  }, [])
+
   useEffect(()=>{
     if(tabInitialized  &&  tab !== currentTab){
       setCurrentTab(tab);
