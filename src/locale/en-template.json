@@ -224,7 +224,7 @@
       "param_value": "Parameter value",
       "your_balance": "Your current balance on the governance AA",
       "add_more": "Add more (optional)",
-      "count_tokens": "Количество Т1 ({{symbol}})",
+      "count_tokens": "Count of tokens1 ({{symbol}})",
       "your_supported_value": "Your supported value is",
       "total_support": "Total support for this value",
       "your_support": "Your support for this value"
@@ -539,7 +539,7 @@
         "for": "For investors seeking higher income, with higher risks.",
         "info": "{{growthName}}: Growth token whose value is tied to the amount of {{interestName}} issued."
       },
-      "need_similar_coins": "Need similar coins pegged to {{other}} or some other asset? <3></3>Select yours: <6>{peggedList.map((p) => (\n              <Option key={p} value={p}>\n                {p}\n              </Option>\n            ))}</6> or <10>create new ones</10>."
+      "need_similar_coins": "Need similar coins pegged to {{other}} or some other asset? <3></3>Select yours: <6>{peggedList.map((p) => (\n                <Option key={p} value={p}>\n                  {p}\n                </Option>\n              ))}</6> or <10>create new ones</10>."
     },
     "reasons": {
       "title": "007 reasons why bonded stablecoins are the best stablecoins ever",

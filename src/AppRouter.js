@@ -17,7 +17,10 @@ import { MainLayout } from "./components/MainLayout/MainLayout";
 import i18 from './locale/index';
 import { langs } from "components/SelectLanguage/SelectLanguage";
 import { botCheck } from "utils/botCheck";
+<<<<<<< HEAD
 import { changeLanguage } from "store/actions/settings/changeLanguage";
+=======
+>>>>>>> 9f0114e24beca6c0357ce80caf4fad4415f6bc77
 
 const AppRouter = () => {
   const [walletModalVisible, setWalletModalVisibility] = useState(false);
