@@ -144,9 +144,9 @@
         "subtitle_buy": "How many tokens of each type you want to buy",
         "minimize": "Set token1 amount to minimize fees",
         "amount1_placeholder": "Amount of tokens1 ({{symbolOrAsset}} — growth tokens)",
-        "amount2_placeholder": "Amount of tokens2 ({{symbolOrAsset}} — interest tokens)",
         "convert": "Immediately convert {{symbol2}} to stable token {{symbol3}}",
         "issue_will_receive": "will receive {{amount}} {{symbol}}",
+        "amount2_placeholder": "Amount of tokens2 ({{symbolOrAsset}} — interest tokens)",
         "fee": "Fee",
         "reward": "Reward",
         "price_change": "Price change",
@@ -221,7 +221,7 @@
       "param_value": "Parameter value",
       "your_balance": "Your current balance on the governance AA",
       "add_more": "Add more (optional)",
-      "count_tokens": "Количество Т1 ({{symbol}})",
+      "count_tokens": "Count of tokens1 ({{symbol}})",
       "your_supported_value": "Your supported value is",
       "total_support": "Total support for this value",
       "your_support": "Your support for this value"
@@ -536,7 +536,7 @@
         "for": "For investors seeking higher income, with higher risks.",
         "info": "{{growthName}}: Growth token whose value is tied to the amount of {{interestName}} issued."
       },
-      "need_similar_coins": "Need similar coins pegged to {{other}} or some other asset? <3></3>Select yours: <6>{peggedList.map((p) => (\n              <Option key={p} value={p}>\n                {p}\n              </Option>\n            ))}</6> or <10>create new ones</10>."
+      "need_similar_coins": "Need similar coins pegged to {{other}} or some other asset? <3></3>Select yours: <6>{peggedList.map((p) => (\n                <Option key={p} value={p}>\n                  {p}\n                </Option>\n              ))}</6> or <10>create new ones</10>."
     },
     "reasons": {
       "title": "007 reasons why bonded stablecoins are the best stablecoins ever",

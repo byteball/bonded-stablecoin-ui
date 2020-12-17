@@ -1,4 +1,4 @@
-import { CHANGE_ACTIVE, UPDATE_ORACLES } from "../types";
+import { CHANGE_ACTIVE, REQ_CHANGE_ACTIVE, UPDATE_ORACLES } from "../types";
 import { EVENT_CREATE_TOKEN } from "../types/events";
 import {
   CHANGE_STABLE_STATE,
@@ -21,10 +21,17 @@ const initialState = {
   symbol1: false,
   symbol2: false,
   symbol3: false,
+  loading: false,
 };
 
 export const activeReducer = (state = initialState, action) => {
   switch (action.type) {
+    case REQ_CHANGE_ACTIVE: {
+      return {
+        ...state,
+        loading: true
+      }
+    }
     case CHANGE_ACTIVE: {
       return {
         ...state,
@@ -45,6 +52,7 @@ export const activeReducer = (state = initialState, action) => {
         oracleValue1: action.payload.oracleValue1,
         oracleValue2: action.payload.oracleValue2,
         oracleValue3: action.payload.oracleValue3,
+        loading: false
       };
     }
     case EVENT_CREATE_TOKEN: {

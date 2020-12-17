@@ -578,8 +578,8 @@ export const ExchangeForm = () => {
                 </Text>
                 <Text type="secondary" style={{ fontSize: 14, display: "block" }}>
                   <Trans i18nKey="buy.open_wallet">
-                    Clicking "Buy" will open your Obyte wallet.
-                    <a href="https://obyte.org/#download"
+                    Clicking "Buy" will open your Obyte wallet. <a
+                      href="https://obyte.org/#download"
                       target="_blank"
                       rel="noopener"
                       onClick={

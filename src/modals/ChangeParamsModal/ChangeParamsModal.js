@@ -516,7 +516,7 @@ export const ChangeParamsModal = ({
         {balance !== 0 && <Text type="secondary">{t("modals.change_param.add_more", "Add more (optional)")}:</Text>}
         <Form.Item>
           <Input
-            placeholder={t("modals.change_param.count_tokens", "Количество Т1 ({{symbol}})", {symbol: symbol || asset})}
+            placeholder={t("modals.change_param.count_tokens", "Count of tokens1 ({{symbol}})", {symbol: symbol || asset})}
             autoComplete="off"
             onChange={handleChangeAmount}
             suffix={symbol || "T1"}

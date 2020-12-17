@@ -1,6 +1,6 @@
 import React from "react";
 import { Typography, Statistic, Space, Button } from "antd";
-import moment from 'moment/min/moment-with-locales';
+import moment from 'moment';
 import { useTranslation } from 'react-i18next';
 
 import { useWindowSize } from "hooks/useWindowSize";
