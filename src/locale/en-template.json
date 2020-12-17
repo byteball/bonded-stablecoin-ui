@@ -18,6 +18,9 @@
     "other": "Other",
     "all": "All"
   },
+  "footer": {
+    "join_community": "Join the community, get help"
+  },
   "trade": {
     "statistic": {
       "p2UnitsText": {
@@ -144,9 +147,9 @@
         "subtitle_buy": "How many tokens of each type you want to buy",
         "minimize": "Set token1 amount to minimize fees",
         "amount1_placeholder": "Amount of tokens1 ({{symbolOrAsset}} — growth tokens)",
-        "amount2_placeholder": "Amount of tokens2 ({{symbolOrAsset}} — interest tokens)",
         "convert": "Immediately convert {{symbol2}} to stable token {{symbol3}}",
         "issue_will_receive": "will receive {{amount}} {{symbol}}",
+        "amount2_placeholder": "Amount of tokens2 ({{symbolOrAsset}} — interest tokens)",
         "fee": "Fee",
         "reward": "Reward",
         "price_change": "Price change",

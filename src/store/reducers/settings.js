@@ -17,7 +17,7 @@ const initialState = {
   wallets: [],
   activeWallet: null,
   recent: null,
-  lang: "en",
+  lang: null,
   recentList: [],
   exchanges: [],
   referrer: undefined,
