@@ -19,8 +19,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { addReferrer } from "store/actions/settings/addReferrer";
 import { firstVisit } from "store/actions/settings/firstVisit";
 import { langs, SelectLanguage } from "components/SelectLanguage/SelectLanguage";
+import { SocialIcons } from "components/SocialIcons/SocialIcons";
 
-const { Header, Content } = Layout;
+const { Header, Content, Footer } = Layout;
 
 export const MainLayout = ({ children, walletModalVisible, setWalletModalVisibility }) => {
   const { pathname, search, hash } = useLocation();
@@ -99,13 +100,14 @@ export const MainLayout = ({ children, walletModalVisible, setWalletModalVisibil
                 closable={true}
                 onClose={() => setActiveMenu(false)}
                 visible={activeMenu}
-                bodyStyle={{ padding: 0 }}
+                bodyStyle={{ padding: 0, overflowX: "hidden" }}
               >
                 <MainMenu
                   pathname={pathname}
                   onClose={() => setActiveMenu(false)}
                   mode="vertical"
                 />
+                <div style={{ paddingLeft: 7 }}><SocialIcons size="short" gaLabel="Mobile menu" /></div>
               </Drawer>
               
               {width < 990 && width >= 320 && pathname !== "/" && (
@@ -153,6 +155,9 @@ export const MainLayout = ({ children, walletModalVisible, setWalletModalVisibil
           </div>
         )}
       </Content>
+      <Footer>
+        <SocialIcons centered gaLabel="Footer" />
+      </Footer>
     </Layout>
   );
 };
