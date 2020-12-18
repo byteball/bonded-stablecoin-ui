@@ -536,7 +536,7 @@
         "for": "Para los inversores que buscan mayores ingresos, con mayores riesgos.",
         "info": "{{growthName}}: Moneda de crecimiento cuyo valor está vinculado a la cantidad de {{interestName}} emitida."
       },
-      "need_similar_coins": "Necesitas monedas similares vinculadas a {{other}} o algún otro activo? <3></3>Selecciona la tuya: <6>{peggedList.map((p) => (\n                <Option key={p} value={p}>\n                  {p}\n                </Option>\n              ))}</6> o <10>crea nuevas</10>."
+      "need_similar_coins": "Necesitas monedas similares vinculadas a {{other}} o algún otro activo? <3/> Selecciona la tuya: <6/> o <10>crea nuevas</10>."
     },
     "reasons": {
       "title": "007 razones por las que las monedas estables vinculadas son las mejores monedas estables de la historia",

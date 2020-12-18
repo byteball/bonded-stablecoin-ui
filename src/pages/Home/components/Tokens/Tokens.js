@@ -8,7 +8,7 @@ import growthIllustration from "./img/GRD.svg";
 
 import styles from "./Tokens.module.css";
 import { Link } from "react-router-dom";
-import handleViewport from "react-in-viewport/dist/lib/handleViewport";
+import handleViewport from "react-in-viewport";
 
 export const Tokens = () => {
   const [shown, setShown] = useState({
