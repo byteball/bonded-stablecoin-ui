@@ -1,6 +1,7 @@
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 import ru from "./ru.json"
+import es from "./es-ES.json"
 // import  translations  from "./translations";
 // the translations
 // (tip move them in a JSON file and import them)
@@ -11,7 +12,10 @@ i18n
     resources: {
       ru: {
         translation: ru
-      }
+      },
+      es: {
+        translation: es
+      },
     },
     lng: "en",
     keySeparator: ".", // we do not use keys in form messages.welcome

@@ -1,0 +1,704 @@
+{
+  "main_menu": {
+    "menu": "Menú",
+    "trade": "Intercambiar",
+    "buy": "Comprar monedas de intereses",
+    "referral": "Programa de Referidos",
+    "create": "Crear",
+    "how": "Cómo funciona",
+    "select_wallet": {
+      "placeholder": "Selecciona la dirección de tu billetera / wallet",
+      "no_found": "Ninguna billetera encontrada",
+      "btn": "Añadir"
+    }
+  },
+  "select_stablecoin": {
+    "placeholder": "Por favor selecciona una stablecoin / moneda estable",
+    "recent": "Reciente",
+    "other": "Otro",
+    "all": "Todo"
+  },
+  "trade": {
+    "statistic": {
+      "p2UnitsText": {
+        "inversed": "El precio mostrado es el precio del activo de reserva {{reserveSymbolOrAsset}} en términos de Moneda2 ({{symbol2orAsset}}).",
+        "not_inversed": "El precio mostrado es el precio de Moneda2 ({{symbol2OrAsset}}) en términos del activo de reserva {{reserveSymbol}}."
+      },
+      "token1_supply": {
+        "name": "Suministro de Monedas1",
+        "desc": "Suministro total de Moneda1 (monedas de crecimiento)"
+      },
+      "token2_supply": {
+        "name": "Suministro de Monedas2",
+        "desc": "Suministro total de Moneda2 (monedas de intereses)"
+      },
+      "token_stable_supply": {
+        "name": "Suministro de monedas estables",
+        "desc": "Suministro total de monedas estables"
+      },
+      "reserve": {
+        "name": "Reserva",
+        "desc": "Cantidad total de reserva bloqueada para respaldar la emisión de monedas T1 y T2"
+      },
+      "token1_price": {
+        "name": "precio {{symbol1}}",
+        "desc": "El precio actual de Moneda1 según la curva de bonos. Depende de los suministros de Moneda1 y Moneda2. El precio es mostrado en términos de la moneda de reserva."
+      },
+      "current_price": {
+        "name": "Precio actual",
+        "desc": "El precio actual según la curva de bonos. Depende de los suministros de Moneda1 y Moneda2. "
+      },
+      "target_price": {
+        "name": "Precio deseado",
+        "desc": "El precio Moneda2 está fijado a. Es el precio oracle más interés. "
+      },
+      "oracle_price": {
+        "name": "Precio oracle",
+        "desc": "Precio más reciente reportado por el oracle"
+      },
+      "show": "Mostrar info",
+      "hide": "Esconder info"
+    },
+    "tabs": {
+      "capacitor": {
+        "title": "Info de capacitadores",
+        "desc": "Los capacitores almacenan las comisiones cargadas por usuarios que movieron el precio lejos de la fijación. Se utilizan para premiar aquellos que mueven el precio de regreso a la fijación.",
+        "fast": {
+          "title": "Capacidad rápida",
+          "desc": "Esta capacidad está inmediatamente disponible para premiar usuarios que mueven el precio de regreso a la fijación."
+        },
+        "slow": {
+          "title": "Capacidad lenta",
+          "desc": "Esta capacidad está reservada para el futuro y será gradualmente movida a la capacidad rápida."
+        },
+        "time_until": {
+          "title": "Tiempo hasta el próximo movimiento",
+          "expired": "El tiempo ha caducado"
+        },
+        "move": {
+          "title": "Mover la capacidad al estanque rápido",
+          "desc": "La capacidad puede ser movida de la piscina lenta a la piscina rápida si el precio se desconecta de la fijación más de {{threshold_distance}}% y se queda allí más de {{hours}} h. {{minutes}} m.",
+          "btn": "Haz click para mover"
+        },
+        "name": "Capacitores"
+      },
+      "charts": {
+        "legend": "{{symbol}} precio (en {{currency}})",
+        "title": "Gráficos",
+        "name": "Gráficos"
+      },
+      "deposits": {
+        "no_auth": "Por favor agrega la dirección de tu billetera para ver/abrir depósitos.",
+        "opened": "Abierto",
+        "interest_title": "Monedas de intereses",
+        "interest_title_desc": "Cantidad de monedas de intereses",
+        "stable_title": "Monedas estables",
+        "stable_title_desc": "Cantidad de monedas estables emitidas contra el depósito",
+        "protection": "Protección (proporción)",
+        "protection_desc": "El depósito adicional en {{reserve}} que protege el depósito de ser cerrado por otros. El depósito con la menor proporción de protección para depositar cantidad puede ser cerrada por cualquiera. No hay pérdida directa para ti cuando tu depósito es cerrado pero tú dejas de recibir interés de él.",
+        "add_protection": "Agregar protección",
+        "withdraw_protection": "Protección de retiro",
+        "interest": "Interés",
+        "interest_desc": "Interés disponible para retiro",
+        "withdraw_interest": "Interés de retiro",
+        "interest_recipient": "Interés destinatario",
+        "interest_recipient_desc": "Quién recibe interés (depósito dueño por defecto)",
+        "you": "tú",
+        "edit_interest_recipient": "Editar interés destinatario",
+        "close": "Cerrar",
+        "for_empty": "No tienes ningún depósito abierto, por favor <2> abre uno nuevo</2> o cambia la dirección de tu billetera.",
+        "disabled": "Los depósitos están desactivados cuando no hay tasa de interés.",
+        "title": "Depósitos",
+        "open": "Depósito abierto",
+        "create": "Crear un depósito para intercambiar tu {{symbol2}} por monedas estables {{symbol3}} y periódicamente retirar interés en {{symbol3}} mientras acumula. Puedes comerciar {{symbol3}} en <9>Oswap.io</9> o <11>ODEX</11>.",
+        "protection_ratio": "Última proporción de protección cerrada forzadamente",
+        "close_info": "Un nuevo depósito no puede ser cerrado dentro de <1>{{hours}} horas</1> después de abierto.",
+        "name": "Depósitos"
+      },
+      "governance": {
+        "withdraw": {
+          "balance": "Tu {{symbol}} balance bloqueado en Agentes Autónomos gobernantes es {{balance}}.",
+          "fields": "Para poder retirar, necesitas remover el apoyo de estos campos",
+          "withdraw": "Retirar"
+        },
+        "no_auth": "Por favor agregar la dirección de tu billetera para participar en la gobernación",
+        "title": "Gobernación",
+        "desc": "Los portadores de {{symbol1}} pueden votar para cambiar varios parámetros de la moneda estables y asegurar su éxito. <2></2> el valor de {{symbol1}} crece a medida que más {{symbol2}} monedas son compradas.",
+        "change_parameters": "Cambiar parámetros",
+        "value": "Valor",
+        "support": "Apoyar",
+        "add_support": "añadir soporte para este valor",
+        "vote_for_this": "votar por este valor",
+        "current_value": "Valor actual",
+        "leader": "Líder",
+        "my_choice": "Mi elección",
+        "expires_period": "Período desafiante expira en",
+        "another_value": "sugerir otro valor",
+        "commit": "comprometer",
+        "remove_support": "remover soporte",
+        "name": "Gobernación"
+      },
+      "buy_redeem": {
+        "title_buy": "Comprar monedas",
+        "first": "Eres el primero en comprar monedas de esta stablecoin, entonces debes comprar moneda 1 y moneda 2 en el mismo momento.",
+        "subtitle_buy": "Cuantas monedas de cada tipo quieres comprar",
+        "minimize": "Establecer cantidad fe moneda1 para minimizar comisiones",
+        "amount1_placeholder": "Cantidad de monedas1 ({{symbolOrAsset}} — monedas de crecimiento)",
+        "convert": "Convertir inmediatamente {{symbol2}} a moneda estable {{symbol3}}",
+        "issue_will_receive": "recibirás {{amount}} {{symbol}}",
+        "amount2_placeholder": "Cantidad de monedas2 ({{symbolOrAsset}} — monedas de intereses)",
+        "fee": "Comisión",
+        "reward": "Recompensa",
+        "price_change": "Cambio de precio",
+        "price": "Precio",
+        "final_price": "Precio final",
+        "above_target": "arriba del objetivo",
+        "below_target": "por debajo del objetivo",
+        "send": "Enviar",
+        "protect": "1% fue añadido para proteger contra la volatilidad del precio, recibirás esta cantidad de vuelta si el precio no cambia.",
+        "redeem_will_receive": "Recibirás {{amount}} {{symbol}}",
+        "big_change": "La transacción cambiará mucho el precio, por favor intenta una cantidad menor",
+        "redeem": "Canjear",
+        "title_redeem": "Canjear moneda{{number}} {{symbol}}",
+        "name": "Comprar/canjear"
+      },
+      "parameters": {
+        "title_curve": "Curva",
+        "title_deposits": "Depósitos",
+        "title_governance": "Gobernación",
+        "edit": "editar",
+        "show_info": "Mostrar info",
+        "latest_value": "Último valor",
+        "tokens1": "Monedas1",
+        "asset": "activo",
+        "tokens2": "Monedas2",
+        "stable_tokens": "Monedas estables",
+        "title": "Parámetros de la stablecoin",
+        "view": "Ver en el explorador",
+        "title_autonomous_agents": "Agentes autónomos",
+        "title_tokens": "Monedas",
+        "title_capacitor": "Capacitor",
+        "name": "Parámetros"
+      }
+    }
+  },
+  "modals": {
+    "add_protection": {
+      "title": "Añadir proteger al depósito",
+      "btn": "Agregar protección"
+    },
+    "common": {
+      "close": "Cerrar",
+      "amount": "Cantidad",
+      "add": "Agregar",
+      "check": "Revisar",
+      "edit": "Editar",
+      "open": "Abrir",
+      "done": "Hecho"
+    },
+    "add_wallet": {
+      "title": "Agregar billetera",
+      "desc": "Introduce tu dirección de billetera Obyte. Si no tienes una billetera Obyte aún, <2>instalar</2> aquí.",
+      "wallet_address": "Dirección de billetera"
+    },
+    "change_param": {
+      "valid": {
+        "fee_multiplier": "El valor del parámetro multiplicador de comisión debe ser mayor que {{value}}",
+        "moved_capacity_share": "El valor del parámetro acción_decapacidad_movida (como porcentaje) debe ser en el rango de 0 a 100",
+        "threshold_distance": "El valor del parámetro umbral_distancia debe estar entre el rango de 0 a 0.2",
+        "move_capacity_timeout": "El valor del parámetro capacidad_movida_tiempoacabado debe ser un entero mayor a 0",
+        "slow_capacity_share": "El valor del parámetro acción_capacidad_lenta (como porcentaje) debe estar en el rango entre 0 y 100",
+        "interest_rate": "El valor del parámetro tasa_interés (como porcentaje) debe ser mayor o igual a 0",
+        "min_deposit_term": "El valor del parámetro depósito_min_periodo debe ser un entero mayor o igual a 0",
+        "challenging_period": "El valor del parámetro período_desafiante debe ser un entero mayor o igual a 0",
+        "challenge_immunity_period": "El valor del parámetro período_inmunidad_desafio debe ser un entero mayor o igual a 0",
+        "reporter_share": "El valor del parámetro acción_reportera (como porcentaje) debe estar en el rango entre 0 y 100"
+      },
+      "title": "Cambiar {{param}}",
+      "add_support": "Añadir soporte",
+      "vote": "Votar",
+      "your_support_value": "Tu apoyo en favor de",
+      "param_value": "Valor de parámetro",
+      "your_balance": "Tu balance actual en la gobernación AA",
+      "add_more": "Añadir más (opcional)",
+      "count_tokens": "Cantidad de tokens1 ({{symbol}})",
+      "your_supported_value": "Tu valor apoyado es",
+      "total_support": "Apoyo total para este valor",
+      "your_support": "Tu apoyo a este valor"
+    },
+    "edit_recipient": {
+      "title": "Editar recibidor de interés",
+      "select": "Seleccionar recibidor de interés",
+      "new_address": "Dirección del nuevo recibidor de interés",
+      "add_your_own": "Añade el tuyo",
+      "me": "Yo"
+    },
+    "open_deposit": {
+      "title": "Depósito abierto",
+      "amount": "Cantidad de T2 ({{symbol}})",
+      "will_receive": "en 30 días recibirás ~{{count}} monedas estables",
+      "will_receive_plural": "en 30 días recibirás ~{{count}} monedas estables"
+    },
+    "oracle_info": {
+      "title": "Info del Oracle",
+      "address": "Dirección",
+      "name": "Nombre",
+      "desc": "Descripción",
+      "no_desc": "no descripción",
+      "no_info": "No hay información sobre este oracle"
+    },
+    "select_wallet": {
+      "title": "Seleccionar billetera"
+    },
+    "supportList": {
+      "title": "Colaboradores"
+    },
+    "withdraw": {
+      "title": "Retirar apoyo",
+      "withdraw": "Retirar",
+      "amount_info": "Deja vacío si quieres retirar la cantidad entera",
+      "amount_placeholder": "Monto de retiro (Max:{{max}})"
+    },
+    "withdraw_protection": {
+      "title": "Retirar protección del depósito",
+      "withdraw_protection": "Retirar protección",
+      "max_withdrawal": "Max. retiro"
+    }
+  },
+  "buy": {
+    "title": "Comprar monedas de intereses",
+    "desc": "Comprar monedas ganadoras de interés (IUSD, IBIT, etc) por cualquier crypto en un paso fácil.",
+    "exchange_success": "El intercambio se añadió exitosamente a la lista y espera por el pago",
+    "exchange_error": "Un error ocurrió, por favor intenta de nuevo más tarde",
+    "exchange_warning": "Servicio de intercambio de {{currency}}-a-GBYTE está temporalmente no disponible, por favor paga con GBYTE o intenta de nuevo más tarde.",
+    "you_send": "Tú <1>envías</1>",
+    "amount": "Cantidad",
+    "currency_to_pay": "Moneda a pagar",
+    "popular_cryptocurrencies": "Criptomonedas populares",
+    "others": "Otros",
+    "better_rate": "Obtienes una tasa mejor si pagas en GBYTE",
+    "you_get": "Tú <1>obtienes</1>",
+    "will_receive": "La moneda que recibirás",
+    "first_exchanged": "Tu <1>{{activeCurrency}}</1> será intercambiada primero por GBYTE, luego GBYTE convertidos a {{symbol}}. El intercambio entre <8>{{activeCurrency}}</8> a GBYTE es hecho por <12>simpleswap.io</12>.",
+    "compensates": "Obyte compensa parte de las comisiones del exchange (casa de cambio).",
+    "compensates_depleted": "Obyte compensa parte de las comisiones del exchange, pero la cuota de hoy ya está agotada y el precio estimado incluye todas las comisiones. Para tener una tasa mejor, intenta de nuevo después que la cuota se reinicie a medianoche UTC o compra con GBYTE ahora.",
+    "install": "<0>Instala la billetera de Obyte</0> si no tienes una todavía, y copia/pega tu dirección aquí.",
+    "volatility": "1% fue añadido para proteger contra la volatilidad del precio, obtendrás esta cantidad de vuelta si el precio no cambia.",
+    "open_wallet": "Clickear en “Comprar” abrirá tu billetera Obyte. <1>Instalala</1> si no tienes una todavía.",
+    "buy": "Comprar",
+    "min": "Lo sentimos, la cantidad mínima de {{activeCurrency}} es {{min}}. Por favor incrementa la cantidad de {{activeCurrency}}.",
+    "buying_growth": "Para comprar monedas de crecimiento (GRD, GRB, etc) y su redención, va a la <2>página de comercio</2>.",
+    "updated": "Esta página se actualizará automáticamente",
+    "status": "Estado",
+    "status_loading": "cargando estado...",
+    "send_to_address": "Enviar <1>{{currency_from}}</1> a la dirección: ",
+    "recipient_address": "Dirección recibidora",
+    "currently_converting": "Actualmente convirtiendo <1>{{currency_from}}</1> a GBYTE, este paso lo lleva a cabo simpleswap.io. Para temas de soporte, por favor contáctalos en su <3>página de estado</3>.",
+    "go_back": "Ir atrás al formulario"
+  },
+  "create": {
+    "next": "Siguiente",
+    "received": {
+      "title": "Petición recibida",
+      "subTitle": "Una vez que la transacción es estable, serás redireccionado a la página de la nueva moneda estable",
+      "close": "Cerrar"
+    },
+    "sending_request": {
+      "title": "¡Casi listo!",
+      "subTitle": "Por favor haz click en el botón «Crear» debajo, este abrirá tu billetera Obyte y enviarás una transacción que creará la nueva moneda estable.",
+      "create": "Crear",
+      "reset": "Reiniciar"
+    },
+    "edit_oracles": "editar oracles",
+    "last_posted": "Último precio publicado por el Oracle ",
+    "target_price": "Precio objetivo",
+    "check": "Chequear oracles",
+    "allow": "permitir",
+    "disallow": "rechazar",
+    "title": "Crear",
+    "steps": {
+      "curve": "Curva",
+      "capacitor": "Capacitor",
+      "governance": "Gobernación",
+      "create": "Crear"
+    },
+    "setting": "Establecer parámetro",
+    "sending": "Enviar una petición",
+    "required": "Campo requerido"
+  },
+  "params": {
+    "leverage": {
+      "name": "Apalancamiento",
+      "desc": "Apalancamiento aplicado a la Moneda2. Usa 0 (el predeterminado) para traquear el precio del oracle. Usa valores positivos para crear un activo que representa posiciones largas apalancadas en el activo de reserva, valores negativos para posiciones cortas apalancadas."
+    },
+    "decimals1": {
+      "name": "Decimales 1",
+      "desc": "Decimales de Moneda1 (moneda de crecimiento)"
+    },
+    "decimals2": {
+      "name": "Decimales 2",
+      "desc": "Decimales de la Moneda2 (moneda de interés, o moneda estable si el interés es 0)"
+    },
+    "reserve_decimals": {
+      "name": "Decimales de reserva",
+      "desc": "Decimales de las unidades del activo de reserva."
+    },
+    "m": {
+      "desc": "Poder m en la curva de unión r=s<1>1</1> <2>m</2> s<4>3</4><5>n</5>"
+    },
+    "n": {
+      "desc": "Poder n en la curva de unión r=s<1>1</1> <2>m</2> s<4>2</4><5>n</5>"
+    },
+    "reserve_asset": {
+      "name": "Activo de reserva",
+      "desc": "Activo usado como reserva para respaldar la emisión de Moneda1 y Moneda2. GBYTE es la predeterminada."
+    },
+    "interest_rate": {
+      "name": "Tasa de interés",
+      "desc": "Tasa de interés que Moneda2 gana sobre la moneda estable. Tipo 0.1 por 10%."
+    },
+    "moved_capacity_share": {
+      "name": "Acción de capacidad movida",
+      "desc": "Parte del capacitor lento que es movido al capacitor rápido después de expirar el tiempo."
+    },
+    "fee_multiplier": {
+      "name": "Multiplicador de comisión",
+      "desc": "El multiplicador usado para calcular las comisiones cobradas por mover el precio alejado de la fijación. Mientras más grande es el multiplicador, más grandes sin las comisiones pagadas por usuarios por mover el precio fuera de fijación."
+    },
+    "move_capacity_timeout": {
+      "name": "Tiempo expirado de mover capacidad",
+      "desc": "Cuanto esperamos (en segundos) antes de mover parte de la capacidad lenta hacia la rápida."
+    },
+    "threshold_distance": {
+      "name": "Distancia de umbral",
+      "desc": "Distancia de umbral desde el precio objetivo que activa la cuenta atrás antes de mover fondos desde el capacitor lento al rápido."
+    },
+    "slow_capacity_share": {
+      "name": "Acción de capacidad movida",
+      "desc": "Parte de las comisiones que va al capacitor lento. El resto va al capacitor rápido."
+    },
+    "min_deposit_term": {
+      "name": "Plazo de depósito mínimo",
+      "desc": "Plazo de depósito mínimo en segundo. Durante este periodo, el depósito no puede cerrarse."
+    },
+    "challenging_period": {
+      "name": "Período de desafío",
+      "desc": "El período en segundos cuando un intento de cierre de depósito puede ser desafiado. El depósito con la menor protección puede ser cerrado por cualquier persona, no sólo por el propietario. Un intento de cerrarlo inicia un periodo desafiante durante el cual el cierre puede ser desafiado indicando otro depósito con aún menos protección. En este caso, el reportero gana parte de la cantidad del depósito mientras que el cerrador pierde."
+    },
+    "challenge_immunity_period": {
+      "name": "Período de inmunidad del desafío",
+      "desc": "El período adicional en segundos durante el cual un depósito no puede ser utilizado para desafiar el cierre de otros depósitos. Este período se aplica después del plazo de depósito mínimo y después de la última retirada de protección del depósito menos protegido."
+    },
+    "reporter_share": {
+      "name": "Cuota reportera",
+      "desc": "La parte de la cantidad del depósito pagada a los usuarios que reportan intentos de cierre inválidos cuando un depósito a cerrar no es el menos protegido."
+    },
+    "oracles": {
+      "name": "Oracles",
+      "desc": "Los oracles que reportan el precio de la moneda estable"
+    },
+    "oracle1": {
+      "name": "Oracle 1",
+      "desc": "La dirección del oracle que reporta el precio de la moneda estable"
+    },
+    "feed_name1": {
+      "name": "Nombre del alimentador 1",
+      "desc": "Nombre del alimentador de datos del oráculo"
+    },
+    "op1": {
+      "name": "Operación 1",
+      "desc": "Cómo se interpreta el precio del oracle: utiliza '*' si el oracle reporta el precio de la moneda de reserva en términos de la moneda estable (este es el valor predeterminado). Utiliza '/' si es la inversa, e.j. el precio de la moneda estable en términos del activo de reserva."
+    },
+    "oracle2": {
+      "name": "Oracle 2",
+      "desc": "Segundo oracle opcional. Úsalo si quieres multiplicar o dividir precios de diferentes activos. Ej. para crear una moneda estable fijada a TSLA, necesitas dividir 2 alimentadores de precios: GBYTE/USD y TSLA/USD."
+    },
+    "feed_name2": {
+      "name": "Nombre del alimentador 2",
+      "desc": "Nombre del segundos alimentador de data del oracle."
+    },
+    "op2": {
+      "name": "Operación 2",
+      "desc": "Qué hacer con el segundo precio: multiplicar o dividir."
+    },
+    "oracle3": {
+      "name": "Oracle 3",
+      "desc": "Tercer oracle opcional, como el segundo."
+    },
+    "feed_name3": {
+      "name": "Nombre del alimentador 3",
+      "desc": "Nombre del tercer alimentador de datos del oráculo."
+    },
+    "op3": {
+      "name": "Operación 3",
+      "desc": "Qué hacer con el tercer precio: multiplicar o dividir."
+    },
+    "allow_grants": {
+      "name": "Permitir subvenciones",
+      "desc": "Si permitir el pago de subvenciones a equipos que prometen promover el uso de la moneda estable. Las subvenciones son votadas por los titulares de la Moneda2 y, si se aprueban, diluyen a los titulares de la Moneda2."
+    },
+    "allow_oracle_change": {
+      "name": "Permitir cambio de oracle",
+      "desc": "Si permitir la actualización de los oracles por los titulares de la Moneda2 votar después de que se crea la AA de la moneda estable."
+    },
+    "regular_challenging_period": {
+      "name": "Periodo de desafío regular",
+      "desc": "Período de desafío (en segundos) para los votos de los titulares de la Moneda2 sobre temas regulares."
+    },
+    "important_challenging_period": {
+      "name": "Periodo desafiante importante",
+      "desc": "Período de desafío (en segundos) para los votos de los titulares de la Moneda1 sobre temas importantes como el cambio de un oracle."
+    },
+    "freeze_period": {
+      "name": "Período de congelación",
+      "desc": "Cuánto tiempo (en segundos) se congelan las monedas de voto de los seguidores de la opción ganadora después de tomar la decisión."
+    },
+    "proposal_min_support": {
+      "name": "Apoyo mínimo a propuestas",
+      "desc": "Qué porcentaje de la oferta total de la Moneda1 debería votar a favor de una propuesta de subvención para que la propuesta sea elegible para ganar."
+    }
+  },
+  "faq": {
+    "questions": {
+      "0": {
+        "question": "¿Cómo compro/vendo IUSD o GRD?",
+        "answer": "<0>Puedes comprar o vender las monedas por GBYTE en la <1>página de intercambio</1> o comprar IUSD de una página de monedas de interés <3>simple de este sitio web</3>. El sitio web te ayuda a construir una solicitud que envías a un <5>Agente Autónomo</5> desde tu billetera <7>Obyte</7>. </0><1>Algunos exchanger (casas de cambio) también pueden listar las monedas para permitirte comprar/venderlos por BTC o fiat.</1>"
+      },
+      "1": {
+        "question": "¿Cómo compro/vendo OUSD?",
+        "answer": "<0>Puedes comprar IUSD primero, luego abre un <1>depósito</1> para recibir la cantidad equivalente OUSD. Mientras el depósito está abierto, puedes también periódicamente retirar el interés acumulado (16% p.a.) o elegir una organización de caridad o tu amigo o familiar que recibirá el interés. Cuando ya no necesites OUSD, puedes cerrar el depósito, recibir tu IUSD de vuelta, luego vender IUSD.</0><1> Algunos exchanges (casas de cambio) pueden listar OUSD para habilitarte a comprar/vender la moneda por BTC o metálico (fiat).</1>"
+      },
+      "2": {
+        "question": "Mi depósito fue cerrado, ¿por qué?",
+        "answer": "<0>Probablemente no tenía suficiente protección. Un depósito con la menor protección puede ser cerrado por cualquiera enviando la cantidad requerida de OUSD. No pierdes nada cuando tu depósito es cerrado ya que ya has recibido tu OUSD pero dejas de recibir intereses. Para proteger tu deposito y evitar el cierre, debes añadir algo de GBYTE al depósito en la <1>página de depósitos</1>.</0>"
+      },
+      "3": {
+        "question": "¿Quién realiza la acuñación de todas estas monedas?",
+        "answer": "<0>Un puñado de agentes sin alma. Se les llama <1>Agentes autónomos</1> (AAs). Son verdaderamente autónomos que significa que nadie puede interferir en su trabajo.</0>"
+      },
+      "4": {
+        "question": "¿Los AAs son contratos inteligentes?",
+        "answer": "<0>No, no son <1>contratos inteligentes</1>. No son ni inteligentes, ni contratos, son programas tontos que siguen ciegamente las reglas inmutables.</0>"
+      },
+      "5": {
+        "question": "IUSD crece constantemente gracias a los intereses. Asumiendo que esto atrae a nuevos usuarios, GRD también debería crecer y ganan ambos titulares de monedas, ¿quién pierde entonces?",
+        "answer": "<0>No es una suma cero. En la curva de unión que se utiliza para emitir las monedas, el valor total de las monedas es mayor que el valor de la reserva que se invirtió inicialmente para crearlas. Así que, sí, es posible que cada grupo gane en términos del valor de sus activos, y no a expensas del otro grupo. </0>"
+      },
+      "6": {
+        "question": "¿Este sistema se ejecuta en un blockchain?",
+        "answer": "<0>No. Funciona en un editor distribuido basado en DAG (Acyclic Graph). </0><1>Un blockchain sería significativamente menos adecuado para una moneda estable como este porque las blockchains tienen bloques y mineros. Los mineros podrían manipular el orden de las transacciones dentro de un bloque con el fin de colocar su propia transacción ante de la tuya para que recibas un precio peor al comprar de una curva de unión o vender a ella. Incluso los no mineros pueden afectar el orden de las transacciones dentro de un bloque ofreciendo una comisión ligeramente más alta a un minero (que funciona como un soborno). Esto podría exponer a los usuarios a una incertidumbre significativa, riesgos y pérdidas.</1><2>Las Monedas estables vinculadas funcionan en <1>Obyte</1> &mdash; un editor DAG sin mineros. En un DAG estos trucos no funcionan. No hay mineros, no hay bloques, las posiciones de las transacciones en el DAG no pueden ser cambiadas por nadie, y es imposible para cualquier actor manipular el orden de las transacciones. </2>"
+      },
+      "7": {
+        "question": "¿Qué hace que las monedas estables estén fijadas a su referencia?",
+        "answer": "<0>El precio de IUSD es “atraído” al objetivo (punto de referencia) con la ayuda de un así llamado capacitor. </0><1>Cada compra de IUSD o GRD de la curva de unión y cada venta a la curva de unión afectan al precio de IUSD. Si una transacción empuja el precio lejos del objetivo, es \"castigado\" con una comisión, cuanto más lejos esté el objetivo, más alta la comisión. Las tasas recogidas se acumulan en un capacitor. Cada transacción que corrige el precio de vuelta al objetivo, es recompensada usando los fondos acumulados en el capacitor. </1><2>Debido al tipo de curva de unión elegida, son los titulares de GRD los primeros en reaccionar a cualquier desviación del precio del objetivo y corregirlos. Por ejemplo, cuando mucha gente compra IUSD, ellos tiran el precio de IUSD por debajo de la fijación (porque la potencia de la moneda IUSD en la fórmula de la curva es de 1 a 2, e.j. Menos de 1, de ahí su derivado parcial tiene poder negativo). Hay dos maneras de corregir la desviación: vender IUSD de vuelta a la curva, que no es una buena idea porque su precio está actualmente por debajo del precio justo; o comprar más monedas GRD. Al comprar más monedas GRD, los comerciantes empujan el precio GRD hacia arriba (porque el poder en la fórmula de la curva es 2, e.j. más de 1, de ahí su derivado parcial tiene poder positivo), por lo tanto, uno que compra antes obtiene un mejor precio y los comerciantes se apresuran a ser los primeros en comprar, mientras que el precio sigue estando por debajo del equilibrio. </2><3>Lee el <1> artículo del blog que introduce las monedas estables vinculadas</1> para más detalles.</3>"
+      },
+      "8": {
+        "question": "¿Cuáles son los riesgos?",
+        "answer": "<0>Esta es una nueva tecnología no probada y podría no funcionar como se esperaba. Aunque hicimos todo lo posible para evitar errores al implementar el sistema y analizar los incentivos de los diferentes grupos de usuarios, no se pueden excluir errores técnicos ni conclusiones erróneas sobre el comportamiento del usuario en algunas circunstancias. Nada de esto se ha hecho antes y por desgracia no pudimos ganar mucho con la experiencia de los predecesores.</0>"
+      },
+      "9": {
+        "question": "¿Cómo son las monedas estables vinculadas diferentes de DAI, USDT, USDC, etc?",
+        "answer": "<0>Uno puede ganar intereses con monedas estables vinculadas. Uno puede obtener IUSD, inmediatamente ponerlo en un depósito, obtener OUSD a cambio, usarlo para pagos en una moneda estable mientras que los pagos de intereses se acumulan, y retirar intereses de vez en cuando. </0><1>Uno también puede redirigir el interés a una buena causa, por ejemplo, a una caridad.</1>"
+      },
+      "10": {
+        "question": "¿Cómo se comparan las monedas estables vinculadas con las monedas estables de descuento?",
+        "answer": "<0>Las monedas estables vinculadas es nuestra próxima generación de diseño de monedas estables y mejora por encima de <1>monedas estables descontadas</1> en virtualmente todas las dimensiones. En particular:</0><1><0>- las monedas estables vinculadas ya no caducan, son para siempre. </0><1>- OUSD es verdaderamente estable, no hay apreciación, apunta a la familiar y bien establecida unidad de cuenta, USD. </1><2>- Ya no hay subastas y los usuarios no necesitan cuidar de sus préstamos y rellenar garantías o arriesgan perder su garantía cuando su precio cae abruptamente. </2><3>- ya no hay exceso de colateralización, lo que normalmente era malentendido. </3><4>- no hay necesidad de equilibrar los riesgos con la cantidad de capital desperdiciado en exceso de garantía.</4></1>"
+      },
+      "11": {
+        "question": "¿Puedo operar con apalancamiento?",
+        "answer": "<0>Sí. Tendrás que crear una moneda estable apalancada o usar una que otra persona ya ha creado. </0><1>Una moneda estable apalancada es una moneda sintética que rastrea el precio de un activo a la potencia de 2 (para apalancamiento de 2x), 3 (para apalancamiento de 3x), -1 (para una posición corta), -2 (para una posición corta apalancada de 2x), etc. </1><2>Por ejemplo, mientras el Crudo Brent vale $40, una moneda estable de apalancamiento 2x BRENT2/USD vale 1600. Si el Brent sube 25% a $50, BRENT2/USD sube a 2500 &mdash; a 56.25% de ganancia.</2><3>Podría parecer inusual llamar a esas monedas \"monedas estables\" pero son estables en relación a un \"precio\" artificial como el Brent cuadrado. Al final, todo es relativo, incluida la estabilidad.</3><4>Cuando <2>creas una nueva moneda estable</2>, necesitas especificar el parámetro de apalancamiento deseado. Es 0 por defecto, lo que para el alimentador de precio GBYTE/USD significa rastrear el precio del USD. El apalancamiento 1 significaría una posición simple y larga en GBYTE (que es equivalente a mantener la moneda de reserva GBYTE), apalancamiento 2 significaría 2x posición apalancada en GBYTE vs USD, apalancamiento 3 &mdash; 3x posición larga en GBYTE, apalancamiento -1 &mdash; posición corta en GBYTE, y así sucesivamente. </4><5>Ten en cuenta que con este tipo de apalancamiento, no puedes ser llamado a un ajuste de margen y liquidado.</5><6>Para más detalles, visita <1>nuestro blog introduciendo monedas estables descontadas</1> .</6>"
+      },
+      "12": {
+        "question": "Quiero intercambiar una moneda estable vinculada al activo X pero no existe",
+        "answer": "<0>Si ya existe un oracle que publica el precio de X, ¡puedes <1>crear la moneda estable correspondiente</1>enseguida! </0><1>Si aún no hay tal oracle - crea el oracle. No obstante, tienes que ser un desarrollador. Hay fuentes de <1>ejemplo oracle</1> para ayudarte a empezar. Si no eres un desarrollador y no puedes contratar uno, indica tu demanda en el <3>Discord de Obyte</3>.</1>"
+      }
+    },
+    "action": "¿Alguna otra pregunta? Lee el <1>artículo introductorio </1> o haz una pregunta en <3>Discord</3>."
+  },
+  "home": {
+    "built_on_obyte": {
+      "title": "Hecho en Obyte",
+      "info": "<0>Todas estas monedas se emiten en <1>Obyte</1> &mdash; una de las primeras redes de criptos basadas en DAG funcionando desde 2016. Obyte es el primer DAG <3>descentralizada completamente</3> y el primer DAG que soporta dapps, DeFi en particular. </0><1>El equipo Obyte ha desarrollado varios productos únicos como <1>textcoins</1> (que permiten enviar criptomonedas al correo electrónico), <3>identidad autosoberana</3>, moneda imposible de rastrear <5>blackbytes</5>, y muchos otros. Los Monedas estables vinculadas también fueron desarrollados por el equipo Obyte y son un tipo completamente nuevo de monedas estables que se basan en curvas de unión &mdash; mira <7>cómo funciona</7>. </1><2>Usando un DAG en lugar de blockchain, las monedas estables vinculados evita los problemas de la cadena de bloques tales como ataques que ejecutan frontalmente: tanto el frontral por los mineros como el frontal por los usuarios sobornando a los mineros con comisiones &mdash; simplemente no hay mineros u otros intermediarios en un DAG. </2>"
+    },
+    "header": {
+      "title": "Monedas estables vinculadas",
+      "desc": "Las monedas estables más avanzadas alimentadas por curvas de unión",
+      "stable": {
+        "for": "Para uso en comercio e intercambio.",
+        "info": "{{name}}: Moneda estable cuyo valor es 1 {{target}}."
+      },
+      "btn_buy": "Comprar {{token}}",
+      "interest": {
+        "for": "Para los inversores que buscan ingresos predecibles.",
+        "info": "{{name}}: Token de interes que gana {{percent}}% de intereses en {{type}} — una moneda estable+."
+      },
+      "growth": {
+        "for": "Para los inversores que buscan mayores ingresos, con mayores riesgos.",
+        "info": "{{growthName}}: Moneda de crecimiento cuyo valor está vinculado a la cantidad de {{interestName}} emitida."
+      },
+      "need_similar_coins": "Necesitas monedas similares vinculadas a {{other}} o algún otro activo? <3></3>Selecciona la tuya: <6>{peggedList.map((p) => (\n                <Option key={p} value={p}>\n                  {p}\n                </Option>\n              ))}</6> o <10>crea nuevas</10>."
+    },
+    "reasons": {
+      "title": "007 razones por las que las monedas estables vinculadas son las mejores monedas estables de la historia",
+      "info": {
+        "0": "100% cripto respaldadas: no hay necesidad de confiar en ningún custodio o intermediario.",
+        "1": "No hay sobre colateralización: pagas 1 USD de valor de GBYTE para obtener 1 USD de valor de monedas estables, claro y simple.",
+        "2": "Viven en un DAG: sin mineros, sin bloques, sin manipulación de mineros, sin sobornar a los mineros con comisiones.",
+        "3": "Pagan intereses: hay monedas de pago de intereses y depósitos junto con las monedas estables. Es más, puedes ayudar a una buena causa dirigiendo el interés hacia una organización benéfica.",
+        "4": "Hay un grupo de personas -los titulares de GRD- que tienen piel en juego ya que su riqueza depende del éxito del ecosistema. Son capaces de tomar decisiones de gobierno que mantengan la estabilidad de las monedas estables, líquidas y ampliamente utilizadas.",
+        "5": "Sobreviven a cualquier volatilidad, incluso a grandes movimientos abruptos del precio de los activos de reserva. No llamadas al margen, no liquidaciones.",
+        "6": "¡Tienen un nombre genial!"
+      }
+    },
+    "tokens": {
+      "interest": {
+        "title": "IUSD — moneda de interés que gana un 16% de interés en USD",
+        "info": "<0>Empezó exactamente a 1 USD el 22 de septiembre de 2020 y el precio de la moneda crece al 16 % anual. En un año, se espera que sea de $1.16, en dos años &mdash; $1.3456, si la tasa de interés permanece igual (puede ser cambiada por los tenedores de GRD). Es una moneda <1>estable+</1>. </0><1>Las monedas estables + se programan para seguir el precio objetivo creciente, lo hacen gracias a las mecánicas de la curva, y los programas no se pueden cambiar. </1><2>Puedes comprar IUSD y mantenerlo. O puedes comprar IUSD, <2>ponerlo en un depósito</2>, obtener una cantidad equivalente de OUSD a cambio y retirar periódicamente el interés acumulado en OUSD. También puede redirigir el interés a otra persona, e.j. a una organización benéfica u otra sin fines de lucro (Asociación de Estonia de Criptomonedas, Fundación Obyte y <4>Pollo</4> ya están inscritos como destinatarios sugeridos).</2>",
+        "btn": "Comprar IUSD monedas de interés"
+      },
+      "stable": {
+        "title": "OUSD — una moneda estable fijada al USD",
+        "info": "<0>OUSD es esencialmente IUSD con pagos de intereses eliminados. Su precio se mantiene cerca de 1 USD &mdash; porque está programado, y los programas no se pueden cambiar. </0><1>OUSD es una unidad de cuenta familiar más adecuada para pagos. A diferencia de USD, puede moverse libremente e instantáneamente a través de las fronteras, y las tarifas son fracciones de un céntimo. </1><2>La obtienes <1>depositando</1> IUSD, o puedes comprarla en el mercado, o puedes recibirla como pago por bienes y servicios.</2>",
+        "btn": "Comprar OUSD moneda estable"
+      },
+      "growth": {
+        "title": "GRD — moneda de crecimiento y gobernación",
+        "info": "<0>El precio de GRD depende de la popularidad del IUSD (y por lo tanto de OUSD). A medida que se emiten más monedas IUSD, el precio de GRD crece programáticamente — esto se desprende de los mecanismos de la curva de unión. Cuando las monedas IUSD son canjeados, el GRD cae en el precio. </0><1>Los titulares del GRD pueden <1>votar</1> para ajustar la tasa de interés y varios parámetros del ecosistema que son importantes para mantener la fijación. Los titulares de GRD pueden incluso votar para contratar un equipo de gestión encargado de promover el uso de OUSD &mdash; lo que afecta directamente al precio del GRD. </1><2>GRD proviene de <1>gr</1>owth <3>d</3>olar, no de <5>gr</5>ee<7>d</7> como algunos podrían pensar.</2>",
+        "btn": "Comprar monedas de crecimiento GRD"
+      }
+    }
+  },
+  "how_it_works": {
+    "title": "Cómo funciona",
+    "desc": "Hay algunas matemáticas detrás de todo esto. Las monedas IUSD y GRD existen en una <1>curva de unión</1>, que es una fórmula matemática que conecta las cantidades de las monedas IUSD y GRD emitidos con la cantidad de la moneda de reserva <5>&mdash; Bytes &mdash;</5> usados para emitirlos.",
+    "formula": "La fórmula es como: <2><0>r</0> = <2>S</2><3>1</3><4>2</4> <6>S</6><7>2</7><8>1/2</8></2>,",
+    "where": "donde:<1><0>- <1>r</1> es la cantidad total de reserva GBYTE bloqueada para emitir ambas monedas; </0><1>- <1>s</1><2>1</2> es el suministro total de moneda1 — GRD;</1><2>- <1>s</1><2>2</2> es el suministro total de moneda2 — IUSD. </2></1>",
+    "curve": "<0>Eso es, para emitir más monedas GRD o IUSD, es necesario bloquear alguna reserva en GBYTE, y cuando uno quiere canjear GRD o IUSD, ellos obtienen una parte de la reserva de vuelta. Los precios de GRD e IUSD, e.j. cuánta reserva se necesita pagar por moneda, o puede recuperarse por moneda, depende de los suministros actuales de las monedas. </0><1>¿Cómo se mantiene la fijación? Hay un precio objetivo de IUSD que es de 1 USD más interés acumulado desde su inicio. El precio objetivo es conocido por el precio GBYTE/USD reportado por un oracle que alimenta los datos de las bolsas de criptomonedas y el tiempo transcurrido desde el lanzamiento de la moneda estable. Siempre que alguien quiera comprar o vender IUSD o GRD tal que esta transacción alejaría el precio IUSD del objetivo, Tienen que pagar una comisión. Cuanto más lejos del objetivo, más grande será la comisión. Por el contrario, cada vez que alguien empuja el precio más cerca del objetivo, obtiene una recompensa, que se paga de las comisiones acumuladas anteriormente.</1>",
+    "capacitor": "Este mecanismo se llama un <1>capacitor</1>. Se “carga” con comisiones cuando los operadores mueven el precio lejos del objetivo, y libera la carga para recompensar a aquellos que acerquen el precio al objetivo.",
+    "agents": "<0>Todo esto está operado por varios <1><0>Agentes Autónomos</0></1> que son programas que funcionan en <3>Obyte</3> editor distribuido, hacen las matemáticas rápidamente (son buenos en matemáticas, a diferencia de algunas personas), y nunca pueden ser cambiados por nadie. </0><1>Todas las transacciones son transparentes, rápidamente verificadas por varios computadores operados de forma independiente, y nunca pueden ser revertidas. No hay seres humanos falibles que puedan interferir en el trabajo de los Agentes Autónomos, ningún banquero fraudulento que pueda huir con tu dinero, perderlo por una mala inversión o pagarlo a ellos mismos como una bonificación trimestral. Las monedas no se pueden imprimir a voluntad, se emiten estrictamente en contra de la reserva, estrictamente de acuerdo con la fórmula arriba mencionada. La reserva es almacenada por un agente autónomo y sólo puede ser retirada a cambio de las monedas, de nuevo estrictamente de acuerdo a la fórmula de la curva de unión. </1>",
+    "read": "Lee una <1>introducción más completa de las monedas estables vinculadas</1> en nuestro blog."
+  },
+  "reg_symbol": {
+    "available": "El nombre de símbolo {{value}} está disponible, puedes registrarlo",
+    "taken": "Este nombre de moneda ya está en uso. Esto iniciará una disputa",
+    "title": "Registrar símbolos",
+    "step": "Símbolo para monedas{{token}}",
+    "step_stable": "Símbolo para monedas estables",
+    "taken_desc": "Esta moneda estable ya tiene un símbolo {{symbol}} asignado a ella. Intentar asignar un nuevo símbolo iniciará un proceso de disputa que puede tardar más de 30 días. El símbolo que obtiene más apoyo (en términos de depósitos GBYTE) finalmente gana.",
+    "symbol": "Símbolo",
+    "placeholder_support": "Apoyar (Monto mínimo 0.1 GB)",
+    "placeholder_desc": "Descripción de un activo (hasta 140 caracteres)",
+    "check_availability": "Comprobar disponibilidad",
+    "register": "Registrar",
+    "register_anyway": "Registrar de todos modos",
+    "skip": "Omitir"
+  },
+  "ref": {
+    "address": "Dirección",
+    "usd_balance": "Saldo USD",
+    "title": "Programa de Referidos",
+    "next_payment": "El próximo pago será el ",
+    "expected_reward": "Tu recompensa esperada es",
+    "you_were_referred": "Has sido recomendado por {{referrer_address}} y esto incluye una recompensa por tu propio saldo {{balance}}.",
+    "your_link": "Este es tu enlace de referidos",
+    "clipboard_link": "Tu enlace se ha copiado al portapapeles",
+    "no_auth": "Para obtener un enlace de referidos, <1>añade tu dirección de billetera</1>",
+    "your_link_desc": "Utilízalo en tus blogs, tweets, publicaciones, boletines, perfiles públicos, videos, etc y gana recompensas por traer nuevos titulares a monedas estables vinculadas.",
+    "info": "<0>Las recompensas de referidos se pagan en IUSD cada domingo y son proporcionales a los saldos en dólares de los usuarios referidos en todas los monedas (monedas estables, monedas de interés, monedas de crecimiento) emitidas en este sitio web, así como otras monedas basadas en ellas: acciones en <1>oswap</1> piscinas de liquidez y acciones en bots de arbitraje. Cuanto mayor sea el saldo total al final del período semanal, mayor será la recompensa. Tu recompensa semanal aumenta si los usuarios referidos acumulan más, disminuye si canjean o venden sus monedas. </0><1>La recompensa semanal inicial es <1>10% de los saldos de todos los usuarios referidos</1> al final del período. </1><2>Tus referidos también reciben recompensas por comprar monedas a través de tu enlace &mdash; ellos obtienen un <1>5% de sus balances</1> cada semana. </2><3>La cantidad total pagada a todos los referentes y usuarios referidos se limita a $3,000 semanalmente. Si el límite se supera, las recompensas del 10%/5% se reducen proporcionalmente para que el total sea de $3,000.</3>",
+    "title_list": "Aquí está la lista de tus referidos y sus balances actuales",
+    "total": "Total",
+    "empty": "no hay referidos aun"
+  },
+  "notification": {
+    "create": {
+      "req_author": "Has enviado una solicitud para crear una nuevo moneda estable fijada a {{feed_name}} con interés de {{interest_rate}}%",
+      "req": "Otro usuario envió una solicitud para crear una nueva moneda estable vinculada a {{feed_name}} con un interés de {{interest_rate}}%",
+      "res": "La stablecoin que creaste está lista para usarse, ve a ella?",
+      "yes": "Si",
+      "no": "No"
+    },
+    "bonded": {
+      "buy": {
+        "req_author": "Has enviado una solicitud para comprar {{tokens1}} {{tokens2}}",
+        "req": "Otro usuario envió una solicitud para comprar {{tokens1}} {{tokens2}}"
+      },
+      "redeem": {
+        "req_author": "Has enviado una solicitud para canjear {{tokens}}",
+        "req": "Otro usuario envió una solicitud para canjear {{tokens}}"
+      },
+      "move_capacity": {
+        "req_author": "Has enviado una solicitud para mover la capacidad desde la piscina lenta a la rápida",
+        "req": "Otro usuario ha enviado una solicitud para mover la capacidad de una piscina lenta a una piscina rápida"
+      }
+    },
+    "deposits": {
+      "change_recipient": {
+        "req_author": "Ha enviado una solicitud para cambiar el destinatario de interés",
+        "req": "Otro usuario envió una solicitud para cambiar el porcentaje destinatario"
+      },
+      "add_protection": {
+        "req_author": "Has enviado una solicitud para añadir protección",
+        "req": "Otro usuario envió una solicitud añadir protección"
+      },
+      "withdraw_protection": {
+        "req_author": "Has enviado una solicitud para retirar protección",
+        "req": "Otro usuario envió una solicitud para retirar protección"
+      },
+      "force_close": {
+        "req_author": "Has enviado una solicitud para desafiar un cierre de fuerza",
+        "req": "Otro usuario envió una solicitud para desafiar un cierre de fuerza"
+      },
+      "commit_force_close": {
+        "req_author": "Has enviado una solicitud para confirmar un cierre de fuerza",
+        "req": "Otro usuario envió una solicitud para confirmar un cierre de fuerza"
+      },
+      "close_deposit": {
+        "req_author": "Has enviado una solicitud para cerrar un depósito",
+        "req": "Otro usuario envió una solicitud para cerrar un depósito"
+      },
+      "receive_interest": {
+        "req_author": "Has enviado una solicitud para recibir interés",
+        "req": "Otro usuario envió una solicitud para recibir interés"
+      },
+      "open": {
+        "req_author": "Has enviado una solicitud para abrir un Depósito",
+        "req": "Otro usuario envió una solicitud para abrir un Depósito"
+      },
+      "will_update": "La interfaz se actualizará después de que la transacción sea estable"
+    },
+    "tokens": {
+      "req_author": "Has enviado una solicitud para crear un símbolo de moneda {{symbol}} para {{token}}",
+      "req": "Otro usuario envió una solicitud para crear un símbolo de moneda {{symbol}} para {{token}}",
+      "res": "Se ha registrado el símbolo de {{token}}"
+    }
+  },
+  "governance": {
+    "commit": {
+      "req_author": "Has enviado una solicitud para confirmar un nuevo valor de {{name}}: {{value}}",
+      "req": "Otro usuario envió una solicitud para confirmar el nuevo valor de {{name}}: {{value}}"
+    },
+    "add_support": {
+      "req_author": "Ha enviado una solicitud para añadir soporte para {{name}} de valor {{value}}",
+      "req": "Otro usuario envió una solicitud para añadir soporte para {{name}} de valor {{value}}"
+    },
+    "withdraw": {
+      "req_author": "Has enviado una solicitud para retirar tu saldo de la gobernación",
+      "req": "Otro usuario envió una solicitud para retirar su saldo de la gobernación"
+    }
+  },
+  "validator": {
+    "required": "Este campo es obligatorio",
+    "not_valid": "Este campo no es válido",
+    "decimals_range": "Los decimales deben estar entre {{from}} y {{to}}",
+    "max_value": "El valor máximo es {{maxValue}}",
+    "integer": "El valor debe ser un entero",
+    "max_decimals": "El número máximo de decimales es {{value}}",
+    "min_value": "El valor mínimo es {{value}}",
+    "max_support": "La cantidad máxima es {{value}} GBYTE",
+    "min_support": "La cantidad mínima es {{value}} GBYTE",
+    "symbol_max": "El símbolo debe tener un máximo de 40 caracteres",
+    "symbol_reserved": "Este nombre de símbolo está reservado",
+    "symbol_not_valid": "El símbolo no es válido",
+    "symbol_uppercase": "El símbolo debe estar en mayúsculas"
+  }
+}
