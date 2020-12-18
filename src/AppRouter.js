@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Router, Route } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import historyInstance from "./historyInstance";
 import {
   MainPage,
@@ -17,20 +17,31 @@ import { MainLayout } from "./components/MainLayout/MainLayout";
 import i18 from './locale/index';
 import { langs } from "components/SelectLanguage/SelectLanguage";
 import { botCheck } from "utils/botCheck";
+import { changeLanguage } from "store/actions/settings/changeLanguage";
 
 const AppRouter = () => {
   const [walletModalVisible, setWalletModalVisibility] = useState(false);
   const connected = useSelector((state) => state.connected);
   const { loaded } = useSelector((state) => state.list);
   const { lang } = useSelector((state) => state.settings);
-
+  const dispatch = useDispatch();
+  
   useEffect(() => {
-    i18.changeLanguage(lang);
+    if(!lang){
+      const language = navigator.language.split("-")[0];
+      if(language && langs.find((lang) => lang.name === language)){
+        dispatch(changeLanguage(language));
+      } else {
+        dispatch(changeLanguage("en"));
+      }
+    } else {
+      i18.changeLanguage(lang);
+    }
   }, [lang]);
 
   if ((!connected || !loaded) && !botCheck(navigator.userAgent)) return <Spinner />;
 
-  const langNames = langs.map((lang) => lang.name)
+  const langNames = langs.map((lang) => lang.name);
   const basename = `/:lang(${langNames.join("|")})?`;
 
   return (

@@ -18,6 +18,9 @@
     "other": "Other",
     "all": "All"
   },
+  "footer": {
+    "join_community": "Join the community, get help"
+  },
   "trade": {
     "statistic": {
       "p2UnitsText": {
