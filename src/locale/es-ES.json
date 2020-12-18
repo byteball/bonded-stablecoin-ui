@@ -41,7 +41,7 @@
         "desc": "Cantidad total de reserva bloqueada para respaldar la emisión de monedas T1 y T2"
       },
       "token1_price": {
-        "name": "precio {{symbol1}}",
+        "name": "Precio {{symbol1}}",
         "desc": "El precio actual de Moneda1 según la curva de bonos. Depende de los suministros de Moneda1 y Moneda2. El precio es mostrado en términos de la moneda de reserva."
       },
       "current_price": {
