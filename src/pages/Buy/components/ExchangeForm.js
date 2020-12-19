@@ -566,7 +566,7 @@ export const ExchangeForm = () => {
                 )
               }
             >
-              Buy
+              {t("buy.buy", "Buy")}
             </Button>
           </Row>
           {amountCurrency &&
