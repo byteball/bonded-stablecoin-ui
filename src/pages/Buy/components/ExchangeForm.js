@@ -47,14 +47,14 @@ export const ExchangeForm = () => {
   const params = useParams();
   const [width] = useWindowSize();
   const { data, loaded } = useSelector((state) => state.list);
-  const [activeCurrency, setActiveCurrency] = useState(undefined);
-  const [amountCurrency, setAmountCurrency] = useState(undefined);
+  const [activeCurrency, setActiveCurrency] = useState("btc");
+  const [amountCurrency, setAmountCurrency] = useState(0.1);
   const [index, setIndex] = useState(0);
   const [isCreated, setIsCreated] = useState(false);
   const [amountToken, setAmountToken] = useState(undefined);
   let tokens = getTokens(data);
   const [activeTokenAdr, setActiveTokenAdr] = useState(
-    tokens[0] ? tokens[0].address : undefined
+    config.pegged.USD.address
   );
   const [oraclePrice, setOraclePrice] = useState(undefined);
   const [inited, setInited] = useState(false);
@@ -78,8 +78,8 @@ export const ExchangeForm = () => {
   useEffect(() => {
     if (loaded) {
       if (params.address) {
-        setAmountCurrency("0.1")
-        setActiveCurrency("gbyte");
+        //setAmountCurrency("0.1")
+        //setActiveCurrency("gbyte");
         setActiveTokenAdr(params.address);
       } else {
         if (exchangesFormInit.currentCurrency === "gbyte") {
@@ -90,10 +90,11 @@ export const ExchangeForm = () => {
           setActiveCurrency(exchangesFormInit.currentCurrency);
           setAmountCurrency(exchangesFormInit.amountCurrency);
           setActiveTokenAdr(exchangesFormInit.currentToken);
-        } else {
-          setActiveCurrency("gbyte");
-          setAmountToken(1);
-        }
+        }/* else {
+          setActiveCurrency("btc");
+          setAmountCurrency(0.1);
+          setActiveTokenAdr(config.pegged.USD.address);
+        }*/
       }
 
       setInited(true);
@@ -389,6 +390,7 @@ export const ExchangeForm = () => {
                       (exchangeRates || activeCurrency === "gbyte") &&
                         reservePrice &&
                         amountCurrency &&
+                        oraclePrice &&
                         amountToken ? (
                           <span style={{ color: "#ccc" }}>
                             ≈{" "}
