@@ -19,7 +19,7 @@ export const useGetCompensation = (amountCurrency, activeCurrency, rate) => {
         if (data.status === "success" && data.data.eligible) {
           setCompensation(data.data.compensation);
         } else {
-          setCompensation(0);
+          setCompensation(null);
         }
       }, 500);
 

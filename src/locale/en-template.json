@@ -273,7 +273,7 @@
     "desc": "Buy interest earning tokens (IUSD, IBIT, etc) for any crypto in one easy step.",
     "exchange_success": "The exchange was successfully added to the list and is waiting for payment",
     "exchange_error": "An error occurred, please try again later",
-    "exchange_warning": "{{currency}}-to-GBYTE exchange service is currently unavailable, please pay with GBYTE or try again later.",
+    "exchange_warning": "{{currency}}-to-GBYTE exchange service is currently unavailable, please pay with another currency or try again later.",
     "you_send": "You <1>send</1>",
     "amount": "Amount",
     "currency_to_pay": "Currency to pay",
@@ -282,7 +282,7 @@
     "better_rate": "You get a better rate if you pay in GBYTE",
     "you_get": "You <1>get</1>",
     "will_receive": "The token you will receive",
-    "first_exchanged": "Your <1>{{activeCurrency}}</1> will be first exchanged for GBYTE, then GBYTE converted to  {{symbol}}. <8>{{activeCurrency}}</8> to GBYTE exchange is performed by <12>simpleswap.io</12>.",
+    "first_exchanged": "Your <1>{{activeCurrency}}</1> will be first exchanged for GBYTE, then GBYTE converted to  {{symbol}}. <8>{{activeCurrency}}</8> to GBYTE exchange is performed by <12>{{providerName}}</12>.",
     "compensates": "Obyte compensates part of the exchange fees.",
     "compensates_depleted": "Obyte compensates part of the exchange fees but today's quota is already depleted and the quoted price includes the full fees. To get a better rate, try again after the quota resets at midnight UTC or buy with GBYTE now.",
     "install": "<0>Install Obyte wallet</0>  if you don't have one yet, and copy/paste your address here.",
@@ -296,7 +296,7 @@
     "status_loading": "loading status...",
     "send_to_address": "Send <1>{{currency_from}}</1> to address: ",
     "recipient_address": "Recipient address",
-    "currently_converting": "Currently converting <1>{{currency_from}}</1> to GBYTE, this step is performed by simpleswap.io. For support issues, please contact them on their <3>status page</3>.",
+    "currently_converting": "Currently converting <1>{{currency_from}}</1> to GBYTE, this step is performed by {{providerName}}. For support issues, please contact them on their <5>support page</5>.",
     "go_back": "Go back to the form"
   },
   "create": {
