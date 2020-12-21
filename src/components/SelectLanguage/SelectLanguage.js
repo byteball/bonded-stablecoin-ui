@@ -8,7 +8,7 @@ import historyInstance from "historyInstance";
 import ru from "./flags/ru.svg"
 import usa from "./flags/usa.svg"
 import es from "./flags/es.svg"
-import zh from "./flags/zh.svg"
+import cn from "./flags/cn.svg"
 
 export const langs = [
   {
@@ -17,7 +17,7 @@ export const langs = [
   },
   {
     name: "zh",
-    flag: zh
+    flag: cn
   },
   {
     name: "es",
