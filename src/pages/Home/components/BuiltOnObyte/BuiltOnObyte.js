@@ -10,13 +10,13 @@ export const BuiltOnObyteNotTracking = ({ forwardedRef }) => {
   const { t } = useTranslation();
 
   return (
-    <div>
-      <div className={styles.title}>{t("home.built_on_obyte.title", "Built on Obyte")}</div>
+    <div ref={forwardedRef}>
+      <h2 className={styles.title}>{t("home.built_on_obyte.title", "Built on Obyte")}</h2>
       <div className={styles.dag}>
         <div className={styles.illustration}>
           <img alt="DAG" src={dagIllustration} />
         </div>
-        <div className={styles.info} ref={forwardedRef}>
+        <div className={styles.info}>
           <Trans i18nKey="home.built_on_obyte.info">
             <p>
               All these coins are issued on <a target="_blank" rel="noopener" href="https://obyte.org/">Obyte</a> — one of the first DAG based crypto networks live since 2016.

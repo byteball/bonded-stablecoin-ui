@@ -45,7 +45,7 @@ export const Capacitors = ({ stable_state, address, params, reserve_asset_symbol
               descr={t("trade.tabs.capacitor.fast.desc", "This capacity is immediately available to reward users who move the price back to the peg.")}
             />
           }
-          value={Number(stable_state.fast_capacity / 10 ** params.reserve_asset_decimals).toFixed(params.reserve_asset_decimals) || 0}
+          value={(Number(stable_state.fast_capacity / 10 ** params.reserve_asset_decimals) || 0).toFixed(params.reserve_asset_decimals)}
           suffix={currency}
           precision={params.reserve_asset_decimals}
         />
@@ -57,7 +57,7 @@ export const Capacitors = ({ stable_state, address, params, reserve_asset_symbol
               descr={t("trade.tabs.capacitor.slow.desc", "This capacity is reserved for the future and will be gradually moved into the fast capacity.")}
             />
           }
-          value={Number(stable_state.slow_capacity / 10 ** params.reserve_asset_decimals).toFixed(params.reserve_asset_decimals) || 0}
+          value={(Number(stable_state.slow_capacity / 10 ** params.reserve_asset_decimals) || 0).toFixed(params.reserve_asset_decimals) || 0}
           suffix={currency}
           precision={params.reserve_asset_decimals}
         />
