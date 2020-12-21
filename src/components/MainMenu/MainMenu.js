@@ -30,7 +30,7 @@ export const MainMenu = ({ mode, pathname, onClose, width }) => {
           <span role="img" aria-label="Chart">📈</span> {t("main_menu.trade", "Trade")}
         </NavLink>
       </Menu.Item>
-      <Menu.Item key="/buy"style={{ marginRight: 10 }}>
+      <Menu.Item key="/buy" style={{ marginRight: 10 }}>
         <NavLink to={`${basename}/buy`} replace={true}>
           {t("main_menu.buy", "Buy interest tokens")}
         </NavLink>
