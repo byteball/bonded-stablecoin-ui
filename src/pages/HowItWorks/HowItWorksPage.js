@@ -23,7 +23,7 @@ export const HowItWorksPage = () => {
             There is some math behind all this. IUSD and GRD tokens exist on
             a <b>bonding curve</b>, that is a mathematical formula that connects the
             amounts of IUSD and GRD tokens issued with the amount of the reserve
-            currency{" "} <span style={{ whiteSpace: "nowrap" }}>&mdash; Bytes &mdash;</span>{" "}
+            currency{" "} <span style={{ whiteSpace: "nowrap" }}>— Bytes —</span>{" "}
             used to issue them.
           </Trans>
         </div>

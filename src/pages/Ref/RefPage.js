@@ -35,7 +35,7 @@ export const RefPage = ({ setWalletModalVisibility }) => {
       dataIndex: "usd_balance",
       key: "usd_balance",
       render: (value) => {
-        return Number(value).toFixed(2) || <span>&mdash;</span>
+        return Number(value).toFixed(2) || <span>—</span>
       }
     }
   ];
@@ -109,7 +109,7 @@ export const RefPage = ({ setWalletModalVisibility }) => {
               The initial weekly reward is <b>10% of the balances of all referred users</b> at the end of the period.
             </Paragraph>
             <Paragraph>
-              Your referrals also get rewarded for buying tokens through your link &mdash; they get <b>5% of their balances</b> every week.
+              Your referrals also get rewarded for buying tokens through your link — they get <b>5% of their balances</b> every week.
             </Paragraph>
             <Paragraph>
               The total amount paid to all referrers and referred users is capped by $3,000 weekly. If the cap gets exceeded,
