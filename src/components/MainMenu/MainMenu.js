@@ -9,7 +9,7 @@ export const MainMenu = ({ mode, pathname, onClose, width }) => {
   const { lang } = useSelector((state) => state.settings);
   const { t } = useTranslation();
   const basename = lang && lang !== "en" ? "/" + lang : "";
-
+  const buyOrTrade = (pathname.includes("trade") && "/trade") || (pathname.includes("buy") && "/buy");
   return (
     <Menu
       mode={mode === "horizontal" ? "horizontal" : "vertical"}
@@ -17,7 +17,7 @@ export const MainMenu = ({ mode, pathname, onClose, width }) => {
       overflowedIndicator=". . ."
       collapsedWidth="0"
       style={{border: "none", width: (width < 1340 && mode === "horizontal" ? width - 40 - 205 - 250 - 70 - 30 : 760) }}
-      selectedKeys={pathname !== "/" ? (pathname.includes("trade") ? ["/trade"] : [pathname]) : []}
+      selectedKeys={pathname !== "/" ? (buyOrTrade ? [buyOrTrade] : [pathname]) : []}
       onOpenChange={() => {
         onClose && onClose();
       }}
@@ -30,7 +30,7 @@ export const MainMenu = ({ mode, pathname, onClose, width }) => {
           <span role="img" aria-label="Chart">📈</span> {t("main_menu.trade", "Trade")}
         </NavLink>
       </Menu.Item>
-      <Menu.Item key={`${basename}/buy`} style={{ marginRight: 10 }}>
+      <Menu.Item key="/buy"style={{ marginRight: 10 }}>
         <NavLink to={`${basename}/buy`} replace={true}>
           {t("main_menu.buy", "Buy interest tokens")}
         </NavLink>

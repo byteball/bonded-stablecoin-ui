@@ -39,13 +39,13 @@ export const Tokens = () => {
 const InterestNotTracking = ({ forwardedRef }) => {
   const { t } = useTranslation();
   return (
-    <div className={styles.tokens}>
+    <div className={styles.tokens} ref={forwardedRef}>
       <div className={styles.infoFirst}>
-        <div className={styles.tokensTitle}>
+        <h3 className={styles.tokensTitle}>
           {t("home.tokens.interest.title", "IUSD — interest token that earns 16% interest in USD")}
-        </div>
+        </h3>
         <Trans i18nKey="home.tokens.interest.info">
-          <p ref={forwardedRef}>
+          <p>
             It started at exactly 1 USD on September 22, 2020 and the price of the
             token grows at 16% per year. In one year, it is expected to be $1.16,
             in two years &mdash; $1.3456, if the interest rate stays the same (it
@@ -78,14 +78,14 @@ const InterestNotTracking = ({ forwardedRef }) => {
 const StableNotTracking = ({ forwardedRef }) => {
   const { t } = useTranslation();
   return (
-    <div className={styles.tokens}>
+    <div className={styles.tokens} ref={forwardedRef}>
       <div className={styles.illustration}>
         <img alt="Stable token" src={stableIllustration} />
       </div>
       <div className={styles.infoSecond}>
-        <div className={styles.tokensTitle}>{t("home.tokens.stable.title", "OUSD — a USD-pegged stablecoin")}</div>
+        <h3 className={styles.tokensTitle}>{t("home.tokens.stable.title", "OUSD — a USD-pegged stablecoin")}</h3>
         <Trans i18nKey="home.tokens.stable.info">
-          <p ref={forwardedRef}>OUSD is essentially IUSD with interest payments stripped off. Its price stays near 1 USD &mdash; because it is so programmed, and the programs cannot be changed.</p>
+          <p>OUSD is essentially IUSD with interest payments stripped off. Its price stays near 1 USD &mdash; because it is so programmed, and the programs cannot be changed.</p>
           <p>
             OUSD is a familiar unit of account best suited for payments. Unlike
             USD, it can be freely and instantly moved cross-border, and the fees
@@ -107,13 +107,13 @@ const StableNotTracking = ({ forwardedRef }) => {
 const GrowthNotTracking = ({ forwardedRef }) => {
   const { t } = useTranslation();
   return (
-    <div className={styles.tokens}>
+    <div className={styles.tokens} ref={forwardedRef}>
       <div className={styles.infoFirst}>
-        <div className={styles.tokensTitle}>
+        <h3 className={styles.tokensTitle}>
           {t("home.tokens.growth.title", "GRD — growth and governance token")}
-        </div>
+        </h3>
         <Trans i18nKey="home.tokens.growth.info">
-          <p ref={forwardedRef}>
+          <p>
             Price of GRD depends on the popularity of IUSD (and therefore OUSD). As
             more IUSD tokens are issued, the price of GRD grows programmatically — this follows from the bonding curve mechanics. When IUSD tokens
             are redeemed, GRD falls in price.

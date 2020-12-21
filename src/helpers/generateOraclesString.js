@@ -6,6 +6,7 @@ export const generateOraclesString = (initial, governance) => {
       })
       .join(" ");
   } else {
+    if(!initial.oracle1) return undefined;
     return [
       initial.oracle1 + initial.op1 + initial.feed_name1,
       initial.oracle2 ? initial.oracle2 + initial.op2 + initial.feed_name2 : "",

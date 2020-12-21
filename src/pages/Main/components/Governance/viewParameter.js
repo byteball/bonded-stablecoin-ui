@@ -13,6 +13,8 @@ export const viewParameter = (value, name, isBlock = false) => {
     } else {
       return value;
     }
+  } else {
+    return "-"
   }
 }
 

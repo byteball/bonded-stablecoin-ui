@@ -142,6 +142,11 @@ export const GovernanceItem = ({
   const leaderView = viewParameter(leader, name);
   const valueView = viewParameter(value, name);
   const info = paramsDescription();
+
+  if(!(name.replace("deposits.", '') in info)){
+    return null
+  }
+
   return (
     <div className={styles.itemWrap} ref={refEl}>
       <Row>
@@ -155,7 +160,7 @@ export const GovernanceItem = ({
         </Col>
         <Col sm={name === "oracles" ? { span: 24 } : { span: 12 }} xs={{ span: 24 }}>
           <div className={styles.itemCurrent} style={name === "oracles" ? { textAlign: "left", wordBreak: "break-all" } : { wordBreak: "break-all" }}>
-            <span style={name === "oracles" ? { display: "block", fontSize: 14, fontWeight: "bold" } : (width <= 576 ? { fontSize: 14, fontWeight: "bold" } : { display: "inline" })}>{t("trade.tabs.governance.current_value", "Current value")}:</span>{" "}
+            <span style={name === "oracles" ? { display: valueView !== "-" ? "block" : "inline", fontSize: 14, fontWeight: "bold" } : (width <= 576 ? { fontSize: 14, fontWeight: "bold" } : { display: "inline" })}>{t("trade.tabs.governance.current_value", "Current value")}:</span>{" "}
             {valueView}
           </div>
         </Col>
@@ -163,7 +168,7 @@ export const GovernanceItem = ({
       <Row align="top">
         <Col sm={name === "oracles" && width < 720 ? { span: 24 } : { span: 12 }}>
           {leader &&
-            <div><b style={name === "oracles" ? { display: "block" } : { display: "inline" }}>{t("trade.tabs.governance.leader", "Leader")}:</b> {leaderView}</div>}
+            <div><b style={name === "oracles" ? { display: valueView !== "-" ? "block" : "inline" } : { display: "inline" }}>{t("trade.tabs.governance.leader", "Leader")}:</b> {leaderView}</div>}
           <div>{isChoice && <div><b>{t("trade.tabs.governance.my_choice", "My choice")}: </b>{choiceView}</div>}</div>
         </Col>
         {challengingPeriod ? (

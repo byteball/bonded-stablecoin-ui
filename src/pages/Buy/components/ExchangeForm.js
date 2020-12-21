@@ -78,8 +78,8 @@ export const ExchangeForm = () => {
   useEffect(() => {
     if (loaded) {
       if (params.address) {
-        //setAmountCurrency("0.1")
-        //setActiveCurrency("gbyte");
+        setAmountCurrency("0.1")
+        setActiveCurrency("btc");
         setActiveTokenAdr(params.address);
       } else {
         if (exchangesFormInit.currentCurrency === "gbyte") {

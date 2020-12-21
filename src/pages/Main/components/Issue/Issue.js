@@ -115,12 +115,8 @@ export const Issue = () => {
         ? generateLink(
           Math.ceil(amount.reserve_needed * 1.01 + 1000),
           {
-            tokens1:
-              Number(tokens1).toFixed(params.decimals1) *
-              10 ** params.decimals1 || undefined,
-            tokens2:
-              Number(tokens2).toFixed(params.decimals2) *
-              10 ** params.decimals2 || undefined,
+            tokens1: Math.ceil(tokens1 * 10 ** params.decimals1) || undefined,
+            tokens2: Math.ceil(tokens2 * 10 ** params.decimals2) || undefined,
             tokens2_to: convert ? deposit_aa : undefined,
             ref: referrer
           },
