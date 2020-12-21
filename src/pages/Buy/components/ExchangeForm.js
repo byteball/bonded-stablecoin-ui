@@ -78,8 +78,16 @@ export const ExchangeForm = () => {
   useEffect(() => {
     if (loaded) {
       if (params.address) {
-        setAmountCurrency("0.1")
-        setActiveCurrency("btc");
+        if(exchangesFormInit.amountCurrency){
+          setAmountCurrency(exchangesFormInit.amountCurrency);
+        } else {
+          setAmountCurrency("0.1");
+        }
+        if(exchangesFormInit.currentCurrency){
+          setActiveCurrency(exchangesFormInit.currentCurrency);
+        } else {
+          setActiveCurrency("btc");
+        }
         setActiveTokenAdr(params.address);
       } else {
         if (exchangesFormInit.currentCurrency === "gbyte") {
@@ -90,11 +98,7 @@ export const ExchangeForm = () => {
           setActiveCurrency(exchangesFormInit.currentCurrency);
           setAmountCurrency(exchangesFormInit.amountCurrency);
           setActiveTokenAdr(exchangesFormInit.currentToken);
-        }/* else {
-          setActiveCurrency("btc");
-          setAmountCurrency(0.1);
-          setActiveTokenAdr(config.pegged.USD.address);
-        }*/
+        }
       }
 
       setInited(true);
