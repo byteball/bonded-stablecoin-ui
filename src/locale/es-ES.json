@@ -279,7 +279,7 @@
     "better_rate": "Obtienes una tasa mejor si pagas en GBYTE",
     "you_get": "Tú <1>obtienes</1>",
     "will_receive": "La moneda que recibirás",
-    "first_exchanged": "Tu <1>{{activeCurrency}}</1> será intercambiada primero por GBYTE, luego GBYTE convertidos a {{symbol}}. El intercambio entre <8>{{activeCurrency}}</8> a GBYTE es hecho por <12>simpleswap.io</12>.",
+    "first_exchanged": "Tu <1>{{activeCurrency}}</1> será intercambiada primero por GBYTE, luego GBYTE convertidos a {{symbol}}. El intercambio entre <8>{{activeCurrency}}</8> a GBYTE es hecho por <12>{{providerName}}</12>.",
     "compensates": "Obyte compensa parte de las comisiones del exchange (casa de cambio).",
     "compensates_depleted": "Obyte compensa parte de las comisiones del exchange, pero la cuota de hoy ya está agotada y el precio estimado incluye todas las comisiones. Para tener una tasa mejor, intenta de nuevo después que la cuota se reinicie a medianoche UTC o compra con GBYTE ahora.",
     "install": "<0>Instala la billetera de Obyte</0> si no tienes una todavía, y copia/pega tu dirección aquí.",
@@ -293,7 +293,7 @@
     "status_loading": "cargando estado...",
     "send_to_address": "Enviar <1>{{currency_from}}</1> a la dirección: ",
     "recipient_address": "Dirección recibidora",
-    "currently_converting": "Actualmente convirtiendo <1>{{currency_from}}</1> a GBYTE, este paso lo lleva a cabo simpleswap.io. Para temas de soporte, por favor contáctalos en su <3>página de estado</3>.",
+    "currently_converting": "Actualmente convirtiendo <1>{{currency_from}}</1> a GBYTE, este paso lo lleva a cabo {{providerName}}. Para temas de soporte, por favor contáctalos en su <5>página de soporte</5>.",
     "go_back": "Ir atrás al formulario"
   },
   "create": {

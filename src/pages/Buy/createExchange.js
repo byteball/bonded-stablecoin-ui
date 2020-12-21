@@ -20,32 +20,57 @@ export const createExchange = async ({
     `${config.BUFFER_URL}/create_buffer?address=${recipient.value}&curve_aa=${curve_address}`
   );
   const { buffer_address } = data.data;
-  const create = await axios.post(
-    `https://api.simpleswap.io/v1/create_exchange?api_key=${config.SIMPLESWAP_API_KEY}`,
-    {
-      currency_to: "gbyte",
-      currency_from,
-      amount: amount_currency,
-      address_to: buffer_address,
-    },
-    {
-      headers: {
-        "Content-Type": "application/json; charset=utf-8",
+  const provider = config.oswapccCurrencies.includes(currency_from.toUpperCase()) ? "oswapcc" : "simpleswap";
+  let create;
+  if (provider === "simpleswap") {
+    create = await axios.post(
+      `https://api.simpleswap.io/v1/create_exchange?api_key=${config.SIMPLESWAP_API_KEY}`,
+      {
+        currency_to: "gbyte",
+        currency_from,
+        amount: amount_currency,
+        address_to: buffer_address,
       },
+      {
+        headers: {
+          "Content-Type": "application/json; charset=utf-8",
+        },
+      }
+    );
+  }
+  else if (provider === "oswapcc") {
+    create = await axios.post(
+      `${config.oswapccRoot}/create_swap`,
+      {
+        out_coin: "GBYTE",
+        in_coin: currency_from.toUpperCase(),
+        in_amount: parseFloat(amount_currency),
+        out_address: buffer_address,
+      },
+      {
+        headers: {
+          "Content-Type": "application/json; charset=utf-8",
+        },
+      }
+    );
+    if (create && create.data && create.data.data) {
+      create.data.id = create.data.data.swap_id;
+      create.data.address_from = create.data.data.in_address;
+      create.data.amount_to = create.data.data.expected_out_amount;
     }
-  );
+  }
 
   if (create && create.data) {
     const isError = await axios
       .post(
         `${config.BUFFER_URL}/create_order`,
         {
-          provider: "simpleswap",
+          provider,
           provider_id: create.data.id,
           buffer_address,
-          currency_in: create.data.currency_from,
+          currency_in: currency_from,
           expected_amount_out: create.data.amount_to,
-          amount_in: Number(create.data.amount_from),
+          amount_in: Number(amount_currency),
         },
         {
           headers: {
@@ -69,6 +94,7 @@ export const createExchange = async ({
           symbol,
           amount_currency,
           amount_token,
+          provider,
         })
       );
       store.dispatch(addExchangePending(create.data.id));

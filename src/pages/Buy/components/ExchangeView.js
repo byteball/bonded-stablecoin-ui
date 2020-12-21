@@ -23,16 +23,19 @@ export const ExchangeView = ({ current }) => {
     asset,
     amount_currency,
     currency_from,
+    provider,
   } = current;
-  const statusPageUrl = "https://simpleswap.io/exchange?id=" + current.id;
+  const statusPageUrl = provider === "oswapcc" ? "https://www.oswap.cc/#/contact" : "https://simpleswap.io/exchange?id=" + current.id;
   const updateFn = async (id) => {
     axios
       .get(
-        `https://api.simpleswap.io/v1/get_exchange?api_key=${config.SIMPLESWAP_API_KEY}&id=${id}`
+        provider === "oswapcc"
+          ? `${config.oswapccRoot}/get_status/${id}`
+          : `https://api.simpleswap.io/v1/get_exchange?api_key=${config.SIMPLESWAP_API_KEY}&id=${id}`
       )
       .then((obj) => {
         const { data } = obj;
-        setStatus(data.status);
+        setStatus(provider === "oswapcc" ? data.data.status : data.status);
       });
   };
   useEffect(() => {
@@ -41,10 +44,18 @@ export const ExchangeView = ({ current }) => {
     return () => clearInterval(update);
   }, [current]);
 
+  const isFinished = () => {
+    if (provider === 'simpleswap' || !provider)
+      return (status === 'finished' || status === 'sending');
+    if (provider === 'oswapcc')
+      return (status === 'sent');
+    throw Error(`unknown provider ` + provider);
+  };
+
   return (
     <div className={styles.view}>
       <Row justify="center">
-        {status === "finished" ? (
+        {isFinished() ? (
           <CheckCircleOutlined />
         ) : (
           <LoadingOutlined className={styles.icon} />
@@ -108,13 +119,13 @@ export const ExchangeView = ({ current }) => {
           </span>
         </div>
       </Row>
-      {!["finished", "sending"].includes(status) && (<Row justify="center">
+      {!isFinished() && (<Row justify="center">
         <div className={styles.providerStatus}>
           <Text type="secondary">
             <Trans i18nKey="buy.currently_converting" currency_from={currency_from}>
               Currently converting <span style={{ textTransform: "uppercase" }}>
                 {{currency_from}}
-              </span> to GBYTE, this step is performed by simpleswap.io. For support issues, please contact them on their <a href={statusPageUrl} target="_blank" rel="noopener">status page</a>.
+              </span> to GBYTE, this step is performed by {{providerName: provider === "oswapcc" ? "oswap.cc" : "simpleswap.io"}}. For support issues, please contact them on their <a href={statusPageUrl} target="_blank" rel="noopener">support page</a>.
             </Trans>
           </Text>
         </div>

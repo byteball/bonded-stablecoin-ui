@@ -33,6 +33,7 @@ import { useWindowSize } from "hooks/useWindowSize";
 import { popularCurrencies } from "../popularCurrencies";
 import { useGetCompensation } from "../hooks/useGetCompensation";
 import { updateExchangesForm } from "store/actions/settings/updateExchangesForm";
+import config from "config";
 
 const { Text } = Typography;
 
@@ -46,14 +47,14 @@ export const ExchangeForm = () => {
   const params = useParams();
   const [width] = useWindowSize();
   const { data, loaded } = useSelector((state) => state.list);
-  const [activeCurrency, setActiveCurrency] = useState(undefined);
-  const [amountCurrency, setAmountCurrency] = useState(undefined);
+  const [activeCurrency, setActiveCurrency] = useState("btc");
+  const [amountCurrency, setAmountCurrency] = useState(0.1);
   const [index, setIndex] = useState(0);
   const [isCreated, setIsCreated] = useState(false);
   const [amountToken, setAmountToken] = useState(undefined);
   let tokens = getTokens(data);
   const [activeTokenAdr, setActiveTokenAdr] = useState(
-    tokens[0] ? tokens[0].address : undefined
+    config.pegged.USD.address
   );
   const [oraclePrice, setOraclePrice] = useState(undefined);
   const [inited, setInited] = useState(false);
@@ -65,6 +66,7 @@ export const ExchangeForm = () => {
         valid: undefined,
       }
   );
+  const provider = activeCurrency && (config.oswapccCurrencies.includes(activeCurrency.toUpperCase()) ? "oswapcc" : "simpleswap");
 
   useEffect(() => {
     const id = setInterval(() => setIndex((i) => i + 1), 1000 * 60 * 5);
@@ -76,8 +78,8 @@ export const ExchangeForm = () => {
   useEffect(() => {
     if (loaded) {
       if (params.address) {
-        setAmountCurrency("0.1")
-        setActiveCurrency("gbyte");
+        //setAmountCurrency("0.1")
+        //setActiveCurrency("gbyte");
         setActiveTokenAdr(params.address);
       } else {
         if (exchangesFormInit.currentCurrency === "gbyte") {
@@ -88,10 +90,11 @@ export const ExchangeForm = () => {
           setActiveCurrency(exchangesFormInit.currentCurrency);
           setAmountCurrency(exchangesFormInit.amountCurrency);
           setActiveTokenAdr(exchangesFormInit.currentToken);
-        } else {
-          setActiveCurrency("gbyte");
-          setAmountToken(1);
-        }
+        }/* else {
+          setActiveCurrency("btc");
+          setAmountCurrency(0.1);
+          setActiveTokenAdr(config.pegged.USD.address);
+        }*/
       }
 
       setInited(true);
@@ -114,7 +117,7 @@ export const ExchangeForm = () => {
 
   const allCurrencies = useGetCurrency();
   const ranges = useGetRanges(activeCurrency);
-  const exchangeRates = useGetRate(activeCurrency, index);
+  const exchangeRates = useGetRate(activeCurrency, index, provider === "oswapcc" ? amountCurrency : 1);
   const compensation = useGetCompensation(
     amountCurrency,
     activeCurrency,
@@ -212,7 +215,7 @@ export const ExchangeForm = () => {
     if (result && activeCurrency !== "gbyte" && inited) {
       const expectT2 =
         (1 / result.target_p2) *
-        (Number(amountCurrency) * Number(exchangeRates) + compensation);
+        (Number(amountCurrency) * Number(exchangeRates) + (compensation || 0));
       setAmountToken(expectT2.toFixed(params.decimals2));
     }
   }, [
@@ -281,8 +284,8 @@ export const ExchangeForm = () => {
 
   return (
     <div>
-      {!exchangeRates && activeCurrency !== "gbyte" && <Alert
-        message={t("buy.exchange_warning", "{{currency}}-to-GBYTE exchange service is currently unavailable, please pay with GBYTE or try again later.", {currency: String(activeCurrency).toUpperCase()})}
+      {exchangeRates === null && activeCurrency !== "gbyte" && <Alert
+        message={t("buy.exchange_warning", "{{currency}}-to-GBYTE exchange service is currently unavailable, please pay with another currency or try again later.", {currency: String(activeCurrency).toUpperCase()})}
         type="warning"
         style={{ marginTop: 10 }}
       />}
@@ -387,6 +390,7 @@ export const ExchangeForm = () => {
                       (exchangeRates || activeCurrency === "gbyte") &&
                         reservePrice &&
                         amountCurrency &&
+                        oraclePrice &&
                         amountToken ? (
                           <span style={{ color: "#ccc" }}>
                             ≈{" "}
@@ -455,17 +459,17 @@ export const ExchangeForm = () => {
                       </span>{" "}
                     to GBYTE exchange is performed by{" "}
                       <a
-                        href="https://simpleswap.io/"
+                        href={provider === "oswapcc" ? "https://www.oswap.cc" : "https://simpleswap.io/"}
                         target="_blank"
                         rel="noopener"
                       >
-                        simpleswap.io
+                        {{providerName: provider === "oswapcc" ? "oswap.cc" : "simpleswap.io"}}
                     </a>.
                     </Trans>
                     </Text>
 
                     {amountCurrency &&
-                      (compensation ? (
+                      (typeof compensation === "number" ? (
                         <div>
                           <Text type="secondary">
                             {t("buy.compensates", "Obyte compensates part of the exchange fees.")}
@@ -500,8 +504,7 @@ export const ExchangeForm = () => {
                                     label: activeCurrency
                                   })
                                 }
-                              }>Install Obyte wallet</a> 
-                            if you don't have one yet, and copy/paste your address here.
+                              }>Install Obyte wallet</a> if you don't have one yet, and copy/paste your address here.
                           </Trans>
                         </span>
                       }

@@ -2,17 +2,30 @@ import { useEffect, useState } from "react";
 import config from "config";
 import axios from "axios";
 
-export const useGetRate = (activeCurrency, index) => {
+export const useGetRate = (activeCurrency, index, amountCurrency) => {
   const [rate, setRate] = useState(undefined);
 
   useEffect(() => {
     setRate(undefined);
     (async () => {
       if (activeCurrency !== undefined) {
+        if (config.oswapccCurrencies.includes(activeCurrency.toUpperCase())) {
+          const rateData = await axios.get(
+            `${config.oswapccRoot}/estimate?in_coin=${activeCurrency.toUpperCase()}&in_amount=${amountCurrency}`
+          ).catch(() => {
+            console.log("/estimate error")
+          });
+          if (!rateData)
+            return setRate(null);
+          const rate = rateData && Number(rateData.data.data) / amountCurrency;
+          setRate(rate);
+          return;
+        }
         const rangesData = await axios.get(
           `https://api.simpleswap.io/v1/get_ranges?api_key=${config.SIMPLESWAP_API_KEY}&currency_from=${activeCurrency}&currency_to=gbyte`
         ).catch(() => {
           console.log("get_ranges error")
+          setRate(null);
         });
         const ranges = rangesData && rangesData.data;
         if (activeCurrency !== "gbyte") {
@@ -23,7 +36,7 @@ export const useGetRate = (activeCurrency, index) => {
             ).catch(() => {
               console.log("get_estimated error")
             });
-            const rate = rateData && Number(rateData.data) / min;
+            const rate = rateData ? Number(rateData.data) / min : null;
             setRate(rate);
           } else {
             const rateData = await axios.get(
@@ -31,12 +44,12 @@ export const useGetRate = (activeCurrency, index) => {
             ).catch(() => {
               console.log("get_estimated error")
             });
-            rateData && setRate(Number(rateData.data));
+            setRate(rateData ? Number(rateData.data) : null);
           }
         }
       }
     })();
-  }, [activeCurrency, index]);
+  }, [activeCurrency, index, amountCurrency]);
 
   return rate;
 };

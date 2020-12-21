@@ -146,7 +146,9 @@ let config = {
       name: "Precious metals oracle",
       description: "The oracle is operated by Bind Creative. It is also an Order Provider on Obyte network."
     },
-  }
+  },
+  oswapccRoot: "https://wallet.obytechina.org/api",
+  oswapccCurrencies: ["BTC"],
 };
 
 // cleanup empty reserve .env config values
