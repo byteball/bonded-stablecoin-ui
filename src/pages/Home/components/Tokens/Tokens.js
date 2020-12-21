@@ -48,7 +48,7 @@ const InterestNotTracking = ({ forwardedRef }) => {
           <p ref={forwardedRef}>
             It started at exactly 1 USD on September 22, 2020 and the price of the
             token grows at 16% per year. In one year, it is expected to be $1.16,
-            in two years &mdash; $1.3456, if the interest rate stays the same (it
+            in two years — $1.3456, if the interest rate stays the same (it
             can be changed by GRD holders). It is a <b>stable+</b> coin.
           </p>
           <p>
@@ -85,7 +85,7 @@ const StableNotTracking = ({ forwardedRef }) => {
       <div className={styles.infoSecond}>
         <div className={styles.tokensTitle}>{t("home.tokens.stable.title", "OUSD — a USD-pegged stablecoin")}</div>
         <Trans i18nKey="home.tokens.stable.info">
-          <p ref={forwardedRef}>OUSD is essentially IUSD with interest payments stripped off. Its price stays near 1 USD &mdash; because it is so programmed, and the programs cannot be changed.</p>
+          <p ref={forwardedRef}>OUSD is essentially IUSD with interest payments stripped off. Its price stays near 1 USD — because it is so programmed, and the programs cannot be changed.</p>
           <p>
             OUSD is a familiar unit of account best suited for payments. Unlike
             USD, it can be freely and instantly moved cross-border, and the fees
@@ -122,7 +122,7 @@ const GrowthNotTracking = ({ forwardedRef }) => {
             GRD holders can <a href="/trade#governance">vote</a> to tune the interest rate and various parameters
             of the ecosystem that are important for keeping the peg. GRD holders
             can even vote to hire a management team tasked with promoting the use
-            of OUSD &mdash; which directly affects GRD price.
+            of OUSD — which directly affects GRD price.
           </p>
           <p>
             GRD comes from <b>gr</b>owth and <b>d</b>ollar, not from <b>gr</b>ee<b>d</b> as some might think.

@@ -356,7 +356,7 @@ export const ChangeParamsModal = ({
               <Text type="secondary">
                 <b>
                   {t("modals.change_param.your_support_value", "Your support in favor of")}{" "}
-                  {viewParameter(supportParamsByAddress.value, param, true)}{param === "oracles" ? <span> &mdash; </span> : ":"}
+                  {viewParameter(supportParamsByAddress.value, param, true)}{param === "oracles" ? <span> — </span> : ":"}
                 </b>{" "}
                 {supportParamsByAddress.support / 10 ** decimals}{" "}
                 {symbol || "T1"}

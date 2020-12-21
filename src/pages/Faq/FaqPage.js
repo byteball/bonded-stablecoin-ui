@@ -142,7 +142,7 @@ export const FaqPage = () => {
               and losses.
             </p>
             <p>
-              Bonded stablecoins run on <a href="https://obyte.org/" target="_blank" rel="noopener">Obyte</a> &mdash; a blockless minerless DAG
+              Bonded stablecoins run on <a href="https://obyte.org/" target="_blank" rel="noopener">Obyte</a> — a blockless minerless DAG
               ledger. In a DAG these tricks don’t work. There are no miners, no
               blocks, the positions of transactions in the DAG cannot be changed
               by anybody, and it is impossible for any single actor to manipulate
@@ -279,7 +279,7 @@ export const FaqPage = () => {
             <p>
               For example, while Brent Crude is worth $40, a 2x leverage
               stablecoin BRENT2/USD is worth 1600. If Brent goes up 25% to $50,
-              BRENT2/USD goes up to 2500 &mdash; a 56.25% gain.
+              BRENT2/USD goes up to 2500 — a 56.25% gain.
             </p>
             <p>
               It might seem unusual to call such coins “stablecoins” but they are
@@ -295,8 +295,8 @@ export const FaqPage = () => {
               default which for GBYTE/USD price feed means track USD price.
               Leverage 1 would mean plain long position in GBYTE (which is
               equivalent to just holding the reserve currency GBYTE), leverage 2
-              would mean 2x leveraged position in GBYTE vs USD, leverage 3 &mdash;
-              3x long position in GBYTE, leverage -1 &mdash; short position in
+              would mean 2x leveraged position in GBYTE vs USD, leverage 3 —
+              3x long position in GBYTE, leverage -1 — short position in
               GBYTE, and so on.
             </p>
             <p>
