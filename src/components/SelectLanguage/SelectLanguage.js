@@ -15,6 +15,10 @@ export const langs = [
     flag: usa
   },
   {
+    name: "zh",
+    flag: es
+  },
+  {
     name: "es",
     flag: es
   },
