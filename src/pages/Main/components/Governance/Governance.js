@@ -132,14 +132,14 @@ export const Governance = ({ openWalletModal }) => {
       const info = row.split("_").slice(1);
       if (obyte.utils.isValidAddress(info[info.length - 1])) {
         const address = info[info.length - 1];
-        const value = info[info.length - 2];
-        const param = info.slice(0, -2).join("_");
+        const value = row.includes("support_oracles") ? info.slice(1).slice(0, info.length - 2).join("_") : info[info.length - 2];
+        const param = row.includes("support_oracles") ? "oracles" : info.slice(0, -2).join("_");
         if (!(param in supportList)) supportList[param] = []
-        supportList[param] = [...supportList[param], {
-          support: governance_state[row],
-          value,
-          address
-        }];
+          supportList[param] = [...supportList[param], {
+            support: governance_state[row],
+            value,
+            address
+          }];
         if (row.includes("support_oracles")) {
           const oraclesRow = info.join("_");
 
@@ -171,8 +171,7 @@ export const Governance = ({ openWalletModal }) => {
         }
       } else {
         const value = info[info.length - 1];
-        const param = info.slice(0, -1).join("_");
-
+        const param = info.slice(info.includes("oracles") ? 1 : 0, -1).join("_");
         if (!(param in governance)) governance[param] = {};
 
         governance[param] = {
@@ -214,7 +213,7 @@ export const Governance = ({ openWalletModal }) => {
   for (let param in governanceParams) {
     governanceParams[param].refEl = createRef();
     if (param === "fee_multiplier" && governanceParams[param].value < 1 && base_governance === "Y4VBXMROK5BWBKSYYAMUW7QUEZFXYBCF") continue;
-    if (param === "oracles" && !actualParams.allow_oracle_change) continue;
+    if (param.includes("oracles") && !actualParams.allow_oracle_change) continue;
     governanceList.push({
       ...governanceParams[param],
       name: param,

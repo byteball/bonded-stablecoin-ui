@@ -7,9 +7,9 @@ const ReasonsNotTracking = ({ forwardedRef }) => {
   const { t } = useTranslation();
   return (
     <div className={styles.wrap}>
-      <div className={styles.title}>
+      <h2 className={styles.title}>
         {t("home.reasons.title", "007 reasons why bonded stablecoins are the best stablecoins ever")}
-      </div>
+      </h2>
 
       <div className={styles.items} ref={forwardedRef}>
         <div>

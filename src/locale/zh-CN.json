@@ -539,7 +539,7 @@
         "for": "对于寻求较高收入且风险较高的投资者。",
         "info": "{{growthName}}: 生长代币, 其值绑定到 {{interestName}} 发布的金额。"
       },
-      "need_similar_coins": "需要绑定到 {{other}} 或其他一些资产的类似代币？<3></3>选择您的币： <6>{peggedList。 ap(p) => (\n                <Option key={p} value={p}>\n                  {p}\n                </Option>\n              ))}</6> 或 <10>创建一个新的 </10>。"
+      "need_similar_coins": "需要绑定到 {{other}} 或其他一些资产的类似代币？<3/>选择您的币： <6/> 或 <10>创建一个新的 </10>。"
     },
     "reasons": {
       "title": "007 个原因为何债卷稳定币是前所未有的最佳稳定币的原因",
