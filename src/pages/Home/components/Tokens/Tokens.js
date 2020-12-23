@@ -9,6 +9,7 @@ import growthIllustration from "./img/GRD.svg";
 import styles from "./Tokens.module.css";
 import { Link } from "react-router-dom";
 import handleViewport from "react-in-viewport";
+import { Popular } from "../Popular/Popular";
 
 export const Tokens = () => {
   const [shown, setShown] = useState({
@@ -30,6 +31,7 @@ export const Tokens = () => {
   return (
     <div>
       <Interest onEnterViewport={() => handleShown("interest")} />
+      <Popular />
       <Stable onEnterViewport={() => handleShown("stable")} />
       <Growth onEnterViewport={() => handleShown("growth")} />
     </div>

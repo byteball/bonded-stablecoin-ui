@@ -109,6 +109,7 @@ export const $get_exchange_result = ({
     n,
     fee_multiplier,
     interest_rate,
+    reserve_asset,
   } = params;
   const fast_capacity_share = 1 - slow_capacity_share;
   const initial_p2 = vars.p2;
@@ -180,7 +181,7 @@ export const $get_exchange_result = ({
   const network_fee = 1e3;
   const full_network_fee = network_fee;
 
-  const reserve_asset_amount = 1e4 - full_network_fee;
+  const reserve_asset_amount = reserve_asset === "base" ? 1e4 - full_network_fee : 0;
 
   const payout = reserve_asset_amount - reserve_needed;
 

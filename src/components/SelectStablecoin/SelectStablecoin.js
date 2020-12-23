@@ -79,6 +79,7 @@ export const SelectStablecoin = () => {
       <Row>
         <Select
           size="large"
+          optionFilterProp="children"
           placeholder={t("select_stablecoin.placeholder", "Please select a stablecoin")}
           style={{ width: "100%" }}
           showSearch={true}
