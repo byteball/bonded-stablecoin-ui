@@ -47,10 +47,10 @@ export const depositsEventManager = ({
       }
     } else if ("id" in payload && "commit_force_close" in payload) {
       if (isAuthor) {
-        openNotification(i18n.t("notification.deposits.commit_force_close.req_author", "You have sent a request to to commit a force close"));
+        openNotification(i18n.t("notification.deposits.commit_force_close.req_author", "You have sent a request to commit a force close"));
       } else {
         openNotification(
-          i18n.t("notification.deposits.commit_force_close.req", "Another user sent a request to to commit a force close")
+          i18n.t("notification.deposits.commit_force_close.req", "Another user sent a request to commit a force close")
         );
       }
     } else if ("id" in payload) {

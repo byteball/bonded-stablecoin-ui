@@ -657,8 +657,8 @@
         "req": "Another user sent a request to challenge a force-close"
       },
       "commit_force_close": {
-        "req_author": "You have sent a request to to commit a force close",
-        "req": "Another user sent a request to to commit a force close"
+        "req_author": "You have sent a request to commit a force close",
+        "req": "Another user sent a request to commit a force close"
       },
       "close_deposit": {
         "req_author": "You have sent a request to close a Deposit",
