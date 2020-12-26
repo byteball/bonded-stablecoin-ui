@@ -22,7 +22,7 @@ export const CapacitorParameters = ({ params, address, activeWallet, base_govern
           />
           <span className={styles.semi}>:</span>
         </div>
-        <span>{fee_multiplier} {activeWallet && !(base_governance === "Y4VBXMROK5BWBKSYYAMUW7QUEZFXYBCF" && fee_multiplier < 1) && <ButtonEditParams param="fee_multiplier" address={address} />}</span>
+        <span>{fee_multiplier} {activeWallet && <ButtonEditParams param="fee_multiplier" address={address} />}</span>
       </div>
 
       <div className={styles.param}>

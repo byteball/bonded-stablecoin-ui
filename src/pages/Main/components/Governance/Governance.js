@@ -212,7 +212,6 @@ export const Governance = ({ openWalletModal }) => {
   const governanceList = [];
   for (let param in governanceParams) {
     governanceParams[param].refEl = createRef();
-    if (param === "fee_multiplier" && governanceParams[param].value < 1 && base_governance === "Y4VBXMROK5BWBKSYYAMUW7QUEZFXYBCF") continue;
     if (param.includes("oracles") && !actualParams.allow_oracle_change) continue;
     governanceList.push({
       ...governanceParams[param],
