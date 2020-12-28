@@ -142,7 +142,7 @@ export const RedeemToken = ({
         ]}
       >
         <Input.Search
-          placeholder={t(`trade.tabs.buy_redeem.amount${type}_placeholder`, `Amount of tokens${type} ({{symbolOrAsset}} — ${type === 1 ? "interest" : "growth"} tokens)`, {symbolOrAsset: symbol || asset})}
+          placeholder={t(`trade.tabs.buy_redeem.amount${type}_placeholder`, `Amount of tokens${type} ({{symbolOrAsset}} — ${type === 1 ? "growth" : "interest"} tokens)`, {symbolOrAsset: symbol || asset})}
           autoComplete="off"
           style={{ marginBottom: 0 }}
           onKeyPress={(ev) => {

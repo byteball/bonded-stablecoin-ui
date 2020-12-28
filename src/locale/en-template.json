@@ -286,9 +286,9 @@
     "compensates": "Obyte compensates part of the exchange fees.",
     "compensates_depleted": "Obyte compensates part of the exchange fees but today's quota is already depleted and the quoted price includes the full fees. To get a better rate, try again after the quota resets at midnight UTC or buy with GBYTE now.",
     "install": "<0>Install Obyte wallet</0>  if you don't have one yet, and copy/paste your address here.",
+    "buy": "Buy",
     "volatility": "1% was added to protect against price volatility, you'll get this amount back if the prices don't change.",
     "open_wallet": "Clicking \"Buy\" will open your Obyte wallet.<1>Install</1> it if you don't have one yet.",
-    "buy": "Buy",
     "min": "Sorry, the minimum {{activeCurrency}} amount is {{min}}. Please increase the {{activeCurrency}} amount.",
     "buying_growth": "For buying growth tokens (GRD, GRB, etc) and redemption, go to the <2>trading page</2>.",
     "updated": "This page will be updated automatically",
@@ -541,6 +541,11 @@
       },
       "need_similar_coins": "Need similar coins pegged to {{other}} or some other asset? <3></3>Select yours: <6>{peggedList.map((p) => (\n                <Option key={p} value={p}>\n                  {p}\n                </Option>\n              ))}</6> or <10>create new ones</10>."
     },
+    "popular": {
+      "pegged": "Pegged:",
+      "buy": "buy",
+      "title": "Most popular interest bearing tokens"
+    },
     "reasons": {
       "title": "007 reasons why bonded stablecoins are the best stablecoins ever",
       "info": {
@@ -652,8 +657,8 @@
         "req": "Another user sent a request to challenge a force-close"
       },
       "commit_force_close": {
-        "req_author": "You have sent a request to to commit a force close",
-        "req": "Another user sent a request to to commit a force close"
+        "req_author": "You have sent a request to commit a force close",
+        "req": "Another user sent a request to commit a force close"
       },
       "close_deposit": {
         "req_author": "You have sent a request to close a Deposit",
