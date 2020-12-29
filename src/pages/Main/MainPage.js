@@ -44,6 +44,7 @@ export const MainPage = ({ setWalletModalVisibility }) => {
   const pendings = useSelector((state) => state.pendings);
   const { activeWallet, lang } = useSelector((state) => state.settings);
   const { loaded } = useSelector((state) => state.list);
+  const data = useSelector((state) => state.data);
   const [currentTab, setCurrentTab] = useState(undefined);
   const [handleSkip, setHandleSkip] = useState(false);
   const [tabInitialized , setTabInitialized] = useState(false);
@@ -108,7 +109,7 @@ export const MainPage = ({ setWalletModalVisibility }) => {
     }
   }, [loaded, tabInitialized, stable_state])
 
-  if (address === undefined || !loaded) {
+  if (address === undefined || !loaded || !data.loaded) {
     return null;
   } else if (
     !handleSkip &&

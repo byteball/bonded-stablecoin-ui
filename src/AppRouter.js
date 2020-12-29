@@ -23,7 +23,6 @@ const AppRouter = () => {
   const [walletModalVisible, setWalletModalVisibility] = useState(false);
   const connected = useSelector((state) => state.connected);
   const { loaded } = useSelector((state) => state.list);
-  const data = useSelector((state) => state.data);
   const { lang } = useSelector((state) => state.settings);
   const dispatch = useDispatch();
   
@@ -40,7 +39,7 @@ const AppRouter = () => {
     }
   }, [lang]);
 
-  if ((!connected || !loaded || !data.loaded) && !botCheck(navigator.userAgent)) return <Spinner />;
+  if ((!connected || !loaded) && !botCheck(navigator.userAgent)) return <Spinner />;
 
   const langNames = langs.map((lang) => lang.name);
   const basename = `/:lang(${langNames.join("|")})?`;
