@@ -1,6 +1,7 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Typography } from "antd";
 import { useTranslation, Trans } from 'react-i18next';
+import { Helmet } from "react-helmet";
 
 import graphics from "./img/graphics.svg";
 import capacitor from "./img/capacitor.svg";
@@ -10,12 +11,11 @@ import styles from "./HowItWorksPage.module.css";
 const { Title } = Typography;
 
 export const HowItWorksPage = () => {
-  useEffect(() => {
-    document.title = "Bonded stablecoins - How it works";
-  }, []);
   const { t } = useTranslation();
+  
   return (
     <div>
+      <Helmet title="Bonded stablecoins - How it works" />
       <div className={styles.howItWork}>
         <Title level={1}>{t("how_it_works.title", "How it works")}</Title>
         <div className={styles.subTitle}>

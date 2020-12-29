@@ -8,6 +8,9 @@ import {
 import { getList } from "store/actions/list/getList";
 import { eventManager } from "./eventManager/eventManager";
 import { updateOracleValues } from "store/actions/active/updateOracleValues";
+import { updateProvider } from "./updateProvider/updateProvider";
+import { getData } from "store/actions/data/getData";
+import { updateData } from "store/actions/data/updateData";
 
 const client = new obyte.Client(
   `wss://obyte.org/bb${config.TESTNET ? "-test" : ""}`,
@@ -35,11 +38,22 @@ client.onConnect(() => {
   }, 1000 * 60);
 
   client.subscribe(eventManager);
+
   client.client.ws.addEventListener("close", () => {
     store.dispatch(closeConnection());
     clearInterval(heartbeat);
     clearInterval(updateOracle);
   });
 });
+
+const update = (data) => {
+  store.dispatch(updateData(data));
+}
+
+const getSnapshot = (data) => {
+  store.dispatch(getData(data));
+}
+
+updateProvider({ address: config.UPCOMING_STATE_WS_URL, update, getSnapshot });
 
 export default client;
