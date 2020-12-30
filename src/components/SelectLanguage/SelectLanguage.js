@@ -9,6 +9,7 @@ import ru from "./flags/ru.svg"
 import usa from "./flags/usa.svg"
 import es from "./flags/es.svg"
 import cn from "./flags/cn.svg"
+import dk from "./flags/dk.svg"
 
 export const langs = [
   {
@@ -29,7 +30,7 @@ export const langs = [
   },
   {
     name: "da",
-    flag: ru
+    flag: dk
   },
 ];
 
