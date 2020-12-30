@@ -1,7 +1,8 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Collapse, Typography } from "antd";
 import { DownOutlined } from "@ant-design/icons";
 import { Trans, useTranslation } from 'react-i18next';
+import { Helmet } from "react-helmet";
 
 import styles from "./FaqPage.module.css";
 
@@ -10,12 +11,9 @@ const { Title } = Typography;
 export const FaqPage = () => {
   const { t } = useTranslation();
 
-  useEffect(() => {
-    document.title = "Bonded stablecoins - F.A.Q.";
-  }, []);
-
   return (
     <div className="faq">
+      <Helmet title="Bonded stablecoins - F.A.Q." />
       <Title level={1}>F.A.Q.</Title>
       <Collapse
         accordion

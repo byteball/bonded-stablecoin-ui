@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Typography, Steps } from "antd";
 import { useTranslation } from 'react-i18next';
+import { Helmet } from "react-helmet";
 
 import { useWindowSize } from "hooks/useWindowSize";
 import { CurverStep } from "./components/CurveStep/CurveStep";
@@ -16,11 +17,10 @@ export const CreatePage = () => {
   const [data, setData] = useState({});
   const [width] = useWindowSize();
   const { t } = useTranslation();
-  useEffect(() => {
-    document.title = "Bonded stablecoins - Create";
-  }, []);
+  
   return (
     <div>
+      <Helmet title="Bonded stablecoins - Create" />
       <Title level={1}>{t("create.title", "Create")}</Title>
       <Steps
         size="large"

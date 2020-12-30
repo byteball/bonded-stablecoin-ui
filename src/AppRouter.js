@@ -18,6 +18,11 @@ import i18 from './locale/index';
 import { langs } from "components/SelectLanguage/SelectLanguage";
 import { botCheck } from "utils/botCheck";
 import { changeLanguage } from "store/actions/settings/changeLanguage";
+import { updateData } from "store/actions/data/updateData";
+import { getData } from "store/actions/data/getData";
+import config from "config";
+import { getDataError } from "store/actions/data/getDataError";
+import { updateProvider } from "services/updateProvider/updateProvider";
 
 const AppRouter = () => {
   const [walletModalVisible, setWalletModalVisibility] = useState(false);
@@ -38,6 +43,22 @@ const AppRouter = () => {
       i18.changeLanguage(lang);
     }
   }, [lang]);
+
+  useEffect(()=>{
+    const update = (data) => {
+      dispatch(updateData(data));
+    }
+    
+    const handleSnapshot = (data) => {
+      dispatch(getData(data));
+    }
+    
+    const onError = () => {
+      dispatch(getDataError());
+    }
+    
+    updateProvider({ address: config.UPCOMING_STATE_WS_URL, update, handleSnapshot, onError });
+  }, []);
 
   if ((!connected || !loaded) && !botCheck(navigator.userAgent)) return <Spinner />;
 

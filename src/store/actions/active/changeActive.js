@@ -10,22 +10,29 @@ export const changeActive = (address) => async (dispatch, getState, socket) => {
   });
 
   const store = getState();
-  
+
   if (!store.list.loaded || !address) return null;
   if (!(address in store.list.data)) return null;
 
   const { params, deposit, governance } = store.list.data[address];
-  const stableInfo = await socket.api.getAaStateVars({
-    address,
-  });
 
-  const depositInfo = await socket.api.getAaStateVars({
-    address: deposit,
-  });
+  const stableInfo = !store.data.error && address in store.data.data
+    ? store.data.data[address]
+    : await socket.api.getAaStateVars({
+      address,
+    });
 
-  const governanceInfo = await socket.api.getAaStateVars({
-    address: governance,
-  });
+  const depositInfo = !store.data.error && deposit in store.data.data
+    ? store.data.data[deposit]
+    : await socket.api.getAaStateVars({
+      address: deposit
+    });
+
+  const governanceInfo = !store.data.error && governance in store.data.data
+    ? store.data.data[governance]
+    : await socket.api.getAaStateVars({
+      address: governance
+    });
 
   await socket.justsaying("light/new_aa_to_watch", {
     aa: address,

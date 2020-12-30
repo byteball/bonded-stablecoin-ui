@@ -62,42 +62,21 @@ export const activeReducer = (state = initialState, action) => {
       };
     }
     case CHANGE_STABLE_STATE: {
-      const rows = action.payload;
-      const newState = { ...state.stable_state, ...action.payload };
-      for (const row in rows) {
-        if (rows[row] === undefined || rows[row] === false) {
-          delete newState[row];
-        }
-      }
       return {
         ...state,
-        stable_state: newState,
+        stable_state: action.payload,
       };
     }
     case CHANGE_DEPOSIT_STATE: {
-      const rows = action.payload;
-      const newState = { ...state.deposit_state, ...action.payload };
-      for (const row in rows) {
-        if (rows[row] === undefined || rows[row] === false) {
-          delete newState[row];
-        }
-      }
       return {
         ...state,
-        deposit_state: newState,
+        deposit_state: action.payload,
       };
     }
     case CHANGE_GOVERNANCE_STATE: {
-      const rows = action.payload;
-      const newState = { ...state.governance_state, ...action.payload };
-      for (const row in rows) {
-        if (rows[row] === undefined || rows[row] === false) {
-          delete newState[row];
-        }
-      }
       return {
         ...state,
-        governance_state: newState,
+        governance_state: action.payload,
       };
     }
     case UPDATE_ORACLES: {

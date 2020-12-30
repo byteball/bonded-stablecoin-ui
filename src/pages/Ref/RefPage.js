@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Col, Row, Typography, message, Table, Space } from "antd";
 import { useSelector } from "react-redux"
+import { Helmet } from "react-helmet";
 import { Trans, useTranslation } from 'react-i18next';
 import { FacebookShareButton, FacebookIcon, VKShareButton, VKIcon, TwitterShareButton, TwitterIcon, TelegramShareButton, TelegramIcon } from "react-share";
 import RefImage from "./img/ref.svg";
@@ -59,6 +60,7 @@ export const RefPage = ({ setWalletModalVisibility }) => {
   }, [activeWallet]);
 
   return <>
+    <Helmet title="Bonded stablecoins - Referral program" />
     <Title level={1} style={{ marginBottom: 30 }}>{t("ref.title", "Referral program")}</Title>
     <Row style={{ fontSize: 18 }}>
       <Col xl={{ offset: 1, span: 8 }} sm={{ span: 24 }} xs={{ span: 24 }}>

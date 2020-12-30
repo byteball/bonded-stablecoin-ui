@@ -8,6 +8,7 @@ import socket from "../services/socket";
 import { activeReducer } from "./reducers/active";
 import { connectionReducer } from "./reducers/connection";
 import { pendingsReducer } from "./reducers/pendings";
+import { dataReducer } from "./reducers/data";
 
 const rootReducer = combineReducers({
   settings: settingsReducer,
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
   active: activeReducer,
   pendings: pendingsReducer,
   connected: connectionReducer,
+  data: dataReducer
 });
 
 const persistConfig = {
