@@ -26,7 +26,11 @@ export const langs = [
   {
     name: "ru",
     flag: ru
-  }
+  },
+  {
+    name: "da",
+    flag: ru
+  },
 ];
 
 export const SelectLanguage = () => {
