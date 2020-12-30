@@ -1,0 +1,712 @@
+{
+  "main_menu": {
+    "menu": "Menu",
+    "trade": "Handl",
+    "buy": "Køb rentebærende tokens",
+    "referral": "Henvisningsprogram",
+    "create": "Opret",
+    "how": "Sådan virker det",
+    "select_wallet": {
+      "placeholder": "Vælg din adresse",
+      "no_found": "Ingen wallet-adresser fundet",
+      "btn": "Tilføj"
+    }
+  },
+  "select_stablecoin": {
+    "placeholder": "Vælg en stablecoin",
+    "recent": "Seneste",
+    "other": "Andre",
+    "all": "Alle"
+  },
+  "footer": {
+    "join_community": "Bliv en del af fællesskabet og få hjælp"
+  },
+  "trade": {
+    "statistic": {
+      "p2UnitsText": {
+        "inversed": "Den viste pris er prisen i reservevalutaen {{reserveSymbolOrAsset}} i forhold til Token2 ({{symbol2orAsset}}).",
+        "not_inversed": "Den viste pris er prisen på Token2 ({{symbol2OrAsset}}) i forhold til reservevalutaen {{reserveSymbol}}."
+      },
+      "token1_supply": {
+        "name": "Tokens1 mængde",
+        "desc": "Total mængde af Token1 (vækst-tokens)"
+      },
+      "token2_supply": {
+        "name": "Token2 mængde",
+        "desc": "Total mængde af Token2 (rentebærende tokens)"
+      },
+      "token_stable_supply": {
+        "name": "Mængde stable tokens",
+        "desc": "Total mængde stable tokens"
+      },
+      "reserve": {
+        "name": "Reservevaluta",
+        "desc": "Total mængde af reservevaluta låst for udstedelse af T1 og T2 tokens"
+      },
+      "token1_price": {
+        "name": "{{symbol1}} pris",
+        "desc": "Aktuel pris på Token1 i henhold til priskurven. Den afhænger af mængden af Token1 og Token2. Prisen vises i forhold til reservevalutaen."
+      },
+      "current_price": {
+        "name": "Aktuel pris",
+        "desc": "Aktuel pris i henhold til priskurven. Den afhænger af mængden af Token1 og Token2. "
+      },
+      "target_price": {
+        "name": "Target-pris",
+        "desc": "Prisen, Token2 er låst til. Det er prisen fra oraklet plus renter. "
+      },
+      "oracle_price": {
+        "name": "Orakel-pris",
+        "desc": "Seneste pris oplyst af oraklet"
+      },
+      "show": "Vis info",
+      "hide": "Skjul info"
+    },
+    "tabs": {
+      "capacitor": {
+        "title": "Kondensator-info",
+        "desc": "Kondensatorer lagrer beløb fra gebyrer opkrævet fra brugere, der via handler rykker prisen væk fra target-prisen. Beløbet bruges på at belønne de, der flytter prisen tilbage til sin target-pris.",
+        "fast": {
+          "title": "Hurtig kondensator",
+          "desc": "Beløbet heri er umiddelbart tilgængeligt for brugere, der flytter prisen tilbage til target-prisen."
+        },
+        "slow": {
+          "title": "Langsom kondensator",
+          "desc": "Beløbet heri er reserveret til fremtiden. Det overføres gradvist til den hurtige kondensator."
+        },
+        "time_until": {
+          "title": "Tid til næste justering",
+          "expired": "Tiden er udløbet"
+        },
+        "move": {
+          "title": "Flyt beløb til hurtig kondensator",
+          "desc": "Beløbet kan flyttes fra langsom til hurtig kondensator, hvis prisen er mere end {{threshold_distance}}% fra target-prisen og forbliver det i mere end {{hours}} timer og {{minutes}} minutter.",
+          "btn": "Flyt"
+        },
+        "name": "Kondensatorer"
+      },
+      "charts": {
+        "legend": "{{symbol}} pris (i {{currency}})",
+        "title": "Grafer",
+        "name": "Grafer"
+      },
+      "deposits": {
+        "no_auth": "Angiv adressen fra din wallet for at se og åbne depoter.",
+        "opened": "Åbnet",
+        "interest_title": "Rentebærende tokens",
+        "interest_title_desc": "Antal rentebærende tokens",
+        "stable_title": "Stabile tokens",
+        "stable_title_desc": "Antal stabile tokens udstedt ved depot",
+        "protection": "Beskyttelse (rate)",
+        "protection_desc": "Yderligere tilføjelse af {{reserve}}, der forhindrer depotet i at blive lukket af andre. Depotet med lavest forholdsmæssige beskyttelsesrate, kan lukkes af alle. Der er ikke noget direkte tab for dig, når et depot lukkes, men du modtager ikke længere renter.",
+        "add_protection": "Tilføj beskyttelse",
+        "withdraw_protection": "Hæv beskyttelse",
+        "interest": "Renter",
+        "interest_desc": "Renter, der kan hæves",
+        "withdraw_interest": "Hæv renter",
+        "interest_recipient": "Modtager af renter",
+        "interest_recipient_desc": "Hvem modtager renter (depotets ejer er standard)",
+        "you": "dig",
+        "edit_interest_recipient": "Redigér rentemodtager",
+        "close": "Luk",
+        "for_empty": "Du har ingen åbne depoter, <2>open nyt</2> eller skift wallet-adresse.",
+        "disabled": "Depoter er deaktiveret når rentesatsen er nul.",
+        "title": "Depoter",
+        "open": "Opret depot",
+        "create": "Opret depot for at veksle {{symbol2}} til stabile tokens {{symbol3}} og løbende modtage renter i {{symbol3}}. Du kan handle {{symbol3}} på <9>Oswap</9> eller <11>ODEX</11>.",
+        "protection_ratio": "Beskyttelsesrate af senest tvangslukkede depot",
+        "close_info": "Nye depoter kan først lukkes efter <1>{{hours}} timer</1>.",
+        "name": "Depoter"
+      },
+      "governance": {
+        "withdraw": {
+          "balance": "Mængde {{symbol}}, der er låst i styrings-Autonomous Agent er {{balance}}.",
+          "fields": "For at hæve, skal du først fjerne støtten fra disse felter",
+          "withdraw": "Hæv"
+        },
+        "no_auth": "Angiv wallet-adresse for at kunne deltage i styring",
+        "title": "Styring",
+        "desc": "Indehavere af {{symbol1}} kan stemme om at ændre forskellige parametre på en stablecoin for at sikre dens succes.<2></2> Værdien af {{symbol1}} stiger i takt med at der købes {{symbol2}}.",
+        "change_parameters": "Administrer parametre",
+        "value": "Værdi",
+        "support": "Støtte",
+        "add_support": "støt denne værdi",
+        "vote_for_this": "stem på denne værdi",
+        "current_value": "Nuværende værdi",
+        "leader": "Førende",
+        "my_choice": "Mit valg",
+        "expires_period": "Udfordringsperioden udløber om",
+        "another_value": "foreslå anden værdi",
+        "commit": "send",
+        "remove_support": "fjern støtte",
+        "name": "Styring"
+      },
+      "buy_redeem": {
+        "title_buy": "Køb tokens",
+        "first": "Da du er den første, der køber tokens for denne stablecoin, skal du købe både token1 og token2 samtidigt.",
+        "subtitle_buy": "Hvor mange tokens af hver slags vil du købe",
+        "minimize": "Sæt antal af token1 for at reducere gebyrer",
+        "amount1_placeholder": "Antal token1 ({{symbolOrAsset}} - vækst tokens)",
+        "convert": "Konverter {{symbol2}} til den stabile token {{symbol3}} med det samme",
+        "issue_will_receive": "vil modtage {{amount}} {{symbol}}",
+        "amount2_placeholder": "Antal token2 ({{symbolOrAsset}} - rentebærende tokens)",
+        "fee": "Gebyr",
+        "reward": "Dusør",
+        "price_change": "Prisændring",
+        "price": "Pris",
+        "final_price": "Endelig pris",
+        "above_target": "over målet",
+        "below_target": "under målet",
+        "send": "Send",
+        "protect": "1% blev tilføjet for at beskytte mod prisvolatilitet. Du får beløbet tilbage, hvis prisen forbliver uændret.",
+        "redeem_will_receive": "Du vil modtage {{amount}} {{symbol}}",
+        "big_change": "Handlen vil flytte prisen for meget. Prøve et mindre beløb",
+        "redeem": "Indløs",
+        "title_redeem": "Indløs token{{number}} {{symbol}}",
+        "name": "Køb/indløs"
+      },
+      "parameters": {
+        "title_curve": "Kurve",
+        "title_deposits": "Depoter",
+        "title_governance": "Styring",
+        "edit": "rediger",
+        "show_info": "Vis info",
+        "latest_value": "Seneste værdi",
+        "tokens1": "Tokens1",
+        "asset": "valuta",
+        "tokens2": "Tokens2",
+        "stable_tokens": "Stabile tokens",
+        "title": "Parametre for stablecoin",
+        "view": "Vis på explorer",
+        "title_autonomous_agents": "Autonomous Agents",
+        "title_tokens": "Tokens",
+        "title_capacitor": "Kondensator",
+        "name": "Parametre"
+      }
+    }
+  },
+  "modals": {
+    "add_protection": {
+      "title": "Tilføj beskyttelse til depot",
+      "btn": "Tilføj beskyttelse"
+    },
+    "common": {
+      "close": "Luk",
+      "amount": "Beløb",
+      "add": "Tilføj",
+      "check": "Tjek",
+      "edit": "Rediger",
+      "open": "Åbn",
+      "done": "Udført"
+    },
+    "add_wallet": {
+      "title": "Tilføj wallet",
+      "desc": "Indsæt din Obyte wallet-adresse. Hvis du ikke har en, skal du <2>installere</2> den først.",
+      "wallet_address": "Wallet-adresse"
+    },
+    "change_param": {
+      "valid": {
+        "fee_multiplier": "Værdien af fee_multiplier skal være større end {{value}}",
+        "moved_capacity_share": "Værdien af parameteren moved_capacity_share (i procent) skal være mellem 0 og 100",
+        "threshold_distance": "Værdien af parameteren threshold_distance skal være mellem 0 og 0.2",
+        "move_capacity_timeout": "Værdien af parameteren move_capacity_timeout skal være et heltal større end 0",
+        "slow_capacity_share": "Værdien af parameteren slow_capacity_share (i procent) skal være mellem 0 og 100",
+        "interest_rate": "Værdien af parameteren interest_rate (i procent) skal være 0 eller højere",
+        "min_deposit_term": "Værdien af parameteren min_deposit_term skal være et heltal på 0 eller højere",
+        "challenging_period": "Værdien af parameteren challenging_period skal være et heltal på 0 eller højere",
+        "challenge_immunity_period": "Værdien af parameteren challenge_immunity_period skal være et heltal på 0 eller højere",
+        "reporter_share": "Værdien af parameteren reporter_share (i procent) skal være mellem 0 og 100"
+      },
+      "title": "Skift {{param}}",
+      "add_support": "Støt",
+      "vote": "Stem",
+      "your_support_value": "Din støtte til fordel for",
+      "param_value": "Parameterværdi",
+      "your_balance": "Din nuværende saldo på styrings-AA",
+      "add_more": "Tilføj mere (valgfrit)",
+      "count_tokens": "Antal af token1 ({{symbol}})",
+      "your_supported_value": "Værdi, du støtter",
+      "total_support": "Total støtte til denne værdi",
+      "your_support": "Din støtte til denne værdi"
+    },
+    "edit_recipient": {
+      "title": "Rediger rentemodtager",
+      "select": "Vælg rentemodtager",
+      "new_address": "Ny rentemodtagers adresse",
+      "add_your_own": "Tilføj anden",
+      "me": "Mig"
+    },
+    "open_deposit": {
+      "title": "Opret depot",
+      "amount": "Antal af T2 ({{symbol}})",
+      "will_receive": "om 30 dage modtager du ~{{count}} stablecoins",
+      "will_receive_plural": "om 30 dage modtager du ~{{count}} stablecoins"
+    },
+    "oracle_info": {
+      "title": "Orakel-information",
+      "address": "Adresse",
+      "name": "Navn",
+      "desc": "Beskrivelse",
+      "no_desc": "ingen beskrivelse",
+      "no_info": "Ingen information om dette orakel"
+    },
+    "select_wallet": {
+      "title": "Vælg wallet"
+    },
+    "supportList": {
+      "title": "Støtter"
+    },
+    "withdraw": {
+      "title": "Træk støtte",
+      "withdraw": "Hæv",
+      "amount_info": "Efterlad blank, hvis du vil hæve hele beløbet",
+      "amount_placeholder": "Hæv antal (Max: {{max}})"
+    },
+    "withdraw_protection": {
+      "title": "Hæv beskyttelse fra depot",
+      "withdraw_protection": "Hæv beskyttelse",
+      "max_withdrawal": "Maks udbetaling"
+    }
+  },
+  "buy": {
+    "title": "Køb rentebærende tokens",
+    "desc": "Køb rentebærende tokens (IUSD, IBIT, etc) for andre kryptovalutaer med ét enkelt step.",
+    "exchange_success": "Vekslingen blev tilføjet til listen og afventer nu betaling",
+    "exchange_error": "Der opstod en fejl, prøv igen senere",
+    "exchange_warning": "Veksling af {{currency}} til GBYTE er ikke tilgængelig, betal venligst med GBYTE eller prøv igen senere.",
+    "you_send": "Du <1>sender</1>",
+    "amount": "Beløb",
+    "currency_to_pay": "Valuta til betaling",
+    "popular_cryptocurrencies": "Populære kryptovalutaer",
+    "others": "Andre",
+    "better_rate": "Du får en bedre kurs, hvis du betaler med GBYTE",
+    "you_get": "Du <1>modtager</1>",
+    "will_receive": "Token, du vil modtage",
+    "first_exchanged": "Dine <1>{{activeCurrency}}</1> vil først blive vekslet til GBYTE for derefter at blive vekslet til {{symbol}}. Vekslingen fra <8>{{activeCurrency}}</8> til GBYTE udføres af <12>{{providerName}}</12>.",
+    "compensates": "Obyte betaler en del af vekselgebyret.",
+    "compensates_depleted": "Obyte betaler en del af gebyret for vekslingen, men den maksimale kvote for i dag er nået. Prisen inkluderer derfor det fylde gebyr. For at opnå en bedre kurs kan du prøve igen når kvoten nulstilles ved midnat UTC eller købe med GBYTE nu.",
+    "install": "<0>Installer Obyte wallet</0> hvis du ikke allerede har gjort det, og kopier og indsæt din adresse her.",
+    "buy": "Køb",
+    "volatility": "1% blev tilføjet i tilfælde af prisudsving. Du får beløbet retur hvis prisen ikke ændres.",
+    "open_wallet": "Ved at klikke \"Køb\", åbnes din Obyte wallet. <1>Installer</1> den hvis du ikke allerede har.",
+    "min": "Beklager, det mindste beløb for {{activeCurrency}} er {{min}}. Forøg beløb af {{activeCurrency}}.",
+    "buying_growth": "For at købe vækst-tokens (GRD, GRB osv) og indløse, skal du gå til <2>trading siden</2>.",
+    "updated": "Siden opdaterer automatisk",
+    "status": "Status",
+    "status_loading": "henter status...",
+    "send_to_address": "Send <1>{{currency_from}}</1> til adresse: ",
+    "recipient_address": "Modtager-adresse",
+    "currently_converting": "Konvertering fra <1>{{currency_from}}</1> til GBYTE udføres af {{providerName}}. For support eller hjælp med problemer, venligst kontakt dem via deres <5>support-side</5>.",
+    "go_back": "Tilbage til formularen"
+  },
+  "create": {
+    "next": "Næste",
+    "received": {
+      "title": "Anmodning modtaget",
+      "subTitle": "Når transaktionen er færdigbehandlet, dirigeres du til siden for den nye stablecoin",
+      "close": "Luk"
+    },
+    "sending_request": {
+      "title": "Næsten klar!",
+      "subTitle": "Klik på «Opret» herunder. Dette åbner din Obyte wallet med en klargjort transaktion, du blot skal sende for at etablere den nye stablecoin.",
+      "create": "Opret",
+      "reset": "Nulstil"
+    },
+    "edit_oracles": "rediger orakler",
+    "last_posted": "Sidst oplyste pris fra orakel ",
+    "target_price": "Target-pris",
+    "check": "Tjek orakler",
+    "allow": "tillad",
+    "disallow": "forbyd",
+    "title": "Opret",
+    "steps": {
+      "curve": "Kurve",
+      "capacitor": "Kondensator",
+      "governance": "Styring",
+      "create": "Opret"
+    },
+    "setting": "Parameterindstillinger",
+    "sending": "Sender anmodning",
+    "required": "Obligatorisk felt"
+  },
+  "params": {
+    "leverage": {
+      "name": "Gearing",
+      "desc": "Gearing af Token2. Brug 0 (standard) for at følge pris-oraklet. Angiv en positiv værdi for at angive gearing af long positioner i reserve-valutaen eller negativ værdi for gearing af short positioner."
+    },
+    "decimals1": {
+      "name": "Decimaler 1",
+      "desc": "Decimaler af Token1 (vækst token)"
+    },
+    "decimals2": {
+      "name": "Decimaler 2",
+      "desc": "Decimaler på Token2 (rentebærende tokens eller stabile tokens, hvis renten er 0)"
+    },
+    "reserve_decimals": {
+      "name": "Reservevaluta-decimaler",
+      "desc": "Decimaler på reserve-valutaens enheder."
+    },
+    "m": {
+      "desc": "Effekt af m på priskurven r=s<1>1</1><2>m</2> s<4>2</4><5>n</5>"
+    },
+    "n": {
+      "desc": "Effekt af n på priskurven r=s<1>1</1><2>m</2> s<4>2</4><5>n</5>"
+    },
+    "reserve_asset": {
+      "name": "Reservevaluta",
+      "desc": "Valuta, der anvendes som reserve for udstedelse af Token1 og Token2. GBYTE er standard."
+    },
+    "interest_rate": {
+      "name": "Rentesats",
+      "desc": "Rentesats, som Token2 modtager i forhold til den stabile token. Skriv 0.1 for 10%."
+    },
+    "moved_capacity_share": {
+      "name": "Andel, der overføres",
+      "desc": "Andelen, som den langsomme kondensator flytter til den hurtige ved timeout."
+    },
+    "fee_multiplier": {
+      "name": "Gebyr-multiplikator",
+      "desc": "Multiplikator, der bruges til at beregne gebyrer for at flytte prisen væk fra target-prisen. Jo højere multiplikator, des større gebyr betaler brugere for at flytte prisen væk fra target-prisen."
+    },
+    "move_capacity_timeout": {
+      "name": "Andel overføres efter",
+      "desc": "Hvor længe skal der gå (i sekunder) før en andel flyttes fra langsom til hurtig kondenstor."
+    },
+    "threshold_distance": {
+      "name": "Tærskel-afstand",
+      "desc": "Tærskel-afstand fra target-prisen, der når den rammes, starter nedtællingen til at en andel flyttes from langsom til hurtig kondensator."
+    },
+    "slow_capacity_share": {
+      "name": "Andel til langsom kondensator",
+      "desc": "Andel af gebyrer, der går til langsom kondensator. Resten går til den hurtige."
+    },
+    "min_deposit_term": {
+      "name": "Min. deponeringstid",
+      "desc": "Antal sekunder, der mindst skal gå før et nyt depot kan lukkes igen."
+    },
+    "challenging_period": {
+      "name": "Udfordringsperiode",
+      "desc": "Antallet af sekunder, som lukning af et depot kan udfordres i. Depotet med laveste beskyttelsesrate kan lukkes af alle - ikke bare ejeren. Udfordringsperioden starter når et depot forsøges lukket. I denne periode kan lukningen udfordres ved at indikere et andet depot med lavere beskyttelsesrate. I det tilfælde, modtager udfordreren en del af det deponerede beløb og den, der lukker depotet taber."
+    },
+    "challenge_immunity_period": {
+      "name": "Udfordringsperiode-immunitet",
+      "desc": "Denne periode, angivet i sekunder, er den periode under hvilken et nyt depot ikke kan bruges til at udfordre lukning af andre depoter i udfordringsperioden. Perioden starter fra der mindst er deponeret minimum-beløbet og efter at depot-beskyttelse er trukket fra det mindst beskyttede depot."
+    },
+    "reporter_share": {
+      "name": "Anmelders andel",
+      "desc": "Andelen af det deponerede beløb, som anmelderen af en ugyldig lukning modtager, når et depot forsøges lukket uden at have laveste beskyttelses-rate."
+    },
+    "oracles": {
+      "name": "Orakler",
+      "desc": "Oraklerne, der rapporterer pris for den stabile token"
+    },
+    "oracle1": {
+      "name": "Orakel 1",
+      "desc": "Adressen på oraklet, der rapporterer prisen for den stabile token"
+    },
+    "feed_name1": {
+      "name": "Feed-navn 1",
+      "desc": "Navn på oraklets data-feed"
+    },
+    "op1": {
+      "name": "Handling 1",
+      "desc": "Hvordan oraklets rapporterede pris skal fortolkes: Angiv \"*\", hvis oraklet rapporterer prisen på reserve-valutaen angivet i den stabile valuta (standard). Brug \"/\" hvis det modsatte er tilfældet, f.eks. prisen på den stabile token angivet i reserve-valutaen."
+    },
+    "oracle2": {
+      "name": "Orakel 2",
+      "desc": "Valget 2. orakel. Brug denne, hvis du ønsker prisen ganget eller divideret med forskellige valutaer. Ønsker du f.eks. at oprette en stabil token låst til værdien af TSLA-aktien, så skal du dividere to pris-oraklers rapporterede priser: GBYTE/USD og TSLA/USD."
+    },
+    "feed_name2": {
+      "name": "Feed-navn 2",
+      "desc": "Navn på 2. orakels data-feed."
+    },
+    "op2": {
+      "name": "Handling 2",
+      "desc": "Hvordan skal 2. pris behandles: gange eller dividere."
+    },
+    "oracle3": {
+      "name": "Orakel 3",
+      "desc": "Valgfrit 3. orakel, ligesom 2. orakel."
+    },
+    "feed_name3": {
+      "name": "Feed-navn 3",
+      "desc": "Navn på 3. orakels data-feed."
+    },
+    "op3": {
+      "name": "Handling 3",
+      "desc": "Hvordan skal 3. pris behandles: gange eller dividere."
+    },
+    "allow_grants": {
+      "name": "Tillad bevillinger",
+      "desc": "Om det skal være tilladt at udstede bevillinger til teams, der indvilger i at promovere brugen af en stablecoin. Bevillinger kommer til afstemning blandt indehavere af Token1, og såfremt de bevilges, udvandes deres værdi."
+    },
+    "allow_oracle_change": {
+      "name": "Tillad skift af orakel",
+      "desc": "Om indehavere af Token1 kan stemme for at ændre orakler efter AA'en for stablecoin'en er etableret."
+    },
+    "regular_challenging_period": {
+      "name": "Udfordringsperiode for mindre ændringer",
+      "desc": "Udfordringsperioden (i sekunder) som indehavere af Token1 har til at stemme om mindre ændringer."
+    },
+    "important_challenging_period": {
+      "name": "Udfordringsperiode for vigtige ændringer",
+      "desc": "Udfordringsperioden (i sekunder) som indehavere af Token1 har til at stemme om vigtige ændringer, som f.eks. ændring af et orakel."
+    },
+    "freeze_period": {
+      "name": "Frys-periode",
+      "desc": "Hvor lang tid (i sekunder) tokens, der er brugt som vægt til at stemme, mindst låses efter afgørelsen på afstemningen."
+    },
+    "proposal_min_support": {
+      "name": "Min. støtte for afstemning",
+      "desc": "Hvilken andel af den totale mængde Token1, der mindst skal have stemt på et forslag, før det kan gennemføres."
+    }
+  },
+  "faq": {
+    "questions": {
+      "0": {
+        "question": "Hvordan køber/sælger jeg IUSD eller GRD?",
+        "answer": "<0>Du kan købe eller sælge tokens for GBYTE på <1>handels-siden</1> eller købe IUSD fra den lidt simplere <3>køb rentebærende tokens-side</3> her på site'et. Site'et udformer den transaktion, du skal sende til en <5>Autonomous Agent</5> fra din <7>Obyte</7> wallet. </0><1>Nogle exchanges kan også have listet tokens, så du kan handle dem for f.eks. BTC eller traditionel valuta.</1>"
+      },
+      "1": {
+        "question": "Hvordan køber/sælger jeg OUSD?",
+        "answer": "<0>Du kan købe IUSD først og sidenhen deponere dem i et <1>depot</1> for at modtage en tilsvarende mængde OUSD. Så længe depotet eksisterer, kan du hæve renterne, der optjenes (16% pr. år) eller vælge at donere renterne til en ven, slægtning eller til velgørenhed. Når du ikke længere skal bruge OUSD, kan du lukke depotet, få dine IUSD tilbage som du dernæst kan sælge.</0><1>Nogle børser kan også tilbyde mulighed for at handle OUSD direkte til fiat.</1>"
+      },
+      "2": {
+        "question": "Mit depot blev lukket - hvorfor?",
+        "answer": "<0>Sandsynligvis var der ikke høj nok beskyttelsesrate. Depotet med lavest beskyttelsesrate kan lukkes af alle ved at sende den tilsvarende mængde OUSD. Du mister ikke noget ved at depotet lukkes fordi du jo allerede har modtaget OUSD, men du vil ikke længere optjene renter. For at beskytte depotet mod at blive lukket, skal du tilføje beskyttelse i form af GBYTE. Det gøres på <1>depot siden</1>.</0>"
+      },
+      "3": {
+        "question": "Hvem styrer udstedelsen af alle disse tokens?",
+        "answer": "<0>En hær af agenter uden sjæl. De kaldes <1>Autonomous Agents</1> (AAs). De er vitterligt autonome i den forstand at ingen kan blande sig i deres arbejde.</0>"
+      },
+      "4": {
+        "question": "Er AAs smart contracts?",
+        "answer": "<0>Nej, de er ikke<1>smart contracts</1>. De er hverken smarte eller kontrakter. De er dum computerkode, der blindt følger de fastsatte, uforanderlige regler.</0>"
+      },
+      "5": {
+        "question": "IUSD stiger konstant takket være renterne. Under antagelse at dette tiltrækker nye brugere, bør GRD også stige og indehavere af begge tokens vinder. Men hvem taber så?",
+        "answer": "<0>Det er ikke et nulsums-spil. Den priskurve, priserne beregnes ud fra, er den totale værdi af alle tokens større end den mængde af reserve-valutaen, der oprindeligt blev brugt til at udstede dem med. Så ja, det er faktisk muligt for begge grupper at vinde på værdien af deres valutaer og ikke på bekostning af den ene eller anden gruppe.</0>"
+      },
+      "6": {
+        "question": "Er systemet baseret på blockchain teknologi?",
+        "answer": "<0>Nej, det er baseret på en DAG (Directed Acyclic Graph) distribueret ledger.</0><1>En blockchain er væsentligt dårligere egnet til en stablecoin som denne fordi blockchains kræver blokke og blok-producenter. Blokproducenter kan principielt manipulere rækkefølgen af transaktioner i en given blok eller placere deres egne transaktioner foran dine, så du får en ringere pris fra priskurven, end hvis din transaktion var kommet først. Andre brugere kan faktisk også påvirke rækkefølgen af transaktioner i en blok ved simpelthen at tilbyde et højere transaktions-gebyr til blokproducenten, der dermed vil udvælge den før transaktioner med lavere transaktionsgebyr. Basalt set er det bestikkelse. Det medvirker til væsentlig større usikkerhed, risici og potentielle tab.</1><2>Bonded stablecoins kører på <1>Obyte</1>&mdash; en blokløs, blokproducentløs DAG ledger. På en DAG fungerer disse tricks ikke. Der er ingen blokproducenter, ingen blokke, rækkefølgen af transaktioner i en DAG kan ikke ændres af nogen og det er umuligt for en enkelt aktør at manipulere rækkefølgen.</2>"
+      },
+      "7": {
+        "question": "Hvordan fastlåses prisen på en stablecoin til et aktiv?",
+        "answer": "<0>Prisen på IUSD fastholdes omkring target-prisen ved hjælp af af såkaldte kondensatorer.</0><1>Hvert køb af IUSD eller GRD til prisen fra priskurven og ethvert salg fra prisen fra priskurven, påvirker prisen på IUSD. Hvis en handel skubber prisen væk fra target-prisen, betaler man et gebyr, der bliver større, jo længere væk fra target-prisen på kurven, den skubbes. Dette gebyr indsættes automatisk i kondensatorer. Hver handel, der flytter prisen tættere på target-prisen fra kurven, belønnes med et beløb fra kondensatoren.</1><2>Måden kurven er konstrueret, resulterer i at indehavere af GRD-tokens, er de første til at reagere på afvigelser i prisen, og som dermed også kan korrigere prisen tilbage. Hvis mange f.eks. køber IUSD, så skubbes prisen under target-prisen (fordi vægten af IUSD i kurvens formel er ½ og dermed mindre end 1, er den delvist afledte effekt på kurven negativ). Der er to måder at korrigere for afvigelsen: Sælg IUSD tilbage til target-prisen på kurven, hvilket ikke er en god ide, eftersom prisen på det tidspunkt er under target-prisen; eller køb flere GRD tokens. Ved at købe flere GRD tokens, skubber spekulanterne prisen op (fordi vægten af GRD i kurvens formel er 2 og altså mere end 1, så er dens afledte effekt på kurven positiv), og derfor vil de, der køber tidligt få en bedre pris og spekulanter flokkes for at komme først med et køb mens prisen stadig er lavere end når der er balance.</2><3>Læs denne <1>blog artikel med introduktion til stablecoins</1> for yderligere detaljer.</3>"
+      },
+      "8": {
+        "question": "Hvilke risici er der?",
+        "answer": "<0>Det her er en ny og uprøvet teknologi og virker måske ikke som forventet. Selvom vi har gjort vores yderste for at forhindre fejl under implementeringen og har analyseret de forskellige incitamentsstrukturer, kan tekniske fejl og fejlkonklusioner om brugeres adfærd i nogle tilfælde ikke udelukkes. Det her har aldrig været prøvet før, så beklageligvis er det umuligt at trække på erfaring fra forgængere.</0>"
+      },
+      "9": {
+        "question": "Hvordan adskiller bonded stablecoins sig fra DAI, USDT, USDC osv.?",
+        "answer": "<0>Man kan optjene renter med bonded stablecoins. Ved at deponere IUSD i et depot, får man øjeblikkeligt udbetalt OUSD, der kan bruges som betaling i en stabil valuta mens der optjenes renter, der kan hæves fra tud til anden.</0><1>Man kan også donere renterne til et godt formål, f.eks. velgørenhed.</1>"
+      },
+      "10": {
+        "question": "Hvordan fungerer bonded stablecoins sammenlignet med discount stablecoins?",
+        "answer": "<0>Bonded stablecoins er næste generation af stablecoins, der er en forbedring i forhold til forgængeren, <1>discount stablecoins</1> på en række områder:</0><1><0>. Især det faktum, at de ikke udløber, men er evigtgyldige.</0><1>- OUSD er i sandhed stabil, uden stigning og låst til den internationalt anerkendte amerikanske dollar.</1><2>Der er ingen auktioner over positioner og brugere behøver ikke holde øje med kurser eller tilføre reservevaluta hvis kurserne ændrer sig, </2><3>intet behov for overkollateralisering, hvilket ofte fører til fejl og misforståelser </3><4>og der er ingen grund til at afveje risici i forhold til kapital, der låses som kollateralisering.</4></1>"
+      },
+      "11": {
+        "question": "Kan jeg handle med gearing?",
+        "answer": "<0>Ja. Du skal dog oprette en stablecoin med gearing eller bruge én, en anden allerede har etableret.</0><1>En gearet stablecoin er en såkaldt syntetisk coin, der følger prisen på et givent aktiv i 2. potens (for 2x gearing), 3 (for 3x gearing), -1 (for short position), -2 (for 2x gearet short position) og så fremdeles.</1><2>For eksempel, hvis prisen på Brent råolie er $40, så vil en 2x gearet stablecoin BREND2/USD være $1600. Hvis Brent stiger 25% til $50, vil BRENT2/USD stige til $2500 &mdash; en 56,25% stigning.</2><3>Det kan virke spøjst at kalde gearede stablecoins for stabile, men de er stabile i forhold til en fiktiv pris, som f.eks. kvadratroden af prisen på Brent. Alt er relativt - også stabilitet.</3><4>Når du <2>opretter en stablecoin</2>, skal du angive den ønskede gearing. Den er 0 som udgangspunkt, hvilket for GBYTE/USD betyder at den skal følge prisen på USD. En gearing på 1 svarer til en helt almindelig long position i GBYTE (hvilket svarer til bare at eje GBYTE), en gearing på 2 vil betyde en 2x gearet position i GBYTE i forhold til USD, en gearing på 3 &mdash; 3x long position i GBYTE, en gearing på -1 &mdash; en short position i GBYTE osv.</4><5>Bemærk, at med denne type gearing er der ingen margin-kald og ingen likvidation.</5><6>For yderligere detaljer, se <1>vores blog om introduktion af stablecoins</1>.</6>"
+      },
+      "12": {
+        "question": "Jeg vil gerne handle en stablecoin låst til X, men den findes ikke",
+        "answer": "<0>Hvis der allerede findes et orakel, der poster prisen på X, kan du <1>oprette den tilsvarende stablecoin</1> med det samme!</0><1>Hvis ikke, kan du oprette et orakel selv. Det kræver dog viden om softwareudvikling. Der er kildekode til et <1>eksempel på et orakel</1>, der gør det let at komme i gang. Hvis du ikke selv er udvikler og ikke kan hyre en, så prøv at tilkendegive din interesse på <3>Obyte discord</3>.</1>"
+      }
+    },
+    "action": "Andre spørgsmål? Læs <1>introduktionsartiklen</1> eller spørg på <3>Discord</3>."
+  },
+  "home": {
+    "built_on_obyte": {
+      "title": "Bygget på Obyte",
+      "info": "<0>Alle disse coins er udstedt på <1>Obyte</1> &mdash; en af de første DAG-baserede krypto-netværk, der gik i luften i 2016. Obyte var den første DAG-platform til at opnå <3>fuld decentralicering</3> og den første DAG til at understøtte dApps, særligt indenfor DeFi.</0><1>Obyte-teamet har udviklet adskillige unikke produkter som f.eks. <1>textcoins</1> (der gør det muligt at sende kryptovaluta via almindelig email, SMS eller chat), <3>self-sovereign identitets-håndtering</3>, <5>blackbytes</5>, der er en fuldkommen anonym kryptovaluta der er umulig at spore, og mange andre. Bonded Stablecoins er også udviklet af Obyte-teamet og er en fuldstændig ny type stablecoins, der er baseret på priskurver &mdash; se <7>hvordan det virker her</7>.</1><2>Ved at benytte DAG i stedet for blockchain, undgår Bonded Stablecoins en lang række problemer som f.eks. front running-angreb: både udført af blokproducenter og andre brugere, der bestikker sig til en hurtigere behandling af deres transaktion ved at betale et højere transaktionsgebyr &mdash; der findes ganske enkelt ikke blokproducenter eller andre mellemled mellem brugeren og den distribuerede ledger på en DAG.</2>"
+    },
+    "header": {
+      "title": "Bonded stablecoins",
+      "desc": "De mest avancerede stablecoins baseret på priskurver",
+      "stable": {
+        "for": "Til brug for handel og spekulation.",
+        "info": "{{name}}: Stablecoin, hvor værdien er 1 {{target}}."
+      },
+      "btn_buy": "Køb {{token}}",
+      "interest": {
+        "for": "For investorer, der søger en forudsigelig indkomst.",
+        "info": "{{name}}: Rentebærende token, der optjener {{percent}}% i rente i {{type}} - en Stable+ coin."
+      },
+      "growth": {
+        "for": "For investorer, der søger en større indtjening med højere risiko.",
+        "info": "{{growthName}}: Vækst-token, hvis værdi er knyttet til mængden af udstedte {{interestName}}-tokens."
+      },
+      "need_similar_coins": "Har du behov for en lignende coin låst til prisen på {{other}} eller et andet aktiv? <3></3>Vælg din: <6>{peggedList.map((p) => (\n                <Option key={p} value={p}>\n                  {p}\n                </Option>\n              ))}</6> eller <10>opret nye</10>."
+    },
+    "popular": {
+      "pegged": "Pegged:",
+      "buy": "buy",
+      "title": "Most popular interest bearing tokens"
+    },
+    "reasons": {
+      "title": "007 grunde til at bonded stablecoins er de bedste stablecoins nogensinde",
+      "info": {
+        "0": "100% baseret på kryptovaluta: intet behov for at stole på centraliserede depotforvaltere eller mellemmænd.",
+        "1": "Ingen overkollateralisering: du betaler GBYTE for 1 USD for at få stablecoins til en værdi af 1 USD. Ganske enkelt.",
+        "2": "De eksisterer på en DAG: ingen blokproducenter, ingen blokke, ingen udefrakommende manipulation, ingen bestikkelse med transaktionsgebyrer.",
+        "3": "De optjener renter: der er rentebærende tokens og depoter i forbindelse med stablecoins. Ydermere kan du vælge at støtte en god sag ved at donere renteindtægten til velgørenhed.",
+        "4": "En gruppe mennesker - indehavere af GRD tokens - der har hånden på kogepladen eftersom værdien af deres tokens afhænger af succesen af hele økosystemet. De har også ret til at deltage i administrative beslutninger, der kan sikre stabilitet, likviditet og størst mulig udbredelse.",
+        "5": "De overlever al volatilitet, selv voldsomme udsving på reserve-valutaen. Ingen margin-kald og ingen likvidationer.",
+        "6": "De har et sejt navn!"
+      }
+    },
+    "tokens": {
+      "interest": {
+        "title": "IUSD - rentebærende token, der giver 16% i rente i USD",
+        "info": "<0>Den startede på præcis 1 USD den 22. september 2020 og prisen stiger med nøjagtigt 16% om året. Et år senere forventes prisen at være $1,16, to år senere, $1,3456 såfremt rentesatsen forbliver den samme (den kan ændres af GRD-indehaverne). Den er en <1>stable0</1> coin.</0><1>Stable+ coins er udviklet så de følger en stødt stigende target-pris. Det gør de takket være foruddefinerede priskurver, der ikke kan ændres.</1><2>Du kan købe IUSD og beholde dem, eller du kan købe IUSD, <2>deponere dem i et depot</2>, hvorefter du modtager et tilsvarende beløb i OUSD. Så længe depotet eksisterer, kan du hæve renter i OUSD. Du kan også donere dem til en anden, f.eks. velgørenhed eller anden non-profit (Estonian Cryptocurrency Association, Obyte Foundation og <4>PolloPollo</4> er allerede mulige at vælge).</2>",
+        "btn": "Køb IUSD rentebærende tokens"
+      },
+      "stable": {
+        "title": "OUSD - en stablecoin låst til USD-kursen",
+        "info": "<0>OUSD er basalt set IUSD, bare uden renterne. Prisen vil altid være tæt på præcis 1 USD - da de er udviklet sådan, og programmerne kan ikke ændres.</0><1>OUSD er en gængs valuta, velegnet til betalinger. I modsætning til USD kan den frit og øjeblikkeligt sendes på tværs af grænser og gebyret er kun en brøkdel af en cent.</1><2>Du får dem ved at <1>deponere</1> IUSD, du kan købe dem i fri handel eller du kan modtage dem som betaling for varer og tjenester.</2>",
+        "btn": "Køb OUSD stablecoin"
+      },
+      "growth": {
+        "title": "GRD - Vækst- og styrings-token",
+        "info": "<0>Prisen på GRD afhænger af populariteten af IUSD (og dermed også OUSD). Efterhånden som flere og flere IUSD tokens udstedes, er GRD programmeret til også at stige - stigningen følger priskurvens formel. Når IUSD tokens indløses igen, falder prisen på GRD.</0><1>Indehavere af GRD tokens kan <1>stemme</1> på at gennemføre ændringer til rentesats og andre parametre i økosystemet, der er vigtige for at kunne fastholde prisstabiliteten. GRD-indehavere kan tilmed vælge at hyre et administrativt team, der har til opgave at fremme brugen af OUSD - hvilket direkte påvirker prisen på GRD.</1><2>Navnet GRD kommer af <1>gr</1>owth og <3>d</3>ollar og altså ikke fra <5>gr</5>ee<7>d</7> som man måske kunne foranlediges til at tro.</2>",
+        "btn": "Køb GRD vækst-tokens"
+      }
+    }
+  },
+  "how_it_works": {
+    "title": "Sådan fungerer det",
+    "desc": "Der er en del matematik bag alt dette. IUSD og GRD tokens eksisterer på en <1></1>priskurve, der er en matematisk formel, der forbinder mængden af IUSD og GRD tokens med mængden af reserve-valutaen <5>— Bytes —</5>, der bruges til at udstede dem.",
+    "formula": "Formlen er som følger: <2><0>r</0> = <2>S</2><3>1</3><4>2</4> <6>S</6><7>2</7><8>1/2</8></2>,",
+    "where": "hvor:<1><0>- <1>r</1> er den totale mængde GBYTE reserve-valuta, der er låst for at udstede begge tokens;</0><1>- <1>s</1><2>1</2> er den totale mængde af token1— GRD;</1><2>- <1>s</1><2>2</2> er den totale mængde af token 2 — IUSD.</2></1>",
+    "curve": "<0>Det vil sige, at for at udstede flere GRD eller IUSD tokens, så må man låse reserve-valuta i GBYTE, og når man vil indløse GRD eller IUSD, så får man en andel af den låste reserve-valuta tilbage. Priserne på GRD og IUSD, altså hvor meget reserve-valuta, man skal låse for at udstede en token eller kan få tilbage for en token, afhænger af den på tidspunktet udstedte mængde af tokens.</0><1>Hvordan fastholdes target-pris? Der er en target-pris på IUSD på 1 USD plus renter siden etablering. Target-prisen er kendt ud fra prisen på GBYTE/USD. Den rapporteres af et orakel, der trækker data fra kryptovalutabørser og beregner tiden siden etablering. Når nogen vil købe eller sælge IUSD eller GRD vil prisen for IUSD blive skubbet en smule væk fra target-prisen, og for dette betales et gebyr. Jo mere prisen påvirkes væk fra target-prisen, des større gebyr betaler man. Omvendt, når nogen køber eller sælger og dermed skubber prisen tættere på target-prisen, så modtager man en dusør, der udbetales fra tidligere indbetalte gebyrer.</1>",
+    "capacitor": "Denne mekanisme kaldes en <1>kondensator</1>. Den \"lades\" med gebyrer, når handler skubber prisen væk fra target-prisen, og frigør ladningen som belønning til de, der flytter prisen tilbage mod target-prisen.",
+    "agents": "<0>Hele systemet drives af adskillige <1><0>Autonomous Agents</0></1>, der er programmer, der kører på den decentrale <3>Obyte</3> distribuerede ledger. De er lynhurtige til at udregne alt (i modsætning til mange mennesker) og kan aldrig ændres af nogen.</0><1>Alle transaktioner er synligt offentligt, kan hurtigt verificeres af alle i netværket og kan aldrig omgøres. Der er ingen potentielt fejlbehæftet menneskelig indblanding i arbejdet for Autonomous Agents. Ingen svigagtige bankfolk, der kan stikke af med dine penge, tabe dem til dårlige investeringer eller udbetale dem til sig selv i kvartalsbonus. Coins kan ikke udstedes af nogen andre. Kun mod betaling i reserve-valutaen, udstedes de efter faste regler for priskurven. Reserve-valutaen opbevares ligeledes af en Autonomous Agent, og de kan kun hæves derfra ved at indløse tokens, og naturligvis igen kun ifølge priskurven.</1>",
+    "read": "Læs en <1>mere grundig introduktion (engelsk) til bonded stablecoins</1> på vores blog."
+  },
+  "reg_symbol": {
+    "available": "Symbolnavnet {{value}} er ledigt og kan registreres",
+    "taken": "Dette token-navn er allerede taget. Det vil udløse en tvist",
+    "title": "Registrer symboler",
+    "step": "Symbol for token {{token}}",
+    "step_stable": "Symbol for stabil token",
+    "taken_desc": "Denne stablecoin er allerede tildelt symbolet {{symbol}}. Forsøg på at tildele et nyt vil udløse en tvist, for hvilken processen kan tage op til 30 dage. Symbolet, der opnår størst støtte (målt i mængden af deponerede GBYTE) vinder til sidst.",
+    "symbol": "Symbol",
+    "placeholder_support": "Støtte (Min. beløb 0.1 GB)",
+    "placeholder_desc": "Beskrivelse af et aktiv (op til 140 tegn)",
+    "check_availability": "Tjek tilgængelighed",
+    "register": "Registrer",
+    "register_anyway": "Registrer alligevel",
+    "skip": "Spring over"
+  },
+  "ref": {
+    "address": "Adresse",
+    "usd_balance": "USD saldo",
+    "title": "Henvisningsprogram",
+    "next_payment": "Næste udbetaling er ",
+    "expected_reward": "Din forventede dusør er",
+    "you_were_referred": "Du blev henvist af {{referrer_address}} og dette inkluderer en dusør til din saldo {{balance}}.",
+    "your_link": "Her er dit henvisnings-link",
+    "clipboard_link": "Dit link blev kopieret til udklipsholderen",
+    "no_auth": "For at få et henvisningslink, <1>tilføj din wallet-adresse</1>",
+    "your_link_desc": "Brug det i blogs, tweets, nyhedsbreve, offentlige profiler, videoer osv. og modtag henvisningsdusør for at tiltrække nye brugere til Bonded Stablecoins.",
+    "info": "<0>Henvisningsdusører udbetales i IUSD hver søndag i forhold til de henviste brugeres saldo omregnet til dollars. Det gælder alle tokens (stablecoins, rentebærende tokens, growth tokens) udsted på website'et, såvel som andre tokens, der er baseret på disse, som f.eks. andele i likviditetspuljer på <1>oswap</1> og arbitrage-bots. Jo højere saldo ved udgangen af ugen, des større dusør. Dusøren stiger i takt med at de henviste brugeres samlede saldi stiger og falder hvis de sælger eller indløser deres tokens.</0><1>Til at starte med er dusøren <1>10% af de henviste brugeres</1> saldi i slutningen af en periode.</1><2>De henviste belønnes også for at købe tokens via dit link - de får <1>5% af deres saldi</1> hver uge.</2><3>Det totale beløb udbetalt til alle henviste og henvisende brugere er begrænset til $3.000 pr. uge. Hvis grænsen overskrides, nedskaleres dusørerne proportionalt, så alle får en respektiv andel af de $3.000.</3>",
+    "title_list": "Her er en liste over henviste og deres nuværende saldi",
+    "total": "Total",
+    "empty": "endnu ingen henvisninger"
+  },
+  "notification": {
+    "create": {
+      "req_author": "Du har sendt en anmodning om at oprette en ny stablecoin låst til {{feed_name}} med {{interest_rate}}% i rente",
+      "req": "En anden bruger har sendt en anmodning om at oprette en ny stablecoin låst til {{feed_name}} med {{interest_rate}}% i rente",
+      "res": "Din nye stablecoin er klar! Vil du navigere hen for at se den?",
+      "yes": "Ja",
+      "no": "Nej"
+    },
+    "bonded": {
+      "buy": {
+        "req_author": "Du har sendt en anmodning om at købe {{tokens1}} {{tokens2}}",
+        "req": "En anden bruger har sendt en anmodning om at købe {{tokens1}} {{tokens2}}"
+      },
+      "redeem": {
+        "req_author": "Du har sendt en anmodning om at indløse {{tokens}}",
+        "req": "En anden bruger har sendt en anmodning om at indløse {{tokens}}"
+      },
+      "move_capacity": {
+        "req_author": "Du har sendt en anmodning om at flytte kapacitet fra langsom til hurtig pulje",
+        "req": "En anden bruger har sendt anmodning om at flytte kapacitet fra langsom til hurtig pulje"
+      }
+    },
+    "deposits": {
+      "change_recipient": {
+        "req_author": "Du har sendt en anmodning om at ændre modtager af renter",
+        "req": "En anden bruger har sendt en anmodning om at ændre modtager af renter"
+      },
+      "add_protection": {
+        "req_author": "Du har sendt en anmodning om at tilføje beskyttelse",
+        "req": "En anden bruger har sendt en anmodning om at tilføje beskyttelse"
+      },
+      "withdraw_protection": {
+        "req_author": "Du har sendt en anmodning om at hæve beskyttelsen",
+        "req": "En anden bruger har sendt anmodning om at hæve beskyttelsen"
+      },
+      "force_close": {
+        "req_author": "Du har sendt en anmodning om at udfordre en tvangslukning",
+        "req": "En anden bruger har sendt en anmodning om at udfordre en tvangslukning"
+      },
+      "commit_force_close": {
+        "req_author": "Du har sendt en anmodning om at tvangslukke et depot",
+        "req": "En anden bruger har sendt en anmodning om at tvangslukke et depot"
+      },
+      "close_deposit": {
+        "req_author": "Du har sendt en anmodning om at lukke et depot",
+        "req": "En anden bruger har sendt en anmodning om at lukke et depot"
+      },
+      "receive_interest": {
+        "req_author": "Du har sendt en anmodning om at hæve renter",
+        "req": "En anden bruger har sendt en anmodning om at hæve renter"
+      },
+      "open": {
+        "req_author": "Du har sendt en anmodning om at åbne et depot",
+        "req": "En anden bruger har sendt en anmodning om at åbne et depot"
+      },
+      "will_update": "Siden opdaterer automatisk når transaktionen er bekræftet"
+    },
+    "tokens": {
+      "req_author": "Du har sendt en anmodning om at oprette token-symbolet {{symbol}} til {{token}}",
+      "req": "En anden bruger har sendt en anmodning om at oprette token-symbolet {{symbol}} til {{token}}",
+      "res": "Symbolet for {{token}} blev registreret"
+    }
+  },
+  "governance": {
+    "commit": {
+      "req_author": "Du har sendt en anmodning om at ændre værdien af {{name}} til {{value}}",
+      "req": "En anden bruger har sendt en anmodning om at ændre værdien af {{name}} til {{value}}"
+    },
+    "add_support": {
+      "req_author": "Du har sendt en anmodning om at støtte ændringen af {{name}} til værdien {{value}}",
+      "req": "En anden bruger har sendt anmodning om at støtte ændring af {{name}} til {{value}}"
+    },
+    "withdraw": {
+      "req_author": "Du har sendt en anmodning om at hæve din saldo fra styringen",
+      "req": "En anden bruger har sendt en anmodning om at hæve deres saldo fra styringen"
+    }
+  },
+  "validator": {
+    "required": "Obligatorisk felt",
+    "not_valid": "Feltet er ugyldigt",
+    "decimals_range": "Decimaler skal være mellem {{from}} og {{to}}",
+    "max_value": "Max værdi er {{maxValue}}",
+    "integer": "Værdien skal være et heltal",
+    "max_decimals": "Max decimaler er {{value}}",
+    "min_value": "Min. værdi er {{value}}",
+    "max_support": "Max beløb er {{value}} GBYTE",
+    "min_support": "Min. beløb er {{value}} GBYTE",
+    "symbol_max": "Symboler må højst være 40 tegn",
+    "symbol_reserved": "Dette symbol er allerede taget",
+    "symbol_not_valid": "Symbolet er ikke gyldigt",
+    "symbol_uppercase": "Symboler skal være med store bogstaver"
+  }
+}

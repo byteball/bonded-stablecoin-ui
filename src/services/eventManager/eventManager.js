@@ -3,9 +3,6 @@ import i18n from "../../locale/index";
 import config from "config";
 import { store } from "index";
 import { tokensEventManager } from "./lowerManagers/tokens";
-import { changeStableState } from "store/actions/state/changeStableState";
-import { changeDepositState } from "store/actions/state/changeDepositState";
-import { changeGovernanceState } from "store/actions/state/changeGovernanceState";
 import { bondedEventManager } from "./lowerManagers/bonded";
 import { depositsEventManager } from "./lowerManagers/deposits";
 import { openNotification } from "utils/openNotification";
@@ -40,7 +37,7 @@ export const eventManager = (err, result) => {
   if (!address) return null;
   const isReq = subject === "light/aa_request";
   const isRes = subject === "light/aa_response";
-  const { aa_address, updatedStateVars } = body;
+  const { aa_address } = body;
   if (aa_address === config.TOKEN_REGISTRY) {
     if (isReq) {
       const { messages } = body.unit;
@@ -108,16 +105,7 @@ export const eventManager = (err, result) => {
       }
     }
   } else if (aa_address === address) {
-    if (isRes) {
-      if (updatedStateVars && address in updatedStateVars) {
-        updatedState({
-          updatedStateVars,
-          governance_aa,
-          stable_aa: address,
-          deposit_aa,
-        });
-      }
-    } else if (isReq) {
+    if (isReq) {
       const { messages } = body.unit;
       const payload = getAAPayload(messages);
       const { asset1, asset2 } = stable_state;
@@ -135,21 +123,11 @@ export const eventManager = (err, result) => {
       });
     }
   } else if (aa_address === deposit_aa) {
-    if (isRes) {
-      if (updatedStateVars && deposit_aa in updatedStateVars) {
-        updatedState({
-          updatedStateVars,
-          governance_aa,
-          stable_aa: address,
-          deposit_aa,
-        });
-      }
-    } else if (isReq) {
+    if (isReq) {
       const { messages } = body.unit;
       const payload = getAAPayload(messages);
       const { asset } = deposit_state;
       const { asset2 } = stable_state;
-
       depositsEventManager({
         isReq,
         payload,
@@ -160,16 +138,7 @@ export const eventManager = (err, result) => {
       });
     }
   } else if (aa_address === governance_aa) {
-    if (isRes) {
-      if (updatedStateVars && governance_aa in updatedStateVars) {
-        updatedState({
-          updatedStateVars,
-          governance_aa,
-          stable_aa: address,
-          deposit_aa,
-        });
-      }
-    } else if (isReq) {
+    if (isReq) {
       const { messages } = body.unit;
       const payload = getAAPayload(messages);
       governanceEventManager({
@@ -191,36 +160,4 @@ const getAAPayload = (messages) => {
   });
 
   return payloads[0] || {};
-};
-
-const updatedState = ({
-  updatedStateVars,
-  governance_aa,
-  stable_aa,
-  deposit_aa,
-}) => {
-  let changeState = {};
-
-  if (updatedStateVars) {
-    for (let address in updatedStateVars) {
-      changeState[address] = {};
-      for (let vars in updatedStateVars[address]) {
-        const value =
-          updatedStateVars[address][vars].value !== false
-            ? updatedStateVars[address][vars].value
-            : undefined;
-        changeState[address][vars] = value;
-      }
-    }
-  }
-
-  if (governance_aa in changeState) {
-    store.dispatch(changeGovernanceState(changeState[governance_aa]));
-  }
-  if (stable_aa in changeState) {
-    store.dispatch(changeStableState(changeState[stable_aa]));
-  }
-  if (deposit_aa in changeState) {
-    store.dispatch(changeDepositState(changeState[deposit_aa]));
-  }
 };

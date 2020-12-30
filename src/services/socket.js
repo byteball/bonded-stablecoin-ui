@@ -35,6 +35,7 @@ client.onConnect(() => {
   }, 1000 * 60);
 
   client.subscribe(eventManager);
+
   client.client.ws.addEventListener("close", () => {
     store.dispatch(closeConnection());
     clearInterval(heartbeat);

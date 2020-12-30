@@ -18,6 +18,9 @@
     "other": "Otro",
     "all": "Todo"
   },
+  "footer": {
+    "join_community": "Únase a la comunidad y obtenga ayuda"
+  },
   "trade": {
     "statistic": {
       "p2UnitsText": {
@@ -283,9 +286,9 @@
     "compensates": "Obyte compensa parte de las comisiones del exchange (casa de cambio).",
     "compensates_depleted": "Obyte compensa parte de las comisiones del exchange, pero la cuota de hoy ya está agotada y el precio estimado incluye todas las comisiones. Para tener una tasa mejor, intenta de nuevo después que la cuota se reinicie a medianoche UTC o compra con GBYTE ahora.",
     "install": "<0>Instala la billetera de Obyte</0> si no tienes una todavía, y copia/pega tu dirección aquí.",
+    "buy": "Comprar",
     "volatility": "1% fue añadido para proteger contra la volatilidad del precio, obtendrás esta cantidad de vuelta si el precio no cambia.",
     "open_wallet": "Clickear en “Comprar” abrirá tu billetera Obyte. <1>Instalala</1> si no tienes una todavía.",
-    "buy": "Comprar",
     "min": "Lo sentimos, la cantidad mínima de {{activeCurrency}} es {{min}}. Por favor incrementa la cantidad de {{activeCurrency}}.",
     "buying_growth": "Para comprar monedas de crecimiento (GRD, GRB, etc) y su redención, va a la <2>página de comercio</2>.",
     "updated": "Esta página se actualizará automáticamente",
@@ -537,6 +540,11 @@
         "info": "{{growthName}}: Moneda de crecimiento cuyo valor está vinculado a la cantidad de {{interestName}} emitida."
       },
       "need_similar_coins": "Necesitas monedas similares vinculadas a {{other}} o algún otro activo? <3/> Selecciona la tuya: <6/> o <10>crea nuevas</10>."
+    },
+    "popular": {
+      "pegged": "Pegged:",
+      "buy": "buy",
+      "title": "Most popular interest bearing tokens"
     },
     "reasons": {
       "title": "007 razones por las que las monedas estables vinculadas son las mejores monedas estables de la historia",

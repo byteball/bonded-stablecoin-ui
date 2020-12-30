@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { isEmpty } from "lodash";
 import { useHistory, useLocation, useParams } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
+import { Helmet } from "react-helmet";
 
 import { Issue } from "./components/Issue/Issue";
 import { Redeem } from "./components/Redeem/Redeem";
@@ -56,10 +57,6 @@ export const MainPage = ({ setWalletModalVisibility }) => {
   const hash = location.hash.slice(1);
   const { t } = useTranslation();
   const basename = lang && lang !== "en" ? "/" + lang : "";
-
-  useEffect(() => {
-    document.title = "Bonded stablecoins - Trade";
-  }, []);
 
   useEffect(() => {
     if ((addressInitialized || !urlParams.address) && !loading && loaded && tabInitialized && currentTab && address && !tabList.includes(hash)) {
@@ -140,6 +137,7 @@ export const MainPage = ({ setWalletModalVisibility }) => {
   } else
     return (
       <div>
+        <Helmet title="Bonded stablecoins - Trade" />
         <>
           <Tabs
             activeKey={currentTab}

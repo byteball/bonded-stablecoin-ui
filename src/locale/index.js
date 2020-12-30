@@ -3,6 +3,7 @@ import { initReactI18next } from "react-i18next";
 import ru from "./ru.json"
 import es from "./es-ES.json"
 import zh from "./zh-CN.json"
+import da from "./da-DK.json"
 // import  translations  from "./translations";
 // the translations
 // (tip move them in a JSON file and import them)
@@ -19,6 +20,9 @@ i18n
       },
       zh: {
         translation: zh
+      },
+      da: {
+        translation: da
       },
     },
     lng: "en",

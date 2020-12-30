@@ -6,6 +6,7 @@ let config = {
   BUFFER_URL: process.env.REACT_APP_BUFFER_URL,
   STATS_URL: process.env.REACT_APP_STATS_URL,
   REFERRAL_URL: process.env.REACT_APP_REFERRAL_URL,
+  UPCOMING_STATE_WS_URL: process.env.REACT_APP_UPCOMING_STATE_WS_URL,
   GA_ID: process.env.REACT_APP_GA,
   reserves: {
     base: {

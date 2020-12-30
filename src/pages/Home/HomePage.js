@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import ReactGA from "react-ga";
+import { Helmet } from "react-helmet";
 
 import { Header } from "./components/Header/Header";
 import { Tokens } from "./components/Tokens/Tokens";
@@ -15,12 +16,9 @@ export const HomePage = () => {
   const [shownReasons, setShownReasons] = useState(false);
   const [shownBuiltOnObyte, setShownBuiltOnObyte] = useState(false);
 
-  useEffect(() => {
-    document.title = "Bonded stablecoins";
-  }, []);
-
   return (
     <div className={styles.container}>
+      <Helmet title="Bonded stablecoins" />
       <Header setType={setType} type={type} />
       <Tokens />
       <BuiltOnObyte onEnterViewport={() => {
