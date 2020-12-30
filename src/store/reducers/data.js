@@ -1,9 +1,10 @@
-import { LOAD_SNAPSHOT_REQUEST, LOAD_SNAPSHOT_SUCCESS, UPDATE_SNAPSHOT } from "../types";
+import { LOAD_SNAPSHOT_FAILURE, LOAD_SNAPSHOT_REQUEST, LOAD_SNAPSHOT_SUCCESS, UPDATE_SNAPSHOT } from "../types";
 
 const initialState = {
   data: {},
   loading: false,
   loaded: false,
+  error: false
 };
 
 export const dataReducer = (state = initialState, action) => {
@@ -14,6 +15,7 @@ export const dataReducer = (state = initialState, action) => {
         data: action.payload,
         loading: true,
         loaded: false,
+        error: false
       };
     }
     case LOAD_SNAPSHOT_SUCCESS: {
@@ -22,7 +24,15 @@ export const dataReducer = (state = initialState, action) => {
         data: action.payload,
         loading: false,
         loaded: true,
+        error: false
       };
+    }
+    case LOAD_SNAPSHOT_FAILURE: {
+      return {
+        ...state,
+        loaded: false,
+        error: true
+      }
     }
     case UPDATE_SNAPSHOT: {
       const rows = action.payload;
