@@ -1,4 +1,4 @@
-export const updateProvider = ({ address, update = () => { }, getSnapshot = () => { }, onError = () => { } }) => {
+export const updateProvider = ({ address, update = () => { }, handleSnapshot = () => { }, onError = () => { } }) => {
   let heartbeat;
   const startWebsocket = () => {
     let ws = new WebSocket(address);
@@ -9,7 +9,7 @@ export const updateProvider = ({ address, update = () => { }, getSnapshot = () =
       try {
         const data = JSON.parse(event.data);
         if ("snapshot" in data) {
-          getSnapshot(data.snapshot.upcomingStateVars);
+          handleSnapshot(data.snapshot.upcomingStateVars);
         } else if ("update" in data) {
           update(data.update.upcomingStateVars);
         }

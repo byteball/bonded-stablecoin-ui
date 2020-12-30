@@ -49,7 +49,7 @@ const AppRouter = () => {
       dispatch(updateData(data));
     }
     
-    const getSnapshot = (data) => {
+    const handleSnapshot = (data) => {
       dispatch(getData(data));
     }
     
@@ -57,7 +57,7 @@ const AppRouter = () => {
       dispatch(getDataError());
     }
     
-    updateProvider({ address: config.UPCOMING_STATE_WS_URL, update, getSnapshot, onError });
+    updateProvider({ address: config.UPCOMING_STATE_WS_URL, update, handleSnapshot, onError });
   }, []);
 
   if ((!connected || !loaded) && !botCheck(navigator.userAgent)) return <Spinner />;
