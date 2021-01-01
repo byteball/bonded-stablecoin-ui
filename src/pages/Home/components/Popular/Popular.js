@@ -22,7 +22,7 @@ const tokensList = [
     apy: 16
   },
   {
-    name: "TIBIT",
+    name: "IBIT",
     address: config.TESTNET ? "YMH724SHU7D6ZM4DMSP5RHQYB7OII2QQ" : "Z7GNZCFDEWFKYOO6OIAZN7GH7DEKDHKA",
     logo: btc,
     pegged: "BTC",
