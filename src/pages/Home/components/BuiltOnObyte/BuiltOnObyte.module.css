@@ -8,10 +8,10 @@
   margin-top: 100px;
 }
 
-.dag {
+.dag, .not_blockchain {
   display: flex;
   padding-left: 20px;
-  margin-bottom: 150px;
+  margin-bottom: 100px;
   color: #333333;
   align-items: center;
 }
@@ -39,7 +39,7 @@
 }
 
 @media (max-width: 860px) {
-  .dag {
+  .dag, .not_blockchain {
     flex-direction: column;
     padding-left: 0;
   }

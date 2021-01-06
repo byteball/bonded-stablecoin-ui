@@ -10,6 +10,8 @@ import history from "../../historyInstance";
 import { changeActive } from "store/actions/active/changeActive";
 import config from "config";
 import { langs } from "components/SelectLanguage/SelectLanguage";
+import { changeActiveForBot } from "store/actions/active/changeActiveForBot";
+import { botCheck } from "utils/botCheck";
 
 export const HashHandler = ({ children }) => {
   const { loaded, data } = useSelector((state) => state.list);
@@ -31,7 +33,11 @@ export const HashHandler = ({ children }) => {
           if (obyte.utils.isValidAddress(symbolOrAddress)) {
             if (address !== symbolOrAddress) {
               if (symbolOrAddress in data) {
-                dispatch(changeActive(symbolOrAddress));
+                if (botCheck(navigator.userAgent)) {
+                  dispatch(changeActiveForBot(symbolOrAddress));
+                } else {
+                  dispatch(changeActive(symbolOrAddress));
+                }
               } else {
                 message.error("Address is not found!");
               }
@@ -54,7 +60,11 @@ export const HashHandler = ({ children }) => {
                 }
               }
               if (address) {
-                dispatch(changeActive(address));
+                if (botCheck(navigator.userAgent)) {
+                  dispatch(changeActiveForBot(address));
+                } else {
+                  dispatch(changeActive(address));
+                }
               }
             } else {
               message.error("Symbol is not found!");
@@ -62,7 +72,11 @@ export const HashHandler = ({ children }) => {
           }
         } else {
           if (recent) {
-            dispatch(changeActive(recent));
+            if (botCheck(navigator.userAgent)) {
+              dispatch(changeActiveForBot(recent));
+            } else {
+              dispatch(changeActive(recent));
+            }
           } else {
             const keys = Object.keys(data);
             let maxReserve = { address: null, reserve: 0 };
@@ -72,7 +86,11 @@ export const HashHandler = ({ children }) => {
               }
             });
             if (maxReserve.address) {
-              dispatch(changeActive(maxReserve.address));
+              if (botCheck(navigator.userAgent)) {
+                dispatch(changeActiveForBot(maxReserve.address));
+              } else {
+                dispatch(changeActive(maxReserve.address));
+              }
             }
           }
         }

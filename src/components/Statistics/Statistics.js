@@ -115,21 +115,21 @@ export const Statistics = ({ windowWidth }) => {
       title: t("trade.statistic.token1_supply.name", "Tokens1 supply"),
       currency: symbol1,
       descr: t("trade.statistic.token1_supply.desc", "Total supply of Token1 (growth tokens)"),
-      value: supply1 || 0,
+      value: supply1,
       decimals: decimals1,
     },
     {
       title: t("trade.statistic.token2_supply.name", "Tokens2 supply"),
       currency: symbol2,
       descr: t("trade.statistic.token2_supply.desc", "Total supply of Token2 (interest tokens)"),
-      value: supply2 || 0,
+      value: supply2,
       decimals: decimals2,
     },
     {
       title: t("trade.statistic.token_stable_supply.name", "Stable tokens supply"),
       currency: symbol3,
       descr: t("trade.statistic.token_stable_supply.desc", "Total supply of the stable tokens"),
-      value: supply || 0,
+      value: supply,
       decimals: decimals2,
     },
     {
@@ -143,7 +143,7 @@ export const Statistics = ({ windowWidth }) => {
     {
       title: t("trade.statistic.token1_price.name", "{{symbol1}} price", {symbol1: symbol1 || "T1"}),
       descr: t("trade.statistic.token1_price.desc", "The current price of Token1 according to the bonding curve. It depends on the supplies of Token1 and Token2. The price is shown in terms of the reserve currency."),
-      value: p1 || 0,
+      value: p1,
       precision: 6,
       currency: reserve_asset in config.reserves ? config.reserves[reserve_asset].name : reserve_asset_symbol || "",
     },
@@ -204,11 +204,11 @@ export const Statistics = ({ windowWidth }) => {
                 <span style={{ fontSize: 18 }}>
                   {s.decimals ? (
                     <ShowDecimalsValue
-                      value={Number(s.value)}
+                      value={Number(s.value || 0)}
                       decimals={s.decimals}
                     />
                   ) : (
-                      s.precision ? Number(s.value).toPrecision(s.precision) : Number(s.value).toFixed(9)
+                      s.precision ? Number(s.value || 0).toPrecision(s.precision) : Number(s.value || 0).toFixed(9)
                     )}{" "}
                   <span style={{ fontSize: 12, fontWeight: "normal" }}>
                     {s.currency}
@@ -222,7 +222,7 @@ export const Statistics = ({ windowWidth }) => {
                     {"percent" in s &&
                       "(" +
                       (s.percent > 0 ? "+" : "") +
-                      (s.percent * 100).toFixed(4) +
+                      ((s.percent || 0) * 100).toFixed(4) +
                       "%)"}
                   </span>
                 </span>

@@ -24,6 +24,8 @@ import { CapacitorIcon } from "../../components/CapacitorIcon/CapacitorIcon";
 import { GovernanceIcon } from "../../components/GovernanceIcon/GovernanceIcon";
 import { Charts } from "./components/Charts/Charts";
 import { changeActive } from "store/actions/active/changeActive";
+import { changeActiveForBot } from "store/actions/active/changeActiveForBot";
+import { botCheck } from "utils/botCheck";
 
 const { TabPane } = Tabs;
 
@@ -46,7 +48,7 @@ export const MainPage = ({ setWalletModalVisibility }) => {
   const { loaded } = useSelector((state) => state.list);
   const [currentTab, setCurrentTab] = useState(undefined);
   const [handleSkip, setHandleSkip] = useState(false);
-  const [tabInitialized , setTabInitialized] = useState(false);
+  const [tabInitialized, setTabInitialized] = useState(false);
   const [addressInitialized, setAddressInitialized] = useState(false);
   const actualParams = getParams(params, stable_state);
   const urlParams = useParams();
@@ -65,37 +67,41 @@ export const MainPage = ({ setWalletModalVisibility }) => {
   }, [currentTab, loaded, address, addressInitialized, loading]);
 
   useEffect(() => {
-    if(!tabList.includes(hash)){
+    if (!tabList.includes(hash)) {
       history.replace({ hash: undefined });
     }
   }, [address]);
 
   useEffect(() => {
-    if (urlParams.address && address !== urlParams.address){
-      dispatch(changeActive(urlParams.address));
+    if (urlParams.address && address !== urlParams.address) {
+      if (botCheck(navigator.userAgent)) {
+        dispatch(changeActiveForBot(urlParams.address));
+      } else {
+        dispatch(changeActive(urlParams.address));
+      }
     }
     setAddressInitialized(true);
   }, [])
 
-  useEffect(()=>{
-    if(tabInitialized  &&  tab !== currentTab){
+  useEffect(() => {
+    if (tabInitialized && tab !== currentTab) {
       setCurrentTab(tab);
     }
-    if(tab !== "governance" && !tabList.includes(hash)){
+    if (tab !== "governance" && !tabList.includes(hash)) {
       history.replace({ hash: undefined });
     }
   }, [tab])
 
-  useEffect(()=>{
-    if(loaded && !isEmpty(stable_state) && !tabInitialized){
-      if(tabList.includes(hash)){
-        if("reserve" in stable_state || ["parameters","charts"].includes(hash)){
+  useEffect(() => {
+    if (loaded && !isEmpty(stable_state) && !tabInitialized) {
+      if (tabList.includes(hash)) {
+        if ("reserve" in stable_state || ["parameters", "charts"].includes(hash)) {
           setCurrentTab(hash === "buy" ? "buy-redeem" : hash);
         } else {
           setCurrentTab("buy-redeem");
         }
         history.replace({ hash: undefined });
-      } else if(!tab) {
+      } else if (!tab) {
         if ("reserve" in stable_state) {
           setCurrentTab("charts");
         } else {

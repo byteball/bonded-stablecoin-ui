@@ -68,6 +68,7 @@ export const $get_target_p2 = (
   rate_update_ts,
   growth_factor
 ) => {
+  if(!oracle_price) return false
   return Decimal.pow(oracle_price, leverage - 1)
     .mul(
       $get_growth_factor(
@@ -123,7 +124,7 @@ export const $get_exchange_result = ({
   );
   const new_growth_factor = $get_growth_factor(interest_rate, timestamp, rate_update_ts, growth_factor);
   const distance =
-    initial_p2 !== undefined ? Math.abs(initial_p2 - target_p2) / target_p2 : 0;
+    initial_p2 !== undefined && target_p2 ? Math.abs(initial_p2 - target_p2) / target_p2 : 0;
   const new_supply1 = supply1 + tokens1;
   const new_supply2 = supply2 + tokens2;
 
@@ -134,7 +135,7 @@ export const $get_exchange_result = ({
   const p2 = $get_p2(s1, s2, dilution_factor, m, n);
   const new_reserve = Math.ceil(r * 10 ** reserve_asset_decimals);
   const reserve_delta = new_reserve - reserve;
-  const new_distance = Math.abs(p2 - target_p2) / target_p2;
+  const new_distance = target_p2 ? Math.abs(p2 - target_p2) / target_p2 : 0;
   const avg_reserve = (reserve + new_reserve) / 2;
 
   let fee,
