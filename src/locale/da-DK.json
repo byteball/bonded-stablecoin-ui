@@ -28,7 +28,7 @@
         "not_inversed": "Den viste pris er prisen på Token2 ({{symbol2OrAsset}}) i forhold til reservevalutaen {{reserveSymbol}}."
       },
       "token1_supply": {
-        "name": "Tokens1 mængde",
+        "name": "Token1 mængde",
         "desc": "Total mængde af Token1 (vækst-tokens)"
       },
       "token2_supply": {
@@ -36,8 +36,8 @@
         "desc": "Total mængde af Token2 (rentebærende tokens)"
       },
       "token_stable_supply": {
-        "name": "Mængde stable tokens",
-        "desc": "Total mængde stable tokens"
+        "name": "Mængde stablecoins",
+        "desc": "Total mængde stablecoins"
       },
       "reserve": {
         "name": "Reservevaluta",
@@ -489,7 +489,7 @@
       },
       "6": {
         "question": "Er systemet baseret på blockchain teknologi?",
-        "answer": "<0>Nej, det er baseret på en DAG (Directed Acyclic Graph) distribueret ledger.</0><1>En blockchain er væsentligt dårligere egnet til en stablecoin som denne fordi blockchains kræver blokke og blok-producenter. Blokproducenter kan principielt manipulere rækkefølgen af transaktioner i en given blok eller placere deres egne transaktioner foran dine, så du får en ringere pris fra priskurven, end hvis din transaktion var kommet først. Andre brugere kan faktisk også påvirke rækkefølgen af transaktioner i en blok ved simpelthen at tilbyde et højere transaktions-gebyr til blokproducenten, der dermed vil udvælge den før transaktioner med lavere transaktionsgebyr. Basalt set er det bestikkelse. Det medvirker til væsentlig større usikkerhed, risici og potentielle tab.</1><2>Bonded stablecoins kører på <1>Obyte</1>&mdash; en blokløs, blokproducentløs DAG ledger. På en DAG fungerer disse tricks ikke. Der er ingen blokproducenter, ingen blokke, rækkefølgen af transaktioner i en DAG kan ikke ændres af nogen og det er umuligt for en enkelt aktør at manipulere rækkefølgen.</2>"
+        "answer": "<0>Nej, det er baseret på en DAG (Directed Acyclic Graph) distribueret ledger.</0><1>En blockchain er væsentligt dårligere egnet til en stablecoin som denne fordi blockchains kræver blokke og blok-producenter. Blokproducenter kan principielt manipulere rækkefølgen af transaktioner i en given blok eller placere deres egne transaktioner foran dine, så du får en ringere pris fra priskurven, end hvis din transaktion var kommet først. Andre brugere kan faktisk også påvirke rækkefølgen af transaktioner i en blok ved simpelthen at tilbyde et højere transaktions-gebyr til blokproducenten, der dermed vil udvælge den før transaktioner med lavere transaktionsgebyr. Basalt set er det bestikkelse. Det medvirker til væsentlig større usikkerhed, risici og potentielle tab.</1><2>Bonded stablecoins kører på <1>Obyte</1>— en blokløs, blokproducentløs DAG ledger. På en DAG fungerer disse tricks ikke. Der er ingen blokproducenter, ingen blokke, rækkefølgen af transaktioner i en DAG kan ikke ændres af nogen og det er umuligt for en enkelt aktør at manipulere rækkefølgen.</2>"
       },
       "7": {
         "question": "Hvordan fastlåses prisen på en stablecoin til et aktiv?",
@@ -509,7 +509,7 @@
       },
       "11": {
         "question": "Kan jeg handle med gearing?",
-        "answer": "<0>Ja. Du skal dog oprette en stablecoin med gearing eller bruge én, en anden allerede har etableret.</0><1>En gearet stablecoin er en såkaldt syntetisk coin, der følger prisen på et givent aktiv i 2. potens (for 2x gearing), 3 (for 3x gearing), -1 (for short position), -2 (for 2x gearet short position) og så fremdeles.</1><2>For eksempel, hvis prisen på Brent råolie er $40, så vil en 2x gearet stablecoin BREND2/USD være $1600. Hvis Brent stiger 25% til $50, vil BRENT2/USD stige til $2500 &mdash; en 56,25% stigning.</2><3>Det kan virke spøjst at kalde gearede stablecoins for stabile, men de er stabile i forhold til en fiktiv pris, som f.eks. kvadratroden af prisen på Brent. Alt er relativt - også stabilitet.</3><4>Når du <2>opretter en stablecoin</2>, skal du angive den ønskede gearing. Den er 0 som udgangspunkt, hvilket for GBYTE/USD betyder at den skal følge prisen på USD. En gearing på 1 svarer til en helt almindelig long position i GBYTE (hvilket svarer til bare at eje GBYTE), en gearing på 2 vil betyde en 2x gearet position i GBYTE i forhold til USD, en gearing på 3 &mdash; 3x long position i GBYTE, en gearing på -1 &mdash; en short position i GBYTE osv.</4><5>Bemærk, at med denne type gearing er der ingen margin-kald og ingen likvidation.</5><6>For yderligere detaljer, se <1>vores blog om introduktion af stablecoins</1>.</6>"
+        "answer": "<0>Ja. Du skal dog oprette en stablecoin med gearing eller bruge én, en anden allerede har etableret.</0><1>En gearet stablecoin er en såkaldt syntetisk coin, der følger prisen på et givent aktiv i 2. potens (for 2x gearing), 3 (for 3x gearing), -1 (for short position), -2 (for 2x gearet short position) og så fremdeles.</1><2>For eksempel, hvis prisen på Brent råolie er $40, så vil en 2x gearet stablecoin BREND2/USD være $1600. Hvis Brent stiger 25% til $50, vil BRENT2/USD stige til $2500 — en 56,25% stigning.</2><3>Det kan virke spøjst at kalde gearede stablecoins for stabile, men de er stabile i forhold til en fiktiv pris, som f.eks. kvadratroden af prisen på Brent. Alt er relativt - også stabilitet.</3><4>Når du <2>opretter en stablecoin</2>, skal du angive den ønskede gearing. Den er 0 som udgangspunkt, hvilket for GBYTE/USD betyder at den skal følge prisen på USD. En gearing på 1 svarer til en helt almindelig long position i GBYTE (hvilket svarer til bare at eje GBYTE), en gearing på 2 vil betyde en 2x gearet position i GBYTE i forhold til USD, en gearing på 3 — 3x long position i GBYTE, en gearing på -1 — en short position i GBYTE osv.</4><5>Bemærk, at med denne type gearing er der ingen margin-kald og ingen likvidation.</5><6>For yderligere detaljer, se <1>vores blog om introduktion af stablecoins</1>.</6>"
       },
       "12": {
         "question": "Jeg vil gerne handle en stablecoin låst til X, men den findes ikke",
@@ -521,8 +521,8 @@
   "home": {
     "built_on_obyte": {
       "title": "Bygget på Obyte",
-      "info": "<0>Alle disse coins er udstedt på <1>Obyte</1> &mdash; en af de første DAG-baserede krypto-netværk, der gik i luften i 2016. Obyte var den første DAG-platform til at opnå <3>fuld decentralicering</3> og den første DAG til at understøtte dApps, særligt indenfor DeFi.</0><1>Obyte-teamet har udviklet adskillige unikke produkter som f.eks. <1>textcoins</1> (der gør det muligt at sende kryptovaluta via almindelig email, SMS eller chat), <3>self-sovereign identitets-håndtering</3>, <5>blackbytes</5>, der er en fuldkommen anonym kryptovaluta der er umulig at spore, og mange andre. Bonded Stablecoins er også udviklet af Obyte-teamet og er en fuldstændig ny type stablecoins, der er baseret på priskurver &mdash; se <7>hvordan det virker her</7>.</1>",
-      "not_blockchain": "<0>Ved at benytte DAG i stedet for blockchain, undgår Bonded Stablecoins en lang række problemer som f.eks. front running-angreb: både udført af blokproducenter og andre brugere, der bestikker sig til en hurtigere behandling af deres transaktion ved at betale et højere transaktionsgebyr &mdash; der findes ganske enkelt ikke blokproducenter eller andre mellemled mellem brugeren og den distribuerede ledger på en DAG.</0>"
+      "info": "<0>Alle disse coins er udstedt på <1>Obyte</1> — en af de første DAG-baserede krypto-netværk, der gik i luften i 2016. Obyte var den første DAG-platform til at opnå <3>fuld decentralicering</3> og den første DAG til at understøtte dApps, særligt indenfor DeFi.</0><1>Obyte-teamet har udviklet adskillige unikke produkter som f.eks. <1>textcoins</1> (der gør det muligt at sende kryptovaluta via almindelig email, SMS eller chat), <3>self-sovereign identitets-håndtering</3>, <5>blackbytes</5>, der er en fuldkommen anonym kryptovaluta der er umulig at spore, og mange andre. Bonded Stablecoins er også udviklet af Obyte-teamet og er en fuldstændig ny type stablecoins, der er baseret på priskurver — se <7>hvordan det virker her</7>.</1>",
+      "not_blockchain": "<0>Ved at benytte DAG i stedet for blockchain, undgår Bonded Stablecoins en lang række problemer som f.eks. front running-angreb: både udført af blokproducenter og andre brugere, der bestikker sig til en hurtigere behandling af deres transaktion ved at betale et højere transaktionsgebyr — der findes ganske enkelt ikke blokproducenter eller andre mellemled mellem brugeren og den distribuerede ledger på en DAG.</0>"
     },
     "header": {
       "title": "Bonded stablecoins",
