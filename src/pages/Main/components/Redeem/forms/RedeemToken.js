@@ -82,7 +82,7 @@ export const RedeemToken = ({
     tokens !== "" &&
     exchange.payout > 0
   ) {
-    extra = t("trade.tabs.buy_redeem.redeem_will_receive",  "You will get {{amount}} {{symbol}}", {amount: (exchange.payout / 10 ** reserve_asset_decimals).toFixed(reserve_asset_decimals), symbol: config.reserves[reserve_asset] ? config.reserves[reserve_asset].name : reserve_asset_symbol || ''});
+    extra = t("trade.tabs.buy_redeem.redeem_will_receive", "You will get {{amount}} {{symbol}}", { amount: (exchange.payout / 10 ** reserve_asset_decimals).toFixed(reserve_asset_decimals), symbol: config.reserves[reserve_asset] ? config.reserves[reserve_asset].name : reserve_asset_symbol || '' });
   } else if (exchange && exchange.payout < 0) {
     extra = t("trade.tabs.buy_redeem.big_change", "The transaction would change the price too much, please try a smaller amount");
   } else {
@@ -100,7 +100,7 @@ export const RedeemToken = ({
 
   const new_p2 = exchange ? (bPriceInversed ? 1 / exchange.p2 : exchange.p2) : undefined;
   const old_p2 = bPriceInversed ? 1 / p2 : p2;
-  const t_p2 = exchange ? (bPriceInversed ? 1 / exchange.target_p2 : exchange.target_p2) : undefined;
+  const t_p2 = exchange && exchange.target_p2 ? (bPriceInversed ? 1 / exchange.target_p2 : exchange.target_p2) : undefined;
 
   const priceChange =
     exchange && "p2" in exchange ? new_p2 - old_p2 : 0;
@@ -110,7 +110,7 @@ export const RedeemToken = ({
       ? ((new_p2 - old_p2) / old_p2) * 100
       : 0;
   const changeFinalPricePercent =
-    exchange && "p2" in exchange
+    exchange && t_p2 && "p2" in exchange
       ? ((new_p2 - t_p2) /
         t_p2) *
       100
@@ -142,7 +142,7 @@ export const RedeemToken = ({
         ]}
       >
         <Input.Search
-          placeholder={t(`trade.tabs.buy_redeem.amount${type}_placeholder`, `Amount of tokens${type} ({{symbolOrAsset}} — ${type === 1 ? "growth" : "interest"} tokens)`, {symbolOrAsset: symbol || asset})}
+          placeholder={t(`trade.tabs.buy_redeem.amount${type}_placeholder`, `Amount of tokens${type} ({{symbolOrAsset}} — ${type === 1 ? "growth" : "interest"} tokens)`, { symbolOrAsset: symbol || asset })}
           autoComplete="off"
           style={{ marginBottom: 0 }}
           onKeyPress={(ev) => {
@@ -182,13 +182,15 @@ export const RedeemToken = ({
             <Text type="secondary" style={{ display: "block" }}>
               <b>{t("trade.tabs.buy_redeem.fee", "Fee")}: </b>
               {"fee_percent" in exchange
-                ? exchange.fee_percent.toFixed(4) + "%"
+                ? <span style={(exchange.fee_percent > 1) ? ((exchange.fee_percent > 3) ? { color: "red" } : { color: "orange" }) : { color: "inherit" }}>
+                  {exchange.fee_percent.toFixed(4) + "%"}
+                </span>
                 : "0%"}
             </Text>
             <Text type="secondary" style={{ display: "block" }}>
               <b>{t("trade.tabs.buy_redeem.reward", "Reward")}: </b>
               {"reward_percent" in exchange
-                ? exchange.reward_percent.toFixed(4) + "%"
+                ? <span style={exchange && exchange.reward_percent > 0 ? { color: "green" } : { color: "inherit" }}>{exchange.reward_percent.toFixed(4) + "%"}</span>
                 : "0%"}
             </Text>
             {exchange && "p2" in exchange && (
@@ -203,10 +205,10 @@ export const RedeemToken = ({
 
             <Text type="secondary" style={{ display: "block" }}>
               <b>{t("trade.tabs.buy_redeem.final_price", "Final price")}: </b>
-              {new_p2.toFixed(reserve_asset_decimals) || "0"} (
+              {new_p2.toFixed(reserve_asset_decimals) || "0"} {t_p2 && <span>(
             {Math.abs(changeFinalPricePercent).toFixed(2)}%{" "}
-              {changeFinalPricePercent > 0 ? t("trade.tabs.buy_redeem.above_target", "above the target") : t("trade.tabs.buy_redeem.below_target", "below the target")})
-          </Text>
+                {changeFinalPricePercent > 0 ? t("trade.tabs.buy_redeem.above_target", "above the target") : t("trade.tabs.buy_redeem.below_target", "below the target")})</span>}
+            </Text>
           </div>
         ) : (
           <div />
