@@ -521,7 +521,8 @@
   "home": {
     "built_on_obyte": {
       "title": "Built on Obyte",
-      "info": "<0>All these coins are issued on <1>Obyte</1> — one of the first DAG based crypto networks live since 2016. Obyte is the first DAG to <3>fully decentralize</3> and the first DAG to support dapps, DeFi in particular.</0><1>Obyte team has developed several unique products such as <1>textcoins</1> (which allow sending cryptocurrency to email), <3>self-sovereign identity</3>, untraceable currency <5>blackbytes</5>, and many others. Bonded Stablecoins were also developed by the Obyte team and are a completely new kind of stablecoins that are based on bonding curves — see <7>how it works</7>.</1><2>By using a DAG rather than blockchain, Bonded Stablecoins avoid the blockchain issues such as front-running attacks: both front-running by miners and front-running by users bribing miners with fees — there are simply no miners or other intermediaries in a DAG.</2>"
+      "info": "<0>All these coins are issued on <1>Obyte</1> — one of the first DAG based crypto networks live since 2016. Obyte is the first DAG to <3>fully decentralize</3> and the first DAG to support dapps, DeFi in particular.</0><1>Obyte team has developed several unique products such as <1>textcoins</1> (which allow sending cryptocurrency to email), <3>self-sovereign identity</3>, untraceable currency <5>blackbytes</5>, and many others. Bonded Stablecoins were also developed by the Obyte team and are a completely new kind of stablecoins that are based on bonding curves — see <7>how it works</7>.</1><2>By using a DAG rather than blockchain, Bonded Stablecoins avoid the blockchain issues such as front-running attacks: both front-running by miners and front-running by users bribing miners with fees — there are simply no miners or other intermediaries in a DAG.</2>",
+      "not_blockchain": "<0>By using a DAG rather than blockchain, Bonded Stablecoins avoid the blockchain issues such as front-running attacks: both front-running by miners and front-running by users bribing miners with fees — there are simply no miners or other intermediaries in a DAG.</0>"
     },
     "header": {
       "title": "Bonded stablecoins",
@@ -671,8 +672,7 @@
       "open": {
         "req_author": "You have sent a request to open a Deposit",
         "req": "Another user sent a request to open a Deposit"
-      },
-      "will_update": "The interface will update after the transaction is stable"
+      }
     },
     "tokens": {
       "req_author": "You sent a request to create a token symbol {{symbol}} for {{token}}",

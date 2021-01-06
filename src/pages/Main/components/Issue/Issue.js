@@ -155,7 +155,7 @@ export const Issue = () => {
     amount !== undefined && new_p2 - (old_p2 || 0);
   const changePricePercent = (priceChange / old_p2 || 0) * 100;
   const changeFinalPricePercent =
-    amount !== undefined
+    amount !== undefined && amount.target_p2
       ? ((new_p2 - t_p2) / t_p2) * 100
       : 0;
 
@@ -229,7 +229,7 @@ export const Issue = () => {
           ]}
         >
           <Input
-            placeholder={t("trade.tabs.buy_redeem.amount1_placeholder", "Amount of tokens1 ({{symbolOrAsset}} — growth tokens)", {symbolOrAsset: symbol1 || stable_state.asset1})}
+            placeholder={t("trade.tabs.buy_redeem.amount1_placeholder", "Amount of tokens1 ({{symbolOrAsset}} — growth tokens)", { symbolOrAsset: symbol1 || stable_state.asset1 })}
             autoComplete="off"
             suffix={
               <span style={{ color: "#ccc" }}>
@@ -253,8 +253,8 @@ export const Issue = () => {
             <Checkbox
               checked={convert}
               onChange={(e) => setConvert(e.target.checked)}
-            > {t("trade.tabs.buy_redeem.convert", "Immediately convert {{symbol2}} to stable token {{symbol3}}", {symbol2: symbol2 || "T2", symbol3: symbol3 || "T3"})}
-              {Number(tokens2) && amount ? <span> ({t("trade.tabs.buy_redeem.issue_will_receive", "will receive {{amount}} {{symbol}}", {amount: Number(tokens2 * amount.growth_factor).toFixed(params.decimals2), symbol: symbol3 || "stable tokens"})})</span> : null}
+            > {t("trade.tabs.buy_redeem.convert", "Immediately convert {{symbol2}} to stable token {{symbol3}}", { symbol2: symbol2 || "T2", symbol3: symbol3 || "T3" })}
+              {Number(tokens2) && amount ? <span> ({t("trade.tabs.buy_redeem.issue_will_receive", "will receive {{amount}} {{symbol}}", { amount: Number(tokens2 * amount.growth_factor).toFixed(params.decimals2), symbol: symbol3 || "stable tokens" })})</span> : null}
             </Checkbox>
           )}
           rules={[
@@ -283,7 +283,7 @@ export const Issue = () => {
                     : reserve_asset_symbol || "")}
               </span>
             }
-            placeholder={t("trade.tabs.buy_redeem.amount2_placeholder", "Amount of tokens2 ({{symbolOrAsset}} — interest tokens)", {symbolOrAsset: symbol2 || stable_state.asset2})}
+            placeholder={t("trade.tabs.buy_redeem.amount2_placeholder", "Amount of tokens2 ({{symbolOrAsset}} — interest tokens)", { symbolOrAsset: symbol2 || stable_state.asset2 })}
             autoComplete="off"
           />
         </Form.Item>
@@ -294,21 +294,25 @@ export const Issue = () => {
               amount !== undefined &&
               amount.fee !== 0 &&
               amount.fee_percent !== Infinity &&
-              (tokens1 || tokens2) &&
-              Number(amount.fee_percent).toFixed(2)) ||
-              0}
-            %
+              (tokens1 || tokens2)) ?
+              <>
+                <span style={(amount.fee_percent > 1) ? ((amount.fee_percent > 3) ? { color: "red" } : { color: "orange" }) : { color: "inherit" }}>
+                  {Number(amount.fee_percent).toFixed(2) || 0}%
+                </span>
+              </> : "0%"}
           </Text>
           <Text type="secondary" style={{ display: "block" }}>
             <b>{t("trade.tabs.buy_redeem.reward", "Reward")}:</b>{" "}
-            {(amount &&
-              amount !== undefined &&
-              amount.reward !== 0 &&
-              (tokens1 || tokens2) &&
-              !isNaN(amount.reward_percent) &&
-              Number(amount.reward_percent).toFixed(2)) ||
-              0}
+            <span style={amount && amount.reward_percent > 0 ? { color: "green" } : { color: "inherit" }}>
+              {(amount &&
+                amount !== undefined &&
+                amount.reward !== 0 &&
+                (tokens1 || tokens2) &&
+                !isNaN(amount.reward_percent) &&
+                Number(amount.reward_percent).toFixed(2)) ||
+                0}
             %
+            </span>
           </Text>
           {amount !== undefined && (
             <Text
@@ -342,8 +346,8 @@ export const Issue = () => {
                 (Number(tokens1) || Number(tokens2)) &&
                 Number(new_p2).toFixed(
                   actualParams.reserve_asset_decimals
-                ) +
-                ` (${Math.abs(changeFinalPricePercent).toFixed(2)}% ${changeFinalPricePercent > 0 ? t("trade.tabs.buy_redeem.above_target", "above the target") : t("trade.tabs.buy_redeem.below_target", "below the target")})`) || "-"}
+                ) + (changeFinalPricePercent ? 
+                ` (${Math.abs(changeFinalPricePercent).toFixed(2)}% ${changeFinalPricePercent > 0 ? t("trade.tabs.buy_redeem.above_target", "above the target") : t("trade.tabs.buy_redeem.below_target", "below the target")})` : "")) || "-"}
             </Text>
           )}
         </>
@@ -392,7 +396,7 @@ export const Issue = () => {
             </Space>
             <div>
               <Text type="secondary" style={{ fontSize: 10 }}>
-              {t("trade.tabs.buy_redeem.protect", "1% was added to protect against price volatility, you'll get this amount back if the prices don't change.")}
+                {t("trade.tabs.buy_redeem.protect", "1% was added to protect against price volatility, you'll get this amount back if the prices don't change.")}
               </Text>
             </div>
           </>

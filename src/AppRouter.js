@@ -23,6 +23,7 @@ import { getData } from "store/actions/data/getData";
 import config from "config";
 import { getDataError } from "store/actions/data/getDataError";
 import { updateProvider } from "services/updateProvider/updateProvider";
+import { getListForBot } from "store/actions/list/getListForBot";
 
 const AppRouter = () => {
   const [walletModalVisible, setWalletModalVisibility] = useState(false);
@@ -45,19 +46,23 @@ const AppRouter = () => {
   }, [lang]);
 
   useEffect(()=>{
-    const update = (data) => {
-      dispatch(updateData(data));
+    if(botCheck(navigator.userAgent)){
+      dispatch(getListForBot());
+    } else {
+      const update = (data) => {
+        dispatch(updateData(data));
+      }
+      
+      const handleSnapshot = (data) => {
+        dispatch(getData(data));
+      }
+      
+      const onError = () => {
+        dispatch(getDataError());
+      }
+      
+      updateProvider({ address: config.UPCOMING_STATE_WS_URL, update, handleSnapshot, onError });
     }
-    
-    const handleSnapshot = (data) => {
-      dispatch(getData(data));
-    }
-    
-    const onError = () => {
-      dispatch(getDataError());
-    }
-    
-    updateProvider({ address: config.UPCOMING_STATE_WS_URL, update, handleSnapshot, onError });
   }, []);
 
   if ((!connected || !loaded) && !botCheck(navigator.userAgent)) return <Spinner />;
