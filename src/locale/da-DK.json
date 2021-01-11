@@ -540,7 +540,7 @@
         "for": "For investorer, der søger en større indtjening med højere risiko.",
         "info": "{{growthName}}: Vækst-token, hvis værdi er knyttet til mængden af udstedte {{interestName}}-tokens."
       },
-      "need_similar_coins": "Har du behov for en lignende coin låst til prisen på {{other}} eller et andet aktiv? <3></3>Vælg din: <6>{peggedList.map((p) => (\n                <Option key={p} value={p}>\n                  {p}\n                </Option>\n              ))}</6> eller <10>opret nye</10>."
+      "need_similar_coins": "Har du behov for en lignende coin låst til prisen på {{other}} eller et andet aktiv? <3></3>Vælg din: <6/> eller <10>opret nye</10>."
     },
     "popular": {
       "pegged": "Pegged:",
@@ -672,8 +672,7 @@
       "open": {
         "req_author": "Du har sendt en anmodning om at åbne et depot",
         "req": "En anden bruger har sendt en anmodning om at åbne et depot"
-      },
-      "will_update": "Siden opdaterer automatisk når transaktionen er bekræftet"
+      }
     },
     "tokens": {
       "req_author": "Du har sendt en anmodning om at oprette token-symbolet {{symbol}} til {{token}}",
