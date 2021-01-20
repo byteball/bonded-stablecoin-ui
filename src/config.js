@@ -8,6 +8,7 @@ let config = {
   REFERRAL_URL: process.env.REACT_APP_REFERRAL_URL,
   UPCOMING_STATE_WS_URL: process.env.REACT_APP_UPCOMING_STATE_WS_URL,
   GA_ID: process.env.REACT_APP_GA,
+  RATE_ORACLE: process.env.REACT_APP_USD_RATE_ORACLE,
   reserves: {
     base: {
       name: "GBYTE",
