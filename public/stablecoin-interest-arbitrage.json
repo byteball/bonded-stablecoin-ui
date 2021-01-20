@@ -1,7 +1,7 @@
 {
 	"version": "1.0",
 	"description": "AA for arbitrage between interest and stable tokens on bonded stablecoins.",
-	"homepage_url": "https://ostable.org",
+	"homepage_url": "https://angryxx.github.io/arb-aa-ui/",
 	"source_url": "https://github.com/byteball/stablecoin-interest-arbitrage",
 	"field_descriptions": {
 		"open_deposit": "Open a new deposit and sell the stable tokens on oswap.",
