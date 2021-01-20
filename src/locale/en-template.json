@@ -149,6 +149,7 @@
         "amount1_placeholder": "Amount of tokens1 ({{symbolOrAsset}} — growth tokens)",
         "convert": "Immediately convert {{symbol2}} to stable token {{symbol3}}",
         "issue_will_receive": "will receive {{amount}} {{symbol}}",
+        "issue_will_open_deposit": "(will open a deposit)",
         "amount2_placeholder": "Amount of tokens2 ({{symbolOrAsset}} — interest tokens)",
         "fee": "Fee",
         "reward": "Reward",
