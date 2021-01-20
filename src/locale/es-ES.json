@@ -561,19 +561,13 @@
     },
     "tokens": {
       "interest": {
-        "title": "IUSD — moneda de interés que gana un 16% de interés en USD",
-        "info": "<0>Empezó exactamente a 1 USD el 22 de septiembre de 2020 y el precio de la moneda crece al 16 % anual. En un año, se espera que sea de $1.16, en dos años — $1.3456, si la tasa de interés permanece igual (puede ser cambiada por los tenedores de GRD). Es una moneda <1>estable+</1>. </0><1>Las monedas estables + se programan para seguir el precio objetivo creciente, lo hacen gracias a las mecánicas de la curva, y los programas no se pueden cambiar. </1><2>Puedes comprar IUSD y mantenerlo. O puedes comprar IUSD, <2>ponerlo en un depósito</2>, obtener una cantidad equivalente de OUSD a cambio y retirar periódicamente el interés acumulado en OUSD. También puede redirigir el interés a otra persona, e.j. a una organización benéfica u otra sin fines de lucro (Asociación de Estonia de Criptomonedas, Fundación Obyte y <4>Pollo</4> ya están inscritos como destinatarios sugeridos).</2>",
-        "btn": "Comprar IUSD monedas de interés"
+        "title": "IUSD — moneda de interés que gana un 16% de interés en USD"
       },
       "stable": {
-        "title": "OUSD — una moneda estable fijada al USD",
-        "info": "<0>OUSD es esencialmente IUSD con pagos de intereses eliminados. Su precio se mantiene cerca de 1 USD — porque está programado, y los programas no se pueden cambiar. </0><1>OUSD es una unidad de cuenta familiar más adecuada para pagos. A diferencia de USD, puede moverse libremente e instantáneamente a través de las fronteras, y las tarifas son fracciones de un céntimo. </1><2>La obtienes <1>depositando</1> IUSD, o puedes comprarla en el mercado, o puedes recibirla como pago por bienes y servicios.</2>",
-        "btn": "Comprar OUSD moneda estable"
+        "title": "OUSD — una moneda estable fijada al USD"
       },
       "growth": {
-        "title": "GRD — moneda de crecimiento y gobernación",
-        "info": "<0>El precio de GRD depende de la popularidad del IUSD (y por lo tanto de OUSD). A medida que se emiten más monedas IUSD, el precio de GRD crece programáticamente — esto se desprende de los mecanismos de la curva de unión. Cuando las monedas IUSD son canjeados, el GRD cae en el precio. </0><1>Los titulares del GRD pueden <1>votar</1> para ajustar la tasa de interés y varios parámetros del ecosistema que son importantes para mantener la fijación. Los titulares de GRD pueden incluso votar para contratar un equipo de gestión encargado de promover el uso de OUSD — lo que afecta directamente al precio del GRD. </1><2>GRD proviene de <1>gr</1>owth <3>d</3>olar, no de <5>gr</5>ee<7>d</7> como algunos podrían pensar.</2>",
-        "btn": "Comprar monedas de crecimiento GRD"
+        "title": "GRD — moneda de crecimiento y gobernación"
       }
     }
   },

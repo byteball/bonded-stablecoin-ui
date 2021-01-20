@@ -561,19 +561,13 @@
     },
     "tokens": {
       "interest": {
-        "title": "IUSD - rentebærende token, der giver 16% i rente i USD",
-        "info": "<0>Den startede på præcis 1 USD den 22. september 2020 og prisen stiger med nøjagtigt 16% om året. Et år senere forventes prisen at være $1,16, to år senere, $1,3456 såfremt rentesatsen forbliver den samme (den kan ændres af GRD-indehaverne). Den er en <1>stable+</1> coin.</0><1>Stable+ coins er udviklet så de følger en stødt stigende target-pris. Det gør de takket være foruddefinerede priskurver, der ikke kan ændres.</1><2>Du kan købe IUSD og beholde dem, eller du kan købe IUSD, <2>deponere dem i et depot</2>, hvorefter du modtager et tilsvarende beløb i OUSD. Så længe depotet eksisterer, kan du hæve renter i OUSD. Du kan også donere dem til en anden, f.eks. velgørenhed eller anden non-profit (Estonian Cryptocurrency Association, Obyte Foundation og <4>PolloPollo</4> er allerede mulige at vælge).</2>",
-        "btn": "Køb IUSD rentebærende tokens"
+        "title": "IUSD - rentebærende token, der giver 16% i rente i USD"
       },
       "stable": {
-        "title": "OUSD - en stablecoin låst til USD-kursen",
-        "info": "<0>OUSD er basalt set IUSD, bare uden renterne. Prisen vil altid være tæt på præcis 1 USD - da de er udviklet sådan, og programmerne kan ikke ændres.</0><1>OUSD er en gængs valuta, velegnet til betalinger. I modsætning til USD kan den frit og øjeblikkeligt sendes på tværs af grænser og gebyret er kun en brøkdel af en cent.</1><2>Du får dem ved at <1>deponere</1> IUSD, du kan købe dem i fri handel eller du kan modtage dem som betaling for varer og tjenester.</2>",
-        "btn": "Køb OUSD stablecoin"
+        "title": "OUSD - en stablecoin låst til USD-kursen"
       },
       "growth": {
-        "title": "GRD - Vækst- og styrings-token",
-        "info": "<0>Prisen på GRD afhænger af populariteten af IUSD (og dermed også OUSD). Efterhånden som flere og flere IUSD tokens udstedes, er GRD programmeret til også at stige - stigningen følger priskurvens formel. Når IUSD tokens indløses igen, falder prisen på GRD.</0><1>Indehavere af GRD tokens kan <1>stemme</1> på at gennemføre ændringer til rentesats og andre parametre i økosystemet, der er vigtige for at kunne fastholde prisstabiliteten. GRD-indehavere kan tilmed vælge at hyre et administrativt team, der har til opgave at fremme brugen af OUSD - hvilket direkte påvirker prisen på GRD.</1><2>Navnet GRD kommer af <1>gr</1>owth og <3>d</3>ollar og altså ikke fra <5>gr</5>ee<7>d</7> som man måske kunne foranlediges til at tro.</2>",
-        "btn": "Køb GRD vækst-tokens"
+        "title": "GRD - Vækst- og styrings-token"
       }
     }
   },
