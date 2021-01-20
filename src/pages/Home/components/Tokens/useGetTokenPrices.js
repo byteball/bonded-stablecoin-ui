@@ -7,7 +7,7 @@ import { getOraclePrice } from "helpers/getOraclePrice";
 import { getOraclePriceForBot } from "helpers/getOraclePriceForBot";
 import { botCheck } from "utils/botCheck";
 
-export const useGetPriceToken = (list) => {
+export const useGetTokenPrices = (list) => {
   const [interest, setInterest] = useState({});
   const [stable, setStable] = useState({});
   const [growth, setGrowth] = useState({});

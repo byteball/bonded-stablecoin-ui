@@ -18,7 +18,7 @@ import { StableChart } from "./charts/StableChart";
 import { CoinsAnimation } from "./charts/CoinsAnimation"
 import { GrowthChart } from "./charts/GrowthChart";
 import { PopularGrowth } from "../Popular/PopularGrowth";
-import { useGetPriceToken } from "./useGetPriceToken";
+import { useGetTokenPrices } from "./useGetTokenPrices";
 
 export const Tokens = () => {
   const [shown, setShown] = useState({
@@ -33,7 +33,7 @@ export const Tokens = () => {
     coins: false
   });
   const { data } = useSelector((state) => state.list);
-  const [interest, stable, growth] = useGetPriceToken(data);
+  const [interest, stable, growth] = useGetTokenPrices(data);
 
   const handleShown = (token) => {
     if (!shown[token]) {
