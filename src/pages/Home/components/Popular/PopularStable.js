@@ -55,7 +55,7 @@ export const PopularStable = ({ prices }) => {
       price: 0
     },
     {
-      name: "OTH",
+      name: "OETH",
       address: config.TESTNET ? "2M5WRWDNWWMQ6BTCYNIC5G5UPW23TECO" : "HXFNVF4ENNIEJZHS2MQLG4AKQ4SAXUNH",
       logo: eth,
       pegged: "ETH",
