@@ -7,6 +7,7 @@ import { validator } from "utils/validators";
 import { generateLink } from "utils/generateLink";
 import { $get_exchange_result } from "helpers/bonded";
 import config from "config";
+import styles from "./RedeemToken.module.css";
 
 const { useForm } = Form;
 const { Text } = Typography;
@@ -17,6 +18,8 @@ export const RedeemToken = ({
   stable_state,
   reserve_asset_symbol,
   reservePrice,
+  symbol1,
+  symbol2,
   symbol,
   type,
   actualParams,
@@ -54,8 +57,8 @@ export const RedeemToken = ({
     const get_exchange_result =
       actualParams &&
       $get_exchange_result({
-        tokens1: type === 1 ? -(tokens * 10 ** decimals) : 0,
-        tokens2: type === 2 ? -(tokens * 10 ** decimals) : 0,
+        tokens1: type === 1 && tokens ? -(tokens * 10 ** decimals) : 0,
+        tokens2: type === 2 && tokens ? -(tokens * 10 ** decimals) : 0,
         params: actualParams,
         vars: stable_state,
         oracle_price: oraclePrice,
@@ -115,6 +118,12 @@ export const RedeemToken = ({
         t_p2) *
       100
       : 0;
+
+  const p2Pair = (!bPriceInversed ? (symbol2 || "T2") + "/" + (reserve_asset_symbol || "RESERVE") : (reserve_asset_symbol || "RESERVE") + "/" + (symbol2 || "T2"));
+  const p1Pair = ((symbol1 || "T1") + "/" + (reserve_asset_symbol || "RESERVE"));
+
+  const priceChangeP1 = exchange !== undefined && exchange.p1 - exchange.old_p1;
+  const priceChangePercentP1 = exchange !== undefined && ((priceChangeP1 / exchange.old_p1 || 0) * 100);
 
   return (
     <Form
@@ -176,7 +185,6 @@ export const RedeemToken = ({
         exchange !== null &&
         valid &&
         tokens !== "" &&
-        priceChange &&
         exchange.payout > 0 ? (
           <div style={{ marginBottom: 20 }}>
             <Text type="secondary" style={{ display: "block" }}>
@@ -193,9 +201,10 @@ export const RedeemToken = ({
                 ? <span style={exchange && exchange.reward_percent > 0 ? { color: "green" } : { color: "inherit" }}>{exchange.reward_percent.toFixed(4) + "%"}</span>
                 : "0%"}
             </Text>
+
             {exchange && "p2" in exchange && (
-              <Text type="secondary" style={{ display: "block" }}>
-                <b>{t("trade.tabs.buy_redeem.price_change", "Price change")}: </b>
+              <Text type="secondary" className={styles.label}>
+                <b>{t("trade.tabs.buy_redeem.price_change", "{{pair}} price change", { pair: p2Pair })}: </b>
                 {priceChange > 0 ? "+" : ""}
                 {priceChange.toFixed(reserve_asset_decimals) || "0"} (
                 {priceChangePercent > 0 ? "+" : ""}
@@ -204,11 +213,22 @@ export const RedeemToken = ({
             )}
 
             <Text type="secondary" style={{ display: "block" }}>
-              <b>{t("trade.tabs.buy_redeem.final_price", "Final price")}: </b>
+              <b>{t("trade.tabs.buy_redeem.final_price", "Final {{pair}} price", { pair: p2Pair })}: </b>
               {new_p2.toFixed(reserve_asset_decimals) || "0"} {t_p2 && <span>(
             {Math.abs(changeFinalPricePercent).toFixed(2)}%{" "}
                 {changeFinalPricePercent > 0 ? t("trade.tabs.buy_redeem.above_target", "above the target") : t("trade.tabs.buy_redeem.below_target", "below the target")})</span>}
             </Text>
+
+            {exchange && "p1" in exchange && (
+              <Text type="secondary" className={styles.label}>
+                <b>{t("trade.tabs.buy_redeem.price_change", "{{pair}} price change", { pair: p1Pair })}: </b>
+                {priceChangeP1 > 0 ? "+" : ""}
+                {priceChangeP1.toFixed(reserve_asset_decimals) || "0"} (
+                {priceChangePercentP1 > 0 ? "+" : ""}
+                {priceChangePercentP1.toFixed(2)}%)
+              </Text>
+            )}
+
           </div>
         ) : (
           <div />
