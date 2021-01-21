@@ -24,6 +24,7 @@ export const $get_turnover = (
     return token2_turnover + reserve_turnover;
   }
 };
+
 export const $get_p2 = (s1, s2, dilution_factor, m, n) => {
   return (
     dilution_factor *
@@ -130,6 +131,9 @@ export const $get_exchange_result = ({
 
   const s1 = new_supply1 / 10 ** decimals1;
   const s2 = new_supply2 / 10 ** decimals2;
+  
+  const old_s1 = supply1 / 10 ** decimals1;
+  const old_s2 = supply2 / 10 ** decimals2;
 
   const r = $get_reserve(s1, s2, m, n, dilution_factor);
   const p2 = $get_p2(s1, s2, dilution_factor, m, n);
@@ -203,6 +207,7 @@ export const $get_exchange_result = ({
       (1 / m);
 
   const p1 = m * s1 ** (m - 1) * s2 ** n * dilution_factor;
+  const old_p1 = m * old_s1 ** (m - 1) * old_s2 ** n * dilution_factor;
 
   const amountTokens2InCurrency = reservePrice
     ? ((p2 * tokens2) / 10 ** decimals2) * reservePrice
@@ -226,6 +231,8 @@ export const $get_exchange_result = ({
     regular_fee,
     reward,
     p2,
+    p1,
+    old_p1,
     target_p2,
     new_distance,
     slow_capacity_share,

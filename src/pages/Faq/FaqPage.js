@@ -301,8 +301,7 @@ export const FaqPage = () => {
               Note that with this kind of leverage, you can’t be margin called and
               liquidated.
             </p>
-            <p>For details, see 
-              <a href="https://medium.com/obyte/using-multi-dimensional-bonding-curves-to-create-stablecoins-81e857b4355c" target="_blank" rel="noopener">
+            <p>For details, see <a href="https://medium.com/obyte/using-multi-dimensional-bonding-curves-to-create-stablecoins-81e857b4355c" target="_blank" rel="noopener">
                 our blog introducing bonded stablecoins
               </a>{" "}
               .
@@ -317,16 +316,13 @@ export const FaqPage = () => {
         >
           <Trans i18nKey="faq.questions.12.answer">
             <p>
-              If an oracle that posts the price of X already exists, you can 
-              <a href="create">create the corresponding stablecoin</a> 
-              right away!
+              If an oracle that posts the price of X already exists, you 
+              can <a href="create">create the corresponding stablecoin</a> right away!
             </p>
             <p>
               If there is no such oracle yet - create the oracle. You have to be a
-              developer though. There are sources of 
-              <a href="https://github.com/byteball/oracle-example" target="_blank" rel="noopener">example oracle</a> 
-              to help you get started. If you are not a developer and cannot hire one, signal your demand in 
-              <a href="https://discord.obyte.org/" target="_blank" rel="noopener">
+              developer though. There are sources of <a href="https://github.com/byteball/oracle-example" target="_blank" rel="noopener">example oracle</a> to help you get started. If you are not a developer and cannot hire one, signal your demand 
+              in <a href="https://discord.obyte.org/" target="_blank" rel="noopener">
                 Obyte discord
               </a>.
             </p>
