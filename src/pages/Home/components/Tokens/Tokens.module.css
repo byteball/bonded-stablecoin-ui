@@ -1,16 +1,8 @@
 .tokens {
-  display: flex;
-  padding-left: 20px;
-  margin-bottom: 150px;
   color: #333333;
-}
-
-.tokensTitle {
-  text-transform: uppercase;
-  font-weight: bold;
-  font-size: 24px;
-  margin-bottom: 20px;
-  color: #333333;
+  max-width: 1140px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 a.btnOpen {
@@ -27,20 +19,6 @@ a.btnOpen {
   font-weight: bold;
 }
 
-.illustration {
-  width: 50%;
-  text-align: center;
-}
-.illustration img {
-  max-width: 500px;
-}
-.info p {
-  font-size: 16px;
-}
-
-.info p a {
-  color: #0037ff;
-}
 
 .info {
   width: 50%;
@@ -63,19 +41,8 @@ a.btnOpen {
   } */
   .tokens {
     padding: 0;
-    /* background-color: red; */
-    /* flex-direction: column; */
-    /* text-align: center; */
   }
-
-  /* .info {
-    width: 100%;
-    order: 2;
-    padding: 0;
-  } */
-  /* .illustration img {
-    max-width: 250px;
-  } */
+ 
   .tokensTitle {
     font-size: 18px;
   }
@@ -85,8 +52,7 @@ a.btnOpen {
 }
 
 @media (max-width: 860px) {
-  .infoFirst,
-  .infoSecond {
+  .infoFirst, .infoSecond {
     padding: 0;
     width: 100%;
     order: 2;
@@ -100,9 +66,95 @@ a.btnOpen {
     max-width: 350px;
   }
   .tokens {
-    /* padding: 0; */
-    /* background-color: red; */
     flex-direction: column;
-    /* text-align: center; */
+  }
+}
+
+/* NEW */
+
+.tokensTitle {
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 36px;
+  text-align: center;
+  margin-bottom: 50px;
+  color: #262626;
+}
+
+.wrapper {
+  display: flex;
+  font-size: 16px;
+  align-items: center;
+  padding-bottom: 50px;
+  padding-top: 50px;
+  border-bottom: 1px solid #eeeeee;
+}
+
+.wrapper:last-child {
+  border: none
+}
+
+.item {
+  width: 50%;
+}
+
+.second p a, .first p a {
+  color: #0037ff !important;
+}
+
+.first {
+  composes: item;
+  padding-right: 20px;
+}
+
+.second {
+  composes: item;
+  padding-left: 20px;
+}
+
+.illustration {
+  text-align: center;
+}
+
+.illustration img {
+  max-width: 400px;
+}
+
+@media (max-width: 990px) {
+  .item {
+    width: 100%;
+  }
+  .first {
+    padding-right: 0;
+  }
+  .second {
+    padding-left: 0;
+  }
+  .wrapper {
+    flex-direction: column;
+    padding: 0;
+    border-bottom: none;
+  }
+  .img {
+    order: 0;
+    justify-content: center;
+  }
+  .text {
+    order: 1;
+    margin-bottom: 60px;
+  }
+  .illustration {
+    max-width: 60%;
+    margin: 0 auto;
+    margin-bottom: 15px;
+    text-align: center;
+  }
+
+  .big {
+    max-width: 100%;
+  }
+
+  .illustration img {
+    max-width: 100%;
   }
 }

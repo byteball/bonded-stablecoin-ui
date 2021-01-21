@@ -149,6 +149,7 @@
         "amount1_placeholder": "Amount of tokens1 ({{symbolOrAsset}} — growth tokens)",
         "convert": "Immediately convert {{symbol2}} to stable token {{symbol3}}",
         "issue_will_receive": "will receive {{amount}} {{symbol}}",
+        "issue_will_open_deposit": "(will open a deposit)",
         "amount2_placeholder": "Amount of tokens2 ({{symbolOrAsset}} — interest tokens)",
         "fee": "Fee",
         "reward": "Reward",
@@ -544,8 +545,11 @@
     },
     "popular": {
       "pegged": "Pegged:",
+      "price": "Price:",
       "buy": "buy",
-      "title": "Most popular interest bearing tokens"
+      "title_growth": "Most popular growth tokens",
+      "title_interest": "Most popular interest bearing tokens",
+      "title_stable": "Most popular stable tokens"
     },
     "reasons": {
       "title": "007 reasons why bonded stablecoins are the best stablecoins ever",
@@ -562,18 +566,20 @@
     "tokens": {
       "interest": {
         "title": "IUSD — interest token that earns 16% interest in USD",
-        "info": "<0>It started at exactly 1 USD on September 22, 2020 and the price of the token grows at 16% per year. In one year, it is expected to be $1.16, in two years — $1.3456, if the interest rate stays the same (it can be changed by GRD holders). It is a <1>stable+</1> coin.</0><1>Stable+ coins are programmed to follow the growing target price, they do so thanks to bonding curve mechanics, and the programs cannot be changed.</1><2>You can buy IUSD and hold. Or you can buy IUSD, <2>put it on a deposit</2>, get an equivalent amount of OUSD in exchange, and periodically withdraw the accrued interest in OUSD. You can also redirect interest to someone else, e.g. to a charity or another nonprofit (Estonian Cryptocurrency Association, Obyte Foundation, and <4>PolloPollo</4> are already enrolled as suggested recipients).</2>",
-        "btn": "Buy IUSD interest tokens"
+        "follow": "<0>IUSD is for investors seeking predictable income.</0><1>Its price is programmed to follow the growing target price. It started at exactly 1 USD on September 22, 2020 and the target price of the token grows at 16% per year. In one year, it is expected to be $1.16, in two years — $1.3456. It is a <1>stable+</1> coin.</1>",
+        "buy": "<0>You can buy IUSD and hold.</0><1>Or you can buy IUSD, <1>put it on a deposit</1>, get an equivalent amount of OUSD stablecoin in exchange, and periodically withdraw the accrued interest in OUSD.</1>",
+        "redirect": "<0>You can also redirect interest to someone else, e.g. to a charity or another nonprofit. Estonian Cryptocurrency Association, Obyte Foundation, and <1>PolloPollo</1> are already enrolled as suggested recipients.</0>"
       },
       "stable": {
         "title": "OUSD — a USD-pegged stablecoin",
-        "info": "<0>OUSD is essentially IUSD with interest payments stripped off. Its price stays near 1 USD — because it is so programmed, and the programs cannot be changed.</0><1>OUSD is a familiar unit of account best suited for payments. Unlike USD, it can be freely and instantly moved cross-border, and the fees are fractions of a cent.</1><2>You get it by <1>depositing</1> IUSD, or you can buy it on the market, or you can receive it as payment for goods and services.</2>",
-        "btn": "Buy OUSD stablecoin"
+        "payments": "<0>OUSD is a familiar unit of account best suited for payments. </0><1>Unlike USD, it can be freely and instantly moved cross-border, and the fees are fractions of a cent.</1>",
+        "programmed": "<0>Its price is programmed to stay near 1 USD.</0>",
+        "exchange": "<0>OUSD is essentially IUSD with interest payments stripped off. You get it in exchange for depositing IUSD and can use it for payments while your deposit is accruing interest. You can withdraw interest and spend it too.</0>"
       },
       "growth": {
         "title": "GRD — growth and governance token",
-        "info": "<0>Price of GRD depends on the popularity of IUSD (and therefore OUSD). As more IUSD tokens are issued, the price of GRD grows programmatically — this follows from the bonding curve mechanics. When IUSD tokens are redeemed, GRD falls in price.</0><1>GRD holders can <1>vote</1> to tune the interest rate and various parameters of the ecosystem that are important for keeping the peg. GRD holders can even vote to hire a management team tasked with promoting the use of OUSD — which directly affects GRD price.</1><2>GRD comes from <1>gr</1>owth and <3>d</3>ollar, not from <5>gr</5>ee<7>d</7> as some might think.</2>",
-        "btn": "Buy GRD growth tokens"
+        "risks": "<0>GRD is for investors seeking higher income, with higher risks.</0><1>The price of GRD depends on the popularity of IUSD (and therefore OUSD). As more IUSD tokens are issued, the price of GRD grows programmatically — this follows from the bonding curve mechanics. When IUSD tokens are redeemed, GRD falls in price.</1>",
+        "vote": "<0>GRD holders can vote to tune the interest rate and various parameters of the ecosystem that are important for keeping the peg. GRD holders can even vote to hire a management team tasked with promoting the use of OUSD — which directly affects GRD price.</0><1>GRD comes from <1>gr</1>owth and <3>d</3>ollar, not from <5>gr</5>ee<7>d</7> as some might think.</1>"
       }
     }
   },

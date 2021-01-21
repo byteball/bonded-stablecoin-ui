@@ -37,6 +37,10 @@
   width: 50%;
   padding-left: 60px;
 }
+.not_blockchain .info {
+  padding-left: 0;
+  padding-right: 60px;
+}
 
 @media (max-width: 860px) {
   .dag, .not_blockchain {
@@ -47,10 +51,12 @@
   .info {
     width: 100%;
     padding: 0;
+    order: 1;
   }
 
   .illustration{
     margin-bottom: 50px;
+    order: 0;
   }
 
   .illustration {
