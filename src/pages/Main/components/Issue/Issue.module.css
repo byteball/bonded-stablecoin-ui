@@ -1,0 +1,7 @@
+.label {
+  display: block;
+}
+
+.label::first-letter {
+  text-transform: capitalize;
+}

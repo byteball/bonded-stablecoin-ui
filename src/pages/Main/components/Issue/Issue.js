@@ -9,6 +9,7 @@ import { $get_exchange_result } from "helpers/bonded";
 import { generateLink } from "utils/generateLink";
 import { getParams } from "helpers/getParams";
 import config from "config";
+import styles from "./Issue.module.css";
 
 const { Title, Text } = Typography;
 const { useForm } = Form;
@@ -160,6 +161,13 @@ export const Issue = () => {
       : 0;
 
   const f = (x) => (~(x + "").indexOf(".") ? (x + "").split(".")[1].length : 0);
+
+  const p2Pair = (!bPriceInversed ? (symbol2 || "T2") + "/" + (reserve_asset_symbol || "RESERVE") : (reserve_asset_symbol || "RESERVE") + "/" + (symbol2 || "T2"));
+  const p1Pair = ((symbol1 || "T1") + "/" + (reserve_asset_symbol || "RESERVE"));
+
+  const priceChangeP1 = amount !== undefined && amount.p1 - amount.old_p1;
+  const priceChangePercentP1 = amount !== undefined && ((priceChangeP1 / amount.old_p1 || 0) * 100);
+
   return (
     <>
       <Row justify="space-between" align="middle">
@@ -314,43 +322,63 @@ export const Issue = () => {
             %
             </span>
           </Text>
-          {amount !== undefined && (
-            <Text
-              type="secondary"
-              style={{ display: "block", marginBottom: reserve ? 0 : 20 }}
-            >
-              <b>{"p2" in stable_state ? t("trade.tabs.buy_redeem.price_change", "Price change") + ": " : t("trade.tabs.buy_redeem.price", "Price") + ": "}</b>
-              {isActiveIssue ? (
-                <>
-                  {priceChange > 0 ? "+" : ""}
-                  {priceChange.toFixed(4)}
-                  {"p2" in stable_state &&
-                    " (" +
-                    (changePricePercent > 0 ? "+" : "") +
-                    changePricePercent.toFixed(2) +
-                    "%)"}
-                </>
-              ) : (
-                  " - "
-                )}
-            </Text>
-          )}
+
+          <Text
+            type="secondary"
+            className={styles.label}
+            style={{ marginBottom: reserve ? 0 : 20 }}
+          >
+            <b>{"p2" in stable_state ? t("trade.tabs.buy_redeem.price_change", "{{pair}} price change", { pair: p2Pair }) + ": " : t("trade.tabs.buy_redeem.price", "{{pair}} price", { pair: p2Pair }) + ": "}</b>
+            {isActiveIssue && amount !== undefined ? (
+              <>
+                {priceChange > 0 ? "+" : ""}
+                {priceChange.toFixed(4)}
+                {"p2" in stable_state &&
+                  " (" +
+                  (changePricePercent > 0 ? "+" : "") +
+                  changePricePercent.toFixed(2) +
+                  "%)"}
+              </>
+            ) : (
+                " - "
+              )}
+          </Text>
+
           {reserve && (
-            <Text
-              type="secondary"
-              style={{ display: "block", marginBottom: 20 }}
-            >
-              <b>{t("trade.tabs.buy_redeem.final_price", "Final price")}:</b>{" "}
+            <Text type="secondary">
+              <b>{t("trade.tabs.buy_redeem.final_price", "Final {{pair}} price", { pair: p2Pair })}:</b>{" "}
               {(amount &&
                 amount !== undefined &&
                 (Number(tokens1) || Number(tokens2)) &&
                 Number(new_p2).toFixed(
                   actualParams.reserve_asset_decimals
-                ) + (changeFinalPricePercent ? 
-                ` (${Math.abs(changeFinalPricePercent).toFixed(2)}% ${changeFinalPricePercent > 0 ? t("trade.tabs.buy_redeem.above_target", "above the target") : t("trade.tabs.buy_redeem.below_target", "below the target")})` : "")) || "-"}
+                ) + (changeFinalPricePercent ?
+                  ` (${Math.abs(changeFinalPricePercent).toFixed(2)}% ${changeFinalPricePercent > 0 ? t("trade.tabs.buy_redeem.above_target", "above the target") : t("trade.tabs.buy_redeem.below_target", "below the target")})` : "")) || "-"}
             </Text>
           )}
         </>
+
+        {"p2" in stable_state && <Text
+          type="secondary"
+          className={styles.label}
+          style={{ marginBottom: 20 }}
+        >
+          <b>{t("trade.tabs.buy_redeem.price_change", "{{pair}} price change", { pair: p1Pair }) + ": "}</b>
+          {isActiveIssue && amount !== undefined ? (
+            <>
+              {priceChangeP1 > 0 ? "+" : ""}
+              {priceChangeP1.toFixed(4)}
+              {"p2" in stable_state &&
+                " (" +
+                (priceChangePercentP1 > 0 ? "+" : "") +
+                priceChangePercentP1.toFixed(2) +
+                "%)"}
+            </>
+          ) : (
+              " - "
+            )}
+        </Text>}
+        
         {(isActiveIssue === undefined || !isActiveIssue) && (
           <Button disabled={true}>{t("trade.tabs.buy_redeem.send", "Send")}</Button>
         )}

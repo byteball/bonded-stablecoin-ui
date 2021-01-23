@@ -148,14 +148,14 @@
         "minimize": "Set token1 amount to minimize fees",
         "amount1_placeholder": "Amount of tokens1 ({{symbolOrAsset}} — growth tokens)",
         "convert": "Immediately convert {{symbol2}} to stable token {{symbol3}}",
-        "issue_will_receive": "will receive {{amount}} {{symbol}}",
+        "issue_will_receive": "will send the {{symbol2}} to a deposit and receive {{amount}} {{symbol}}",
         "issue_will_open_deposit": "(will open a deposit)",
         "amount2_placeholder": "Amount of tokens2 ({{symbolOrAsset}} — interest tokens)",
         "fee": "Fee",
         "reward": "Reward",
-        "price_change": "Price change",
-        "price": "Price",
-        "final_price": "Final price",
+        "price_change": "{{pair}} price change",
+        "price": "{{pair}} price",
+        "final_price": "Final {{pair}} price",
         "above_target": "above the target",
         "below_target": "below the target",
         "send": "Send",
@@ -286,10 +286,10 @@
     "first_exchanged": "Your <1>{{activeCurrency}}</1> will be first exchanged for GBYTE, then GBYTE converted to  {{symbol}}. <8>{{activeCurrency}}</8> to GBYTE exchange is performed by <12>{{providerName}}</12>.",
     "compensates": "Obyte compensates part of the exchange fees.",
     "compensates_depleted": "Obyte compensates part of the exchange fees but today's quota is already depleted and the quoted price includes the full fees. To get a better rate, try again after the quota resets at midnight UTC or buy with GBYTE now.",
-    "install": "<0>Install Obyte wallet</0>  if you don't have one yet, and copy/paste your address here.",
+    "install": "<0>Install Obyte wallet</0> if you don't have one yet, and copy/paste your address here.",
     "buy": "Buy",
     "volatility": "1% was added to protect against price volatility, you'll get this amount back if the prices don't change.",
-    "open_wallet": "Clicking \"Buy\" will open your Obyte wallet.<1>Install</1> it if you don't have one yet.",
+    "open_wallet": "Clicking \"Buy\" will open your Obyte wallet. <1>Install</1> it if you don't have one yet.",
     "min": "Sorry, the minimum {{activeCurrency}} amount is {{min}}. Please increase the {{activeCurrency}} amount.",
     "buying_growth": "For buying growth tokens (GRD, GRB, etc) and redemption, go to the <2>trading page</2>.",
     "updated": "This page will be updated automatically",
@@ -514,7 +514,7 @@
       },
       "12": {
         "question": "I want to trade a stablecoin pegged to asset X but it doesn’t exist",
-        "answer": "<0>If an oracle that posts the price of X already exists, you can <1>create the corresponding stablecoin</1>  right away!</0><1>If there is no such oracle yet - create the oracle. You have to be a developer though. There are sources of <1>example oracle</1>  to help you get started. If you are not a developer and cannot hire one, signal your demand in <3>Obyte discord</3>.</1>"
+        "answer": "<0>If an oracle that posts the price of X already exists, you  can <1>create the corresponding stablecoin</1> right away!</0><1>If there is no such oracle yet - create the oracle. You have to be a developer though. There are sources of <1>example oracle</1> to help you get started. If you are not a developer and cannot hire one, signal your demand  in <3>Obyte discord</3>.</1>"
       }
     },
     "action": "Any other questions? Read the <1> introductory article </1> or ask on <3>Discord</3>."
@@ -522,7 +522,7 @@
   "home": {
     "built_on_obyte": {
       "title": "Built on Obyte",
-      "info": "<0>All these coins are issued on <1>Obyte</1> — one of the first DAG based crypto networks live since 2016. Obyte is the first DAG to <3>fully decentralize</3> and the first DAG to support dapps, DeFi in particular.</0><1>Obyte team has developed several unique products such as <1>textcoins</1> (which allow sending cryptocurrency to email), <3>self-sovereign identity</3>, untraceable currency <5>blackbytes</5>, and many others. Bonded Stablecoins were also developed by the Obyte team and are a completely new kind of stablecoins that are based on bonding curves — see <7>how it works</7>.</1><2>By using a DAG rather than blockchain, Bonded Stablecoins avoid the blockchain issues such as front-running attacks: both front-running by miners and front-running by users bribing miners with fees — there are simply no miners or other intermediaries in a DAG.</2>",
+      "info": "<0>All these coins are issued on <1>Obyte</1> — one of the first DAG based crypto networks live since 2016. Obyte is the first DAG to <3>fully decentralize</3> and the first DAG to support dapps, DeFi in particular.</0><1>Obyte team has developed several unique products such as <1>textcoins</1> (which allow sending cryptocurrency to email), <3>self-sovereign identity</3>, untraceable currency <5>blackbytes</5>, and many others. Bonded Stablecoins were also developed by the Obyte team and are a completely new kind of stablecoins that are based on bonding curves — see <7>how it works</7>.</1>",
       "not_blockchain": "<0>By using a DAG rather than blockchain, Bonded Stablecoins avoid the blockchain issues such as front-running attacks: both front-running by miners and front-running by users bribing miners with fees — there are simply no miners or other intermediaries in a DAG.</0>"
     },
     "header": {

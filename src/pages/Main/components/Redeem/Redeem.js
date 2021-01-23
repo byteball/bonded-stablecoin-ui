@@ -34,6 +34,8 @@ export const Redeem = () => {
         address={address}
         tokens={tokens1}
         symbol={symbol1}
+        symbol1={symbol1}
+        symbol2={symbol2}
         setTokens={setTokens}
         stable_state={stable_state}
         reserve_asset_symbol={reserve_asset_symbol}
@@ -51,6 +53,8 @@ export const Redeem = () => {
         address={address}
         tokens={tokens2}
         symbol={symbol2}
+        symbol1={symbol1}
+        symbol2={symbol2}
         setTokens={setTokens}
         stable_state={stable_state}
         reserve_asset_symbol={reserve_asset_symbol}
