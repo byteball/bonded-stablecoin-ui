@@ -2,13 +2,13 @@ import { useEffect, useState } from "react";
 import config from "config";
 import axios from "axios";
 
-export const useGetRate = (activeCurrency, index, amountCurrency) => {
+export const useGetRate = (activeCurrency, index, amountCurrency, inited) => {
   const [rate, setRate] = useState(undefined);
 
   useEffect(() => {
     setRate(undefined);
     (async () => {
-      if (activeCurrency !== undefined) {
+      if (activeCurrency !== undefined && inited) {
         if (config.oswapccCurrencies.includes(activeCurrency.toUpperCase())) {
           const rateData = await axios.get(
             `${config.oswapccRoot}/estimate?in_coin=${activeCurrency.toUpperCase()}&in_amount=${amountCurrency}`
@@ -49,7 +49,7 @@ export const useGetRate = (activeCurrency, index, amountCurrency) => {
         }
       }
     })();
-  }, [activeCurrency, index, amountCurrency]);
+  }, [activeCurrency, index, amountCurrency, inited]);
 
   return rate;
 };
