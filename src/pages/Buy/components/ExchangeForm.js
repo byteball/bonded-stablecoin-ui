@@ -34,6 +34,7 @@ import { popularCurrencies } from "../popularCurrencies";
 import { useGetCompensation } from "../hooks/useGetCompensation";
 import { updateExchangesForm } from "store/actions/settings/updateExchangesForm";
 import config from "config";
+import { useGetReservePrice } from "../hooks/useGetReservePrice";
 
 const { Text } = Typography;
 
@@ -41,7 +42,6 @@ export const ExchangeForm = () => {
   const { exchanges_recepient, exchangesFormInit } = useSelector(
     (state) => state.settings
   );
-  const { reservePrice } = useSelector((state) => state.active);
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const params = useParams();
@@ -100,6 +100,7 @@ export const ExchangeForm = () => {
   const buyForGbyteRef = useRef(null);
   const buyRef = useRef(null);
   const currentTokenData = activeTokenAdr ? data[activeTokenAdr] : undefined;
+  const reservePrice = useGetReservePrice(currentTokenData && currentTokenData.params.reserve_asset);
 
   useEffect(() => {
     (async () => {
@@ -113,7 +114,7 @@ export const ExchangeForm = () => {
 
   const allCurrencies = useGetCurrency();
   const ranges = useGetRanges(activeCurrency);
-  const exchangeRates = useGetRate(activeCurrency, index, provider === "oswapcc" ? amountCurrency : 1);
+  const exchangeRates = useGetRate(activeCurrency, index, provider === "oswapcc" ? amountCurrency : 1, inited);
   const compensation = useGetCompensation(
     amountCurrency,
     activeCurrency,
@@ -162,10 +163,11 @@ export const ExchangeForm = () => {
           vars: stable_state,
           oracle_price: oraclePrice,
           timestamp: Math.floor(Date.now() / 1000),
+          reservePrice
         });
 
       if (result && activeCurrency === "gbyte" && inited) {
-        setAmountCurrency((result.reserve_needed / 10 ** 9).toFixed(9));
+        setAmountCurrency(((result.reserve_needed * 1.01) / 1e9).toFixed(9));
       }
     })();
   }, [
@@ -207,6 +209,7 @@ export const ExchangeForm = () => {
         vars: stable_state,
         oracle_price: oraclePrice,
         timestamp: Math.floor(Date.now() / 1000),
+        reservePrice
       });
     if (result && activeCurrency !== "gbyte" && inited) {
       const expectT2 =
@@ -555,7 +558,7 @@ export const ExchangeForm = () => {
                 currentTokenData &&
                 amountCurrency &&
                 generateLink(
-                  Number(Number(amountCurrency * 1.01).toFixed(9) * 1e9).toFixed(0),
+                  Number(Number(amountCurrency).toFixed(9) * 1e9).toFixed(0),
                   {
                     tokens2:
                       amountToken * 10 ** currentTokenData.params.decimals2,
