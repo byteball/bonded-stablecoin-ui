@@ -5,6 +5,7 @@
   "license": "MIT",
   "dependencies": {
     "@ant-design/icons": "^4.2.1",
+    "@craco/craco": "^6.0.0",
     "@fortawesome/fontawesome-svg-core": "^1.2.32",
     "@fortawesome/free-brands-svg-icons": "^5.15.1",
     "@fortawesome/react-fontawesome": "^0.1.13",
@@ -12,8 +13,9 @@
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
     "animejs": "^3.2.1",
-    "antd": "^4.3.5",
+    "antd": "^4.9.4",
     "axios": "^0.20.0",
+    "craco-less": "^1.17.1",
     "decimal.js": "^10.2.0",
     "i18next": "^19.8.4",
     "lightweight-charts": "^3.1.5",
@@ -27,16 +29,16 @@
     "react-in-viewport": "^1.0.0-alpha.15",
     "react-redux": "^7.2.0",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "3.4.1",
+    "react-scripts": "^4.0.1",
     "react-share": "^4.3.1",
     "redux": "^4.0.5",
     "redux-persist": "^6.0.0",
     "redux-thunk": "^2.3.0"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
+    "start": "craco start",
+    "build": "craco build",
+    "test": "craco test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -46,7 +48,8 @@
     "rules": {
       "react/jsx-no-target-blank": "off",
       "jsx-a11y/anchor-is-valid": "off",
-      "react-hooks/exhaustive-deps": "off"
+      "react-hooks/exhaustive-deps": "off",
+      "import/no-anonymous-default-export": "off"
     }
   },
   "browserslist": {

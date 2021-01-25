@@ -4,7 +4,7 @@ import { Provider } from "react-redux";
 import ReactGA from "react-ga";
 
 import { PersistGate } from "redux-persist/integration/react";
-import "antd/dist/antd.css";
+import "antd/dist/antd.less";
 import "./index.css";
 import AppRouter from "./AppRouter";
 import configureStore from "./store";
