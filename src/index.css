@@ -29,14 +29,14 @@ h4.ant-typography,
   color: #333333;
 }
 .ant-menu-horizontal > .ant-menu-item-selected a {
-  color: #1890ff !important;
+  color: #0137FF !important;
 }
 
 .ant-menu-vertical > .ant-menu-item a {
   color: #333333;
 }
 .ant-menu-vertical > .ant-menu-item-selected a {
-  color: #1890ff !important;
+  color: #0137FF !important;
 }
 
 .ant-table .ant-table-footer {
