@@ -149,6 +149,7 @@
         "amount1_placeholder": "Antal token1 ({{symbolOrAsset}} - vækst tokens)",
         "convert": "Konverter {{symbol2}} til den stabile token {{symbol3}} med det samme",
         "issue_will_receive": "vil modtage {{amount}} {{symbol}}",
+        "issue_will_open_deposit": "(åbner er depot)",
         "amount2_placeholder": "Antal token2 ({{symbolOrAsset}} - rentebærende tokens)",
         "fee": "Gebyr",
         "reward": "Dusør",
@@ -544,8 +545,11 @@
     },
     "popular": {
       "pegged": "Pegged:",
+      "price": "Pris:",
       "buy": "buy",
-      "title": "Most popular interest bearing tokens"
+      "title_growth": "Mest populære vækst-tokens",
+      "title_interest": "Mest populære rentebærende tokens",
+      "title_stable": "Mest populære stabile tokens"
     },
     "reasons": {
       "title": "007 grunde til at bonded stablecoins er de bedste stablecoins nogensinde",
@@ -561,13 +565,21 @@
     },
     "tokens": {
       "interest": {
-        "title": "IUSD - rentebærende token, der giver 16% i rente i USD"
+        "title": "IUSD - rentebærende token, der giver 16% i rente i USD",
+        "follow": "<0>IUSD er for investorer, der søger forudsigelig indkomst.</0><1>Kursen er programmeret til at følge den stigende target-pris. Den begyndte på præcis 1 USD den 22. september 2020, og target-prisen på den stiger med 16 % om året. Efter et år, forventes den at være $1,16, efter to år — $1,3456. Det er en <1>stable+</1> token.</1>",
+        "buy": "<0>Du kan købe IUSD og holde.</0><1>Eller du kan købe IUSD, <1>deponere dem i et depot</1> og modtage en tilsvarende mængde OUSD stablecoins samtidigt med at du løbende kan hæve optjente renter i OUSD fra depotet.</1>",
+        "redirect": "<0>Du kan også vælge at donere renterne til en anden, f.eks. en velgørende organisation. Estonian Cryptocurrency Association, Obyte Foundation og <1>PolloPollo</1> er allerede oprettet som mulige modtagere af renter.</0>"
       },
       "stable": {
-        "title": "OUSD - en stablecoin låst til USD-kursen"
+        "title": "OUSD - en stablecoin låst til USD-kursen",
+        "payments": "<0>OUSD er en velkendt betalingsenhed og egner sig bedst til brug for betalinger. </0><1>I modsætning til USD kan den frit og øjeblikkeligt sendes på tværs af grænser og gebyret er en brøkdel af en cent.</1>",
+        "programmed": "<0>Den er udviklet til altid at holde prisen nær 1 USD.</0>",
+        "exchange": "<0>OUSD er, basalt set, IUSD bare uden optjening af renter. Du får dem ved at deponere IUSD og du kan bruge dem til betaling mens dit depot optjener renter. Du kan løbende hæve renter fra depotet i OUSD og bruge dem også.</0>"
       },
       "growth": {
-        "title": "GRD - Vækst- og styrings-token"
+        "title": "GRD - Vækst- og styrings-token",
+        "risks": "<0>GRD er for investorer, der søger en højere indkomst men med en højere risiko.</0><1>Prisen på GRD afgøres af populariteten af IUSD (og derfor OUSD). I takt med at flere IUSD-tokens udstedes, vil prisen på GRD stige - det er en foruddefineret følge af måden bonding curves fungerer på. Når IUSD-tokens indløses, falder prisen på GRD.</1>",
+        "vote": "<0>GRD-indehavere kan stemme for at justere renten og forskellige andre parametre i økosystemet, som er vigtige for at opretholde target-priser. GRD-indehavere og tilmed stemme om at hyre teams, der får til opgave at promovere brugen af OUSD, hvilket direkte påvirker prisen på GRD.</0><1>Forkortelsen GRD kommer af <1>gr</1>owth og <3>d</3>ollar, og altså ikke af <5>gr</5>ee<7>d</7> som nogle måske ville foranlediges til at tro.</1>"
       }
     }
   },

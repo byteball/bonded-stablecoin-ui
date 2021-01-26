@@ -149,6 +149,7 @@
         "amount1_placeholder": "代币1的金额 ({{symbolOrAsset}} - 生长代币)",
         "convert": "立即转换 {{symbol2}} 为稳定币 {{symbol3}}",
         "issue_will_receive": "将收到 {{amount}} {{symbol}}",
+        "issue_will_open_deposit": "(将开立一个存款)",
         "amount2_placeholder": "代币2的金额 ({{symbolOrAsset}} - 利息代币)",
         "fee": "费用",
         "reward": "奖励",
@@ -286,9 +287,9 @@
     "compensates": "Obyte 补偿部分兑换费用。",
     "compensates_depleted": "Obyte补偿部分汇兑费用，但今天的配额已经耗尽，报价包括全额费用。 为了获得更好的费率，请在配额UTC12: 00 (午夜) 重置后再试一次或现在使用 GBYTE购买。",
     "install": "如果你还没有一个钱包，请<0>安装Obyte钱包</0>，然后复制/粘贴你的地址。",
+    "buy": "购买",
     "volatility": "增加1%是为了防止价格波动，如果价格不变化，你会收回这个金额。",
     "open_wallet": "点击“购买”将打开您的 Obyte 钱包。或者如果您还没有一个钱包的话，可以<1>安装</1> 。",
-    "buy": "购买",
     "min": "对不起，最少的 {{activeCurrency}} 金额是 {{min}}。请增加 {{activeCurrency}} 金额。",
     "buying_growth": "购买增长代币(GRD、GRB等) 和赎回，请转到<2>交易页面</2>。",
     "updated": "此页面将自动更新",
@@ -542,6 +543,14 @@
       },
       "need_similar_coins": "需要绑定到 {{other}} 或其他一些资产的类似代币？<3/>选择您的币： <6/> 或 <10>创建一个新的 </10>。"
     },
+    "popular": {
+      "pegged": "锚定：",
+      "price": "价格：",
+      "buy": "购买",
+      "title_growth": "最受欢迎的生长代币",
+      "title_interest": "最受欢迎的利息代币",
+      "title_stable": "最受欢迎的稳定代币"
+    },
     "reasons": {
       "title": "7 个原因为何债券稳定币是前所未有的最佳稳定币",
       "info": {
@@ -556,13 +565,21 @@
     },
     "tokens": {
       "interest": {
-        "title": "IUSD — 在美元中赚取16%利息的利息代币"
+        "title": "IUSD — 在美元中赚取16%利息的利息代币",
+        "follow": "<0>IUSD 是为寻求可预测收入的投资者提供的。</0><1>其价格跟从不断增长的目标价格。 2020年9月22日，它的价格是1美元，它的目标价格是每年增长16%。 在一年后它的价格将达到1.16美元，两年后达到——1.3456美元——它是一种<1>稳定+</1>硬币。</1>",
+        "buy": "<0>您可以购买 IUSD 并持有。 </0><1>或您可以购买IUSD，<1>将其置于一个存款中</1>，换取等值OUSD稳定币。 并定期提取OUSD的应计利息。</1>",
+        "redirect": "<0>您也可以将利息转向他人，例如转向慈善机构或其他非盈利机构。 例如，爱沙尼亚Cryptocurency Association, Obyte Foundation和<1>PolloPollo</1>已经作为推荐单位。</0>"
       },
       "stable": {
-        "title": "OUSD — 一种锚定USD的稳定币"
+        "title": "OUSD — 一种锚定USD的稳定币",
+        "payments": "<0>OUSD 是最适合付款的一个熟悉的会计单位。 </0><1>不同于USD，它可以即时自由跨界流动，收费是一个百分点。</1>",
+        "programmed": "<0>其价格将停留在靠近1美元的地方</0>",
+        "exchange": "<0>OUSD 基本上是利息付款被取消的IUSD。 您存入IUSD作为交换，可以在您的存款累计利息时将其用于付款。 您也可以提取利息。</0>"
       },
       "growth": {
-        "title": "GRD - 增长和治理代币"
+        "title": "GRD - 增长和治理代币",
+        "risks": "<0>GRD是为寻求较高收入的投资者提供的，风险较高。</0><1>GRD的价格取决于IUSD (因而也取决于OUSD) 的受欢迎程度。 随着发行更多的IUSD代币，GRD的价格有计划地增长——这源于绑定曲线原理。 当IUSD 代币兑现时，GRD价格会下降。</1>",
+        "vote": "<0>GRD持有者可以投票调整对保持锚定很重要的生态系统利率和各种参数。 GRD的持有者甚至可以投票雇用一个管理小组，负责促进使用OUDS——因为这直接影响到GRD的价格。 </0><1>GRD来自<1>gr</1>owth和<3>d</3>ollar，而不是<5>gr</5>ee<7>d</7>。</1>"
       }
     }
   },
@@ -661,8 +678,7 @@
       "open": {
         "req_author": "您已经发出了开立一个存款的请求",
         "req": "另一个用户发出了开立一个存款的请求"
-      },
-      "will_update": "交易稳定后界面将更新"
+      }
     },
     "tokens": {
       "req_author": "您发送了一个请求，为 {{token}} 创建一个代币符号 {{symbol}}",
