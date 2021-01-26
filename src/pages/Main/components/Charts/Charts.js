@@ -13,7 +13,7 @@ import { useWindowSize } from 'hooks/useWindowSize';
 
 const { Title } = Typography;
 
-export const Charts = ({ params }) => {
+export const Charts = ({ params, isActive}) => {
   const { symbol1, symbol2, address, reserve_asset_symbol } = useSelector((state) => state.active);
   const [width] = useWindowSize();
   const now = moment().format('YYYY-MM-DD');
@@ -56,7 +56,7 @@ export const Charts = ({ params }) => {
 
   useEffect(
     () => {
-      if (chartRef.current && chart === null) {
+      if (chartRef.current && chart === null && isActive) {
         const chartInstance = createChart(chartRef.current, {
           timeScale: {
             tickMarkFormatter: (time) => moment.unix(time).format('DD/MM HH:mm')
@@ -81,7 +81,7 @@ export const Charts = ({ params }) => {
         }
       }
     },
-    [chart]
+    [chart, chartRef, isActive]
   );
 
   const getCandle = async ({ type, from, to }) => {

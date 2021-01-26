@@ -159,7 +159,7 @@ export const MainPage = ({ setWalletModalVisibility }) => {
               }
               key="charts"
             >
-              <Charts params={actualParams} />
+              <Charts isActive={currentTab === "charts"} params={actualParams} />
             </TabPane>
             <TabPane
               tab={
