@@ -149,6 +149,7 @@
         "amount1_placeholder": "Cantidad de monedas1 ({{symbolOrAsset}} — monedas de crecimiento)",
         "convert": "Convertir inmediatamente {{symbol2}} a moneda estable {{symbol3}}",
         "issue_will_receive": "recibirás {{amount}} {{symbol}}",
+        "issue_will_open_deposit": "(abrirá un depósito)",
         "amount2_placeholder": "Cantidad de monedas2 ({{symbolOrAsset}} — monedas de intereses)",
         "fee": "Comisión",
         "reward": "Recompensa",
@@ -544,8 +545,11 @@
     },
     "popular": {
       "pegged": "Pegged:",
+      "price": "Precio:",
       "buy": "buy",
-      "title": "Most popular interest bearing tokens"
+      "title_growth": "Monedas de crecimiento más populares",
+      "title_interest": "Monedas de portación de interés más populares",
+      "title_stable": "Monedas estables más populares"
     },
     "reasons": {
       "title": "007 razones por las que las monedas estables vinculadas son las mejores monedas estables de la historia",
@@ -561,13 +565,21 @@
     },
     "tokens": {
       "interest": {
-        "title": "IUSD — moneda de interés que gana un 16% de interés en USD"
+        "title": "IUSD — moneda de interés que gana un 16% de interés en USD",
+        "follow": "<0>IUSD es para inversores que buscan ingresos predecibles.</0><1>Su precio está programado para seguir el precio objetivo de crecimiento. Comenzó exactamente a 1 USD el 22 de septiembre de 2020 y el precio objetivo de la moneda crece al 16 % por año. En un año, se espera que sea de $1.16, en dos años — $1.3456. Es una moneda <1>estable+</1>.</1>",
+        "buy": "<0>Puedes comprar IUSD y guardarlo. </0><1>O puedes comprar IUSD, <1>ponerlo en un depósito</1>, obtener una cantidad equivalente de monedas estables OUSD a cambio, y retirar periódicamente el interés acumulado en OUSD. </1>",
+        "redirect": "<0>También puedes redirigir el interés a otra persona, por ejemplo, a una organización benéfica u otra organización sin fines de lucro. Asociación Estonia de Criptomonedas, Fundación Obyte y <1>PolloPollo</1> ya están inscritos como destinatarios sugeridos.</0>"
       },
       "stable": {
-        "title": "OUSD — una moneda estable fijada al USD"
+        "title": "OUSD — una moneda estable fijada al USD",
+        "payments": "<0>OUSD es una unidad familiar de cuenta más adecuada para pagos. </0><1>A diferencia de USD, se puede mover libre e instantáneamente a través de las fronteras, y las comisiones son fracciones de centavo.</1>",
+        "programmed": "<0>Su precio está programado para permanecer cerca de 1 USD.</0>",
+        "exchange": "<0>OUSD es esencialmente IUSD con pagos de intereses eliminados. La obtienes a cambio de depositar IUSD y puedes usarla para pagos mientras tu depósito está acumulando interés. Puedes retirar interés y gastarlo también.</0>"
       },
       "growth": {
-        "title": "GRD — moneda de crecimiento y gobernación"
+        "title": "GRD — moneda de crecimiento y gobernación",
+        "risks": "<0>GRD es para los inversores que buscan mayores ingresos, con mayores riesgos. </0><1>El precio de GRD depende de la popularidad de IUSD (y por lo tanto OUSD). A medida que se emiten más monedas IUSD, el precio de GRD crece programáticamente — esto viene de los mecanismos de la curva de unión. Cuando las monedas IUSD son canjeadas, el precio de GRD cae.</1>",
+        "vote": "<0>Los titulares de GRD pueden votar para ajustar la tasa de interés y varios parámetros del ecosistema que son importantes para mantener el vínculo. Los titulares de GRD pueden incluso votar para contratar un equipo de gestión encargado de promover el uso de OUSD — lo que afecta directamente al precio de GRD. </0><1>GRD proviene de <1>gr</1>owth (crecimiento) y <3>d</3>ólar, no de <5>gr</5>ee<7>d</7> (codicia) como algunos podrían pensar.</1>"
       }
     }
   },
@@ -666,8 +678,7 @@
       "open": {
         "req_author": "Has enviado una solicitud para abrir un Depósito",
         "req": "Otro usuario envió una solicitud para abrir un Depósito"
-      },
-      "will_update": "La interfaz se actualizará después de que la transacción sea estable"
+      }
     },
     "tokens": {
       "req_author": "Has enviado una solicitud para crear un símbolo de moneda {{symbol}} para {{token}}",
