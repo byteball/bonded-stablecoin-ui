@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Typography } from "antd";
 import { useTranslation, Trans } from 'react-i18next';
 import { Helmet } from "react-helmet";
+import Graph3D from "react-graph3d-vis";
 
-import graphics from "./img/graphics.svg";
 import capacitor from "./img/capacitor.svg";
 import agent from "./img/agent.svg";
 import styles from "./HowItWorksPage.module.css";
@@ -12,7 +12,18 @@ const { Title } = Typography;
 
 export const HowItWorksPage = () => {
   const { t } = useTranslation();
+  const [data, setData] = useState([])
   
+  useEffect(() => {
+    const data = [];
+    for (let i = 0; i <= 10; i = i + 1) {
+      for (let j = 0; j <= 1000000; j = j + 50000) {
+        data.push({ x: i, y: j, z: Math.ceil(i ** 2 * j ** (1 / 2)) });
+      }
+    }
+    setData(data)
+  }, [])
+
   return (
     <div>
       <Helmet title="Bonded stablecoins - How it works" />
@@ -54,7 +65,34 @@ export const HowItWorksPage = () => {
                 </ul>
               </Trans>
               <div className={styles.image}>
-                <img alt="Graphics" src={graphics} />
+                {data.length > 0 && <Graph3D
+                  data={data}
+                  options={{
+                    width: "100%",
+                    height: "480px",
+                    style: "surface",
+                    keepAspectRatio: false,
+                    showPerspective: true,
+                    showGrid: true,
+                    showShadow: false,
+                    xLabel: "s1 (GRD)",
+                    yLabel: "s2 (IUSD)",
+                    zLabel: "Reserve",
+                    zValueLabel: (z) => z / 1000 + "k",
+                    yValueLabel: (z) => z / 1000 + "k",
+                    tooltip: ({x,y,z}) =>`
+                      <div style="text-align: left;">
+                        s1 (GRD): ${x} <br/>
+                        s2 (IUSD): ${y} <br/>
+                        Reserve (GBYTE): ${z}
+                      </div>
+                      `,
+                    cameraPosition: {
+                      distance: 2,
+                      vertical: 0.2
+                    }
+                  }}
+                />}
               </div>
             </div>
             <div className={styles.infoSecond}>

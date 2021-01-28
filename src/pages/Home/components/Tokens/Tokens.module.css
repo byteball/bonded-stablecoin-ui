@@ -157,4 +157,8 @@ a.btnOpen {
   .illustration img {
     max-width: 100%;
   }
+
+  .tokensTitle {
+    font-size: 24px;
+  }
 }

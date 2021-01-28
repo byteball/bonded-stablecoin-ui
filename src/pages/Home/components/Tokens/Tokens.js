@@ -203,6 +203,6 @@ const GrowthNotTracking = ({ forwardedRef, isShown }) => {
 };
 
 const Coins = handleViewport(CoinsAnimation, { threshold: 0.7 });
-const Interest = handleViewport(InterestNotTracking, { threshold: 0.5 });
+const Interest = handleViewport(InterestNotTracking, { threshold: 0.1 });
 const Stable = handleViewport(StableNotTracking, { threshold: 0.5 });
 const Growth = handleViewport(GrowthNotTracking, { threshold: 0.5 });
