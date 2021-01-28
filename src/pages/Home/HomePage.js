@@ -7,6 +7,7 @@ import { Tokens } from "./components/Tokens/Tokens";
 import { Reasons } from "./components/Reasons/Reasons";
 import { Footer } from "./components/Footer/Footer";
 import { BuiltOnObyte } from "./components/BuiltOnObyte/BuiltOnObyte";
+import { Liquidity } from "./components/Liquidity/Liquidity";
 
 import styles from "./HomePage.module.css";
 
@@ -14,6 +15,7 @@ import styles from "./HomePage.module.css";
 export const HomePage = () => {
   const [type, setType] = useState("USD");
   const [shownReasons, setShownReasons] = useState(false);
+  const [shownLiquidity, setShownLiquidity] = useState(false);
   const [shownBuiltOnObyte, setShownBuiltOnObyte] = useState(false);
 
   return (
@@ -21,6 +23,15 @@ export const HomePage = () => {
       <Helmet title="Bonded stablecoins" />
       <Header setType={setType} type={type} />
       <Tokens />
+      <Liquidity onEnterViewport={() => {
+        if(!shownLiquidity){
+          setShownLiquidity(true);
+          ReactGA.event({
+            category: "Stablecoin",
+            action: "Shown liquidity"
+          })
+        }
+      }} />
       <BuiltOnObyte onEnterViewport={() => {
         if(!shownBuiltOnObyte){
           setShownBuiltOnObyte(true);

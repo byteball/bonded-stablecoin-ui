@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Tabs, Col, Row, BackTop } from "antd";
+import ReactGA from "react-ga";
 import {
   InteractionOutlined,
   ImportOutlined,
@@ -11,6 +12,7 @@ import { isEmpty } from "lodash";
 import { useHistory, useLocation, useParams } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
 import { Helmet } from "react-helmet";
+import { Trans } from 'react-i18next';
 
 import { Issue } from "./components/Issue/Issue";
 import { Redeem } from "./components/Redeem/Redeem";
@@ -112,7 +114,14 @@ export const MainPage = ({ setWalletModalVisibility }) => {
       }
       setTabInitialized(true);
     }
-  }, [loaded, tabInitialized, stable_state])
+  }, [loaded, tabInitialized, stable_state]);
+
+  const handleClickToLiquidity = () => {
+    ReactGA.event({
+      category: "Stablecoin",
+      action: "Click to liquidity"
+    })
+  }
 
   if (address === undefined || !loaded) {
     return null;
@@ -185,6 +194,11 @@ export const MainPage = ({ setWalletModalVisibility }) => {
                     </Col>
                   </Row>
                 )}
+              <div style={{ textAlign: "center" }}>
+                <Trans i18nKey="trade.tabs.buy_redeem.liquidity">
+                  <p>You can earn additional interest by adding these tokens to liquidity pools, see <a target="_blank" rel="noopener" href="https://liquidity.obyte.org" onClick={handleClickToLiquidity}>liquidity.obyte.org</a>.</p>
+                </Trans>
+              </div>
             </TabPane>
             <TabPane
               disabled={!("reserve" in stable_state) || (!stable_state.interest_rate && !deposit_state.supply)}

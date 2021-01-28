@@ -164,7 +164,8 @@
         "big_change": "The transaction would change the price too much, please try a smaller amount",
         "redeem": "Redeem",
         "title_redeem": "Redeem token{{number}} {{symbol}}",
-        "name": "Buy/redeem"
+        "name": "Buy/redeem",
+        "liquidity": "<0>You can earn additional interest by adding these tokens to liquidity pools, see <1>liquidity.obyte.org</1>.</0>"
       },
       "parameters": {
         "title_curve": "Curve",
@@ -542,6 +543,10 @@
         "info": "{{growthName}}: Growth token whose value is tied to the amount of {{interestName}} issued."
       },
       "need_similar_coins": "Need similar coins pegged to {{other}} or some other asset? <3></3>Select yours: <6>{peggedList.map((p) => (\n                <Option key={p} value={p}>\n                  {p}\n                </Option>\n              ))}</6> or <10>create new ones</10>."
+    },
+    "liquidity": {
+      "title": "Make money from liquidity provision",
+      "info": "<0>Add these tokens to liquidity pools on <1>Oswap</1> and earn from trading fees. Some liquidity pools are eligible for additional rewards, see <3>liquidity.obyte.org</3>.</0><1>The additional rewards are currently about <1>77% APY</1>, paid weekly.</1>"
     },
     "popular": {
       "pegged": "Pegged:",
