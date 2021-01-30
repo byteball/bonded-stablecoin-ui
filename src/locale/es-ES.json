@@ -164,7 +164,8 @@
         "big_change": "La transacción cambiará mucho el precio, por favor intenta una cantidad menor",
         "redeem": "Canjear",
         "title_redeem": "Canjear moneda{{number}} {{symbol}}",
-        "name": "Comprar/canjear"
+        "name": "Comprar/canjear",
+        "liquidity": "<0>Puedes ganar interés adicional añadiendo estas monedas a las piscinas de liquidez, ver <1>liquidity.obyte.org</1>.</0>"
       },
       "parameters": {
         "title_curve": "Curva",
@@ -543,6 +544,10 @@
       },
       "need_similar_coins": "Necesitas monedas similares vinculadas a {{other}} o algún otro activo? <3/> Selecciona la tuya: <6/> o <10>crea nuevas</10>."
     },
+    "liquidity": {
+      "title": "Gana dinero con la provisión de liquidez",
+      "info": "<0>Agrega estas monedas a las piscinas de liquidez en <1>Oswap</1> y gana gracias a las comisiones de intercambio. Algunas piscinas de liquidez son elegibles para obtener recompensas adicionales, ver <3>liquidity.obyte.org</3>.</0><1>Las recompensas adicionales son actualmente de alrededor de <1>77% APY</1>, pagadas semanalmente.</1>"
+    },
     "popular": {
       "pegged": "Pegged:",
       "price": "Precio:",
@@ -619,7 +624,7 @@
     "clipboard_link": "Tu enlace se ha copiado al portapapeles",
     "no_auth": "Para obtener un enlace de referidos, <1>añade tu dirección de billetera</1>",
     "your_link_desc": "Utilízalo en tus blogs, tweets, publicaciones, boletines, perfiles públicos, videos, etc y gana recompensas por traer nuevos titulares a monedas estables vinculadas.",
-    "info": "<0>Las recompensas de referidos se pagan en IUSD cada domingo y son proporcionales a los saldos en dólares de los usuarios referidos en todas los monedas (monedas estables, monedas de interés, monedas de crecimiento) emitidas en este sitio web, así como otras monedas basadas en ellas: acciones en <1>oswap</1> piscinas de liquidez y acciones en bots de arbitraje. Cuanto mayor sea el saldo total al final del período semanal, mayor será la recompensa. Tu recompensa semanal aumenta si los usuarios referidos acumulan más, disminuye si canjean o venden sus monedas. </0><1>La recompensa semanal inicial es <1>10% de los saldos de todos los usuarios referidos</1> al final del período. </1><2>Tus referidos también reciben recompensas por comprar monedas a través de tu enlace — ellos obtienen un <1>5% de sus balances</1> cada semana. </2><3>La cantidad total pagada a todos los referentes y usuarios referidos se limita a $3,000 semanalmente. Si el límite se supera, las recompensas del 10%/5% se reducen proporcionalmente para que el total sea de $3,000.</3>",
+    "info": "<0>Las recompensas de referidos se pagan en IUSD cada domingo y son proporcionales a los saldos en dólares de los usuarios referidos en todas los monedas (monedas estables, monedas de interés, monedas de crecimiento) emitidas en este sitio web, así como otras monedas basadas en ellas: acciones en <1>oswap</1> piscinas de liquidez y acciones en bots de arbitraje. Cuanto mayor sea el saldo total al final del período semanal, mayor será la recompensa. Tu recompensa semanal aumenta si los usuarios referidos acumulan más, disminuye si canjean o venden sus monedas. </0><1>La recompensa semanal inicial es <1>10% de los saldos de todos los usuarios referidos</1> al final del período. </1><2>Tus referidos también reciben recompensas por comprar monedas a través de tu enlace — ellos obtienen un <1>5% de sus balances</1> cada semana. </2><3>La cantidad total pagada a todos los referentes y usuarios referidos se limita a <1>$3,000 semanalmente</1>. Si el límite se supera, las recompensas del 10%/5% se reducen proporcionalmente para que el total sea de $3,000.</3>",
     "title_list": "Aquí está la lista de tus referidos y sus balances actuales",
     "total": "Total",
     "empty": "no hay referidos aun"

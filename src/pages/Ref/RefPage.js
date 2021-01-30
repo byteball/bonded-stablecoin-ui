@@ -114,7 +114,7 @@ export const RefPage = ({ setWalletModalVisibility }) => {
               Your referrals also get rewarded for buying tokens through your link — they get <b>5% of their balances</b> every week.
             </Paragraph>
             <Paragraph>
-              The total amount paid to all referrers and referred users is capped by $3,000 weekly. If the cap gets exceeded,
+              The total amount paid to all referrers and referred users is capped by <b>$3,000 weekly</b>. If the cap gets exceeded,
               all 10%/5% rewards are scaled down proportionally so that the total is $3,000.
             </Paragraph>
           </Trans>
