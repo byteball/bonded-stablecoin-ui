@@ -431,6 +431,7 @@ export const ExchangeForm = () => {
                     size="large"
                     showSearch
                     disabled={isCreated}
+                    optionFilterProp="children"
                     placeholder={t("buy.will_receive", "The token you will receive")}
                     onChange={(c) => setActiveTokenAdr(c)}
                     value={activeTokenAdr}

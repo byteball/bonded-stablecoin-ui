@@ -46,6 +46,7 @@
 @media (max-width: 990px) {
   .title {
     font-size: 24px;
+    margin-bottom: 60px;
   }
   .info {
     font-size: 16px;

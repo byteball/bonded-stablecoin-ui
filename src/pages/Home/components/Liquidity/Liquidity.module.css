@@ -1,3 +1,14 @@
+.liquidity {
+  max-width: 1140px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.wrapper {
+  display: flex;
+  align-items: center;
+}
+
 .title {
   text-transform: uppercase;
   font-size: 36px;
@@ -8,49 +19,26 @@
   margin-top: 100px;
 }
 
-.dag, .not_blockchain {
-  display: flex;
-  padding-left: 20px;
-  margin-bottom: 100px;
-  color: #333333;
-  align-items: center;
-}
-
 .illustration {
-  width: 50%;
-  text-align: center;
+  width: 40%;
+  text-align: right;
 }
 
 .illustration img {
-  max-width: 500px;
+  max-width: 300px;
 }
 
 .info p {
   font-size: 16px;
 }
 
-.info p a {
-  color: #0037ff;
-}
-
 .info {
-  width: 50%;
-  padding-left: 60px;
-}
-
-.not_blockchain .info {
-  padding-left: 0;
-  padding-right: 60px;
+  width: 60%;
 }
 
 @media (max-width: 860px) {
-  .title {
-    font-size: 24px;
-  }
-  .dag, .not_blockchain {
+  .wrapper {
     flex-direction: column;
-    padding-right: 0;
-    padding-left: 0;
   }
   .info {
     width: 100%;
@@ -61,11 +49,12 @@
     margin-bottom: 50px;
     order: 0;
   }
-  .not_blockchain .info {
-    padding-right: 0;
-  }
   .illustration {
     width: 70%;
     text-align: center;
+  }
+  .title {
+    font-size: 24px;
+    margin-bottom: 50px;
   }
 }
