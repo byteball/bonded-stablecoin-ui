@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Form, Input, Typography, Button, Checkbox, Row, Space } from "antd";
+import { Form, Input, Typography, Checkbox, Row, Space } from "antd";
 import { useSelector } from "react-redux";
 import ReactGA from "react-ga";
 import { useTranslation } from 'react-i18next';
@@ -10,6 +10,8 @@ import { generateLink } from "utils/generateLink";
 import { getParams } from "helpers/getParams";
 import config from "config";
 import styles from "./Issue.module.css";
+import { QRButton } from "components/QRButton/QRButton";
+import { useWindowSize } from "hooks/useWindowSize";
 
 const { Title, Text } = Typography;
 const { useForm } = Form;
@@ -41,7 +43,7 @@ export const Issue = () => {
   const { t } = useTranslation();
   const reserve = stable_state.reserve;
   const [amount, setAmount] = useState(undefined);
-
+  const [width] = useWindowSize();
   let isActiveIssue = false;
 
   if (reserve) {
@@ -380,12 +382,12 @@ export const Issue = () => {
         </Text>}
         
         {(isActiveIssue === undefined || !isActiveIssue) && (
-          <Button disabled={true}>{t("trade.tabs.buy_redeem.send", "Send")}</Button>
+          <QRButton disabled={true}>{t("trade.tabs.buy_redeem.send", "Send")}</QRButton>
         )}
         {amount && isActiveIssue !== undefined && isActiveIssue ? (
           <>
-            <Space>
-              <Button
+            <Space direction={width < 420 ? "vertical" : "horizontal"}>
+              <QRButton
                 type="primary"
                 href={link}
                 onClick={() => {
@@ -410,7 +412,7 @@ export const Issue = () => {
                   : config.reserves[actualParams.reserve_asset]
                     ? config.reserves[actualParams.reserve_asset].name
                     : reserve_asset_symbol || ""}
-              </Button>
+              </QRButton>
               {isActiveIssue && (
                 <div>
                   ≈ {amount.reserve_needed_in_сurrency.toFixed(2)}{" "}

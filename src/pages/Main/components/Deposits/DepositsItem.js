@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { generateLink } from "utils/generateLink";
 import { ShowDecimalsValue } from "components/ShowDecimalsValue/ShowDecimalsValue";
 import config from "config";
+import { QRButton } from "components/QRButton/QRButton";
 export const DepositsItem = ({
   decimals,
   growth_factor,
@@ -108,7 +109,7 @@ export const DepositsItem = ({
         style={{ marginTop: 10 }}
         direction={width >= 900 ? "horizontal" : "vertical"}
       >
-        <Button
+        <QRButton
           href={receiveUrl}
           disabled={
             interest <= 0 ||
@@ -119,7 +120,7 @@ export const DepositsItem = ({
           }
         >
           {t("trade.tabs.deposits.withdraw_interest","Withdraw interest")}
-        </Button>
+        </QRButton>
         <Button
           disabled={owner !== activeWallet}
           onClick={() =>
@@ -143,7 +144,7 @@ export const DepositsItem = ({
         >
           {t("trade.tabs.deposits.withdraw_protection", "Withdraw protection")}
         </Button>
-        <Button
+        <QRButton
           href={closeUrl}
           disabled={
             (interest_recipient
@@ -154,7 +155,7 @@ export const DepositsItem = ({
           }
         >
           {t("trade.tabs.deposits.close", "Close")}
-        </Button>
+        </QRButton>
       </Space>
     </Card>
   );

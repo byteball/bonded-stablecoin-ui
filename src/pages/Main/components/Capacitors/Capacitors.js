@@ -1,11 +1,12 @@
 import React from "react";
-import { Typography, Statistic, Space, Button } from "antd";
+import { Typography, Statistic, Space } from "antd";
 import moment from 'moment';
 import { useTranslation } from 'react-i18next';
 
 import { useWindowSize } from "hooks/useWindowSize";
 import { generateLink } from "utils/generateLink";
 import { Label } from "components/Label/Label";
+import { QRButton } from "components/QRButton/QRButton";
 import config from "config";
 
 const { Title, Text } = Typography;
@@ -87,9 +88,9 @@ export const Capacitors = ({ stable_state, address, params, reserve_asset_symbol
             {t("trade.tabs.capacitor.move.desc", "The capacity can be moved from the slow to the fast pool if the price goes off-peg by more than {{threshold_distance}}% and stays there for more than {{hours}} h. {{minutes}} m.", {threshold_distance: params.threshold_distance * 100, hours, minutes})}
           </Text>
         </p>
-        <Button type="primary" href={link} disabled={!isExpiry}>
+        <QRButton type="primary" href={link} disabled={!isExpiry}>
           {t("trade.tabs.capacitor.move.btn", "Click to move")}
-        </Button>
+        </QRButton>
       </div>
     </div>
   );

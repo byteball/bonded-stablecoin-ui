@@ -709,7 +709,7 @@
     "required": "必填字段",
     "not_valid": "此字段无效",
     "decimals_range": "小数值必须介于 {{from}} 和 {{to}} 之间",
-    "max_value": "最大值是 {{maxValue}}",
+    "max_value": "最大值是 {{value}}",
     "integer": "值必须是整数",
     "max_decimals": "最大小数为 {{value}}",
     "min_value": "最小值是 {{value}}",

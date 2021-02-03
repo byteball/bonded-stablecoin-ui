@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { generateLink } from "utils/generateLink";
 import config from "config";
 import { useSelector } from "react-redux";
+import { QRButton } from "components/QRButton/QRButton";
 
 export const AddProtectionModal = ({
   visible,
@@ -58,7 +59,7 @@ export const AddProtectionModal = ({
       style={{ zIndex: -1 }}
       footer={
         <Space>
-          <Button
+          <QRButton
             type="primary"
             disabled={!amount.valid}
             ref={addBtnRef}
@@ -77,7 +78,7 @@ export const AddProtectionModal = ({
             )}
           >
             {t("modals.add_protection.btn", "Add protection")}
-          </Button>
+          </QRButton>
           <Button type="default" onClick={setVisible}>
             {t("modals.common.close", "Close")}
           </Button>

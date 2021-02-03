@@ -5,6 +5,7 @@ import obyte from "obyte";
 
 import { generateLink } from "utils/generateLink";
 import config from "config";
+import { QRButton } from "components/QRButton/QRButton";
 
 export const EditRecipientModal = ({
   visible,
@@ -70,7 +71,7 @@ export const EditRecipientModal = ({
           <Button key="close" onClick={handleCancel}>
             {t("modals.common.close", "Close")}
           </Button>
-          <Button
+          <QRButton
             key="add"
             type="primary"
             disabled={selectAddress === undefined || selectAddress === current}
@@ -82,7 +83,7 @@ export const EditRecipientModal = ({
             }
           >
             {t("modals.common.edit", "Edit")}
-          </Button>
+          </QRButton>
         </Space>
       }
     >

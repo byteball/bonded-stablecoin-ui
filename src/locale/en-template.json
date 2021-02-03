@@ -12,6 +12,14 @@
       "btn": "Add"
     }
   },
+  "qr_button": {
+    "title": "<0>Scan this QR code <1></1> with your mobile phone</0>",
+    "download_title": "Download Obyte wallet",
+    "tooltip": "This will open your Obyte wallet installed on this computer and send the transaction",
+    "tooltip_mob": "Send the transaction from your mobile phone",
+    "install": "Install Obyte wallet for [ios] or [android] if you don't have one yet",
+    "obyte_in": "Obyte in"
+  },
   "select_stablecoin": {
     "placeholder": "Please select a stablecoin",
     "recent": "Recent",
@@ -257,6 +265,10 @@
     },
     "supportList": {
       "title": "Supporters"
+    },
+    "withdraw_interest": {
+      "desc": "<0>Confirm withdrawal of <1></1> {{symbol3}}. The deposit will continue accruing interest as before.</0>",
+      "btn": "Withdraw interest"
     },
     "withdraw": {
       "title": "Withdraw support",
@@ -709,7 +721,7 @@
     "required": "This field is required",
     "not_valid": "This field is not valid",
     "decimals_range": "Decimals must be between {{from}} and {{to}}",
-    "max_value": "Max value is {{maxValue}}",
+    "max_value": "Max value is {{value}}",
     "integer": "Value must be an integer",
     "max_decimals": "Max decimals is {{value}}",
     "min_value": "Min value is {{value}}",

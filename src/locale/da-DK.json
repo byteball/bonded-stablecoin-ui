@@ -709,7 +709,7 @@
     "required": "Obligatorisk felt",
     "not_valid": "Feltet er ugyldigt",
     "decimals_range": "Decimaler skal være mellem {{from}} og {{to}}",
-    "max_value": "Max værdi er {{maxValue}}",
+    "max_value": "Max værdi er {{value}}",
     "integer": "Værdien skal være et heltal",
     "max_decimals": "Max decimaler er {{value}}",
     "min_value": "Min. værdi er {{value}}",
