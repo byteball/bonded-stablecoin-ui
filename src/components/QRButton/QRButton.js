@@ -9,7 +9,7 @@ export const QRButton = React.forwardRef((props, ref) => {
       title: <Trans i18nKey="qr_button.title"><span>Scan this QR code <br /> with your mobile phone</span></Trans>,
       downloadTitle: t("qr_button.download_title", "Download Obyte wallet"),
       tooltip: t("qr_button.tooltip", "This will open your Obyte wallet installed on this computer and send the transaction"),
-      tooltipMobil: t("qr_button.tooltip_mob", "Send the transaction from your mobile phone"),
+      tooltipMobile: t("qr_button.tooltip_mob", "Send the transaction from your mobile phone"),
       install: t("qr_button.install", "Install Obyte wallet for [ios] or [android] if you don't have one yet"),
       obyteIn: t("qr_button.obyte_in", "Obyte in")
     }
