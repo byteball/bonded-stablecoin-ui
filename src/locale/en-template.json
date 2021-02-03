@@ -721,7 +721,7 @@
     "required": "This field is required",
     "not_valid": "This field is not valid",
     "decimals_range": "Decimals must be between {{from}} and {{to}}",
-    "max_value": "Max value is {{maxValue}}",
+    "max_value": "Max value is {{value}}",
     "integer": "Value must be an integer",
     "max_decimals": "Max decimals is {{value}}",
     "min_value": "Min value is {{value}}",

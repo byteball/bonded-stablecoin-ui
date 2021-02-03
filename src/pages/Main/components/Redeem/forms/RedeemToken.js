@@ -135,7 +135,7 @@ export const RedeemToken = ({
       size="large"
     >
       <Form.Item>
-        <Row gutter={10}>
+        <Row gutter={10} wrap={false}>
           <Col flex="auto">
             <Form.Item
               name={`r_tokens${type}`}
