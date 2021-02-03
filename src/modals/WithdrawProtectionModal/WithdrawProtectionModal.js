@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 
 import { generateLink } from "utils/generateLink";
 import config from "config";
+import { QRButton } from "components/QRButton/QRButton";
 
 const { Text } = Typography;
 
@@ -60,8 +61,7 @@ export const WithdrawProtectionModal = ({
       style={{ zIndex: -1 }}
       footer={
         <Space>
-          <Button
-            danger
+          <QRButton
             type="primary"
             ref={withdrawBtnRef}
             onClick={() =>
@@ -86,7 +86,7 @@ export const WithdrawProtectionModal = ({
             )}
           >
             {t("modals.withdraw_protection.withdraw_protection", "Withdraw protection")}
-          </Button>
+          </QRButton>
           <Button type="default" onClick={setVisible}>
             {t("modals.common.close", "Close")}
           </Button>

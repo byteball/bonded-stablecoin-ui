@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Table, Button, Space, List, Typography, Tooltip } from "antd";
+import { Table, Button, List, Typography, Tooltip } from "antd";
 import { Trans, useTranslation } from 'react-i18next';
 import {
   PlusOutlined,
@@ -23,6 +23,8 @@ import { Label } from "components/Label/Label";
 import { AddProtectionModal } from "modals/AddProtectionModal/AddProtectionModal";
 import { WithdrawProtectionModal } from "modals/WithdrawProtectionModal/WithdrawProtectionModal";
 import config from "config";
+import { QRButton } from "components/QRButton/QRButton";
+import { WithdrawInterestModal } from "modals/WithdrawInterestModal/WithdrawInterestModal";
 
 const { Title, Text } = Typography;
 
@@ -32,6 +34,7 @@ export const Deposits = ({ openWalletModal }) => {
   const [visibleOpenDeposit, setVisibleOpenDeposit] = useState(false);
   const [addProtection, setAddProtection] = useState(undefined);
   const [withdrawProtection, setWithdrawProtection] = useState(undefined);
+  const [withdrawInterest, setWithdrawInterest] = useState(undefined);
   const {
     deposit_state,
     params,
@@ -210,12 +213,7 @@ export const Deposits = ({ openWalletModal }) => {
             <Tooltip title={t("trade.tabs.deposits.withdraw_interest","Withdraw interest")}>
               <Button
                 type="link"
-                href={generateLink(
-                  1e4,
-                  { id: records.id },
-                  activeWallet,
-                  deposit_aa
-                )}
+                onClick={() => setWithdrawInterest({...records, interest })}
                 disabled={
                   interest <= 0 ||
                   (records.interest_recipient
@@ -279,10 +277,10 @@ export const Deposits = ({ openWalletModal }) => {
           deposit_state.asset
         );
         return (
-          <Space size={10} align="center">
-            <Button
+            <QRButton
               type="link"
               size="small"
+              style={{padding: 0}}
               href={closeUrl}
               onClick={() => {
                 ReactGA.event({
@@ -297,8 +295,7 @@ export const Deposits = ({ openWalletModal }) => {
               }
             >
               {t("trade.tabs.deposits.close", "Close")}
-            </Button>
-          </Space>
+            </QRButton>
         );
       },
     },
@@ -471,6 +468,15 @@ export const Deposits = ({ openWalletModal }) => {
         visible={withdrawProtection !== undefined}
         deposit={withdrawProtection}
         setVisible={() => setWithdrawProtection(undefined)}
+      />
+      <WithdrawInterestModal 
+        activeWallet={activeWallet}
+        deposit_aa={deposit_aa}
+        visible={withdrawInterest !== undefined}
+        deposit={withdrawInterest}
+        symbol3={symbol3}
+        decimals2={actualParams.decimals2}
+        setVisible={() => setWithdrawInterest(undefined)}
       />
       <AddProtectionModal
         activeWallet={activeWallet}

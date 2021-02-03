@@ -11,6 +11,7 @@ import { resetIssueStablecoin } from "store/actions/pendings/resetIssueStablecoi
 import { changeActive } from "store/actions/active/changeActive";
 
 import config from "config";
+import { QRButton } from "components/QRButton/QRButton";
 
 export const CreateStep = ({ data, setCurrent }) => {
   const pendings = useSelector((state) => state.pendings.stablecoin);
@@ -57,7 +58,7 @@ export const CreateStep = ({ data, setCurrent }) => {
       title= {t("create.sending_request.title", "Almost ready!")}
       subTitle={t("create.sending_request.subTitle", "Please click the «Create» button below, this will open your Obyte wallet and you'll send a transaction that will create the new stablecoin.")}
       extra={[
-        <Button
+        <QRButton
           href={link}
           type="primary"
           key="CreateStep-create"
@@ -69,7 +70,7 @@ export const CreateStep = ({ data, setCurrent }) => {
           }}
         >
           {t("create.sending_request.create", "Create")}
-        </Button>,
+        </QRButton>,
         <Button
           onClick={() => {
             setCurrent(0);

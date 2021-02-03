@@ -21,6 +21,7 @@
     "lightweight-charts": "^3.1.5",
     "lodash": "^4.17.19",
     "obyte": "^0.1.9",
+    "obyte-qr-button": "^0.0.3",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-ga": "^3.1.2",

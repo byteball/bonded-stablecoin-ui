@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Form, Input, Button, Typography } from "antd";
+import { Form, Input, Typography, Col, Row } from "antd";
 import ReactGA from "react-ga";
 import { useTranslation } from 'react-i18next';
 
@@ -8,6 +8,7 @@ import { generateLink } from "utils/generateLink";
 import { $get_exchange_result } from "helpers/bonded";
 import config from "config";
 import styles from "./RedeemToken.module.css";
+import { QRButton } from "components/QRButton/QRButton";
 
 const { useForm } = Form;
 const { Text } = Typography;
@@ -133,54 +134,61 @@ export const RedeemToken = ({
       }}
       size="large"
     >
-      <Form.Item
-        name={`r_tokens${type}`}
-        extra={extra}
-        rules={[
-          {
-            validator: (rule, value) =>
-              validateValue({
-                value,
-                name: "r_tokens",
-                type: "number",
-                minValue: Number(1 / 10 ** decimals).toFixed(decimals),
-                maxDecimals: decimals,
-                maxValue: supply
-              }),
-          },
-        ]}
-      >
-        <Input.Search
-          placeholder={t(`trade.tabs.buy_redeem.amount${type}_placeholder`, `Amount of tokens${type} ({{symbolOrAsset}} — ${type === 1 ? "growth" : "interest"} tokens)`, { symbolOrAsset: symbol || asset })}
-          autoComplete="off"
-          style={{ marginBottom: 0 }}
-          onKeyPress={(ev) => {
-            if (ev.key === "Enter") {
-              if (valid && exchange !== null) {
-                buttonRef.current.click();
-              }
-            }
-          }}
-          onSearch={() => {
-            ReactGA.event({
-              category: "Stablecoin",
-              action: "Redeem token" + type,
-            });
-          }}
-          enterButton={
-            <Button
+      <Form.Item>
+        <Row gutter={10}>
+          <Col flex="auto">
+            <Form.Item
+              name={`r_tokens${type}`}
+              extra={extra}
+              rules={[
+                {
+                  validator: (rule, value) =>
+                    validateValue({
+                      value,
+                      name: "r_tokens",
+                      type: "number",
+                      minValue: Number(1 / 10 ** decimals).toFixed(decimals),
+                      maxDecimals: decimals,
+                      maxValue: supply
+                    }),
+                },
+              ]}
+            >
+              <Input
+                placeholder={t(`trade.tabs.buy_redeem.amount${type}_placeholder`, `Amount of tokens${type} ({{symbolOrAsset}} — ${type === 1 ? "growth" : "interest"} tokens)`, { symbolOrAsset: symbol || asset })}
+                autoComplete="off"
+                style={{ marginBottom: 0 }}
+                onKeyPress={(ev) => {
+                  if (ev.key === "Enter") {
+                    if (valid && exchange !== null) {
+                      buttonRef.current.click();
+                    }
+                  }
+                }}
+              />
+            </Form.Item>
+          </Col>
+          <Col>
+            <QRButton
               type="primary"
               ref={buttonRef}
               disabled={
                 !valid || exchange === null || (exchange && exchange.payout < 0) || tokens > supply
               }
               href={link}
+              onClick={() => {
+                ReactGA.event({
+                  category: "Stablecoin",
+                  action: "Redeem token" + type,
+                });
+              }}
             >
               {t("trade.tabs.buy_redeem.redeem", "Redeem")}
-            </Button>
-          }
-        />
+            </QRButton>
+          </Col>
+        </Row>
       </Form.Item>
+
       {exchange !== undefined &&
         exchange !== null &&
         valid &&
