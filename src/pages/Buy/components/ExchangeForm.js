@@ -35,6 +35,7 @@ import { useGetCompensation } from "../hooks/useGetCompensation";
 import { updateExchangesForm } from "store/actions/settings/updateExchangesForm";
 import config from "config";
 import { useGetReservePrice } from "../hooks/useGetReservePrice";
+import { QRButton } from "components/QRButton/QRButton";
 
 const { Text } = Typography;
 
@@ -419,7 +420,9 @@ export const ExchangeForm = () => {
                     onKeyPress={(ev) => {
                       if (ev.key === "Enter") {
                         if (activeCurrency === "gbyte") {
-                          buyForGbyteRef.current.click();
+                          if(!isNaN(amountToken) && !(Number(amountToken) === 0)){
+                            buyForGbyteRef.current.click();
+                          }
                         } else {
                           buyRef.current.click();
                         }
@@ -538,11 +541,12 @@ export const ExchangeForm = () => {
       {activeCurrency === "gbyte" ? (
         <>
           <Row justify="center" style={{ marginTop: 40 }}>
-            <Button
+            <QRButton
               type="primary"
               size="large"
               disabled={
-                !amountToken ||
+                isNaN(amountToken) ||
+                !Number(amountToken) ||
                 !amountCurrency ||
                 amountCurrency === "" ||
                 Number(amountCurrency) === 0
@@ -570,7 +574,7 @@ export const ExchangeForm = () => {
               }
             >
               {t("buy.buy", "Buy")}
-            </Button>
+            </QRButton>
           </Row>
           {amountCurrency &&
             amountCurrency !== "" &&

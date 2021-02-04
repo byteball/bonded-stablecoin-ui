@@ -20,7 +20,7 @@ export default (
   if (reg.test(value)) {
     if (Number(value) > minValue || minValue === undefined) {
       if (maxValue && Number(value) > maxValue) {
-        error = i18n.t("validator.max_value", "Max value is {{maxValue}}", {value: maxValue});
+        error = i18n.t("validator.max_value", "Max value is {{value}}", {value: maxValue});
       } else {
         if (isInteger) {
           if (int.test(value)) {

@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 
 import { redirect } from "utils/redirect";
 import { generateLink } from "utils/generateLink";
+import { QRButton } from "components/QRButton/QRButton";
 
 export const WithdrawModal = ({
   visible,
@@ -79,7 +80,7 @@ export const WithdrawModal = ({
           <Button key="Cancel" onClick={onCancel}>
             {t("modals.common.close", "Close")}
           </Button>
-          <Button
+          <QRButton
             key="submit"
             type="primary"
             href={link}
@@ -96,7 +97,7 @@ export const WithdrawModal = ({
             }
           >
             {t("modals.withdraw.withdraw", "Withdraw")}
-          </Button>
+          </QRButton>
         </Space>
       }
     >

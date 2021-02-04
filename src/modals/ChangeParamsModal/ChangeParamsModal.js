@@ -9,6 +9,7 @@ import client from "services/socket";
 import { viewParameter } from "pages/Main/components/Governance/viewParameter";
 import { percentageParams } from "pages/Main/components/Governance/components/percentageParams";
 import { paramsDescription } from "pages/Create/paramsDescription";
+import { QRButton } from "components/QRButton/QRButton";
 
 const { Text } = Typography;
 
@@ -325,7 +326,7 @@ export const ChangeParamsModal = ({
             onClick={() => setCheckedOracle(false)}
           >
             {t("modals.common.check", "Check")}
-              </Button> : <Button
+              </Button> : <QRButton
               key="submit"
               type="primary"
               href={link}
@@ -341,7 +342,7 @@ export const ChangeParamsModal = ({
               }
             >
               {isMyVote ? t("modals.change_param.add_support", "Add support") : t("modals.change_param.vote", "Vote")}
-            </Button>}
+            </QRButton>}
         </Space>
       }
     >

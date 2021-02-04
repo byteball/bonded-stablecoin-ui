@@ -14,6 +14,7 @@ import { SupportListModal } from "modals/SupportListModal/SupportListModal";
 import styles from "./GovernanceItem.module.css";
 import { parseOracle, viewParameter } from "./viewParameter";
 import { percentageParams } from "./components/percentageParams";
+import { QRButton } from "components/QRButton/QRButton";
 
 const { Countdown } = Statistic;
 
@@ -201,10 +202,11 @@ export const GovernanceItem = ({
                           {t("trade.tabs.governance.another_value", "suggest another value")}
                         </Button>
                       </div>}
-                      {leader && <Button
+                      {leader && <QRButton
                         type="link"
                         style={{ padding: 0, lineHeight: "1em", height: "auto" }}
                         href={linkCommit}
+                        size="small"
                         disabled={
                           now < challengingPeriod ||
                           leader === value ||
@@ -212,12 +214,12 @@ export const GovernanceItem = ({
                         }
                       >
                         {t("trade.tabs.governance.commit", "commit")}
-                      </Button>}
+                      </QRButton>}
                     </div>
                   )}
               </div>
               {isChoice && <div>
-                <Button
+                <QRButton
                   type="link"
                   href={linkRemoveSupport}
                   style={{ padding: 0, lineHeight: "1em", height: "auto" }}
@@ -227,7 +229,7 @@ export const GovernanceItem = ({
                   }
                 >
                   {t("trade.tabs.governance.remove_support", "remove support")}
-                </Button>
+                </QRButton>
               </div>}
             </div>
           </Col>

@@ -709,7 +709,7 @@
     "required": "Este campo es obligatorio",
     "not_valid": "Este campo no es válido",
     "decimals_range": "Los decimales deben estar entre {{from}} y {{to}}",
-    "max_value": "El valor máximo es {{maxValue}}",
+    "max_value": "El valor máximo es {{value}}",
     "integer": "El valor debe ser un entero",
     "max_decimals": "El número máximo de decimales es {{value}}",
     "min_value": "El valor mínimo es {{value}}",

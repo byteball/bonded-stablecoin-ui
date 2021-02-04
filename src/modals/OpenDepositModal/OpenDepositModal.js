@@ -15,6 +15,7 @@ import obyte from "obyte";
 import { generateLink } from "utils/generateLink";
 import { redirect } from "utils/redirect";
 import config from "config";
+import { QRButton } from "components/QRButton/QRButton";
 
 const { Text } = Typography;
 
@@ -126,7 +127,7 @@ export const OpenDepositModal = ({
             {t("modals.common.close", "Close")}
           </Button>
 
-          <Button
+          <QRButton
             key="add"
             type="primary"
             disabled={!amount.valid || Number(amount.value) === 0}
@@ -142,7 +143,7 @@ export const OpenDepositModal = ({
             }
           >
             {t("modals.common.open", "Open")}
-          </Button>
+          </QRButton>
         </Space>
       }
     >
