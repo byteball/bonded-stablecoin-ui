@@ -29,6 +29,7 @@ export const Issue = () => {
     oraclePrice,
     reserve_asset_symbol
   } = useSelector((state) => state.active);
+
   const [validFields, setValidFields] = useState({
     tokens1: undefined,
     tokens2: undefined,
