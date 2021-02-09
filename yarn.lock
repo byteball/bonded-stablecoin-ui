@@ -11104,6 +11104,11 @@ stable@^0.1.8:
   resolved "https://registry.yarnpkg.com/stable/-/stable-0.1.8.tgz#836eb3c8382fe2936feaf544631017ce7d47a3cf"
   integrity sha512-ji9qxRnOVfcuLDySj9qzhGSEFVobyt1kIOSkj1qZzYLzq7Tos/oUUWvotUPQLlrsidqsK6tBH89Bc9kL5zHA6w==
 
+stablecoin-icons@^0.0.1:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/stablecoin-icons/-/stablecoin-icons-0.0.1.tgz#d886780c11ba14aa99ae975bf50978bdc6816cc7"
+  integrity sha512-QH/wFgFHLNcdHcy7Yd3iYrEE+3iG6UbU49X2uvDuWDhnpq9bu27A1F1EoS2EGCkF9zGQ7ad9zhYbWuklIe6qWA==
+
 stack-utils@^2.0.2:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/stack-utils/-/stack-utils-2.0.3.tgz#cd5f030126ff116b78ccb3c027fe302713b61277"
