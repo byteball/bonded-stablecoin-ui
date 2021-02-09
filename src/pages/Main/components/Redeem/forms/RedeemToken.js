@@ -72,7 +72,7 @@ export const RedeemToken = ({
 
   const link = generateLink(
     Math.trunc(Number(tokens).toFixed(decimals) * 10 ** decimals),
-    {},
+    { max_fee_percent: exchange && exchange.fee_percent + 1 },
     activeWallet,
     address,
     asset
