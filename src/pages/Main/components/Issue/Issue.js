@@ -3,7 +3,6 @@ import { Form, Input, Typography, Checkbox, Row, Space } from "antd";
 import { useSelector } from "react-redux";
 import ReactGA from "react-ga";
 import { useTranslation } from 'react-i18next';
-import moment from "moment";
 
 import { validator } from "utils/validators";
 import { $get_exchange_result } from "helpers/bonded";
@@ -79,7 +78,7 @@ export const Issue = () => {
       params: actualParams,
       vars: stable_state,
       oracle_price: oraclePrice,
-      timestamp: moment.utc().unix(),
+      timestamp: Math.floor(Date.now() / 1000),
       reservePrice,
     });
 
