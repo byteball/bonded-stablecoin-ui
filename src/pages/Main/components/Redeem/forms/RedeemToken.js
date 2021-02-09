@@ -56,7 +56,7 @@ export const RedeemToken = ({
 
   useEffect(() => {
     const get_exchange_result =
-      actualParams &&
+      actualParams && Number(tokens) &&
       $get_exchange_result({
         tokens1: type === 1 && tokens ? -(tokens * 10 ** decimals) : 0,
         tokens2: type === 2 && tokens ? -(tokens * 10 ** decimals) : 0,
