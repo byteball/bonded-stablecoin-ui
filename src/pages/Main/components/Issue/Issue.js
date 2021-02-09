@@ -3,6 +3,7 @@ import { Form, Input, Typography, Checkbox, Row, Space } from "antd";
 import { useSelector } from "react-redux";
 import ReactGA from "react-ga";
 import { useTranslation } from 'react-i18next';
+import moment from "moment";
 
 import { validator } from "utils/validators";
 import { $get_exchange_result } from "helpers/bonded";
@@ -29,7 +30,6 @@ export const Issue = () => {
     oraclePrice,
     reserve_asset_symbol
   } = useSelector((state) => state.active);
-
   const [validFields, setValidFields] = useState({
     tokens1: undefined,
     tokens2: undefined,
@@ -79,7 +79,7 @@ export const Issue = () => {
       params: actualParams,
       vars: stable_state,
       oracle_price: oraclePrice,
-      timestamp: Math.floor(Date.now() / 1000),
+      timestamp: moment.utc().unix(),
       reservePrice,
     });
 

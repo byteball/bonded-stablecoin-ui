@@ -1,4 +1,5 @@
 import React from "react";
+import CoinsIcon from "stablecoin-icons";
 
 export const GrowthToken = ({ name }) => (
   <svg viewBox="0 0 412 113" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -12,21 +13,7 @@ export const GrowthToken = ({ name }) => (
       fill="#0037FF"
     />
     <svg>
-      <svg width="96" height="96">
-        <circle cx="48" cy="57" r="24" fill="#0037FF" />
-        <text
-          x="50%"
-          y="60%"
-          textAnchor="middle"
-          fill="white"
-          fontSize="16px"
-          fontWeight="bold"
-          fontFamily="Open Sans"
-          dy=".3em"
-        >
-          {name}
-        </text>
-      </svg>
+      <CoinsIcon x="20" y="29" type={1} symbol={name} width="55" height="55" />
     </svg>
     <path
       d="M74.884 91.5137L85.5 88.5L95.5 82L105.5 82L114.5 85.5C114.5 85.5 123.5 78.5 125 79C126.5 79.5 137 86.5 140.5 85.5C144 84.5 151 80.5 151 80.5C151 80.5 156 73.5 158 72.4999C160 71.4999 165.5 72.4999 165.5 72.4999C165.5 72.4999 174 77 175.5 77C177 77 182 70 182 70L187 67.4999L194.5 67.4999C194.5 67.4999 200 72.4999 202.5 72.4999C205 72.4999 215 72.4999 215 72.4999L225.5 67.4999L231.5 60.5L242 60.5L251 57L261 58.5C261 58.5 268 64 270 63.5C272 63 275 59.5 275 59.5L283 57L288 53L290.5 47.4999L295 42L304 38.5L313 40L322.5 36.4999L326.5 31.5L331.5 31.5L335 28.5L344 27.5C344 27.5 351.5 30.9999 352.5 30.4999C353.5 30 355.5 25.5 355.5 25.5L362 21.5L380.884 18.5137"

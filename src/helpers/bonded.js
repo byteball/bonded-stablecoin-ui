@@ -39,14 +39,10 @@ export const $get_fee = (
   old_distance,
   new_distance,
   fee_multiplier
-) =>
-  fee_multiplier *
-  avg_reserve *
-  (new_distance - old_distance) *
-  (new_distance + old_distance);
+) => Decimal(fee_multiplier).mul(avg_reserve).mul(new_distance - old_distance).mul(new_distance + old_distance).toNumber()
 
 export const $get_reserve = (s1, s2, m, n, dilution_factor) => {
-  return dilution_factor * s1 ** m * s2 ** n;
+  return Decimal(dilution_factor).mul(Decimal(s1).pow(m).mul(Decimal(s2).pow(n))).toNumber();
 };
 
 export const $get_growth_factor = (
@@ -55,10 +51,8 @@ export const $get_growth_factor = (
   rate_update_ts,
   growth_factor
 ) => {
-  const term = (timestamp - rate_update_ts) / (360 * 24 * 3600);
-  const result = growth_factor * (1 + interest_rate) ** term;
-
-  return result;
+  const term = Decimal(timestamp - rate_update_ts).div(360 * 24 * 3600);
+  return Decimal(growth_factor).mul(Decimal(1 + interest_rate).pow(term)).toNumber();
 };
 
 export const $get_target_p2 = (
@@ -70,7 +64,7 @@ export const $get_target_p2 = (
   growth_factor
 ) => {
   if(!oracle_price) return false
-  return Decimal.pow(oracle_price, leverage - 1)
+  return Decimal(oracle_price).pow(leverage - 1)
     .mul(
       $get_growth_factor(
         interest_rate,
@@ -158,30 +152,30 @@ export const $get_exchange_result = ({
     // going away from the target price - pay a fee
     reward = 0;
     regular_fee = $get_fee(avg_reserve, distance, new_distance, fee_multiplier);
-    new_fast_capacity = fast_capacity + regular_fee * fast_capacity_share;
-    distance_share = 1 - distance / new_distance;
+    new_fast_capacity = fast_capacity + Decimal(regular_fee).mul(fast_capacity_share).toNumber();
+    distance_share = 1 - Decimal(distance).div(new_distance).toNumber() ;
     // reward that would be paid for returning the price back to $initial_p2
-    reverse_reward = distance_share * new_fast_capacity;
+    reverse_reward = Decimal(distance_share).mul(new_fast_capacity).toNumber();
+
     if (regular_fee >= reverse_reward) {
       fee = regular_fee;
     } else {
       fee = Decimal.ceil(
-        new Decimal(distance_share)
+        Decimal(distance_share)
           .div(1 - distance_share * fast_capacity_share)
           .mul(fast_capacity)
       ).toNumber();
     }
-
     reserve_needed = reserve_delta + fee; // negative for payouts
   } else {
     // going towards the target price - get a reward
     fee = 0;
-    reward = Math.floor((1 - new_distance / distance) * fast_capacity);
+    reward = Decimal.floor((1 - Decimal(new_distance).div(distance).toNumber()) * fast_capacity);
     reserve_needed = reserve_delta - reward; // negative for payouts
   }
 
   const turnover = $get_turnover(-reserve_delta, tokens1, tokens2, p2);
-  const fee_percent = (fee / turnover) * 100;
+  const fee_percent = Decimal(fee).div(turnover).mul(100);
   const reward_percent = (reward / turnover) * 100;
   const network_fee = 1e3;
   const full_network_fee = network_fee;

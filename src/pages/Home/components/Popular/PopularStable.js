@@ -4,12 +4,8 @@ import { Link } from "react-router-dom";
 import { Col, Row } from "antd";
 import { useTranslation } from 'react-i18next';
 import { useSelector } from "react-redux";
+import CoinsIcon from "stablecoin-icons";
 
-import usd from "./img/stable/usd.svg";
-import gbyte from "./img/stable/gbyte.svg";
-import btc from "./img/stable/btc.svg";
-import eth from "./img/stable/eth.svg";
-import gold from "./img/stable/gold.svg";
 import styles from "./Popular.module.css";
 import config from "config";
 
@@ -18,7 +14,7 @@ const PopularItem = ({ pegged, name, price, logo, link }) => {
   return (
     <Col xs={{ span: 12 }} sm={{ span: 6 }} lg={{ span: 4 }} className={styles.item}>
       <div>
-        <img src={logo} alt={name} width="80" height="80" />
+        <CoinsIcon symbol={name} width="80" height="80" type={3} />
       </div>
       <div className={styles.name}>{name}</div>
       <div>{t("home.popular.pegged", "Pegged:")} <span>{pegged}</span></div>
@@ -43,35 +39,30 @@ export const PopularStable = ({ prices }) => {
     {
       name: "OUSD",
       address: config.TESTNET ? "7FSSFG2Y5QHQTKVRFB3VWL6UNX3WB36O" : "26XAPPPTTYRIOSYNCUV3NS2H57X5LZLJ",
-      logo: usd,
       pegged: "USD",
       price: 1
     },
     {
       name: "OBIT",
       address: config.TESTNET ? "YMH724SHU7D6ZM4DMSP5RHQYB7OII2QQ" : "Z7GNZCFDEWFKYOO6OIAZN7GH7DEKDHKA",
-      logo: btc,
       pegged: "BTC",
       price: 0
     },
     {
       name: "OETH",
       address: config.TESTNET ? "2M5WRWDNWWMQ6BTCYNIC5G5UPW23TECO" : "HXFNVF4ENNIEJZHS2MQLG4AKQ4SAXUNH",
-      logo: eth,
       pegged: "ETH",
       price: 0
     },
     {
       name: "OGB",
       address: config.TESTNET ? "UH6SNZMZKHWMRM7IQZGFPD5PQULZZSBI" : "UH6SNZMZKHWMRM7IQZGFPD5PQULZZSBI",
-      logo: gbyte,
       pegged: "GBYTE",
       price: 0
     },
     {
       name: "OAU",
       address: config.TESTNET ? "VE63FHFCPXLLXK6G6HXQDO5DVLS2IDOC" : "UCWEMOXEYFUDDBJLHIHZ3NIAX3QD2YFD",
-      logo: gold,
       pegged: "GOLD",
       price: 0
     }
