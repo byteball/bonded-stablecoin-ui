@@ -1,5 +1,5 @@
 import React from "react";
-import CoinsIcon from "stablecoin-icons";
+import CoinIcon from "stablecoin-icons";
 
 export const InterestToken = ({ name }) => (
   <>
@@ -11,7 +11,7 @@ export const InterestToken = ({ name }) => (
       />
       <path d="M9 104H404V9H9V104Z" fill="white" />
       <svg>
-        <CoinsIcon x="20" y="29" type={2} symbol={name} width="55" height="55" />
+        <CoinIcon x="20" y="29" type={2} symbol={name} width="55" height="55" />
       </svg>
       <path
         d="M373.167 91C372.062 91 371.002 91.4214 370.22 92.1716C369.439 92.9217 369 93.9391 369 95C369 96.0609 369.439 97.0783 370.22 97.8284C371.002 98.5786 372.062 99 373.167 99H389.833C390.938 99 391.998 98.5786 392.78 97.8284C393.561 97.0783 394 96.0609 394 95C394 93.9391 393.561 92.9217 392.78 92.1716C391.998 91.4214 390.938 91 389.833 91H373.167Z"

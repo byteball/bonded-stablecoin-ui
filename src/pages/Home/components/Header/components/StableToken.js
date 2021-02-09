@@ -1,5 +1,5 @@
 import React from "react";
-import CoinsIcon from "stablecoin-icons";
+import CoinIcon from "stablecoin-icons";
 
 export const StableToken = ({ name }) => (
   <svg viewBox="0 0 413 113" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -13,7 +13,7 @@ export const StableToken = ({ name }) => (
       fill="#0037FF"
     />
     <svg>
-      <CoinsIcon x="20" y="29" type={3} symbol={name} width="55" height="55" />
+      <CoinIcon x="20" y="29" type={3} symbol={name} width="55" height="55" />
     </svg>
 
     <path d="M85 56L386 56" stroke="black" />

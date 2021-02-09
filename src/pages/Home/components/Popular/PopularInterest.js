@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { Col, Row } from "antd";
 import { useTranslation } from 'react-i18next';
 import { useSelector } from "react-redux";
-import CoinsIcon from "stablecoin-icons";
+import CoinIcon from "stablecoin-icons";
 
 import styles from "./Popular.module.css";
 import config from "config";
@@ -47,7 +47,7 @@ const PopularItem = ({ pegged, name, apy, logo, link, price }) => {
   return (
     <Col xs={{ span: 12 }} sm={{ span: 6 }} lg={{ span: 4 }} className={styles.item}>
       <div>
-        <CoinsIcon symbol={name} width="80" height="80" type={2} />
+        <CoinIcon symbol={name} width="80" height="80" type={2} />
       </div>
       <div className={styles.name}>{name}</div>
       <div>{t("home.popular.pegged", "Pegged:")} <span>{pegged}</span></div>

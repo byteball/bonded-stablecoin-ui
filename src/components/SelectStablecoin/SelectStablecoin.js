@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useTranslation } from 'react-i18next';
 import { changeActive } from "store/actions/active/changeActive";
 import { Decimal } from "decimal.js";
-import CoinsIcon from "stablecoin-icons";
+import CoinIcon from "stablecoin-icons";
 
 const { OptGroup } = Select;
 
@@ -50,7 +50,7 @@ export const SelectStablecoin = () => {
     if (!recentList.includes(aa)) {
       optionList.push(
         <Select.Option value={aa} key={aa}>
-          <CoinsIcon width="1em" style={{ marginRight: 10 }} height="1em" type={2} symbol={symbol} />
+          <CoinIcon width="1em" style={{ marginRight: 10 }} height="1em" type={2} symbol={symbol} />
           {targetCurrency}{interest_rate_percent ? ` ${interest_rate_percent}% interest` : ''} : {symbol || asset_2} (
           {aa})
         </Select.Option>
@@ -64,7 +64,7 @@ export const SelectStablecoin = () => {
     const interest_rate_percent = stable_state ? Decimal.mul(stable_state.interest_rate, 100).toNumber() : null;
     return (
       <Select.Option value={aa} key={aa}>
-        <CoinsIcon width="1em" height="1em" style={{ marginRight: 10 }} type={2}  symbol={symbol} />
+        <CoinIcon width="1em" height="1em" style={{ marginRight: 10 }} type={2}  symbol={symbol} />
         {targetCurrency}{interest_rate_percent ? ` ${interest_rate_percent}% interest` : ''} : {symbol || asset_2} (
         {aa})
       </Select.Option>

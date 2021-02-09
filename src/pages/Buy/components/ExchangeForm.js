@@ -19,7 +19,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import Decimal from "decimal.js";
 import obyte from "obyte";
-import CoinsIcon from "stablecoin-icons";
+import CoinIcon from "stablecoin-icons";
 
 import { $get_exchange_result } from "helpers/bonded";
 import { getOraclePrice } from "helpers/getOraclePrice";
@@ -442,7 +442,7 @@ export const ExchangeForm = () => {
                   >
                     {tokens.map((t) => (
                       <Select.Option key={"t-" + t.asset} value={t.address}>
-                        <CoinsIcon width="1em" style={{ marginRight: 10 }} height="1em" type={2} symbol={t.symbol} /> {t.symbol || t.asset}{" "}
+                        <CoinIcon width="1em" style={{ marginRight: 10 }} height="1em" type={2} symbol={t.symbol} /> {t.symbol || t.asset}{" "}
                         {" (" +
                           Decimal.mul(t.interest_rate, 100).toNumber() +
                           "% interest)"}
