@@ -37,6 +37,7 @@ import { updateExchangesForm } from "store/actions/settings/updateExchangesForm"
 import config from "config";
 import { useGetReservePrice } from "../hooks/useGetReservePrice";
 import { QRButton } from "components/QRButton/QRButton";
+import { isEmpty } from "lodash";
 
 const { Text } = Typography;
 
@@ -158,6 +159,7 @@ export const ExchangeForm = () => {
         currentTokenData &&
         oraclePrice &&
         oraclePrice !== undefined &&
+        !isEmpty(stable_state) &&
         $get_exchange_result({
           tokens1: 0,
           tokens2: amountToken * 10 ** params.decimals2,

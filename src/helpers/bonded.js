@@ -175,7 +175,7 @@ export const $get_exchange_result = ({
   }
 
   const turnover = $get_turnover(-reserve_delta, tokens1, tokens2, p2);
-  const fee_percent = Decimal(fee).div(turnover).mul(100).toNumber();
+  const fee_percent = fee ? Decimal(fee).div(turnover).mul(100).toNumber() : 0;
   const reward_percent = (reward / turnover) * 100;
   const network_fee = 1e3;
   const full_network_fee = network_fee;
