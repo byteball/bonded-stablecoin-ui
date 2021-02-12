@@ -11,6 +11,7 @@ import { getParams } from "helpers/getParams";
 import config from "config";
 import styles from "./Statistics.module.css";
 import { DownOutlined, UpOutlined } from "@ant-design/icons";
+import { isEmpty } from "lodash";
 
 const { Text } = Typography;
 
@@ -43,6 +44,7 @@ export const Statistics = ({ windowWidth }) => {
 
   const target_p2 =
     oraclePrice &&
+    !isEmpty(stable_state) &&
     $get_target_p2(
       oraclePrice,
       actualParams.leverage,

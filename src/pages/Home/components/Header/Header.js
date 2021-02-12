@@ -60,7 +60,7 @@ export const Header = ({ type, setType }) => {
           </div>
         </div>
 
-        {pegged[type].percent && <div style={{ marginBottom: 40 }}>
+        {pegged[type].percent ? <div style={{ marginBottom: 40 }}>
           <div className={styles.tokenItem}>
             <div className={styles.tokenItemGraph}>
               <Link to={interestLink}
@@ -89,7 +89,7 @@ export const Header = ({ type, setType }) => {
               </div>
             </div>
           </div>
-        </div>}
+        </div> : null}
 
         <div style={{ marginBottom: 40 }}>
           <div className={styles.tokenItem}>
