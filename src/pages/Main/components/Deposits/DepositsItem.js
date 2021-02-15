@@ -2,10 +2,13 @@ import React from "react";
 import { Card, Space, Button } from "antd";
 import moment from "moment";
 import { useTranslation } from 'react-i18next';
+import ReactGA from "react-ga";
+
 import { generateLink } from "utils/generateLink";
 import { ShowDecimalsValue } from "components/ShowDecimalsValue/ShowDecimalsValue";
 import config from "config";
 import { QRButton } from "components/QRButton/QRButton";
+
 export const DepositsItem = ({
   decimals,
   growth_factor,
@@ -14,6 +17,7 @@ export const DepositsItem = ({
   asset,
   setVisibleEditRecipient,
   setWithdrawProtection,
+  last_force_closed_protection_ratio,
   setAddProtection,
   item,
   reserve_asset_decimals,
@@ -24,6 +28,8 @@ export const DepositsItem = ({
   width,
   symbol2,
   symbol3,
+  new_growth_factor,
+  challenging_period
 }) => {
   const {
     protection,
@@ -34,27 +40,56 @@ export const DepositsItem = ({
     interest_recipient,
     ts,
     close_interest,
+    force_close_ts,
+    weakerId,
+    protection_ratio,
+    isMy
   } = item;
   const new_stable_amount = Math.floor(amount * growth_factor);
   const interest = new_stable_amount - stable_amount;
   const { t } = useTranslation();
   const closeUrl = generateLink(
-    stable_amount,
-    { id },
+    close_interest ? 1e5 : Math.ceil(amount * new_growth_factor),
+    { id, commit_force_close: close_interest ? 1 : undefined },
     activeWallet,
     deposit_aa,
-    asset
+    close_interest ? "base" : asset
   );
   const receiveUrl = generateLink(1e4, { id }, activeWallet, deposit_aa);
-  const protectionRatio =
-    Number(
-      (protection || 0) /
-      10 ** config.reserves.base.decimals /
-      (amount / 10 ** decimals)
-    ).toPrecision(3);
+
+  const challengeLink = item.weakerId ? generateLink(
+    1e5,
+    {
+      id: item.id,
+      challenge_force_close: 1,
+      weaker_id: weakerId
+    },
+    activeWallet,
+    deposit_aa,
+    close_interest ? "base" : asset
+  ) : null;
+
   const recipientName =
     interest_recipient &&
     config.interestRecipients.find((a) => a.address === interest_recipient);
+
+  const lessLast = {
+    is: !isMy && protection_ratio > (last_force_closed_protection_ratio || 0),
+    info: t("trade.tabs.deposits.less_last", "This deposit's protection ratio is above the smallest")
+  };
+
+  const tooNew = {
+    is: ts + min_deposit_term > timestamp || id === "dummy",
+    info: t("trade.tabs.deposits.too_new", "This deposit was opened less than {{hours}} hours ago and can't be force closed yet", { hours: Number(min_deposit_term / 3600).toPrecision(3) })
+  };
+
+  const overChallengingPeriod = {
+    is: (close_interest && force_close_ts && force_close_ts + challenging_period > timestamp),
+    info: t("trade.tabs.deposits.challenging_period", "Commit will be available in {{hours}} hours when the challenging period expires", { hours: Number((force_close_ts + challenging_period - timestamp) / 3600).toPrecision(3) })
+  };
+
+  const tooltip = lessLast.is ? lessLast.info : (tooNew.is ? tooNew.info : (overChallengingPeriod.is ? overChallengingPeriod.info : undefined));
+
   return (
     <Card
       style={{ marginBottom: 10, wordBreak: "break-all" }}
@@ -79,7 +114,7 @@ export const DepositsItem = ({
         <ShowDecimalsValue decimals={decimals} value={interest} /> {symbol3}
       </div>
       <div>
-        <b>{t("trade.tabs.deposits.interest_recipient","Interest recipient")}:</b>{" "}
+        <b>{t("trade.tabs.deposits.interest_recipient", "Interest recipient")}:</b>{" "}
         {!interest_recipient || activeWallet === interest_recipient
           ? "you"
           : (recipientName && <span>{recipientName.name}</span>) ||
@@ -102,14 +137,14 @@ export const DepositsItem = ({
         ) : (
             "-"
           )}{" "}
-        {protection && `(${protectionRatio})`}
+        {protection && `(${protection_ratio})`}
       </div>
       <Space
         size={10}
         style={{ marginTop: 10 }}
         direction={width >= 900 ? "horizontal" : "vertical"}
       >
-        <QRButton
+        {isMy && <QRButton
           href={receiveUrl}
           disabled={
             interest <= 0 ||
@@ -119,9 +154,9 @@ export const DepositsItem = ({
             close_interest
           }
         >
-          {t("trade.tabs.deposits.withdraw_interest","Withdraw interest")}
-        </QRButton>
-        <Button
+          {t("trade.tabs.deposits.withdraw_interest", "Withdraw interest")}
+        </QRButton>}
+        {isMy && <Button
           disabled={owner !== activeWallet}
           onClick={() =>
             setVisibleEditRecipient({
@@ -131,31 +166,41 @@ export const DepositsItem = ({
           }
         >
           {t("trade.tabs.deposits.edit_interest_recipient", "Edit interest recipient")}
-        </Button>
-        <Button
+        </Button>}
+        {isMy && <Button
           disabled={owner !== activeWallet}
           onClick={() => setAddProtection(item)}
         >
           {t("trade.tabs.deposits.add_protection", "Add protection")}
-        </Button>
-        <Button
+        </Button>}
+        {isMy && <Button
           disabled={owner !== activeWallet || !protection || protection === 0}
           onClick={() => setWithdrawProtection(item)}
         >
           {t("trade.tabs.deposits.withdraw_protection", "Withdraw protection")}
-        </Button>
-        <QRButton
+        </Button>}
+
+        {!weakerId && <QRButton
+          config={{
+            tooltipMobile: tooltip,
+            tooltip
+          }}
+          type="link"
+          size="small"
+          style={{ padding: 0 }}
           href={closeUrl}
-          disabled={
-            (interest_recipient
-              ? activeWallet !== interest_recipient
-              : activeWallet !== owner) ||
-            ts + min_deposit_term > timestamp ||
-            close_interest
-          }
+          onClick={() => {
+            ReactGA.event({
+              category: "Stablecoin",
+              action: "Close deposit",
+            });
+          }}
+          disabled={overChallengingPeriod.is || tooNew.is || lessLast.is}
         >
-          {t("trade.tabs.deposits.close", "Close")}
-        </QRButton>
+          {!close_interest && (isMy ? t("trade.tabs.deposits.close", "Close") : t("trade.tabs.deposits.force_close", "Force close"))}
+          {close_interest && t("trade.tabs.deposits.commit_force_close", "Commit force close")}
+        </QRButton>}
+        {weakerId ? <QRButton style={{ padding: 0 }} size="small" type="link" href={challengeLink}>{t("trade.tabs.deposits.challenge", "Challenge")}</QRButton> : null}
       </Space>
     </Card>
   );

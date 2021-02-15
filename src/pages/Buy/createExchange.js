@@ -15,6 +15,7 @@ export const createExchange = async ({
   currency_from,
   recipient,
   curve_address,
+  ref
 }) => {
   const { data } = await axios.get(
     `${config.BUFFER_URL}/create_buffer?address=${recipient.value}&curve_aa=${curve_address}`
@@ -71,6 +72,7 @@ export const createExchange = async ({
           currency_in: currency_from,
           expected_amount_out: create.data.amount_to,
           amount_in: Number(amount_currency),
+          ref
         },
         {
           headers: {
