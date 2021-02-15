@@ -239,7 +239,7 @@ export const DepositsTables = ({
     {
       render: (_, records) => {
         const closeUrl = generateLink(
-          records.close_interest ? 1e5 : Math.ceil(records.amount * new_growth_factor),
+          records.close_interest ? 1e4 : Math.ceil(records.amount * new_growth_factor),
           {
             id: records.id,
             commit_force_close: records.close_interest ? 1 : undefined
@@ -250,7 +250,7 @@ export const DepositsTables = ({
         );
 
         const challengeLink = records.weakerId ? generateLink(
-          1e5,
+          1e4,
           {
             id: records.id,
             challenge_force_close: 1,

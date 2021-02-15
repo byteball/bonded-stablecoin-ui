@@ -49,7 +49,7 @@ export const DepositsItem = ({
   const interest = new_stable_amount - stable_amount;
   const { t } = useTranslation();
   const closeUrl = generateLink(
-    close_interest ? 1e5 : Math.ceil(amount * new_growth_factor),
+    close_interest ? 1e4 : Math.ceil(amount * new_growth_factor),
     { id, commit_force_close: close_interest ? 1 : undefined },
     activeWallet,
     deposit_aa,
@@ -58,7 +58,7 @@ export const DepositsItem = ({
   const receiveUrl = generateLink(1e4, { id }, activeWallet, deposit_aa);
 
   const challengeLink = item.weakerId ? generateLink(
-    1e5,
+    1e4,
     {
       id: item.id,
       challenge_force_close: 1,
