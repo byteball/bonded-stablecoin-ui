@@ -138,7 +138,7 @@ export const DepositsTables = ({
             {records.isMy && <Tooltip title={t("trade.tabs.deposits.add_protection", "Add protection")}>
               <Button
                 type="link"
-                disabled={records.owner !== activeWallet}
+                disabled={records.owner !== activeWallet || records.id.match(/^dummy\d+$/)}
                 onClick={() => setAddProtection(records)}
                 size="middle"
                 icon={<DownloadOutlined />}
@@ -193,7 +193,8 @@ export const DepositsTables = ({
                   (records.interest_recipient
                     ? activeWallet !== records.interest_recipient
                     : activeWallet !== records.owner) ||
-                  records.closer
+                  records.closer ||
+                  records.id.match(/^dummy\d+$/)
                 }
                 icon={<ExportOutlined />}
               />
@@ -227,7 +228,7 @@ export const DepositsTables = ({
                 type="link"
                 size="small"
                 style={{ padding: 0 }}
-                disabled={records.owner !== activeWallet}
+                disabled={records.owner !== activeWallet || records.id.match(/^dummy\d+$/)}
                 onClick={() =>
                   setVisibleEditRecipient({
                     id: records.id,
@@ -273,7 +274,7 @@ export const DepositsTables = ({
 
         const tooNew = {
           is: records.ts + actualParams.min_deposit_term > timestamp || records.id.match(/^dummy\d+$/),
-          info: t("trade.tabs.deposits.too_new", "This deposit was opened less than {{hours}} hours ago and can't be force closed yet", { hours: Number(actualParams.min_deposit_term / 3600).toPrecision(3) })
+          info: t("trade.tabs.deposits.too_new", "This deposit was opened less than {{hours}} hours ago and can't be closed yet", { hours: Number(actualParams.min_deposit_term / 3600).toPrecision(3) })
         };
 
         const inChallengingPeriod = {

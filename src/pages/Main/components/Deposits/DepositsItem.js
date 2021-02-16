@@ -81,7 +81,7 @@ export const DepositsItem = ({
 
   const tooNew = {
     is: ts + min_deposit_term > timestamp || id.match(/^dummy\d+$/),
-    info: t("trade.tabs.deposits.too_new", "This deposit was opened less than {{hours}} hours ago and can't be force closed yet", { hours: Number(min_deposit_term / 3600).toPrecision(3) })
+    info: t("trade.tabs.deposits.too_new", "This deposit was opened less than {{hours}} hours ago and can't be closed yet", { hours: Number(min_deposit_term / 3600).toPrecision(3) })
   };
 
   const inChallengingPeriod = {
@@ -158,7 +158,7 @@ export const DepositsItem = ({
         {(isMy || (activeWallet === interest_recipient && inRecipientTab)) && <QRButton
           href={receiveUrl}
           disabled={
-            interest <= 0 ||
+            interest <= 0 || id.match(/^dummy\d+$/) ||
             (interest_recipient
               ? activeWallet !== interest_recipient
               : activeWallet !== owner) ||
@@ -168,7 +168,7 @@ export const DepositsItem = ({
           {t("trade.tabs.deposits.withdraw_interest", "Withdraw interest")}
         </QRButton>}
         {isMy && <Button
-          disabled={owner !== activeWallet}
+          disabled={owner !== activeWallet || id.match(/^dummy\d+$/)}
           onClick={() =>
             setVisibleEditRecipient({
               id,
@@ -179,7 +179,7 @@ export const DepositsItem = ({
           {t("trade.tabs.deposits.edit_interest_recipient", "Edit interest recipient")}
         </Button>}
         {isMy && <Button
-          disabled={owner !== activeWallet}
+          disabled={owner !== activeWallet || id.match(/^dummy\d+$/)}
           onClick={() => setAddProtection(item)}
         >
           {t("trade.tabs.deposits.add_protection", "Add protection")}
