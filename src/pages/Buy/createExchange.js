@@ -22,7 +22,10 @@ export const createExchange = async ({
   );
   const buffer_address = data?.data?.buffer_address;
 
-  if(data.status === "error" || !buffer_address) {after({ isError: true, clear: false }); return null }
+  if(data.status === "error" || !buffer_address){
+    after({ isError: true, clear: false });
+    return null;
+  }
   
   const provider = config.oswapccCurrencies.includes(currency_from.toUpperCase()) ? "oswapcc" : "simpleswap";
   let create;
