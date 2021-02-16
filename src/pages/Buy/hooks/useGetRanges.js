@@ -16,7 +16,12 @@ export const useGetRanges = (activeCurrency) => {
         ).catch(() => {
           console.log("get_ranges error")
         });
-        rangesData && setRanges({ min: Number(rangesData.data.min) });
+        
+        if(rangesData && rangesData.data && rangesData.data.min){
+          setRanges({ min: Number(rangesData.data.min) });
+        } else {
+          setRanges({ min: undefined });
+        }
       } else {
         setRanges({ min: undefined });
       }
