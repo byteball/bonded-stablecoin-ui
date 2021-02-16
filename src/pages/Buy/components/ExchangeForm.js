@@ -254,7 +254,7 @@ export const ExchangeForm = () => {
           action: "Buy interest tokens for currency",
         });
         
-        if(!isError || isError && clear ){
+        if(!isError || (isError && clear)){
           setAmountCurrency(amountCurrency);
           setAmountToken(undefined);
         }

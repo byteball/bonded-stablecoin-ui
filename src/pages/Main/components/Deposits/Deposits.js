@@ -28,10 +28,10 @@ export const Deposits = ({ openWalletModal }) => {
     symbol3,
   } = useSelector((state) => state.active);
   const { t } = useTranslation();
-  const {interest_rate, min_deposit_term,challenge_immunity_period, decimals2} = getParams(params, stable_state);
+  const { interest_rate, min_deposit_term, challenge_immunity_period, decimals2, reserve_asset_decimals } = getParams(params, stable_state);
   const [timestamp, setTimestamp] = useState(moment().unix());
   const { activeWallet } = useSelector((state) => state.settings);
-  const [my, other, minProtectionRatio] = useGetDeposits(deposit_state, decimals2, min_deposit_term, challenge_immunity_period, activeWallet);
+  const [my, other, minProtectionRatio] = useGetDeposits(deposit_state, decimals2, min_deposit_term, challenge_immunity_period, reserve_asset_decimals, activeWallet);
   const { last_force_closed_protection_ratio } = deposit_state;
   const growth_factor = $get_growth_factor(
     interest_rate,
@@ -88,7 +88,7 @@ export const Deposits = ({ openWalletModal }) => {
         setAddProtection={setAddProtection}
         setWithdrawInterest={setWithdrawInterest}
       />
-      
+
       {/* Modals */}
       <EditRecipientModal
         visible={!!visibleEditRecipient}

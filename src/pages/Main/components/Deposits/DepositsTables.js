@@ -11,7 +11,7 @@ import {
 } from "@ant-design/icons";
 
 import { generateLink } from "utils/generateLink"
-import { ForceCloseDepositsInfo } from "./DepositsInfo";
+import { ForceCloseDepositsInfo, InterestRecipientDepositsInfo } from "./DepositsInfo";
 import { DepositLocaleForEmpty } from "./DepositLocaleForEmpty";
 import { DepositsItem } from "./DepositsItem";
 import { useWindowSize } from "hooks/useWindowSize";
@@ -50,6 +50,10 @@ export const DepositsTables = ({
   } = useSelector((state) => state.active);
 
   const actualParams = getParams(params, stable_state);
+
+  const mySortedDeposits = my.sort((a, b) => b.ts - a.ts);
+  const otherSortedDeposits = other.sort((a, b) => a.protection_ratio - b.protection_ratio);
+  const recipientSortedDeposits = other.filter((item) => item.interest_recipient === activeWallet).sort((a, b) => b.amount - a.amount).map((item) => ({ ...item, inRecipientTab: true }));
 
   const { last_force_closed_protection_ratio } = deposit_state;
 
@@ -180,7 +184,7 @@ export const DepositsTables = ({
                   value={interest}
                 />
               )}
-            {records.isMy && <Tooltip title={t("trade.tabs.deposits.withdraw_interest", "Withdraw interest")}>
+            {(records.isMy || (activeWallet === records.interest_recipient && records.inRecipientTab)) && <Tooltip title={t("trade.tabs.deposits.withdraw_interest", "Withdraw interest")}>
               <Button
                 type="link"
                 onClick={() => setWithdrawInterest({ ...records, interest })}
@@ -238,6 +242,7 @@ export const DepositsTables = ({
       },
     },
     {
+      id: "action",
       render: (_, records) => {
         const closeUrl = generateLink(
           records.closer ? 1e4 : Math.ceil(records.amount * new_growth_factor),
@@ -258,26 +263,25 @@ export const DepositsTables = ({
             weaker_id: records.weakerId
           },
           activeWallet,
-          deposit_aa,
-          records.closer ? "base" : deposit_state.asset
+          deposit_aa
         ) : null;
 
         const aboveMin = {
-          is: !records.isMy && minProtectionRatio !==null && records.protection_ratio > minProtectionRatio,
+          is: !records.isMy && minProtectionRatio !== null && records.protection_ratio > minProtectionRatio,
           info: t("trade.tabs.deposits.less_last", "This deposit's protection ratio is above the smallest")
         };
 
         const tooNew = {
-          is: records.ts + actualParams.min_deposit_term > timestamp || records.id === "dummy",
-          info: t("trade.tabs.deposits.too_new", "This deposit was opened less than {{hours}} hours ago and can't be force closed yet", {hours: Number(actualParams.min_deposit_term / 3600).toPrecision(3)})
+          is: records.ts + actualParams.min_deposit_term > timestamp || records.id.includes("dummy"),
+          info: t("trade.tabs.deposits.too_new", "This deposit was opened less than {{hours}} hours ago and can't be force closed yet", { hours: Number(actualParams.min_deposit_term / 3600).toPrecision(3) })
         };
 
         const inChallengingPeriod = {
           is: (records.closer && records.force_close_ts && records.force_close_ts + actualParams.challenging_period > timestamp),
-          info: t("trade.tabs.deposits.challenging_period", "Commit will be available in {{hours}} hours when the challenging period expires", {hours : Number((records.force_close_ts + actualParams.challenging_period - timestamp) / 3600).toPrecision(3)})
+          info: t("trade.tabs.deposits.challenging_period", "Commit will be available in {{hours}} hours when the challenging period expires", { hours: Number((records.force_close_ts + actualParams.challenging_period - timestamp) / 3600).toPrecision(3) })
         };
 
-        const tooltip = aboveMin.is ? aboveMin.info : (tooNew.is ? tooNew.info : (inChallengingPeriod.is ? inChallengingPeriod.info: undefined));
+        const tooltip = aboveMin.is ? aboveMin.info : (tooNew.is ? tooNew.info : (inChallengingPeriod.is ? inChallengingPeriod.info : undefined));
 
         return (
           <Space size="large">
@@ -310,10 +314,10 @@ export const DepositsTables = ({
 
   return (
     <Tabs defaultActiveKey="my-1">
-      <TabPane tab="My deposits" key="my-1">
+      <TabPane tab={t("trade.tabs.deposits.my_deposits", "My deposits")} key="my-1">
         {width > 1279 ? (
           <Table
-            dataSource={my.sort((a, b) => b.ts - a.ts)}
+            dataSource={mySortedDeposits}
             columns={columns}
             onRow={(record) => {
               return {
@@ -335,7 +339,7 @@ export const DepositsTables = ({
               pagination={{ pageSize: 10, hideOnSinglePage: true }}
               grid={{ column: 1 }}
               bordered={false}
-              dataSource={my.sort((a, b) => b.ts - a.ts)}
+              dataSource={mySortedDeposits}
               locale={{
                 emptyText: <DepositLocaleForEmpty isActive={stable_state.interest_rate} />,
               }}
@@ -366,7 +370,68 @@ export const DepositsTables = ({
             />
           )}
       </TabPane>
-      <TabPane tab="Other deposits" key="other-2">
+
+      {activeWallet && <TabPane tab={t("trade.tabs.deposits.me_as_interest_recipient", "Me as interest recipient")} key="recipient-2">
+        <InterestRecipientDepositsInfo />
+        {width > 1279 ? (
+          <Table
+            dataSource={recipientSortedDeposits}
+            columns={columns.filter((column) => column.dataIndex !== "interest_recipient" && column.id !== "action")}
+            onRow={(record) => {
+              return {
+                style: {
+                  color:
+                    record.protection_ratio <= (last_force_closed_protection_ratio || 0)
+                      ? "#e74c3c"
+                      : "inherit",
+                },
+              };
+
+            }}
+            locale={{
+              emptyText: <DepositLocaleForEmpty isActive={stable_state.interest_rate} />,
+            }}
+            pagination={{ pageSize: 20, hideOnSinglePage: true }}
+          />
+        ) : (
+            <List
+              pagination={{ pageSize: 10, hideOnSinglePage: true }}
+              grid={{ column: 1 }}
+              bordered={false}
+              dataSource={recipientSortedDeposits}
+              locale={{
+                emptyText: <DepositLocaleForEmpty isActive={stable_state.interest_rate} />,
+              }}
+              renderItem={(item) => (
+                <DepositsItem
+                  item={item}
+                  width={width}
+                  decimals={actualParams.decimals2}
+                  reserve_asset_decimals={actualParams.reserve_asset_decimals}
+                  last_force_closed_protection_ratio={last_force_closed_protection_ratio}
+                  reserve_asset_symbol={reserve_asset_symbol}
+                  min_deposit_term={actualParams.min_deposit_term}
+                  reserve_asset={actualParams.reserve_asset}
+                  growth_factor={growth_factor}
+                  activeWallet={activeWallet}
+                  deposit_aa={deposit_aa}
+                  timestamp={timestamp}
+                  asset={deposit_state.asset}
+                  setVisibleEditRecipient={setVisibleEditRecipient}
+                  setAddProtection={setAddProtection}
+                  setWithdrawProtection={setWithdrawProtection}
+                  new_growth_factor={new_growth_factor}
+                  challenging_period={actualParams.challenging_period}
+                  inRecipientTab={true}
+                  symbol2={symbol2}
+                  symbol3={symbol3}
+                />
+              )}
+            />
+          )}
+      </TabPane>}
+
+      <TabPane tab={t("trade.tabs.deposits.other_deposits", "Other deposits")} key="other-3">
         <ForceCloseDepositsInfo
           challengingPeriodInHours={Number(actualParams.challenging_period / 3600).toPrecision(2)}
           depositAa={deposit_aa}
@@ -375,7 +440,7 @@ export const DepositsTables = ({
         />
         {width > 1279 ? (
           <Table
-            dataSource={other.sort((a, b) => a.protection_ratio - b.protection_ratio)}
+            dataSource={otherSortedDeposits}
             columns={columns}
             onRow={(record) => {
               return {
@@ -398,7 +463,7 @@ export const DepositsTables = ({
               pagination={{ pageSize: 10, hideOnSinglePage: true }}
               grid={{ column: 1 }}
               bordered={false}
-              dataSource={other.sort((a, b) => a.protection_ratio - b.protection_ratio)}
+              dataSource={otherSortedDeposits}
               locale={{
                 emptyText: <DepositLocaleForEmpty isActive={stable_state.interest_rate} />,
               }}
@@ -411,7 +476,7 @@ export const DepositsTables = ({
                   last_force_closed_protection_ratio={last_force_closed_protection_ratio}
                   reserve_asset_symbol={reserve_asset_symbol}
                   min_deposit_term={actualParams.min_deposit_term}
-                  reserve_asset={actualParams.reserve_asset} 
+                  reserve_asset={actualParams.reserve_asset}
                   growth_factor={growth_factor}
                   activeWallet={activeWallet}
                   deposit_aa={deposit_aa}

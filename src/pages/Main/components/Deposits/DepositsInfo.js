@@ -122,3 +122,15 @@ export const ForceCloseDepositsInfo = ({
 
   </>)
 }
+
+export const InterestRecipientDepositsInfo = () => {
+  return (
+    <p>
+      <Text type="secondary">
+        <Trans i18nKey="trade.tabs.deposits.interest_recipient_tab_info">
+          Other people's deposits where you are interest recipient. Use this page to withdraw interest.
+        </Trans>
+      </Text>
+    </p>
+  )
+}

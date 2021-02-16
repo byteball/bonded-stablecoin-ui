@@ -17,7 +17,7 @@ export const DepositsItem = ({
   asset,
   setVisibleEditRecipient,
   setWithdrawProtection,
-  last_force_closed_protection_ratio,
+  inRecipientTab,
   setAddProtection,
   item,
   reserve_asset_decimals,
@@ -67,8 +67,7 @@ export const DepositsItem = ({
       weaker_id: weakerId
     },
     activeWallet,
-    deposit_aa,
-    closer ? "base" : asset
+    deposit_aa
   ) : null;
 
   const recipientName =
@@ -81,7 +80,7 @@ export const DepositsItem = ({
   };
 
   const tooNew = {
-    is: ts + min_deposit_term > timestamp || id === "dummy",
+    is: ts + min_deposit_term > timestamp || id.includes("dummy"),
     info: t("trade.tabs.deposits.too_new", "This deposit was opened less than {{hours}} hours ago and can't be force closed yet", { hours: Number(min_deposit_term / 3600).toPrecision(3) })
   };
 
@@ -156,7 +155,7 @@ export const DepositsItem = ({
         style={{ marginTop: 10 }}
         direction={width >= 900 ? "horizontal" : "vertical"}
       >
-        {isMy && <QRButton
+        {(isMy || (activeWallet === interest_recipient && inRecipientTab)) && <QRButton
           href={receiveUrl}
           disabled={
             interest <= 0 ||
@@ -192,7 +191,7 @@ export const DepositsItem = ({
           {t("trade.tabs.deposits.withdraw_protection", "Withdraw protection")}
         </Button>}
 
-        {!weakerId && <QRButton
+        {!weakerId && !inRecipientTab && <QRButton
           config={{
             tooltipMobile: tooltip,
             tooltip
@@ -212,7 +211,7 @@ export const DepositsItem = ({
           {!closer && (isMy ? t("trade.tabs.deposits.close", "Close") : t("trade.tabs.deposits.force_close", "Force close"))}
           {closer && t("trade.tabs.deposits.commit_force_close", "Commit force close")}
         </QRButton>}
-        {weakerId ? <QRButton style={{ padding: 0 }} size="small" type="link" href={challengeLink}>{t("trade.tabs.deposits.challenge", "Challenge")}</QRButton> : null}
+        {weakerId && !inRecipientTab ? <QRButton style={{ padding: 0 }} size="small" type="link" href={challengeLink}>{t("trade.tabs.deposits.challenge", "Challenge")}</QRButton> : null}
       </Space>
     </Card>
   );
