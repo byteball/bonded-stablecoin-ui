@@ -18,9 +18,12 @@ export const createExchange = async ({
   ref
 }) => {
   const { data } = await axios.get(
-    `${config.BUFFER_URL}/create_buffer?address=${recipient.value}&curve_aa=${curve_address}`
+    `${config.BUFFER_URL}/create_buffer?address=${recipient.value}&curve_aa=${curve_address}${ref ? "&ref=" + ref : ""}`
   );
-  const { buffer_address } = data.data;
+  const buffer_address = data?.data?.buffer_address;
+
+  if(data.status === "error" || !buffer_address) {after({ isError: true, clear: false }); return null }
+  
   const provider = config.oswapccCurrencies.includes(currency_from.toUpperCase()) ? "oswapcc" : "simpleswap";
   let create;
   if (provider === "simpleswap") {
@@ -72,7 +75,6 @@ export const createExchange = async ({
           currency_in: currency_from,
           expected_amount_out: create.data.amount_to,
           amount_in: Number(amount_currency),
-          ref
         },
         {
           headers: {

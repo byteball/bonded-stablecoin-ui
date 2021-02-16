@@ -242,7 +242,7 @@ export const ExchangeForm = () => {
       recipient,
       curve_address: activeTokenAdr,
       ref: referrer,
-      after: ({ isError }) => {
+      after: ({ isError, clear = true }) => {
         if (!isError) {
           message.success(t("buy.exchange_success", "The exchange was successfully added to the list and is waiting for payment"));
           dispatch(addExchangeRecepient(recipient.value));
@@ -253,8 +253,11 @@ export const ExchangeForm = () => {
           category: "Stablecoin",
           action: "Buy interest tokens for currency",
         });
-        setAmountCurrency(undefined);
-        setAmountToken(undefined);
+        
+        if(!isError || isError && clear ){
+          setAmountCurrency(amountCurrency);
+          setAmountToken(undefined);
+        }
         setIsCreated(false);
       },
     });

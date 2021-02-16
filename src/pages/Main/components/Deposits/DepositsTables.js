@@ -29,6 +29,7 @@ export const DepositsTables = ({
   other,
   growth_factor,
   new_growth_factor,
+  minProtectionRatio,
   setVisibleEditRecipient,
   setWithdrawProtection,
   setAddProtection,
@@ -168,7 +169,7 @@ export const DepositsTables = ({
 
         return (
           <>
-            {records.close_interest ? (
+            {records.closer ? (
               <ShowDecimalsValue
                 decimals={actualParams.decimals2}
                 value={records.close_interest}
@@ -188,7 +189,7 @@ export const DepositsTables = ({
                   (records.interest_recipient
                     ? activeWallet !== records.interest_recipient
                     : activeWallet !== records.owner) ||
-                  records.close_interest
+                  records.closer
                 }
                 icon={<ExportOutlined />}
               />
@@ -239,14 +240,14 @@ export const DepositsTables = ({
     {
       render: (_, records) => {
         const closeUrl = generateLink(
-          records.close_interest ? 1e4 : Math.ceil(records.amount * new_growth_factor),
+          records.closer ? 1e4 : Math.ceil(records.amount * new_growth_factor),
           {
             id: records.id,
-            commit_force_close: records.close_interest ? 1 : undefined
+            commit_force_close: records.closer ? 1 : undefined
           },
           activeWallet,
           deposit_aa,
-          records.close_interest ? "base" : deposit_state.asset
+          records.closer ? "base" : deposit_state.asset
         );
 
         const challengeLink = records.weakerId ? generateLink(
@@ -258,11 +259,11 @@ export const DepositsTables = ({
           },
           activeWallet,
           deposit_aa,
-          records.close_interest ? "base" : deposit_state.asset
+          records.closer ? "base" : deposit_state.asset
         ) : null;
 
-        const lessLast = {
-          is: !records.isMy && records.protection_ratio > (last_force_closed_protection_ratio || 0),
+        const aboveMin = {
+          is: !records.isMy && minProtectionRatio !==null && records.protection_ratio > minProtectionRatio,
           info: t("trade.tabs.deposits.less_last", "This deposit's protection ratio is above the smallest")
         };
 
@@ -271,12 +272,12 @@ export const DepositsTables = ({
           info: t("trade.tabs.deposits.too_new", "This deposit was opened less than {{hours}} hours ago and can't be force closed yet", {hours: Number(actualParams.min_deposit_term / 3600).toPrecision(3)})
         };
 
-        const overChallengingPeriod = {
-          is: (records.close_interest && records.force_close_ts && records.force_close_ts + actualParams.challenging_period > timestamp),
+        const inChallengingPeriod = {
+          is: (records.closer && records.force_close_ts && records.force_close_ts + actualParams.challenging_period > timestamp),
           info: t("trade.tabs.deposits.challenging_period", "Commit will be available in {{hours}} hours when the challenging period expires", {hours : Number((records.force_close_ts + actualParams.challenging_period - timestamp) / 3600).toPrecision(3)})
         };
 
-        const tooltip = lessLast.is ? lessLast.info : (tooNew.is ? tooNew.info : (overChallengingPeriod.is ? overChallengingPeriod.info: undefined));
+        const tooltip = aboveMin.is ? aboveMin.info : (tooNew.is ? tooNew.info : (inChallengingPeriod.is ? inChallengingPeriod.info: undefined));
 
         return (
           <Space size="large">
@@ -295,10 +296,10 @@ export const DepositsTables = ({
                   action: "Close deposit",
                 });
               }}
-              disabled={overChallengingPeriod.is || tooNew.is || lessLast.is}
+              disabled={inChallengingPeriod.is || tooNew.is || aboveMin.is}
             >
-              {!records.close_interest && (records.isMy ? t("trade.tabs.deposits.close", "Close") : t("trade.tabs.deposits.force_close", "Force close"))}
-              {records.close_interest && t("trade.tabs.deposits.commit_force_close", "Commit force close")}
+              {!records.closer && (records.isMy ? t("trade.tabs.deposits.close", "Close") : t("trade.tabs.deposits.force_close", "Force close"))}
+              {records.closer && t("trade.tabs.deposits.commit_force_close", "Commit force close")}
             </QRButton>}
             {records.weakerId ? <QRButton style={{ padding: 0 }} size="small" type="link" href={challengeLink}>{t("trade.tabs.deposits.challenge", "Challenge")}</QRButton> : null}
           </Space>

@@ -29,7 +29,8 @@ export const DepositsItem = ({
   symbol2,
   symbol3,
   new_growth_factor,
-  challenging_period
+  challenging_period,
+  minProtectionRatio
 }) => {
   const {
     protection,
@@ -43,17 +44,18 @@ export const DepositsItem = ({
     force_close_ts,
     weakerId,
     protection_ratio,
-    isMy
+    isMy,
+    closer
   } = item;
   const new_stable_amount = Math.floor(amount * growth_factor);
   const interest = new_stable_amount - stable_amount;
   const { t } = useTranslation();
   const closeUrl = generateLink(
-    close_interest ? 1e4 : Math.ceil(amount * new_growth_factor),
-    { id, commit_force_close: close_interest ? 1 : undefined },
+    closer ? 1e4 : Math.ceil(amount * new_growth_factor),
+    { id, commit_force_close: closer ? 1 : undefined },
     activeWallet,
     deposit_aa,
-    close_interest ? "base" : asset
+    closer ? "base" : asset
   );
   const receiveUrl = generateLink(1e4, { id }, activeWallet, deposit_aa);
 
@@ -66,15 +68,15 @@ export const DepositsItem = ({
     },
     activeWallet,
     deposit_aa,
-    close_interest ? "base" : asset
+    closer ? "base" : asset
   ) : null;
 
   const recipientName =
     interest_recipient &&
     config.interestRecipients.find((a) => a.address === interest_recipient);
 
-  const lessLast = {
-    is: !isMy && protection_ratio > (last_force_closed_protection_ratio || 0),
+  const aboveMin = {
+    is: !isMy && minProtectionRatio !==null && protection_ratio > minProtectionRatio,
     info: t("trade.tabs.deposits.less_last", "This deposit's protection ratio is above the smallest")
   };
 
@@ -83,12 +85,12 @@ export const DepositsItem = ({
     info: t("trade.tabs.deposits.too_new", "This deposit was opened less than {{hours}} hours ago and can't be force closed yet", { hours: Number(min_deposit_term / 3600).toPrecision(3) })
   };
 
-  const overChallengingPeriod = {
-    is: (close_interest && force_close_ts && force_close_ts + challenging_period > timestamp),
+  const inChallengingPeriod = {
+    is: (closer && force_close_ts && force_close_ts + challenging_period > timestamp),
     info: t("trade.tabs.deposits.challenging_period", "Commit will be available in {{hours}} hours when the challenging period expires", { hours: Number((force_close_ts + challenging_period - timestamp) / 3600).toPrecision(3) })
   };
 
-  const tooltip = lessLast.is ? lessLast.info : (tooNew.is ? tooNew.info : (overChallengingPeriod.is ? overChallengingPeriod.info : undefined));
+  const tooltip = aboveMin.is ? aboveMin.info : (tooNew.is ? tooNew.info : (inChallengingPeriod.is ? inChallengingPeriod.info : undefined));
 
   return (
     <Card
@@ -111,7 +113,17 @@ export const DepositsItem = ({
       </div>
       <div>
         <b>{t("trade.tabs.deposits.interest", "Interest")}:</b>{" "}
-        <ShowDecimalsValue decimals={decimals} value={interest} /> {symbol3}
+        {closer ? (
+          <ShowDecimalsValue
+            decimals={decimals}
+            value={close_interest}
+          />
+        ) : (
+            <ShowDecimalsValue
+              decimals={decimals}
+              value={interest}
+            />
+          )} {symbol3}
       </div>
       <div>
         <b>{t("trade.tabs.deposits.interest_recipient", "Interest recipient")}:</b>{" "}
@@ -151,7 +163,7 @@ export const DepositsItem = ({
             (interest_recipient
               ? activeWallet !== interest_recipient
               : activeWallet !== owner) ||
-            close_interest
+            closer
           }
         >
           {t("trade.tabs.deposits.withdraw_interest", "Withdraw interest")}
@@ -195,10 +207,10 @@ export const DepositsItem = ({
               action: "Close deposit",
             });
           }}
-          disabled={overChallengingPeriod.is || tooNew.is || lessLast.is}
+          disabled={inChallengingPeriod.is || tooNew.is || aboveMin.is}
         >
-          {!close_interest && (isMy ? t("trade.tabs.deposits.close", "Close") : t("trade.tabs.deposits.force_close", "Force close"))}
-          {close_interest && t("trade.tabs.deposits.commit_force_close", "Commit force close")}
+          {!closer && (isMy ? t("trade.tabs.deposits.close", "Close") : t("trade.tabs.deposits.force_close", "Force close"))}
+          {closer && t("trade.tabs.deposits.commit_force_close", "Commit force close")}
         </QRButton>}
         {weakerId ? <QRButton style={{ padding: 0 }} size="small" type="link" href={challengeLink}>{t("trade.tabs.deposits.challenge", "Challenge")}</QRButton> : null}
       </Space>

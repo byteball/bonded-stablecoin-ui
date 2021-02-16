@@ -1,10 +1,14 @@
 import { useState, useEffect } from "react";
+import moment from "moment";
+
 import config from "config";
 
 export const useGetDeposits = (state, decimals2, min_deposit_term, challenge_immunity_period, activeWallet) => {
   const [myDeposits, setMyDeposits] = useState([]);
   const [otherDeposits, setOtherDeposits] = useState([]);
-  
+  const [minProtectionRatio, setMinProtectionRatio] = useState(null);
+  const timestamp = moment().unix();
+
   useEffect(() => {
     const deposits = {};
     const forceClose = {};
@@ -23,17 +27,19 @@ export const useGetDeposits = (state, decimals2, min_deposit_term, challenge_imm
       if (id in deposits) {
         deposits[id].close_interest = forceClose[id].interest;
         deposits[id].force_close_ts = forceClose[id].ts;
+        deposits[id].closer = forceClose[id].closer;
       }
     }
 
     const my = [];
     const other = [];
+    let minRatio = null;
 
     const entriesDeposits = Object.entries(deposits);
     for (let id in deposits) {
       const protection_ratio = ((deposits[id].protection || 0) / 10 ** config.reserves.base.decimals) / (deposits[id].amount / 10 ** decimals2);
 
-      if (deposits[id].close_interest) {
+      if (deposits[id].closer) {
         const weaker = entriesDeposits.find(([weakerId, vars]) => {
           const protection_withdrawal_ts = vars.protection_withdrawal_ts || 0;
           if (!vars.interest && (vars.ts + min_deposit_term + challenge_immunity_period < deposits[id].force_close_ts) && (protection_withdrawal_ts < (deposits[id].force_close_ts - challenge_immunity_period))) {
@@ -42,6 +48,7 @@ export const useGetDeposits = (state, decimals2, min_deposit_term, challenge_imm
               return weakerId;
             }
           }
+          return false
         });
 
         if (weaker) deposits[id].weakerId = weaker[0]
@@ -55,11 +62,22 @@ export const useGetDeposits = (state, decimals2, min_deposit_term, challenge_imm
       } else {
         other.push({ id, ...deposits[id], protection_ratio, key: id, isMy: false });
       }
+
+      if(!deposits[id].closer && deposits[id].ts + min_deposit_term < timestamp){
+        if(minRatio !== null){
+          if(minRatio > protection_ratio){
+            minRatio = protection_ratio;
+          }
+        } else {
+          minRatio = protection_ratio; 
+        }
+      }
     }
 
     setMyDeposits(my);
     setOtherDeposits(other);
+    setMinProtectionRatio(minRatio);
   }, [state, activeWallet, decimals2, min_deposit_term, challenge_immunity_period]);
 
-  return [myDeposits, otherDeposits]
+  return [myDeposits, otherDeposits, minProtectionRatio];
 };
