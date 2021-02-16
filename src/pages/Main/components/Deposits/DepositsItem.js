@@ -81,12 +81,12 @@ export const DepositsItem = ({
 
   const tooNew = {
     is: ts + min_deposit_term > timestamp || id.match(/^dummy\d+$/),
-    info: t("trade.tabs.deposits.too_new", "This deposit was opened less than {{hours}} hours ago and can't be closed yet", { hours: Number(min_deposit_term / 3600).toPrecision(3) })
+    info: t("trade.tabs.deposits.too_new", "This deposit was opened less than {{hours}} hours ago and can't be closed yet", { hours: +Number(min_deposit_term / 3600).toFixed(3) })
   };
 
   const inChallengingPeriod = {
     is: (closer && force_close_ts && force_close_ts + challenging_period > timestamp),
-    info: t("trade.tabs.deposits.challenging_period", "Commit will be available in {{hours}} hours when the challenging period expires", { hours: Number((force_close_ts + challenging_period - timestamp) / 3600).toPrecision(3) })
+    info: t("trade.tabs.deposits.challenging_period", "Commit will be available in {{hours}} hours when the challenging period expires", { hours: +Number((force_close_ts + challenging_period - timestamp) / 3600).toFixed(3) })
   };
 
   const tooltip = aboveMin.is ? aboveMin.info : (tooNew.is ? tooNew.info : (inChallengingPeriod.is ? inChallengingPeriod.info : undefined));

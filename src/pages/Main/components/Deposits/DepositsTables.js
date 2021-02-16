@@ -55,7 +55,7 @@ export const DepositsTables = ({
   const otherSortedDeposits = other.sort((a, b) => a.protection_ratio - b.protection_ratio);
   const recipientSortedDeposits = other.filter((item) => item.interest_recipient === activeWallet).sort((a, b) => b.amount - a.amount).map((item) => ({ ...item, inRecipientTab: true }));
 
-  const { last_force_closed_protection_ratio } = deposit_state;
+  const last_force_closed_protection_ratio = "last_force_closed_protection_ratio" in deposit_state ? deposit_state.last_force_closed_protection_ratio / 10 ** (actualParams.reserve_asset_decimals - actualParams.decimals2) : undefined;
 
   const columns = [
     {
@@ -274,12 +274,12 @@ export const DepositsTables = ({
 
         const tooNew = {
           is: records.ts + actualParams.min_deposit_term > timestamp || records.id.match(/^dummy\d+$/),
-          info: t("trade.tabs.deposits.too_new", "This deposit was opened less than {{hours}} hours ago and can't be closed yet", { hours: Number(actualParams.min_deposit_term / 3600).toPrecision(3) })
+          info: t("trade.tabs.deposits.too_new", "This deposit was opened less than {{hours}} hours ago and can't be closed yet", { hours: +Number(actualParams.min_deposit_term / 3600).toFixed(3) })
         };
 
         const inChallengingPeriod = {
           is: (records.closer && records.force_close_ts && records.force_close_ts + actualParams.challenging_period > timestamp),
-          info: t("trade.tabs.deposits.challenging_period", "Commit will be available in {{hours}} hours when the challenging period expires", { hours: Number((records.force_close_ts + actualParams.challenging_period - timestamp) / 3600).toPrecision(3) })
+          info: t("trade.tabs.deposits.challenging_period", "Commit will be available in {{hours}} hours when the challenging period expires", { hours: +Number((records.force_close_ts + actualParams.challenging_period - timestamp) / 3600).toFixed(3) })
         };
 
         const tooltip = aboveMin.is ? aboveMin.info : (tooNew.is ? tooNew.info : (inChallengingPeriod.is ? inChallengingPeriod.info : undefined));
@@ -434,7 +434,7 @@ export const DepositsTables = ({
 
       <TabPane tab={t("trade.tabs.deposits.other_deposits", "Other deposits")} key="other-3">
         <ForceCloseDepositsInfo
-          challengingPeriodInHours={Number(actualParams.challenging_period / 3600).toPrecision(2)}
+          challengingPeriodInHours={+Number(actualParams.challenging_period / 3600).toFixed(2)}
           depositAa={deposit_aa}
           symbol2={symbol2}
           symbol3={symbol3}
