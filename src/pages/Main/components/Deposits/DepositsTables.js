@@ -272,7 +272,7 @@ export const DepositsTables = ({
         };
 
         const tooNew = {
-          is: records.ts + actualParams.min_deposit_term > timestamp || records.id.includes("dummy"),
+          is: records.ts + actualParams.min_deposit_term > timestamp || records.id.match(/^dummy\d+$/),
           info: t("trade.tabs.deposits.too_new", "This deposit was opened less than {{hours}} hours ago and can't be force closed yet", { hours: Number(actualParams.min_deposit_term / 3600).toPrecision(3) })
         };
 
