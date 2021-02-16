@@ -42,7 +42,7 @@ import { isEmpty } from "lodash";
 const { Text } = Typography;
 
 export const ExchangeForm = () => {
-  const { exchanges_recepient, exchangesFormInit } = useSelector(
+  const { exchanges_recepient, exchangesFormInit, referrer } = useSelector(
     (state) => state.settings
   );
   const dispatch = useDispatch();
@@ -241,7 +241,8 @@ export const ExchangeForm = () => {
       active_currency: activeCurrency,
       recipient,
       curve_address: activeTokenAdr,
-      after: ({ isError }) => {
+      ref: referrer,
+      after: ({ isError, clear = true }) => {
         if (!isError) {
           message.success(t("buy.exchange_success", "The exchange was successfully added to the list and is waiting for payment"));
           dispatch(addExchangeRecepient(recipient.value));
@@ -252,8 +253,11 @@ export const ExchangeForm = () => {
           category: "Stablecoin",
           action: "Buy interest tokens for currency",
         });
-        setAmountCurrency(undefined);
-        setAmountToken(undefined);
+        
+        if(!isError || (isError && clear)){
+          setAmountCurrency(amountCurrency);
+          setAmountToken(undefined);
+        }
         setIsCreated(false);
       },
     });
@@ -570,6 +574,7 @@ export const ExchangeForm = () => {
                   {
                     tokens2:
                       amountToken * 10 ** currentTokenData.params.decimals2,
+                    ref: referrer
                   },
                   undefined,
                   activeTokenAdr

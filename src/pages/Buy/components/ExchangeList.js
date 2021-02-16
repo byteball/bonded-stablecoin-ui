@@ -24,10 +24,10 @@ export const ExchangeList = () => {
       {Object.keys(statusList).length > 0 ? (
         <Row>
           <Col span="24">
-            {exchanges.map((e) => (
+            {exchanges.map((e, i) => (
               <ExchangeItem
                 parametrs={e}
-                key={e.id}
+                key={"exchange-item-" + i}
                 status={statusList[e.id]}
               />
             ))}

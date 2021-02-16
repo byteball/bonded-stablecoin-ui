@@ -26,7 +26,7 @@ export const tokensList = [
     name: "ITH",
     address: config.TESTNET ? "2M5WRWDNWWMQ6BTCYNIC5G5UPW23TECO" : "HXFNVF4ENNIEJZHS2MQLG4AKQ4SAXUNH",
     pegged: "ETH",
-    apy: 64
+    apy: 11
   },
   {
     name: "IGB",
