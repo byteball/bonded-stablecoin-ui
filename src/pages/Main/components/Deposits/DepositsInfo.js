@@ -106,7 +106,7 @@ export const ForceCloseDepositsInfo = ({
 
     <p>
       <Text type="secondary">
-        <Trans i18nKey="trade.tabs.deposits.challenging_period" symbol2={symbol2 || "T2"} challengingPeriodInHours={Number(challengingPeriodInHours).toPrecision(3)}>
+        <Trans i18nKey="trade.tabs.deposits.challenging_period_info" symbol2={symbol2 || "T2"} challengingPeriodInHours={Number(challengingPeriodInHours).toPrecision(3)}>
           Closing starts a <b>{{ challengingPeriodInHours: Number(challengingPeriodInHours).toPrecision(3) }}-hour challenging period</b> during which your close request can be challenged if there is another deposit with even smaller protection ratio. After the challenging period expires, you will be able to commit the close and the {{ symbol2: symbol2 || "T2" }} from the deposit will be released to you.
         </Trans>
       </Text>
