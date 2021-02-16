@@ -111,6 +111,7 @@
         "force_close_info": "You can close other people's deposits to exchange your {{symbol3}} for {{symbol2}}. The owner of the closed deposit will simply stop receiving interest, there will be no direct loss to them. Only the least protected deposits can be closed, you lose money if you try to close any deposit that is not least protected.",
         "challenging_period_info": "Closing starts a <1>{{challengingPeriodInHours}}-hour challenging period</1> during which your close request can be challenged if there is another deposit with even smaller protection ratio. After the challenging period expires, you will be able to commit the close and the {{symbol2}} from the deposit will be released to you.",
         "warning": "This page is beta, it may have bugs and display incorrect information which can lead you to trying to close a deposit that is not least protected and losing money. Double check this information using state vars on the <1>explorer</1>.",
+        "interest_recipient_tab_info": "Other people's deposits where you are interest recipient. Use this page to withdraw interest.",
         "less_last": "This deposit's protection ratio is above the smallest",
         "too_new": "This deposit was opened less than {{hours}} hours ago and can't be force closed yet",
         "challenging_period": "Commit will be available in {{hours}} hours when the challenging period expires",
@@ -134,6 +135,9 @@
         "interest_desc": "Interest available for withdrawal",
         "interest_recipient_desc": "Who receives interest (deposit owner by default)",
         "you": "you",
+        "my_deposits": "My deposits",
+        "me_as_interest_recipient": "Me as interest recipient",
+        "other_deposits": "Other deposits",
         "name": "Deposits"
       },
       "governance": {
