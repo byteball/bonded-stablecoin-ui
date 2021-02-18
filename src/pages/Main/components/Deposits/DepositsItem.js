@@ -25,7 +25,6 @@ export const DepositsItem = ({
   reserve_asset_decimals,
   min_deposit_term,
   reserve_asset_symbol,
-  last_force_closed_protection_ratio,
   reserve_asset,
   timestamp,
   width,
@@ -93,7 +92,7 @@ export const DepositsItem = ({
   };
 
   const tooltip = aboveMin.is ? aboveMin.info : (tooNew.is ? tooNew.info : (inChallengingPeriod.is ? inChallengingPeriod.info : undefined));
-  const isHighlighted = (protection_ratio <= (last_force_closed_protection_ratio || 0)) || (minProtectionRatio !== null && protection_ratio === minProtectionRatio && !isSingle);
+  const isHighlighted = minProtectionRatio !== null && protection_ratio <= minProtectionRatio && !isSingle;
 
   return (
     <Card

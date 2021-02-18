@@ -54,9 +54,7 @@ export const DepositsTables = ({
   const mySortedDeposits = my.sort((a, b) => b.ts - a.ts);
   const allSortedDeposits = all.sort((a, b) => a.protection_ratio - b.protection_ratio);
   const recipientSortedDeposits = all.filter((item) => item.interest_recipient === activeWallet && item.owner !== activeWallet).sort((a, b) => b.amount - a.amount).map((item) => ({ ...item, inRecipientTab: true }));
-
-  const last_force_closed_protection_ratio = "last_force_closed_protection_ratio" in deposit_state ? deposit_state.last_force_closed_protection_ratio / 10 ** (actualParams.reserve_asset_decimals - actualParams.decimals2) : undefined;
-
+  
   const columns = [
     {
       title: t("trade.tabs.deposits.opened", "Opened"),
@@ -325,10 +323,7 @@ export const DepositsTables = ({
             onRow={(record) => {
               return {
                 style: {
-                  color:
-                    (record.protection_ratio <= (last_force_closed_protection_ratio || 0)) || (minProtectionRatio !== null && record.protection_ratio === minProtectionRatio && !isSingle)
-                      ? "#e74c3c"
-                      : "inherit",
+                  color: (minProtectionRatio !== null && record.protection_ratio <= minProtectionRatio && !isSingle) ? "#e74c3c" : "inherit",
                 },
               };
             }}
@@ -365,7 +360,6 @@ export const DepositsTables = ({
                   setWithdrawProtection={setWithdrawProtection}
                   new_growth_factor={new_growth_factor}
                   challenging_period={actualParams.challenging_period}
-                  last_force_closed_protection_ratio={last_force_closed_protection_ratio}
                   symbol2={symbol2}
                   symbol3={symbol3}
                   minProtectionRatio={minProtectionRatio}
@@ -385,10 +379,9 @@ export const DepositsTables = ({
             onRow={(record) => {
               return {
                 style: {
-                  color:
-                    (record.protection_ratio <= (last_force_closed_protection_ratio || 0)) || (minProtectionRatio !== null && record.protection_ratio === minProtectionRatio && !isSingle)
-                      ? "#e74c3c"
-                      : "inherit",
+                  color: (minProtectionRatio !== null && record.protection_ratio <= minProtectionRatio && !isSingle)
+                    ? "#e74c3c"
+                    : "inherit",
                 },
               };
 
@@ -413,7 +406,6 @@ export const DepositsTables = ({
                   width={width}
                   decimals={actualParams.decimals2}
                   reserve_asset_decimals={actualParams.reserve_asset_decimals}
-                  last_force_closed_protection_ratio={last_force_closed_protection_ratio}
                   reserve_asset_symbol={reserve_asset_symbol}
                   min_deposit_term={actualParams.min_deposit_term}
                   reserve_asset={actualParams.reserve_asset}
@@ -453,7 +445,7 @@ export const DepositsTables = ({
               return {
                 style: {
                   color:
-                    (record.protection_ratio <= (last_force_closed_protection_ratio || 0)) || (minProtectionRatio !== null && record.protection_ratio === minProtectionRatio && !isSingle)
+                    (minProtectionRatio !== null && record.protection_ratio <= minProtectionRatio && !isSingle)
                       ? "#e74c3c"
                       : "inherit",
                   background: record.owner === activeWallet ? "#f5f5f5" : "#fff",
@@ -481,7 +473,6 @@ export const DepositsTables = ({
                   width={width}
                   decimals={actualParams.decimals2}
                   reserve_asset_decimals={actualParams.reserve_asset_decimals}
-                  last_force_closed_protection_ratio={last_force_closed_protection_ratio}
                   reserve_asset_symbol={reserve_asset_symbol}
                   min_deposit_term={actualParams.min_deposit_term}
                   reserve_asset={actualParams.reserve_asset}
