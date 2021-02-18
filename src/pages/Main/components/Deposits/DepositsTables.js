@@ -26,7 +26,7 @@ const { TabPane } = Tabs;
 export const DepositsTables = ({
   timestamp,
   my,
-  other,
+  all,
   growth_factor,
   new_growth_factor,
   minProtectionRatio,
@@ -52,8 +52,8 @@ export const DepositsTables = ({
   const actualParams = getParams(params, stable_state);
 
   const mySortedDeposits = my.sort((a, b) => b.ts - a.ts);
-  const otherSortedDeposits = other.sort((a, b) => a.protection_ratio - b.protection_ratio);
-  const recipientSortedDeposits = other.filter((item) => item.interest_recipient === activeWallet).sort((a, b) => b.amount - a.amount).map((item) => ({ ...item, inRecipientTab: true }));
+  const allSortedDeposits = all.sort((a, b) => a.protection_ratio - b.protection_ratio);
+  const recipientSortedDeposits = all.filter((item) => item.interest_recipient === activeWallet && item.owner !== activeWallet).sort((a, b) => b.amount - a.amount).map((item) => ({ ...item, inRecipientTab: true }));
 
   const last_force_closed_protection_ratio = "last_force_closed_protection_ratio" in deposit_state ? deposit_state.last_force_closed_protection_ratio / 10 ** (actualParams.reserve_asset_decimals - actualParams.decimals2) : undefined;
 
@@ -301,9 +301,9 @@ export const DepositsTables = ({
                   action: "Close deposit",
                 });
               }}
-              disabled={inChallengingPeriod.is || tooNew.is || aboveMin.is}
+              disabled={inChallengingPeriod.is || tooNew.is || (aboveMin.is && records.owner !== activeWallet)}
             >
-              {!records.closer && (records.isMy ? t("trade.tabs.deposits.close", "Close") : t("trade.tabs.deposits.force_close", "Force close"))}
+              {!records.closer && (records.owner === activeWallet ? t("trade.tabs.deposits.close", "Close") : t("trade.tabs.deposits.force_close", "Force close"))}
               {records.closer && t("trade.tabs.deposits.commit_force_close", "Commit force close")}
             </QRButton>}
             {records.weakerId ? <QRButton style={{ padding: 0 }} size="small" type="link" href={challengeLink}>{t("trade.tabs.deposits.challenge", "Challenge")}</QRButton> : null}
@@ -312,6 +312,8 @@ export const DepositsTables = ({
       },
     },
   ];
+
+  const isSingle = all.length === 1;
 
   return (
     <Tabs defaultActiveKey="my-1">
@@ -324,7 +326,7 @@ export const DepositsTables = ({
               return {
                 style: {
                   color:
-                    record.protection_ratio <= (last_force_closed_protection_ratio || 0)
+                    (record.protection_ratio <= (last_force_closed_protection_ratio || 0)) || (minProtectionRatio !== null && record.protection_ratio === minProtectionRatio && !isSingle)
                       ? "#e74c3c"
                       : "inherit",
                 },
@@ -366,6 +368,8 @@ export const DepositsTables = ({
                   last_force_closed_protection_ratio={last_force_closed_protection_ratio}
                   symbol2={symbol2}
                   symbol3={symbol3}
+                  minProtectionRatio={minProtectionRatio}
+                  isSingle={isSingle}
                 />
               )}
             />
@@ -382,7 +386,7 @@ export const DepositsTables = ({
               return {
                 style: {
                   color:
-                    record.protection_ratio <= (last_force_closed_protection_ratio || 0)
+                    (record.protection_ratio <= (last_force_closed_protection_ratio || 0)) || (minProtectionRatio !== null && record.protection_ratio === minProtectionRatio && !isSingle)
                       ? "#e74c3c"
                       : "inherit",
                 },
@@ -426,13 +430,15 @@ export const DepositsTables = ({
                   inRecipientTab={true}
                   symbol2={symbol2}
                   symbol3={symbol3}
+                  minProtectionRatio={minProtectionRatio}
+                  isSingle={isSingle}
                 />
               )}
             />
           )}
       </TabPane>}
 
-      <TabPane tab={t("trade.tabs.deposits.other_deposits", "Other deposits")} key="other-3">
+      <TabPane tab={t("trade.tabs.deposits.all_deposits", "All deposits")} key="all-3">
         <ForceCloseDepositsInfo
           challengingPeriodInHours={+Number(actualParams.challenging_period / 3600).toFixed(2)}
           depositAa={deposit_aa}
@@ -441,15 +447,16 @@ export const DepositsTables = ({
         />
         {width > 1279 ? (
           <Table
-            dataSource={otherSortedDeposits}
+            dataSource={allSortedDeposits}
             columns={columns}
             onRow={(record) => {
               return {
                 style: {
                   color:
-                    record.protection_ratio <= (last_force_closed_protection_ratio || 0)
+                    (record.protection_ratio <= (last_force_closed_protection_ratio || 0)) || (minProtectionRatio !== null && record.protection_ratio === minProtectionRatio && !isSingle)
                       ? "#e74c3c"
                       : "inherit",
+                  background: record.owner === activeWallet ? "#f5f5f5" : "#fff",
                 },
               };
 
@@ -464,7 +471,7 @@ export const DepositsTables = ({
               pagination={{ pageSize: 10, hideOnSinglePage: true }}
               grid={{ column: 1 }}
               bordered={false}
-              dataSource={otherSortedDeposits}
+              dataSource={allSortedDeposits}
               locale={{
                 emptyText: <DepositLocaleForEmpty isActive={stable_state.interest_rate} />,
               }}
@@ -490,6 +497,9 @@ export const DepositsTables = ({
                   challenging_period={actualParams.challenging_period}
                   symbol2={symbol2}
                   symbol3={symbol3}
+                  inAllTab={true}
+                  minProtectionRatio={minProtectionRatio}
+                  isSingle={isSingle}
                 />
               )}
             />
