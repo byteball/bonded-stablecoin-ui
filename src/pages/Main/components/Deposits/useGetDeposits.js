@@ -3,7 +3,7 @@ import moment from "moment";
 
 export const useGetDeposits = (state, decimals2, min_deposit_term, challenge_immunity_period, reserve_asset_decimals, activeWallet) => {
   const [myDeposits, setMyDeposits] = useState([]);
-  const [otherDeposits, setOtherDeposits] = useState([]);
+  const [allDeposits, setAllDeposits] = useState([]);
   const [minProtectionRatio, setMinProtectionRatio] = useState(null);
   const timestamp = moment().unix();
 
@@ -30,7 +30,7 @@ export const useGetDeposits = (state, decimals2, min_deposit_term, challenge_imm
     }
 
     const my = [];
-    const other = [];
+    const all = [];
     let minRatio = null;
 
     const entriesDeposits = Object.entries(deposits);
@@ -54,9 +54,9 @@ export const useGetDeposits = (state, decimals2, min_deposit_term, challenge_imm
 
       if (deposits[id].owner === activeWallet){
         my.push({ id, ...deposits[id], protection_ratio, key: id, isMy: true });
-      } else {
-        other.push({ id, ...deposits[id], protection_ratio, key: id, isMy: false });
       }
+
+      all.push({ id, ...deposits[id], protection_ratio, key: id });
 
       if(!deposits[id].closer && deposits[id].ts + min_deposit_term < timestamp){
         if(minRatio !== null){
@@ -70,9 +70,9 @@ export const useGetDeposits = (state, decimals2, min_deposit_term, challenge_imm
     }
 
     setMyDeposits(my);
-    setOtherDeposits(other);
+    setAllDeposits(all);
     setMinProtectionRatio(minRatio);
   }, [state, activeWallet, decimals2, min_deposit_term, challenge_immunity_period, reserve_asset_decimals]);
 
-  return [myDeposits, otherDeposits, minProtectionRatio];
+  return [myDeposits, allDeposits, minProtectionRatio];
 };

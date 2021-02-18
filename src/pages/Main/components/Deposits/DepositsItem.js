@@ -18,6 +18,8 @@ export const DepositsItem = ({
   setVisibleEditRecipient,
   setWithdrawProtection,
   inRecipientTab,
+  inAllTab = false,
+  isSingle,
   setAddProtection,
   item,
   reserve_asset_decimals,
@@ -75,7 +77,7 @@ export const DepositsItem = ({
     config.interestRecipients.find((a) => a.address === interest_recipient);
 
   const aboveMin = {
-    is: !isMy && minProtectionRatio !==null && protection_ratio > minProtectionRatio,
+    is: !isMy && minProtectionRatio !== null && protection_ratio > minProtectionRatio,
     info: t("trade.tabs.deposits.less_last", "This deposit's protection ratio is above the smallest")
   };
 
@@ -90,129 +92,138 @@ export const DepositsItem = ({
   };
 
   const tooltip = aboveMin.is ? aboveMin.info : (tooNew.is ? tooNew.info : (inChallengingPeriod.is ? inChallengingPeriod.info : undefined));
+  const isHighlighted = minProtectionRatio !== null && protection_ratio <= minProtectionRatio && !isSingle;
 
   return (
     <Card
-      style={{ marginBottom: 10, wordBreak: "break-all" }}
+      style={{
+        marginBottom: 10,
+        wordBreak: "break-all",
+        padding: 5,
+        background: owner === activeWallet && inAllTab ? "#f5f5f5" : "#fff",
+        borderRadius: 5,
+      }}
       bodyStyle={{ paddingLeft: 0 }}
       bordered={false}
       size="small"
     >
-      <div>
-        <b>{t("trade.tabs.deposits.opened", "Opened")}:</b> {moment.unix(ts).format("DD-MM-YYYY HH:mm")}
-      </div>
-      <div>
-        <b>{t("trade.tabs.deposits.interest_title", "Interest tokens")}:</b>{" "}
-        <ShowDecimalsValue decimals={decimals} value={amount} /> {symbol2}
-      </div>
-      <div>
-        <b>{t("trade.tabs.deposits.stable_title", "Stable tokens")}:</b>{" "}
-        <ShowDecimalsValue decimals={decimals} value={stable_amount} />{" "}
-        {symbol3}
-      </div>
-      <div>
-        <b>{t("trade.tabs.deposits.interest", "Interest")}:</b>{" "}
-        {closer ? (
-          <ShowDecimalsValue
-            decimals={decimals}
-            value={close_interest}
-          />
-        ) : (
+      <div style={{ color: isHighlighted ? "#e74c3c" : "inherit" }}>
+        <div>
+          <b>{t("trade.tabs.deposits.opened", "Opened")}:</b> {moment.unix(ts).format("DD-MM-YYYY HH:mm")}
+        </div>
+        <div>
+          <b>{t("trade.tabs.deposits.interest_title", "Interest tokens")}:</b>{" "}
+          <ShowDecimalsValue decimals={decimals} value={amount} /> {symbol2}
+        </div>
+        <div>
+          <b>{t("trade.tabs.deposits.stable_title", "Stable tokens")}:</b>{" "}
+          <ShowDecimalsValue decimals={decimals} value={stable_amount} />{" "}
+          {symbol3}
+        </div>
+        <div>
+          <b>{t("trade.tabs.deposits.interest", "Interest")}:</b>{" "}
+          {closer ? (
             <ShowDecimalsValue
               decimals={decimals}
-              value={interest}
+              value={close_interest}
             />
-          )} {symbol3}
-      </div>
-      <div>
-        <b>{t("trade.tabs.deposits.interest_recipient", "Interest recipient")}:</b>{" "}
-        {!interest_recipient || activeWallet === interest_recipient
-          ? "you"
-          : (recipientName && <span>{recipientName.name}</span>) ||
-          interest_recipient.slice(0, 9) + "..."}
-      </div>
-      <div>
-        <b>{t("trade.tabs.deposits.protection", "Protection (ratio)")}:</b>{" "}
-        {protection ? (
-          <>
-            <ShowDecimalsValue
-              decimals={reserve_asset_decimals}
-              value={protection}
-            />{" "}
-            {reserve_asset === "base"
-              ? "GBYTE"
-              : config.reserves[reserve_asset]
-                ? config.reserves[reserve_asset].name
-                : reserve_asset_symbol || ''}{" "}
-          </>
-        ) : (
-            "-"
-          )}{" "}
-        {protection && `(${protection_ratio})`}
-      </div>
-      <Space
-        size={10}
-        style={{ marginTop: 10 }}
-        direction={width >= 900 ? "horizontal" : "vertical"}
-      >
-        {(isMy || (activeWallet === interest_recipient && inRecipientTab)) && <QRButton
-          href={receiveUrl}
-          disabled={
-            interest <= 0 || id.match(/^dummy\d+$/) ||
-            (interest_recipient
-              ? activeWallet !== interest_recipient
-              : activeWallet !== owner) ||
-            closer
-          }
+          ) : (
+              <ShowDecimalsValue
+                decimals={decimals}
+                value={interest}
+              />
+            )} {symbol3}
+        </div>
+        <div>
+          <b>{t("trade.tabs.deposits.interest_recipient", "Interest recipient")}:</b>{" "}
+          {!interest_recipient || activeWallet === interest_recipient
+            ? "you"
+            : (recipientName && <span>{recipientName.name}</span>) ||
+            interest_recipient.slice(0, 9) + "..."}
+        </div>
+        <div>
+          <b>{t("trade.tabs.deposits.protection", "Protection (ratio)")}:</b>{" "}
+          {protection ? (
+            <>
+              <ShowDecimalsValue
+                decimals={reserve_asset_decimals}
+                value={protection}
+              />{" "}
+              {reserve_asset === "base"
+                ? "GBYTE"
+                : config.reserves[reserve_asset]
+                  ? config.reserves[reserve_asset].name
+                  : reserve_asset_symbol || ''}{" "}
+            </>
+          ) : (
+              "-"
+            )}{" "}
+          {protection && `(${protection_ratio})`}
+        </div>
+        <Space
+          size={10}
+          style={{ marginTop: 10 }}
+          direction={width >= 900 ? "horizontal" : "vertical"}
         >
-          {t("trade.tabs.deposits.withdraw_interest", "Withdraw interest")}
-        </QRButton>}
-        {isMy && <Button
-          disabled={owner !== activeWallet || id.match(/^dummy\d+$/)}
-          onClick={() =>
-            setVisibleEditRecipient({
-              id,
-              current: interest_recipient || owner,
-            })
-          }
-        >
-          {t("trade.tabs.deposits.edit_interest_recipient", "Edit interest recipient")}
-        </Button>}
-        {isMy && <Button
-          disabled={owner !== activeWallet || id.match(/^dummy\d+$/)}
-          onClick={() => setAddProtection(item)}
-        >
-          {t("trade.tabs.deposits.add_protection", "Add protection")}
-        </Button>}
-        {isMy && <Button
-          disabled={owner !== activeWallet || !protection || protection === 0}
-          onClick={() => setWithdrawProtection(item)}
-        >
-          {t("trade.tabs.deposits.withdraw_protection", "Withdraw protection")}
-        </Button>}
+          {(isMy || (activeWallet === interest_recipient && inRecipientTab)) && <QRButton
+            href={receiveUrl}
+            disabled={
+              interest <= 0 || id.match(/^dummy\d+$/) ||
+              (interest_recipient
+                ? activeWallet !== interest_recipient
+                : activeWallet !== owner) ||
+              closer
+            }
+          >
+            {t("trade.tabs.deposits.withdraw_interest", "Withdraw interest")}
+          </QRButton>}
+          {isMy && <Button
+            disabled={owner !== activeWallet || id.match(/^dummy\d+$/)}
+            onClick={() =>
+              setVisibleEditRecipient({
+                id,
+                current: interest_recipient || owner,
+              })
+            }
+          >
+            {t("trade.tabs.deposits.edit_interest_recipient", "Edit interest recipient")}
+          </Button>}
+          {isMy && <Button
+            disabled={owner !== activeWallet || id.match(/^dummy\d+$/)}
+            onClick={() => setAddProtection(item)}
+          >
+            {t("trade.tabs.deposits.add_protection", "Add protection")}
+          </Button>}
+          {isMy && <Button
+            disabled={owner !== activeWallet || !protection || protection === 0}
+            onClick={() => setWithdrawProtection(item)}
+          >
+            {t("trade.tabs.deposits.withdraw_protection", "Withdraw protection")}
+          </Button>}
 
-        {!weakerId && !inRecipientTab && <QRButton
-          config={{
-            tooltipMobile: tooltip,
-            tooltip
-          }}
-          type="link"
-          size="small"
-          style={{ padding: 0 }}
-          href={closeUrl}
-          onClick={() => {
-            ReactGA.event({
-              category: "Stablecoin",
-              action: "Close deposit",
-            });
-          }}
-          disabled={inChallengingPeriod.is || tooNew.is || aboveMin.is}
-        >
-          {!closer && (isMy ? t("trade.tabs.deposits.close", "Close") : t("trade.tabs.deposits.force_close", "Force close"))}
-          {closer && t("trade.tabs.deposits.commit_force_close", "Commit force close")}
-        </QRButton>}
-        {weakerId && !inRecipientTab ? <QRButton style={{ padding: 0 }} size="small" type="link" href={challengeLink}>{t("trade.tabs.deposits.challenge", "Challenge")}</QRButton> : null}
-      </Space>
+          {!weakerId && !inRecipientTab && <QRButton
+            config={{
+              tooltipMobile: tooltip,
+              tooltip
+            }}
+            type="link"
+            size="small"
+            style={{ padding: 0 }}
+            href={closeUrl}
+            onClick={() => {
+              ReactGA.event({
+                category: "Stablecoin",
+                action: "Close deposit",
+              });
+            }}
+            disabled={inChallengingPeriod.is || tooNew.is || (aboveMin.is && owner !== activeWallet)}
+          >
+            {!closer && (owner === activeWallet ? t("trade.tabs.deposits.close", "Close") : t("trade.tabs.deposits.force_close", "Force close"))}
+            {closer && t("trade.tabs.deposits.commit_force_close", "Commit force close")}
+          </QRButton>}
+          {weakerId && !inRecipientTab ? <QRButton style={{ padding: 0 }} size="small" type="link" href={challengeLink}>{t("trade.tabs.deposits.challenge", "Challenge")}</QRButton> : null}
+        </Space>
+      </div>
     </Card>
   );
 };
