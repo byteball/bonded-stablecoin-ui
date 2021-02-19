@@ -105,7 +105,7 @@
         "title": "Deposits",
         "open": "Open deposit",
         "create": "Create a deposit to exchange your {{symbol2}} for stable tokens {{symbol3}} and periodically withdraw interest in {{symbol3}} as it accrues. You can trade {{symbol3}} on <9>Oswap.io</9> or <11>ODEX</11>.",
-        "protection_ratio": "Last force closed protection ratio",
+        "min_protection_ratio": "The minimum protection ratio is currently",
         "close_info": "A new deposit cannot be closed within <1>{{hours}} hours</1> after opening.",
         "highlighted": "Deposits with insufficient protection are <1>highlighted in red</1>.",
         "force_close_info": "You can close other people's deposits to exchange your {{symbol3}} for {{symbol2}}. The owner of the closed deposit will simply stop receiving interest, there will be no direct loss to them. Only the least protected deposits can be closed, you lose money if you try to close any deposit that is not least protected.",
@@ -212,7 +212,8 @@
   "modals": {
     "add_protection": {
       "title": "Add protection to deposit",
-      "btn": "Add protection"
+      "btn": "Add protection",
+      "ratio": "Protection ratio"
     },
     "common": {
       "close": "Close",
@@ -293,7 +294,8 @@
     "withdraw_protection": {
       "title": "Withdraw protection from deposit",
       "withdraw_protection": "Withdraw protection",
-      "max_withdrawal": "Max. withdrawal"
+      "max_withdrawal": "Max. withdrawal",
+      "ratio": "Protection ratio"
     }
   },
   "buy": {
@@ -650,7 +652,7 @@
     "clipboard_link": "Your link was copied to the clipboard",
     "no_auth": "To get a referral link, <1>add your wallet address</1>",
     "your_link_desc": "Use it in your blogs, tweets, posts, newsletters, public profiles, videos, etc and earn referral rewards for bringing new holders into Bonded Stablecoins.",
-    "info": "<0>The referral rewards are paid in IUSD every Sunday and are proportional to dollar balances of the referred users in all tokens (stablecoins, interest tokens, growth tokens) issued on this website, as well as other tokens based on them: shares in <1>oswap</1> liquidity pools and shares in arbitrage bots. The larger the total balances at the end of the weekly period, the larger the reward. Your weekly reward increases if the referred users accumulate more, decreases if they redeem or sell their tokens.</0><1>The initial weekly reward is <1>10% of the balances of all referred users</1> at the end of the period.</1><2>Your referrals also get rewarded for buying tokens through your link — they get <1>5% of their balances</1> every week.</2><3>The total amount paid to all referrers and referred users is capped by <1>$3,000 weekly</1>. If the cap gets exceeded, all 10%/5% rewards are scaled down proportionally so that the total is $3,000.</3>",
+    "info": "<0>The referral rewards are paid in IUSD every Sunday and are proportional to dollar balances of the referred users in all tokens (stablecoins, interest tokens, growth tokens) issued on this website, as well as other tokens based on them: shares in <1>oswap</1> liquidity pools and shares in arbitrage bots. The larger the total balances at the end of the weekly period, the larger the reward. Your weekly reward increases if the referred users accumulate more, decreases if they redeem or sell their tokens.</0><1>The current weekly reward is <1>{{pReferrerRewards}}% of the balances of all referred users</1> at the end of the week (<3>{{pReferrerRewardsAPY}}% per year</3>).</1><2>Your referrals also get rewarded for buying tokens through your link — they are expected to get <1>{{pReferralRewards}}% of their balances</1> every week.</2><3>The total amount paid to all referrers and referred users is <1>$3,000 weekly</1> and is distributed in proportion to the referrals balances.</3>",
     "title_list": "Here is the list of your referrals and their current balances",
     "total": "Total",
     "empty": "no referrals yet"
