@@ -9,7 +9,7 @@ const { Title, Text } = Typography;
 export const DepositsInfo = ({ isActive,
   onOpenDeposit,
   minDepositTermInHours,
-  lastForceClosedProtectionRatio,
+  minProtectionRatio,
   symbol2,
   symbol3,
   asset
@@ -62,11 +62,13 @@ export const DepositsInfo = ({ isActive,
       </Text>
     </p>
 
-    {lastForceClosedProtectionRatio !== undefined ? (
+    {minProtectionRatio !== null ? (
       <Text type="secondary">
         <p>
-          <b>{t("trade.tabs.deposits.protection_ratio", "Last force closed protection ratio")}:</b>{" "}
-          {lastForceClosedProtectionRatio}
+          <b>
+            {t("trade.tabs.deposits.min_protection_ratio", "The minimum protection ratio is currently")}{" "}
+            {+Number(minProtectionRatio).toPrecision(3)}.
+          </b>
         </p>
       </Text>
     ) : ""}

@@ -32,7 +32,6 @@ export const Deposits = ({ openWalletModal }) => {
   const [timestamp, setTimestamp] = useState(moment().unix());
   const { activeWallet } = useSelector((state) => state.settings);
   const [my, all, minProtectionRatio] = useGetDeposits(deposit_state, decimals2, min_deposit_term, challenge_immunity_period, reserve_asset_decimals, activeWallet);
-  const last_force_closed_protection_ratio = "last_force_closed_protection_ratio" in deposit_state ? deposit_state.last_force_closed_protection_ratio / 10 ** (reserve_asset_decimals - decimals2) : undefined;
   const growth_factor = $get_growth_factor(
     interest_rate,
     timestamp,
@@ -68,7 +67,7 @@ export const Deposits = ({ openWalletModal }) => {
       <DepositsInfo
         isActive={interest_rate}
         onOpenDeposit={() => setVisibleOpenDeposit(true)}
-        lastForceClosedProtectionRatio={last_force_closed_protection_ratio}
+        minProtectionRatio={minProtectionRatio}
         asset={deposit_state.asset}
         minDepositTermInHours={+Number(min_deposit_term / 3600).toFixed(2)}
         depositAa={deposit_aa}

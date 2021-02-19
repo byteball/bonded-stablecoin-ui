@@ -16,6 +16,8 @@ export const RefPage = ({ setWalletModalVisibility }) => {
   const [loading, setLoading] = useState(true);
   const { t } = useTranslation();
   const [info, setInfo] = useState({});
+  const [scale, setScale] = useState(0);
+
   const refUrl = `https://${config.TESTNET ? "testnet." : ""}ostable.org/?r=${activeWallet}`;
   const appInfo = {
     url: refUrl,
@@ -40,10 +42,13 @@ export const RefPage = ({ setWalletModalVisibility }) => {
       }
     }
   ];
+
   useEffect(() => {
     (async () => {
+      let error = false;
       const infoData = await axios.get(`${config.REFERRAL_URL}/referrals/${activeWallet}`).catch((e) => {
-        console.log("e", e)
+        error = true;
+        console.log("e", e);
       });
 
       if (!infoData || ("error" in infoData)) return setLoading(false);
@@ -52,12 +57,33 @@ export const RefPage = ({ setWalletModalVisibility }) => {
         const info = { ...infoData.data.data };
         const total = info && info.referrals && info.referrals.reduce((acc, value) => acc + value.usd_balance, 0);
         info.total = Number(total).toFixed(2);
-        setLoading(false);
-        setInfo(info);
+        
+        const distributionInfoData = await axios.get(`${config.REFERRAL_URL}/distributions/next`).catch((e) => {
+          error = true;
+          console.log("e", e);
+        });
+        
+        if (!distributionInfoData || ("error" in distributionInfoData)) return setLoading(false)
+       
+        const {data: {data : {total_unscaled_rewards, total_rewards}}} = distributionInfoData;
+
+        const scale = (total_rewards / total_unscaled_rewards) || 0;
+
+        setScale(scale);
+        
+        if(!error){
+          setLoading(false);
+          setInfo(info);
+        }
+        
       }
 
     })();
   }, [activeWallet]);
+
+  const pReferrerRewards = +Number(10 * scale).toFixed(3);
+  const pReferrerRewardsAPY = +Number(10 * scale * 4 * 12).toFixed(3);
+  const pReferralRewards = +Number(5 * scale).toFixed(3);
 
   return <>
     <Helmet title="Bonded stablecoins - Referral program" />
@@ -100,7 +126,7 @@ export const RefPage = ({ setWalletModalVisibility }) => {
               </TelegramShareButton>
             </Space>
           </Paragraph>}
-          <Trans i18nKey="ref.info">
+          <Trans i18nKey="ref.info" pReferrerRewards={pReferrerRewards} pReferrerRewardsAPY={pReferrerRewardsAPY} pReferralRewards={pReferralRewards}>
             <Paragraph>
               The referral rewards are paid in IUSD every Sunday and are proportional to dollar balances of the referred
               users in all tokens (stablecoins, interest tokens, growth tokens) issued on this website, as well as other
@@ -108,14 +134,13 @@ export const RefPage = ({ setWalletModalVisibility }) => {
               The larger the total balances at the end of the weekly period, the larger the reward. Your weekly reward increases if the referred users accumulate more, decreases if they redeem or sell their tokens.
             </Paragraph>
             <Paragraph>
-              The initial weekly reward is <b>10% of the balances of all referred users</b> at the end of the period.
+              The current weekly reward is <b>{{pReferrerRewards}}% of the balances of all referred users</b> at the end of the week (<b>{{pReferrerRewardsAPY}}% per year</b>).
             </Paragraph>
             <Paragraph>
-              Your referrals also get rewarded for buying tokens through your link — they get <b>5% of their balances</b> every week.
+              Your referrals also get rewarded for buying tokens through your link — they are expected to get <b>{{pReferralRewards}}% of their balances</b> every week.
             </Paragraph>
             <Paragraph>
-              The total amount paid to all referrers and referred users is capped by <b>$3,000 weekly</b>. If the cap gets exceeded,
-              all 10%/5% rewards are scaled down proportionally so that the total is $3,000.
+              The total amount paid to all referrers and referred users is <b>$3,000 weekly</b> and is distributed in proportion to the referrals balances.
             </Paragraph>
           </Trans>
           {activeWallet && <Paragraph>

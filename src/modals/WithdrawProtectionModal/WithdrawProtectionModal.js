@@ -19,13 +19,16 @@ export const WithdrawProtectionModal = ({
     value: undefined,
     valid: undefined,
   });
-  const { id, protection } = deposit;
+  const { id, protection, amount: currentAmount } = deposit;
   const { params, deposit_aa, reserve_asset_symbol } = useSelector((state) => state.active);
-  const { reserve_asset, reserve_asset_decimals } = params;
+  const { reserve_asset, reserve_asset_decimals, decimals2 } = params;
 
   const amountInput = useRef(null);
   const withdrawBtnRef = useRef(null);
   const { t } = useTranslation();
+
+  const totalProtectionRatio = (((protection || 0) / 10 ** reserve_asset_decimals - (amount.valid ? Number(amount.value) : 0))) / (currentAmount / 10 ** decimals2);
+
   const handleChangeAmount = (ev) => {
     const value = ev.target.value;
     const reg = /^[0-9.]+$/;
@@ -125,6 +128,9 @@ export const WithdrawProtectionModal = ({
           )}
         </Form.Item>
       </Form>
+      <div>
+        <b>{t("modals.add_protection.ratio", "Protection ratio")}:</b> {totalProtectionRatio > 0 ? +Number(totalProtectionRatio).toPrecision(3) : 0}
+      </div>
     </Modal>
   );
 };

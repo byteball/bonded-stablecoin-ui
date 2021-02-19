@@ -114,7 +114,6 @@
         "title": "Depoter",
         "open": "Opret depot",
         "create": "Opret depot for at veksle {{symbol2}} til stabile tokens {{symbol3}} og løbende modtage renter i {{symbol3}}. Du kan handle {{symbol3}} på <9>Oswap</9> eller <11>ODEX</11>.",
-        "protection_ratio": "Beskyttelsesrate af senest tvangslukkede depot",
         "close_info": "Nye depoter kan først lukkes efter <1>{{hours}} timer</1>.",
         "name": "Depoter"
       },
@@ -624,7 +623,6 @@
     "clipboard_link": "Dit link blev kopieret til udklipsholderen",
     "no_auth": "For at få et henvisningslink, <1>tilføj din wallet-adresse</1>",
     "your_link_desc": "Brug det i blogs, tweets, nyhedsbreve, offentlige profiler, videoer osv. og modtag henvisningsdusør for at tiltrække nye brugere til Bonded Stablecoins.",
-    "info": "<0>Henvisningsdusører udbetales i IUSD hver søndag i forhold til de henviste brugeres saldo omregnet til dollars. Det gælder alle tokens (stablecoins, rentebærende tokens, growth tokens) udsted på website'et, såvel som andre tokens, der er baseret på disse, som f.eks. andele i likviditetspuljer på <1>oswap</1> og arbitrage-bots. Jo højere saldo ved udgangen af ugen, des større dusør. Dusøren stiger i takt med at de henviste brugeres samlede saldi stiger og falder hvis de sælger eller indløser deres tokens.</0><1>Til at starte med er dusøren <1>10% af de henviste brugeres</1> saldi i slutningen af en periode.</1><2>De henviste belønnes også for at købe tokens via dit link - de får <1>5% af deres saldi</1> hver uge.</2><3>Det totale beløb udbetalt til alle henviste og henvisende brugere er begrænset til <1>$3.000 pr. uge</1>. Hvis grænsen overskrides, nedskaleres dusørerne proportionalt, så alle får en respektiv andel af de $3.000.</3>",
     "title_list": "Her er en liste over henviste og deres nuværende saldi",
     "total": "Total",
     "empty": "endnu ingen henvisninger"
