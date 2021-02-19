@@ -294,7 +294,8 @@
     "withdraw_protection": {
       "title": "Withdraw protection from deposit",
       "withdraw_protection": "Withdraw protection",
-      "max_withdrawal": "Max. withdrawal"
+      "max_withdrawal": "Max. withdrawal",
+      "ratio": "Protection ratio"
     }
   },
   "buy": {

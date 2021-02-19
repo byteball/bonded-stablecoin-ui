@@ -3,10 +3,12 @@ import { Col, Row, Typography, message, Table, Space } from "antd";
 import { useSelector } from "react-redux"
 import { Helmet } from "react-helmet";
 import { Trans, useTranslation } from 'react-i18next';
+import moment from 'moment';
 import { FacebookShareButton, FacebookIcon, VKShareButton, VKIcon, TwitterShareButton, TwitterIcon, TelegramShareButton, TelegramIcon } from "react-share";
+import axios from "axios";
+
 import RefImage from "./img/ref.svg";
 import config from "config";
-import axios from "axios";
 import styles from "./RefPage.module.css";
 
 const { Title, Paragraph, Text } = Typography;
@@ -17,6 +19,9 @@ export const RefPage = ({ setWalletModalVisibility }) => {
   const { t } = useTranslation();
   const [info, setInfo] = useState({});
   const [scale, setScale] = useState(0);
+  
+  const currentYear = moment().year();
+  const countWeeks = moment(`31-12-${currentYear}`, "DD-MM-YYYY").diff(`01-01-${currentYear}`, 'week');
 
   const refUrl = `https://${config.TESTNET ? "testnet." : ""}ostable.org/?r=${activeWallet}`;
   const appInfo = {
@@ -82,7 +87,7 @@ export const RefPage = ({ setWalletModalVisibility }) => {
   }, [activeWallet]);
 
   const pReferrerRewards = +Number(10 * scale).toFixed(3);
-  const pReferrerRewardsAPY = +Number(10 * scale * 4 * 12).toFixed(3);
+  const pReferrerRewardsAPY = +Number(10 * scale * countWeeks).toFixed(3);
   const pReferralRewards = +Number(5 * scale).toFixed(3);
 
   return <>
