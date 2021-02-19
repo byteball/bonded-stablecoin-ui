@@ -129,7 +129,7 @@ export const WithdrawProtectionModal = ({
         </Form.Item>
       </Form>
       <div>
-        <b>{t("modals.add_protection.ratio", "Protection ratio")}:</b> {totalProtectionRatio > 0 ? +Number(totalProtectionRatio).toPrecision(3) : 0}
+        <b>{t("modals.withdraw_protection.ratio", "Protection ratio")}:</b> {totalProtectionRatio > 0 ? +Number(totalProtectionRatio).toPrecision(3) : 0}
       </div>
     </Modal>
   );
