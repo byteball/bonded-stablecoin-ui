@@ -19,9 +19,10 @@ export const RefPage = ({ setWalletModalVisibility }) => {
   const { t } = useTranslation();
   const [info, setInfo] = useState({});
   const [scale, setScale] = useState(0);
-  
+
   const currentYear = moment().year();
-  const countWeeks = moment(`31-12-${currentYear}`, "DD-MM-YYYY").diff(`01-01-${currentYear}`, 'week');
+  const countDays = moment(`01-01-${currentYear + 1}`, "DD-MM-YYYY").diff(`01-01-${currentYear}`, 'days');
+  const countWeeks = countDays / 7;
 
   const refUrl = `https://${config.TESTNET ? "testnet." : ""}ostable.org/?r=${activeWallet}`;
   const appInfo = {
@@ -87,7 +88,7 @@ export const RefPage = ({ setWalletModalVisibility }) => {
   }, [activeWallet]);
 
   const pReferrerRewards = +Number(10 * scale).toFixed(3);
-  const pReferrerRewardsAPY = +Number(10 * scale * countWeeks).toFixed(3);
+  const pReferrerRewardsAPY = +Number(10 * scale * countWeeks).toPrecision(4);
   const pReferralRewards = +Number(5 * scale).toFixed(3);
 
   return <>
