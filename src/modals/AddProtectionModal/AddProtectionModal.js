@@ -22,8 +22,8 @@ export const AddProtectionModal = ({
   const addBtnRef = useRef(null);
   const { t } = useTranslation();
 
-  const { id } = deposit;
-  const { reserve_asset, reserve_asset_decimals } = params;
+  const { id, amount: currentAmount, protection } = deposit;
+  const { reserve_asset, reserve_asset_decimals, decimals2 } = params;
 
   const handleChangeAmount = (ev) => {
     const value = ev.target.value;
@@ -51,6 +51,9 @@ export const AddProtectionModal = ({
       amountInputRef.current.focus();
     }
   }, [visible]);
+
+  const totalProtectionRatio = (((protection || 0) / 10 ** reserve_asset_decimals + (amount.valid ? Number(amount.value) : 0))) / (currentAmount / 10 ** decimals2);
+  
   return (
     <Modal
       visible={visible}
@@ -108,6 +111,9 @@ export const AddProtectionModal = ({
           />
         </Form.Item>
       </Form>
+      <div>
+        <b>{t("modals.add_protection.ratio", "Protection ratio")}:</b> {+Number(totalProtectionRatio).toPrecision(3)}
+      </div>
     </Modal>
   );
 };
