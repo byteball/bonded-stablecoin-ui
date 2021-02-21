@@ -626,6 +626,16 @@
     "agents": "<0>All this is operated by several <1><0>Autonomous Agents</0></1> which are programs that run on <3>Obyte</3> distributed ledger, do the math quickly (they are good at math, unlike some people), and can never be changed by anybody.</0><1>All transactions are transparent, quickly verified by multiple independently operated computers, and can never be reversed. There are no fallible humans who could interfere with the work of Autonomous Agents, no fraudulent banksters who could run away with your money, lose it to a bad investment, or pay it to themselves as a quarterly bonus. The coins cannot be printed at will, they are issued strictly against the reserve, strictly according to the above formula. The reserve is stored by an Autonomous Agent and can be withdrawn only in exchange for the tokens, again strictly according to the bonding curve formula.</1>",
     "read": "Read a <1>more thorough introduction to bonded stablecoins</1> in our blog."
   },
+  "stableplus": {
+    "title": "Stable+ coins",
+    "sub_title_1": "Stablecoins that earn interest",
+    "sub_title_2": "Best suited for investors seeking predictable income",
+    "programmed": "<0>The prices of <1>stable+</1> coins are programmed to follow the growing target price. For example, IUSD — a USD-pegged coin — started at exactly 1 USD on September 22, 2020 and the target price of the token grows at 16% per year. In one year, it is expected to be $1.16, in two years — $1.3456.</0>",
+    "curve": "<0>This is made possible by a bonding curve that mathematically bonds their prices with the prices of the companion <1>growth</1> tokens. Every deviation from the target price activates incentives for the traders of both stable+ and growth tokens that make them buy or sell their tokens and eventually correct the price of the stable+ coin back to the target. They do so to make a profit.</0>",
+    "hold": "<0>You can buy stable+ coins such as IUSD and hold.</0><1>Or you can buy IUSD, <1>put it on a deposit</1>, get an equivalent amount of OUSD stablecoin in exchange, and periodically withdraw the accrued interest in OUSD.</1>",
+    "charity": "<0>You can also redirect interest to someone else, e.g. to a charity or another nonprofit. Estonian Cryptocurrency Association, Obyte Foundation, and <1>PolloPollo</1> are already enrolled as suggested recipients.</0>",
+    "choose": "Choose your stable+ coin"
+  },
   "reg_symbol": {
     "available": "Symbol name {{value}} is available, you can register it",
     "taken": "This token name is already taken. This will start a dispute",

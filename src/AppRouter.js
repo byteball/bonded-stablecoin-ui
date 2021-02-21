@@ -9,7 +9,8 @@ import {
   HowItWorksPage,
   FaqPage,
   BuyPage,
-  RefPage
+  RefPage,
+  InterestPage
 } from "./pages";
 import { Spinner } from "./components/Spinner/Spinner";
 import { HashHandler } from "./components/HashHandler/HashHandler";
@@ -85,7 +86,7 @@ const AppRouter = () => {
             return <BuyPage />;
           }}
         />
-
+        <Route path={basename + "/stableplus"} component={InterestPage} exact />
         <Route path={basename} component={HomePage} exact />
       </MainLayout>
     </Router>

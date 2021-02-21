@@ -63,6 +63,8 @@ export const MainLayout = ({ children, walletModalVisible, setWalletModalVisibil
     }
   }, []);
 
+  const pageIsSingle = pathname.includes("stableplus");
+
   return (
     <Layout style={{ minHeight: "100vh" }}>
       <Header
@@ -85,7 +87,7 @@ export const MainLayout = ({ children, walletModalVisible, setWalletModalVisibil
               <sup style={{ fontSize: 8 }}>Beta</sup>
             </div>}
           </NavLink>
-
+        {!pageIsSingle && <>
           {width >= 990 ? (
             <MainMenu pathname={pathname} width={width} mode="horizontal" />
           ) : (
@@ -128,15 +130,15 @@ export const MainLayout = ({ children, walletModalVisible, setWalletModalVisibil
               <div style={{ width: 70, marginLeft: "auto" }}><SelectLanguage /></div>
             </div>
           )}
-
-          {(pathname === "/" || langs.find((lang) => "/" + lang.name === pathname)) && width >= 990 && <div style={{ width: 70, marginLeft: "auto" }}><SelectLanguage /></div>}
+        </>}
+          {(((pathname === "/" || langs.find((lang) => "/" + lang.name === pathname)) && width >= 990) || pageIsSingle) && <div style={{ width: 70, marginLeft: "auto" }}><SelectLanguage /></div>}
         </Row>
       </Header>
 
       <Content
         className={styles.content}
         style={
-          pathname === "/" || langs.find((lang) => "/" + lang.name === pathname) || width < 1240
+          pathname === "/" || pageIsSingle || langs.find((lang) => "/" + lang.name === pathname) || width < 1240
             ? { padding: 0 }
             : { padding: "20px 20px" }
         }

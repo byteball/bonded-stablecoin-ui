@@ -95,7 +95,7 @@ let config = {
       stableName: "OETH",
       interestName: "ITH",
       growthName: "GRETH",
-      percent: 11,
+      percent: 32,
       address: "HXFNVF4ENNIEJZHS2MQLG4AKQ4SAXUNH",
     },
     GOLD: {
