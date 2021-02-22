@@ -106,7 +106,7 @@ const InterestNotTracking = ({ forwardedRef, isShown }) => {
         </div>
         <div className={styles.second + " " + styles.img}>
           <div className={styles.illustration}>
-            <img alt="Safe deposit" src={charityIllustration} />
+            <img alt="Charity" src={charityIllustration} />
           </div>
         </div>
       </div>

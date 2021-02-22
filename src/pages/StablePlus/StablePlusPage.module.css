@@ -1,0 +1,153 @@
+.titleWrap {
+  text-align: center;
+  margin-bottom: 120px;
+  margin-top: 40px;
+}
+
+.title {
+  font-weight: bold;
+  font-size: 68px;
+  color: #333333;
+  margin-bottom: 40px;
+}
+
+.subTitle {
+  font-size: 38px;
+  line-height: 40px;
+  color: #333333;
+}
+
+.wrapper {
+  display: flex;
+  font-size: 16px;
+  align-items: center;
+  padding-bottom: 100px;
+  padding-top: 50px;
+}
+
+.item {
+  width: 50%;
+}
+
+.first {
+  composes: item;
+  padding-right: 40px;
+}
+
+.second {
+  composes: item;
+  padding-left: 40px;
+}
+
+.illustration {
+  text-align: center;
+}
+
+.illustration img {
+  max-width: 400px;
+}
+
+.tokens {
+  color: #333333;
+  max-width: 1140px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+.container {
+  width: 1440px;
+  margin: 0 auto;
+  font-family: "Open Sans", sans-serif;
+}
+
+@media (max-width: 1440px) {
+  .container {
+    margin: 0;
+    width: 100%;
+    padding-left: 40px;
+    padding-right: 40px;
+    box-sizing: border-box;
+  }
+}
+
+@media (max-width: 780px) {
+  .container {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}
+
+.header {
+  padding-top: 20px;
+  padding-bottom: 40px;
+  background-image: url("../Home/components/Header/img/bg2.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position-x: 100%;
+  position: relative;
+}
+
+@media (max-width: 990px) {
+  .item {
+    width: 100%;
+  }
+  .first {
+    padding-right: 0;
+  }
+  .second {
+    padding-left: 0;
+  }
+  .wrapper {
+    flex-direction: column;
+    padding: 0;
+    border-bottom: none;
+  }
+  .img {
+    order: 0;
+    justify-content: center;
+  }
+  .text {
+    order: 1;
+    margin-bottom: 60px;
+  }
+  .illustration {
+    max-width: 60%;
+    margin: 0 auto;
+    margin-bottom: 15px;
+    text-align: center;
+  }
+
+  .big {
+    max-width: 100%;
+  }
+
+  .illustration img {
+    max-width: 100%;
+  }
+
+}
+
+@media (max-width: 990px) {
+  .header {
+    background-image: url("../Home/components/Header/img/bg1-m.svg");
+    background-position-x: center;
+    background-size: contain;
+    background-repeat: repeat-y;
+  }
+  .title {
+    font-size: 48px;
+  }
+  .subTitle {
+    font-size: 32px;
+  }
+}
+
+@media (max-width: 480px) {
+  .title {
+    font-size: 36px;
+  }
+  .subTitle {
+    font-size: 24px;
+  }
+}

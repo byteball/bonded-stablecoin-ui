@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ReactGA from "react-ga";
 import { Link } from "react-router-dom";
 import { Col, Row } from "antd";
@@ -26,7 +26,7 @@ export const tokensList = [
     name: "ITH",
     address: config.TESTNET ? "2M5WRWDNWWMQ6BTCYNIC5G5UPW23TECO" : "HXFNVF4ENNIEJZHS2MQLG4AKQ4SAXUNH",
     pegged: "ETH",
-    apy: 11
+    apy: 32
   },
   {
     name: "IGB",
@@ -42,7 +42,7 @@ export const tokensList = [
   }
 ]
 
-const PopularItem = ({ pegged, name, apy, logo, link, price }) => {
+const PopularItem = ({ pegged, name, apy, link, price, showAll }) => {
   const { t } = useTranslation();
   return (
     <Col xs={{ span: 12 }} sm={{ span: 6 }} lg={{ span: 4 }} className={styles.item}>
@@ -50,9 +50,9 @@ const PopularItem = ({ pegged, name, apy, logo, link, price }) => {
         <CoinIcon symbol={name} width="80" height="80" type={2} />
       </div>
       <div className={styles.name}>{name}</div>
-      <div>{t("home.popular.pegged", "Pegged:")} <span>{pegged}</span></div>
-      <div>APY: <b style={{ color: "green" }}>{apy}%</b></div>
-      <div>{t("home.popular.price", "Price:")} $<b>{Number(price).toFixed(2)}</b></div>
+      {!showAll && pegged && <div>{t("home.popular.pegged", "Pegged:")} <span>{pegged}</span></div>}
+      <div>APY: <b style={{ color: "green" }}>{+Number(apy).toFixed(2)}%</b></div>
+      {!showAll && <div>{t("home.popular.price", "Price:")} $<b>{+Number(price).toFixed(2)}</b></div>}
       <div>
         <Link to={link} onClick={() => ReactGA.event({
           category: "Stablecoin",
@@ -64,24 +64,53 @@ const PopularItem = ({ pegged, name, apy, logo, link, price }) => {
   )
 }
 
-export const PopularInterest = ({ prices }) => {
+export const PopularInterest = ({ prices, hideTitle = false, showAll = false }) => {
   const { lang } = useSelector((state) => state.settings);
+  const { data } = useSelector((state) => state.list);
+  const [otherList, setOtherList] = useState([]);
   const { t } = useTranslation();
   const basename = lang && lang !== "en" ? "/" + lang : "";
 
+  useEffect(() => {
+    if (showAll) {
+      const otherList = Object.entries(data).map(([address, { stable_state, symbol, params }]) => {
+        const apy = ("interest_rate" in stable_state ? stable_state.interest_rate : params.interest_rate) * 100;
+        
+        if (tokensList.findIndex((t) => symbol && (t.name === symbol)) === -1) {
+          if (apy) {
+            return {
+              name: symbol,
+              address,
+              apy
+            }
+          }
+        }
+        return null
+      });
+
+      setOtherList(otherList.filter((t) => t && t.name))
+
+      return () => {
+        setOtherList([]);
+      }
+    }
+  }, [data, showAll]);
+
+  const allList = [...tokensList, ...otherList];
+  
   return <div className={styles.wrap}>
-    <h2 className={styles.title}>{t("home.popular.title_interest", "Most popular interest bearing tokens")}</h2>
+    {!hideTitle ? <h2 className={styles.title}>{t("home.popular.title_interest", "Most popular interest bearing tokens")}</h2> : null}
     <Row justify="center" gutter={[16, 16]}>
-      {tokensList.map((item, index) => <PopularItem
+      {allList.map((item, index) => <PopularItem
         key={item.name + index}
         index={index}
         name={item.name}
         apy={item.apy}
         price={prices[item.pegged] || 0}
         pegged={item.pegged}
-        logo={item.logo}
         address={item.address}
         link={`${basename}/buy/${item.address}`}
+        showAll={showAll}
       />)}
     </Row>
   </div>
