@@ -5,4 +5,4 @@ export { HowItWorksPage } from "./HowItWorks/HowItWorksPage";
 export { FaqPage } from "./Faq/FaqPage";
 export { BuyPage } from "./Buy/BuyPage";
 export { RefPage } from "./Ref/RefPage";
-export { InterestPage } from "./Interest/InterestPage";
+export { StablePlusPage } from "./StablePlus/StablePlusPage";

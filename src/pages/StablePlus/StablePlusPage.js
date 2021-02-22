@@ -8,12 +8,12 @@ import { PopularInterest } from "pages/Home/components/Popular/PopularInterest";
 import { InterestChart } from "pages/Home/components/Tokens/charts/InterestChart";
 import { useGetTokenPrices } from "pages/Home/components/Tokens/useGetTokenPrices";
 
-import styles from "./InterestPage.module.css";
+import styles from "./StablePlusPage.module.css";
 import { ReactComponent as Curve } from "./img/curve.svg";
 import safeIllustration from "../Home/components/Tokens/img/safe.svg";
 import charityIllustration from "../Home/components/Tokens/img/charity.svg";
 
-export const InterestPage = () => {
+export const StablePlusPage = () => {
   const { data } = useSelector((state) => state.list);
   const [interest] = useGetTokenPrices(data);
   const { t } = useTranslation();
@@ -103,9 +103,9 @@ const HoldNotTracking = ({ forwardedRef }) => {
   return (
     <div className={styles.wrapper} ref={forwardedRef}>
       <div className={styles.first + " " + styles.text}>
-        <Trans i18nKey="stableplus.hold">
-          <p>You can buy stable+ coins such as IUSD and hold.</p>
-          <p>Or you can buy IUSD, <b>put it on a deposit</b>, get an equivalent amount of OUSD stablecoin in exchange, and periodically withdraw the accrued interest in OUSD.</p>
+        <Trans i18nKey="home.tokens.interest.buy">
+          <p>You can buy IUSD and hold.</p>
+          <p>Or you can buy IUSD, <a href="/trade#deposits" target="_blank" rel="noopener">put it on a deposit</a>, get an equivalent amount of OUSD stablecoin in exchange, and periodically withdraw the accrued interest in OUSD.</p>
         </Trans>
       </div>
       <div className={styles.second + " " + styles.img}>
@@ -126,7 +126,7 @@ const CharityNotTracking = ({ forwardedRef }) => {
         </div>
       </div>
       <div className={styles.second + " " + styles.text}>
-        <Trans i18nKey="stableplus.charity">
+        <Trans i18nKey="home.tokens.interest.redirect">
           <p>
             You can also redirect interest to someone else, e.g. to a charity or another nonprofit. Estonian Cryptocurrency Association, Obyte Foundation, and <a href="https://pollopollo.org/" target="_blank" rel="noopener">PolloPollo</a> are already enrolled as suggested recipients.
           </p>
@@ -139,7 +139,7 @@ const CharityNotTracking = ({ forwardedRef }) => {
 const StableCoinsListNotTracking = ({ forwardedRef, prices }) => {
   return (
     <div ref={forwardedRef}>
-      <div style={{textAlign: "center"}} className={styles.subTitle}>
+      <div style={{ textAlign: "center" }} className={styles.subTitle}>
         <Trans i18nKey="stableplus.choose">
           Choose your stable+ coin
         </Trans>
