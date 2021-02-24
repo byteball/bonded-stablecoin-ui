@@ -21,7 +21,7 @@ export const RefPage = ({ setWalletModalVisibility }) => {
   const [scale, setScale] = useState(0);
 
   const currentYear = moment().year();
-  const countDays = moment(`01-01-${currentYear + 1}`, "DD-MM-YYYY").diff(`01-01-${currentYear}`, 'days');
+  const countDays = moment(`${currentYear + 1}-01-01`, "YYYY-MM-DD").diff(`${currentYear}-01-01`, "days");
   const countWeeks = countDays / 7;
 
   const refUrl = `https://${config.TESTNET ? "testnet." : ""}ostable.org/?r=${activeWallet}`;
