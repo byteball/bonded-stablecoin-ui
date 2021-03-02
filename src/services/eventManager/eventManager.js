@@ -9,6 +9,7 @@ import { openNotification } from "utils/openNotification";
 import { reqIssueStablecoin } from "store/actions/pendings/reqIssueStablecoin";
 import { resCreateStable } from "store/actions/EVENTS/stable/resCreateStable";
 import { governanceEventManager } from "./lowerManagers/governance";
+import { addTransaction } from "store/actions/active/addTransaction";
 
 const importantSubject = ["light/aa_request", "light/aa_response"];
 
@@ -121,6 +122,10 @@ export const eventManager = (err, result) => {
         symbol2,
         symbol3,
       });
+
+      store.dispatch(addTransaction({ type: "curve", isStable: false, unit: body.unit }))
+    } else if (isRes) {
+      store.dispatch(addTransaction({ type: "curve", isStable: true, unit: body }))
     }
   } else if (aa_address === deposit_aa) {
     if (isReq) {
@@ -136,6 +141,10 @@ export const eventManager = (err, result) => {
         messages,
         isAuthor: body.unit.authors[0].address === activeWallet,
       });
+
+      store.dispatch(addTransaction({ type: "deposit", isStable: false, unit: body.unit }))
+    } else if (isRes) {
+      store.dispatch(addTransaction({ type: "deposit", isStable: true, unit: body }))
     }
   } else if (aa_address === governance_aa) {
     if (isReq) {
@@ -147,17 +156,30 @@ export const eventManager = (err, result) => {
         isAuthor: body.unit.authors[0].address === activeWallet,
         governance_state,
       });
+
+      store.dispatch(addTransaction({ type: "governance", isStable: false, unit: body.unit }))
+    } else if (isRes) {
+      store.dispatch(addTransaction({ type: "governance", isStable: true, unit: body }))
     }
   }
 };
 
-const getAAPayload = (messages) => {
-  /* eslint array-callback-return: "off" */
-  const payloads = messages.map((message) => {
-    if (message.app === "data") {
-      return message.payload || {};
-    }
-  });
+export const getAAPayload = (messages = []) => messages.find(m => m.app === 'data')?.payload || {};
 
-  return payloads[0] || {};
-};
+export const getAAPayment = (messages = [], list = [], asset, isExclude = false) => messages.find(m => (m.app === 'payment') && (m?.payload?.asset === asset || !asset))?.payload?.outputs.find((o) => {
+  if (!isExclude) {
+    return list.includes(o.address)
+  } else {
+    return !list.includes(o.address)
+  }
+})?.amount || 0;
+
+export const getAAPaymentsSum = (messages = [], list = [], asset, isExclude = false) => messages.find(m => (m.app === 'payment') && (m?.payload?.asset === asset || !asset))?.payload?.outputs.filter((o) => {
+  if (!isExclude) {
+    return list.includes(o.address)
+  } else {
+    return !list.includes(o.address)
+  }
+}).reduce((accumulator, current) => {
+  return accumulator + current.amount;
+}, 0);
