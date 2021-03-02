@@ -123,9 +123,9 @@ export const eventManager = (err, result) => {
         symbol3,
       });
 
-      store.dispatch(addTransaction({ type: "curve", isStable: false, unit: body.unit }))
+      store.dispatch(addTransaction({ type: "curve", isStable: false, AAReqOrRes: body.unit }))
     } else if (isRes) {
-      store.dispatch(addTransaction({ type: "curve", isStable: true, unit: body }))
+      store.dispatch(addTransaction({ type: "curve", isStable: true, AAReqOrRes: body }))
     }
   } else if (aa_address === deposit_aa) {
     if (isReq) {
@@ -142,9 +142,9 @@ export const eventManager = (err, result) => {
         isAuthor: body.unit.authors[0].address === activeWallet,
       });
 
-      store.dispatch(addTransaction({ type: "deposit", isStable: false, unit: body.unit }))
+      store.dispatch(addTransaction({ type: "deposit", isStable: false, AAReqOrRes: body.unit }))
     } else if (isRes) {
-      store.dispatch(addTransaction({ type: "deposit", isStable: true, unit: body }))
+      store.dispatch(addTransaction({ type: "deposit", isStable: true, AAReqOrRes: body }))
     }
   } else if (aa_address === governance_aa) {
     if (isReq) {
@@ -157,9 +157,9 @@ export const eventManager = (err, result) => {
         governance_state,
       });
 
-      store.dispatch(addTransaction({ type: "governance", isStable: false, unit: body.unit }))
+      store.dispatch(addTransaction({ type: "governance", isStable: false, AAReqOrRes: body.unit }))
     } else if (isRes) {
-      store.dispatch(addTransaction({ type: "governance", isStable: true, unit: body }))
+      store.dispatch(addTransaction({ type: "governance", isStable: true, AAReqOrRes: body }))
     }
   }
 };

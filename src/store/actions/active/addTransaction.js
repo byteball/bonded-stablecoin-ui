@@ -2,23 +2,23 @@ import { ADD_NEW_TRANSACTION, ADD_STABLE_TRANSACTION, UPDATE_TRANSACTION } from 
 
 const types = ["curve", "deposit", "governance"];
 
-export const addTransaction = ({isStable, type, unit}) => async (dispatch, getState, socket) => {
-  if(!unit) return null
+export const addTransaction = ({isStable, type, AAReqOrRes}) => async (dispatch, getState, socket) => {
+  if(!AAReqOrRes) return null
   if(types.includes(type)){
     if (isStable) {
     const store = getState();
     
-    if(unit.trigger_unit in store.active.transactions[type]){
+    if(AAReqOrRes.trigger_unit in store.active.transactions[type]){
       dispatch({
         type: UPDATE_TRANSACTION,
         payload: {
-          unit: unit.trigger_unit,
-          objResponseUnit: unit.objResponseUnit,
+          unit: AAReqOrRes.trigger_unit,
+          objResponseUnit: AAReqOrRes.objResponseUnit,
           type
         }
       })
     } else {
-      const {trigger_unit, trigger_address} = unit;
+      const {trigger_unit, trigger_address} = AAReqOrRes;
       const { joint: { unit: trigger_unit_info } } = await socket.api.getJoint(trigger_unit);
 
       dispatch({
@@ -26,8 +26,8 @@ export const addTransaction = ({isStable, type, unit}) => async (dispatch, getSt
         payload: {
           ...trigger_unit_info,
           isStable: true,
-          objResponseUnit: unit.objResponseUnit,
-          bounced: unit.bounced,
+          objResponseUnit: AAReqOrRes.objResponseUnit,
+          bounced: AAReqOrRes.bounced,
           trigger_address,
         },
         meta: {
@@ -39,17 +39,17 @@ export const addTransaction = ({isStable, type, unit}) => async (dispatch, getSt
 
     } else {
       const payload = {
-        trigger_address: unit.authors[0]?.address,
-        ...unit,
+        trigger_address: AAReqOrRes.authors[0]?.address,
+        ...AAReqOrRes,
         bounced: 0,
-        trigger_unit: unit.unit,
+        trigger_unit: AAReqOrRes.unit,
         objResponseUnit: {},
         isStable
       }
       dispatch({
         type: ADD_NEW_TRANSACTION,
         payload,
-        meta: {type, unit: unit.unit}
+        meta: {type, unit: AAReqOrRes.unit}
       });
     }
   } else {
