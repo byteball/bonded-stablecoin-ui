@@ -174,7 +174,7 @@ export const getAAPayment = (messages = [], list = [], asset, isExclude = false)
   }
 })?.amount || 0;
 
-export const getAAPaymentsSum = (messages = [], list = [], asset, isExclude = false) => messages.find(m => (m.app === 'payment') && (m?.payload?.asset === asset))?.payload?.outputs.filter((o) => {
+export const getAAPaymentsSum = (messages = [], list = [], asset, isExclude = false) => messages.find(m => (m.app === 'payment') && (m?.payload?.asset === asset || (asset === "base" && !m?.payload?.asset)))?.payload?.outputs.filter((o) => {
   if (!isExclude) {
     return list.includes(o.address)
   } else {
