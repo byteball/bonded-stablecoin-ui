@@ -204,7 +204,7 @@ export const eventIdentification = (type, unit, params, _, active) => {
   if ("factory" in payload && "define" in payload) {
     return [i18n.t("trade.tabs.transactions.events.conf", "Configuration")]
   } else {
-    return [i18n.t("trade.tabs.transactions.events.not_indent", "Not identification")]
+    return [i18n.t("trade.tabs.transactions.events.not_indent", "Unidentified")]
   }
 
 }

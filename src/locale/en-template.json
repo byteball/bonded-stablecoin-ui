@@ -109,7 +109,7 @@
           "withdraw_balance": "Withdraw balance from governance",
           "remove_support_param": "Remove support for the {{name}}",
           "conf": "Configuration",
-          "not_indent": "Not identification"
+          "not_indent": "Unidentified"
         }
       },
       "capacitor": {
