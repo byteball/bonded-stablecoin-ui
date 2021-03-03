@@ -1,12 +1,9 @@
-import { ADD_NEW_TRANSACTION, ADD_STABLE_TRANSACTION, UPDATE_TRANSACTION } from "store/types";
+import { ADD_STABLE_TRANSACTION, UPDATE_TRANSACTION } from "store/types";
 
 const types = ["curve", "deposit", "governance"];
 
-export const addTransaction = ({ isStable, type, unit, response }) => async (dispatch, getState, socket) => {
-  if (!response && !unit) return null
-
-  if (types.includes(type)) {
-    if (isStable) {
+export const addStableTransaction = ({ type, response }) => async (dispatch, getState, socket) => {
+  if (types.includes(type) && response) {
       const store = getState();
 
       if (response.trigger_unit in store.active.transactions[type]) {
@@ -37,22 +34,6 @@ export const addTransaction = ({ isStable, type, unit, response }) => async (dis
           }
         })
       }
-
-    } else {
-      const payload = {
-        trigger_address: unit.authors[0]?.address,
-        ...unit,
-        bounced: 0,
-        trigger_unit: unit.unit,
-        objResponseUnit: {},
-        isStable
-      }
-      dispatch({
-        type: ADD_NEW_TRANSACTION,
-        payload,
-        meta: { type, unit: unit.unit }
-      });
-    }
   } else {
     return null
   }

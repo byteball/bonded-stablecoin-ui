@@ -9,7 +9,8 @@ import { openNotification } from "utils/openNotification";
 import { reqIssueStablecoin } from "store/actions/pendings/reqIssueStablecoin";
 import { resCreateStable } from "store/actions/EVENTS/stable/resCreateStable";
 import { governanceEventManager } from "./lowerManagers/governance";
-import { addTransaction } from "store/actions/active/addTransaction";
+import { addNotStableTransaction } from "store/actions/active/addNotStableTransaction";
+import { addStableTransaction } from "store/actions/active/addStableTransaction";
 
 const importantSubject = ["light/aa_request", "light/aa_response"];
 
@@ -123,9 +124,9 @@ export const eventManager = (err, result) => {
         symbol3,
       });
 
-      store.dispatch(addTransaction({ type: "curve", isStable: false, unit: body.unit }))
+      store.dispatch(addNotStableTransaction({ type: "curve", unit: body.unit }));
     } else if (isRes) {
-      store.dispatch(addTransaction({ type: "curve", isStable: true, response: body }))
+      store.dispatch(addStableTransaction({ type: "curve", response: body }))
     }
   } else if (aa_address === deposit_aa) {
     if (isReq) {
@@ -142,9 +143,9 @@ export const eventManager = (err, result) => {
         isAuthor: body.unit.authors[0].address === activeWallet,
       });
 
-      store.dispatch(addTransaction({ type: "deposit", isStable: false, unit: body.unit }))
+      store.dispatch(addNotStableTransaction({ type: "deposit", unit: body.unit }));
     } else if (isRes) {
-      store.dispatch(addTransaction({ type: "deposit", isStable: true, response: body }))
+      store.dispatch(addStableTransaction({ type: "deposit", response: body }))
     }
   } else if (aa_address === governance_aa) {
     if (isReq) {
@@ -156,10 +157,9 @@ export const eventManager = (err, result) => {
         isAuthor: body.unit.authors[0].address === activeWallet,
         governance_state,
       });
-
-      store.dispatch(addTransaction({ type: "governance", isStable: false, unit: body.unit }))
+      store.dispatch(addNotStableTransaction({ type: "governance", unit: body.unit }));
     } else if (isRes) {
-      store.dispatch(addTransaction({ type: "governance", isStable: true, response: body }))
+      store.dispatch(addStableTransaction({ type: "governance", response: body }))
     }
   }
 };
