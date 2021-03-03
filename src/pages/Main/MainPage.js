@@ -5,7 +5,8 @@ import {
   InteractionOutlined,
   ImportOutlined,
   SlidersOutlined,
-  LineChartOutlined
+  LineChartOutlined,
+  NodeIndexOutlined
 } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
 import { isEmpty } from "lodash";
@@ -28,6 +29,7 @@ import { Charts } from "./components/Charts/Charts";
 import { changeActive } from "store/actions/active/changeActive";
 import { changeActiveForBot } from "store/actions/active/changeActiveForBot";
 import { botCheck } from "utils/botCheck";
+import { Transactions } from "./components/Transactions/Transactions";
 
 const { TabPane } = Tabs;
 
@@ -240,6 +242,18 @@ export const MainPage = ({ setWalletModalVisibility }) => {
               key="governance"
             >
               <Governance openWalletModal={setWalletModalVisibility} />
+            </TabPane>
+            <TabPane
+              disabled={!("reserve" in stable_state)}
+              tab={
+                <span>
+                  <NodeIndexOutlined />
+                  {t("trade.tabs.transactions.name", "Transactions")}
+                </span>
+              }
+              key="transactions"
+            >
+              <Transactions />
             </TabPane>
             <TabPane
               tab={
