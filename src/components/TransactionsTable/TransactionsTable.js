@@ -34,7 +34,7 @@ export const TransactionsTable = ({ source, type }) => {
     <List dataSource={source.sort((a, b) => b.timestamp - a.timestamp)} className={styles.list} renderItem={(item) => {
       const ts = moment.unix(item.timestamp).format("DD-MM-YYYY HH:mm");
 
-      const [event, input, inputCurrency, output] = eventIdentification(type, item, actualParams, activeWallet, active);
+      const [event, input, inputCurrency, output, user] = eventIdentification(type, item, actualParams, activeWallet, active);
 
       return <a href={`https://${config.TESTNET ? "testnet" : ""
         }explorer.obyte.org/#${item.unit}`}
@@ -49,8 +49,8 @@ export const TransactionsTable = ({ source, type }) => {
         <div className={styles.event}><span className={styles.label}>{t("trade.tabs.transactions.head.event", "Event")}:</span><Text type="secondary">{event}</Text></div>
         <div className={styles.input}><span className={styles.label}>{t("trade.tabs.transactions.head.input", "Input")}:</span><Text type="secondary">{(!item.bounced && input) || "-"} {(!item.bounced && inputCurrency) || ""}</Text></div>
         <div className={styles.output}><span className={styles.label}>{t("trade.tabs.transactions.output", "Output")}:</span> <Text type="secondary">{(!item.bounced && output) || "-"}</Text></div>
-        <div className={styles.user}><span className={styles.label}>{t("trade.tabs.transactions.head.user", "User")}:</span><Text type="secondary">{<Tooltip title={item.trigger_address}>
-          {(item.trigger_address).slice(0, 14) + "..."}
+        <div className={styles.user}><span className={styles.label}>{t("trade.tabs.transactions.head.user", "User")}:</span><Text type="secondary">{<Tooltip title={user || item.trigger_address}>
+          {(user || item.trigger_address).slice(0, 14) + "..."}
         </Tooltip>}</Text></div>
         <div className={styles.time}><span className={styles.label}>{t("trade.tabs.transactions.head.time", "Time")}:</span><Text type="secondary">{ts}</Text></div>
       </a>

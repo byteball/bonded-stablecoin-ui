@@ -40,9 +40,10 @@ export const eventIdentification = (type, unit, params, _, active) => {
         undefined,
         undefined
       ]
-    } else if (isEmpty(payload) || "max_fee_percent" in payload) {
+    } else if (isEmpty(payload) || "to" in payload || "max_fee_percent" in payload) {
 
-      let type;
+      let inputT1;
+      let inputT2;
       let pendingAmount = "[loading]";
 
       for (const message in messages) {
@@ -51,23 +52,22 @@ export const eventIdentification = (type, unit, params, _, active) => {
         if (msg.app === "payment" && "asset" in msg.payload) {
           const asset = msg.payload.asset;
           if (asset === asset1) {
-            type = 1;
+            inputT1 = getAAPayment(unit.messages, [address, deposit_aa, governance_aa], asset1);
           } else if (asset === asset2) {
-            type = 2;
+            inputT2 = getAAPayment(unit.messages, [address, deposit_aa, governance_aa], asset2);
           }
         }
       }
-      if (type) {
-        const amount = getAAPayment(unit.messages, [address, deposit_aa, governance_aa], type === 1 ? asset1 : asset2);
+      if (inputT1 || inputT2) {
 
         if (unit.objResponseUnit) {
-          pendingAmount = getAAPayment(unit.objResponseUnit.messages, [address, deposit_aa, governance_aa], reserve_asset !== "base" ? reserve_asset : undefined) / (10 ** reserve_asset_decimals);
+          pendingAmount = getAAPayment(unit.objResponseUnit.messages, [payload.to || unit.trigger_address], reserve_asset) / (10 ** reserve_asset_decimals);
         }
 
         return [
-          i18n.t("trade.tabs.transactions.events.redeem", "Redeem {{tokens}}", { tokens: type === 1 ? symbol1 || "T1" : symbol2 || "T2" }),
-          amount / (10 ** (type === 1 ? decimals1 : decimals2)),
-          type === 1 ? symbol1 : symbol2,
+          i18n.t("trade.tabs.transactions.events.redeem", "Redeem tokens"),
+          `${inputT1 ? (inputT1 / 10 ** decimals1) + " " + symbol1 : ""} ${inputT2 ? (inputT2 / 10 ** decimals2) + " " + symbol2 : ""}`,
+          "",
           pendingAmount + " " + reserve_asset_symbol
         ]
       }
@@ -165,7 +165,8 @@ export const eventIdentification = (type, unit, params, _, active) => {
           i18n.t("trade.tabs.transactions.events.open", "Open a Deposit"),
           amount / 10 ** decimals2,
           symbol2,
-          `${output} ${symbol3}`
+          `${output} ${symbol3}`,
+          payload.to
         ];
       }
     }
