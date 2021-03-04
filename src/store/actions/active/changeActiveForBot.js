@@ -70,6 +70,11 @@ export const changeActiveForBot = (address) => async (dispatch, getState) => {
       symbol3:
         symbolByAsset3 !== depositInfo.asset.replace(/[+=]/, "").substr(0, 6) &&
         symbolByAsset3,
+      transactions: {
+        curve: {},
+        deposit: {},
+        governance: {}
+      }
     },
   });
 };

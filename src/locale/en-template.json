@@ -71,6 +71,47 @@
       "hide": "Hide info"
     },
     "tabs": {
+      "transactions": {
+        "head": {
+          "status": "Status",
+          "event": "Event",
+          "input": "Input",
+          "output": "Output",
+          "user": "User",
+          "time": "Time"
+        },
+        "error": "Error",
+        "stable": "Stable",
+        "not_stable": "Not stable",
+        "output": "Output",
+        "title": "Transactions",
+        "desc": "In this section you can view the transactions of autonomous agents associated with the selected stablecoin",
+        "curve": "Curve",
+        "address": "The address of the autonomous agent",
+        "deposits": "Deposits",
+        "governance": "Governance",
+        "name": "Transactions",
+        "events": {
+          "buy": "Buy tokens",
+          "move_capacity": "Move capacity from slow pool to fast one",
+          "redeem": "Redeem {{tokens}}",
+          "change_param_auto": "Change {{name}} to {{value}}",
+          "change_recipient": "Change the interest recipient",
+          "add_protection": "Add protection",
+          "withdraw_protection": "Withdraw protection",
+          "challenged_force_close": "Challenged a force-close",
+          "commit_force_close": "Commit a force close",
+          "close_deposit": "Close a Deposit",
+          "withdraw_interest": "Withdraw interest",
+          "open": "Open a Deposit",
+          "commit_new_value": "Commit the new value of {{name}}: {{value}}",
+          "add_support_param": "Add support for the {{name}} value of {{value}}",
+          "withdraw_balance": "Withdraw balance from governance",
+          "remove_support_param": "Remove support for the {{name}}",
+          "conf": "Configuration",
+          "not_indent": "Unidentified"
+        }
+      },
       "capacitor": {
         "title": "Capacitors info",
         "desc": "Capacitors store fees charged from users who moved the price away from the peg. They are used to reward those who move the price back to the peg.",
@@ -120,6 +161,7 @@
         "stable_title": "Stable tokens",
         "interest": "Interest",
         "interest_recipient": "Interest recipient",
+        "you": "you",
         "protection": "Protection (ratio)",
         "withdraw_interest": "Withdraw interest",
         "edit_interest_recipient": "Edit interest recipient",
@@ -134,7 +176,6 @@
         "protection_desc": "Additional deposit in {{reserve}} that protects the deposit from being closed by others. The deposit with the least ratio of protection to deposit amount can be closed by anybody. There is no direct loss to you when your deposit is closed but you stop receiving interest from it.",
         "interest_desc": "Interest available for withdrawal",
         "interest_recipient_desc": "Who receives interest (deposit owner by default)",
-        "you": "you",
         "my_deposits": "My deposits",
         "me_as_interest_recipient": "Me as interest recipient",
         "all_deposits": "All deposits",

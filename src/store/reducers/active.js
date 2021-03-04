@@ -1,4 +1,4 @@
-import { CHANGE_ACTIVE, REQ_CHANGE_ACTIVE, UPDATE_ORACLES } from "../types";
+import { CHANGE_ACTIVE, REQ_CHANGE_ACTIVE, UPDATE_ORACLES, LOAD_PREV_TRANSACTIONS, ADD_NEW_TRANSACTION, UPDATE_TRANSACTION, ADD_STABLE_TRANSACTION } from "../types";
 import { EVENT_CREATE_TOKEN } from "../types/events";
 import {
   CHANGE_STABLE_STATE,
@@ -22,6 +22,11 @@ const initialState = {
   symbol2: false,
   symbol3: false,
   loading: false,
+  transactions: {
+    curve: {},
+    deposit: {},
+    governance: {}
+  }
 };
 
 export const activeReducer = (state = initialState, action) => {
@@ -52,6 +57,7 @@ export const activeReducer = (state = initialState, action) => {
         oracleValue1: action.payload.oracleValue1,
         oracleValue2: action.payload.oracleValue2,
         oracleValue3: action.payload.oracleValue3,
+        transactions: initialState.transactions,
         loading: false
       };
     }
@@ -84,6 +90,74 @@ export const activeReducer = (state = initialState, action) => {
         ...state,
         oraclePrice: action.payload,
       };
+    }
+    case LOAD_PREV_TRANSACTIONS: {
+      const { payload } = action;
+      
+      return {
+        ...state,
+        transactions: {
+          curve: {
+            ...state.transactions.curve,
+            ...payload.curveUnits
+          },
+          deposit: {
+            ...state.transactions.deposit,
+            ...payload.depositUnits
+          },
+          governance: {
+            ...state.transactions.governance,
+            ...payload.governanceUnits
+          }
+        }
+      }
+    }
+    case ADD_NEW_TRANSACTION: {
+      const { payload, meta: { type, unit } } = action;
+
+      return {
+        ...state,
+        transactions: {
+          ...state.transactions,
+          [type]: {
+            ...state.transactions[type],
+            [unit]: payload
+          }
+        }
+      }
+    }
+    case ADD_STABLE_TRANSACTION: {
+      const { payload, meta: { type, unit } } = action;
+
+      return {
+        ...state,
+        transactions: {
+          ...state.transactions,
+          [type]: {
+            ...state.transactions[type],
+            [unit]: payload
+          }
+        }
+      }
+    }
+
+    case UPDATE_TRANSACTION: {
+      const { objResponseUnit, unit, type } = action.payload;
+
+      return {
+        ...state,
+        transactions: {
+          ...state.transactions,
+          [type]: {
+            ...state.transactions[type],
+            [unit]: {
+              ...state.transactions[type][unit],
+              isStable: true,
+              objResponseUnit
+            }
+          }
+        }
+      }
     }
     default:
       return state;

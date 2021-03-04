@@ -1,0 +1,118 @@
+.row {
+  border-bottom: 1px solid #eee;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  transition: background .5s;
+  justify-content: space-between;
+}
+
+.row:hover {
+  background: #fafafa;
+  transition: background .5s;
+}
+
+.status {
+  width: 7%;
+}
+
+.input {
+  width: 15%;
+}
+
+.event {
+  width: 20%;
+}
+
+.output {
+  width: 18%;
+}
+
+.user {
+  width: 20%;
+}
+
+.time {
+  width: 15%;
+}
+
+.dotWrap {
+  width: 7%;
+  color: #8c8c8c;
+  flex-shrink: 1;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.dot {
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.label {
+  display: none;
+}
+
+.wrap {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.list {
+  width: 100%;
+}
+
+.head {
+  box-sizing: border-box;
+  background: #fafafa;
+}
+
+.statusInfo {
+  display: none;
+}
+
+.head .status {
+  padding-left: 5px;
+}
+
+@media(max-width: 1140px) {
+  .dot {
+    flex-shrink: 1;
+  }
+  .head {
+    display: none;
+  }
+  .row {
+    align-items: center;
+    padding: 10px;
+    width: 100%;
+    flex-wrap: wrap;
+    flex-shrink: 1;
+    justify-content: flex-start;
+  }
+  .dotWrap {
+    display: none;
+  }
+  .event, .user, .time, .output, .input, .status {
+    width: 100%;
+    flex-shrink: 1;
+    display: flex;
+  }
+  .statusInfo {
+    display: flex;
+  }
+  .label {
+    display: block;
+    font-weight: bold;
+    color: #333;
+    margin-right: 5px;
+  }
+  .wrap {
+    display: flex;
+    flex-direction: row;
+    flex-shrink: 1;
+  }
+}

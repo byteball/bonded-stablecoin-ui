@@ -136,10 +136,12 @@ export const DepositsItem = ({
         </div>
         <div>
           <b>{t("trade.tabs.deposits.interest_recipient", "Interest recipient")}:</b>{" "}
-          {!interest_recipient || activeWallet === interest_recipient
-            ? "you"
-            : (recipientName && <span>{recipientName.name}</span>) ||
-            interest_recipient.slice(0, 9) + "..."}
+          {(!interest_recipient && owner === activeWallet) || (interest_recipient && interest_recipient === activeWallet)
+            ? t("trade.tabs.deposits.you", "you")
+            : (recipientName && (
+              <span style={{ fontSize: 12 }}>{recipientName.name}</span>
+            )) ||
+            (interest_recipient || owner).slice(0, 9) + "..."}
         </div>
         <div>
           <b>{t("trade.tabs.deposits.protection", "Protection (ratio)")}:</b>{" "}
