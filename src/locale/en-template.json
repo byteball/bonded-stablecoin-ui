@@ -94,7 +94,7 @@
         "events": {
           "buy": "Buy tokens",
           "move_capacity": "Move capacity from slow pool to fast one",
-          "redeem": "Redeem {{tokens}}",
+          "redeem": "Redeem tokens",
           "change_param_auto": "Change {{name}} to {{value}}",
           "change_recipient": "Change the interest recipient",
           "add_protection": "Add protection",
