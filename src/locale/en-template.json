@@ -333,7 +333,7 @@
       "you_get_plural": "You get {{count}} {{symbol}}",
       "withdraw_all": "Withdraw all",
       "create_title": "We are waiting for the transaction to become stable",
-      "create_title_action": "Create a intermediary agent",
+      "create_title_action": "Create an intermediary agent",
       "create_btn": "Create intermediary agent",
       "info": "The address from which the request will be sent will be the owner of intermediary agent.",
       "modal_title": "Simultaneously redeem",

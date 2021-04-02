@@ -24,7 +24,7 @@ export const CreateCarburetor = ({ pending, setPending }) => {
 
   return (
     <Result
-      title={t("modals.redeem-both.create_title_action", "Create a intermediary agent")}
+      title={t("modals.redeem-both.create_title_action", "Create an intermediary agent")}
       icon={<InteractionOutlined />}
       extra={<div style={{ display: "flex", alignItems: "center", flexDirection: "column" }}>
         <QRButton
