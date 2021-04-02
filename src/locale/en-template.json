@@ -320,7 +320,7 @@
       "no_info": "No information about this oracle"
     },
     "redeem-both": {
-      "count": "Count {{symbol}}",
+      "amount": "{{symbol}} amount",
       "send_execute": "Send {{count}} {{symbol}} and execute",
       "send_execute_plural": "Send {{count}} {{symbol}} and execute",
       "send": "Send {{count}} {{symbol}}",

@@ -116,7 +116,7 @@ export const AddTokensToCarburetor = () => {
                 token1Button.current.click();
               }
             }}
-            placeholder={t("modals.redeem-both.count", "Count {{symbol}}", {symbol: symbol1 || "T1"})}
+            placeholder={t("modals.redeem-both.amount", "{{symbol}} amount", {symbol: symbol1 || "T1"})}
             autoComplete="off"
             suffix={symbol1 || "T1"}
             ref={token1Button} />
@@ -168,7 +168,7 @@ export const AddTokensToCarburetor = () => {
                 token2Button.current.click();
               }
             }}
-            placeholder={t("modals.redeem-both.count", "Count {{symbol}}", {symbol: symbol2 || "T2"})}
+            placeholder={t("modals.redeem-both.amount", "{{symbol}} amount", {symbol: symbol2 || "T2"})}
             autoComplete="off"
             suffix={symbol2 || "T2"}
           />
