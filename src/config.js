@@ -9,6 +9,7 @@ let config = {
   UPCOMING_STATE_WS_URL: process.env.REACT_APP_UPCOMING_STATE_WS_URL,
   GA_ID: process.env.REACT_APP_GA,
   RATE_ORACLE: process.env.REACT_APP_USD_RATE_ORACLE,
+  CARBURETOR_FACTORY: process.env.REACT_APP_CARBURETOR_FACTORY,
   reserves: {
     base: {
       name: "GBYTE",

@@ -25,12 +25,14 @@ import config from "config";
 import { getDataError } from "store/actions/data/getDataError";
 import { updateProvider } from "services/updateProvider/updateProvider";
 import { getListForBot } from "store/actions/list/getListForBot";
+import { changeCarburetor } from "store/actions/carburetor/changeCarburetor";
 
 const AppRouter = () => {
   const [walletModalVisible, setWalletModalVisibility] = useState(false);
   const connected = useSelector((state) => state.connected);
   const { loaded } = useSelector((state) => state.list);
-  const { lang } = useSelector((state) => state.settings);
+  const { loaded: loadedData } = useSelector((state) => state.data);
+  const { lang, activeWallet} = useSelector((state) => state.settings);
   const dispatch = useDispatch();
   
   useEffect(() => {
@@ -50,12 +52,12 @@ const AppRouter = () => {
     if(botCheck(navigator.userAgent)){
       dispatch(getListForBot());
     } else {
-      const update = (data) => {
-        dispatch(updateData(data));
+      const update = (states, balances) => {
+        dispatch(updateData(states, balances));
       }
       
-      const handleSnapshot = (data) => {
-        dispatch(getData(data));
+      const handleSnapshot = (states, balances) => {
+        dispatch(getData(states, balances));
       }
       
       const onError = () => {
@@ -65,6 +67,12 @@ const AppRouter = () => {
       updateProvider({ address: config.UPCOMING_STATE_WS_URL, update, handleSnapshot, onError });
     }
   }, []);
+
+  useEffect(() => {
+    if (activeWallet && loadedData) {
+      dispatch(changeCarburetor(activeWallet));
+    }
+  }, [dispatch, activeWallet, loadedData]);
 
   if ((!connected || !loaded) && !botCheck(navigator.userAgent)) return <Spinner />;
 

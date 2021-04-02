@@ -186,7 +186,7 @@ export const MainPage = ({ setWalletModalVisibility }) => {
                     <Issue />
                   </Col>
                   <Col md={{ span: 10, offset: 4 }} xs={{ span: 24 }}>
-                    <Redeem />
+                    <Redeem setWalletModalVisibility={setWalletModalVisibility}/>
                   </Col>
                 </Row>
               ) : (

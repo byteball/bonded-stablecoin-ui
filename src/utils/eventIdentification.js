@@ -40,7 +40,7 @@ export const eventIdentification = (type, unit, params, _, active) => {
         undefined,
         undefined
       ]
-    } else if (isEmpty(payload) || "to" in payload || "max_fee_percent" in payload) {
+    } else if (isEmpty(payload) || "to" in payload || "max_fee_percent" in payload || "min_reserve_tokens" in payload) {
 
       let inputT1;
       let inputT2;

@@ -9,9 +9,9 @@ export const updateProvider = ({ address, update = () => { }, handleSnapshot = (
       try {
         const data = JSON.parse(event.data);
         if ("snapshot" in data) {
-          handleSnapshot(data.snapshot.upcomingStateVars);
+          handleSnapshot(data.snapshot.upcomingStateVars, data.snapshot.upcomingBalances);
         } else if ("update" in data) {
-          update(data.update.upcomingStateVars);
+          update(data.update.upcomingStateVars, data.update.upcomingBalances);
         }
       } catch (e) {
         onError(e);
