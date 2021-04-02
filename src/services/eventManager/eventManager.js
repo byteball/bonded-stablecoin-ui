@@ -11,6 +11,7 @@ import { resCreateStable } from "store/actions/EVENTS/stable/resCreateStable";
 import { governanceEventManager } from "./lowerManagers/governance";
 import { addNotStableTransaction } from "store/actions/active/addNotStableTransaction";
 import { addStableTransaction } from "store/actions/active/addStableTransaction";
+import { changeCarburetor } from "store/actions/carburetor/changeCarburetor";
 
 const importantSubject = ["light/aa_request", "light/aa_response"];
 
@@ -160,6 +161,12 @@ export const eventManager = (err, result) => {
       store.dispatch(addNotStableTransaction({ type: "governance", unit: body.unit }));
     } else if (isRes) {
       store.dispatch(addStableTransaction({ type: "governance", response: body }))
+    }
+  } else if (aa_address === config.CARBURETOR_FACTORY) {
+    if (isRes) {
+      if (body.trigger_address === activeWallet) {
+        store.dispatch(changeCarburetor(activeWallet));
+      }
     }
   }
 };
