@@ -1,14 +1,15 @@
 import React, { useState } from "react";
-import { Typography } from "antd";
+import { Button, Typography } from "antd";
 import { useSelector } from "react-redux";
-import { useTranslation } from 'react-i18next';
+import { Trans, useTranslation } from 'react-i18next';
 
 import { RedeemToken } from "./forms/RedeemToken";
 import { getParams } from "helpers/getParams";
+import { RedeemBothModal } from "modals/RedeemBothModal/RedeemBothModal";
 
-const { Title } = Typography;
+const { Title, Paragraph } = Typography;
 
-export const Redeem = () => {
+export const Redeem = ({ setWalletModalVisibility }) => {
   const {
     address,
     params,
@@ -27,6 +28,7 @@ export const Redeem = () => {
   const tokens1 = tokens1Field ? tokens1Field.value : 0;
   const tokens2 = tokens2Field ? tokens2Field.value : 0;
   const actualParams = getParams(params, stable_state);
+  const [visibleModal, setVisibleModal] = useState(false);
   return (
     <>
       <Title level={3}>{t("trade.tabs.buy_redeem.title_redeem", "Redeem token{{number}} {{symbol}}", { number: 1, symbol: symbol1 ? "(" + symbol1 + ")" : "" })}</Title>
@@ -67,6 +69,15 @@ export const Redeem = () => {
         oraclePrice={oraclePrice}
         supply={stable_state.supply2 / 10 ** actualParams.decimals2}
       />
+      <Paragraph type="secondary">
+        <Trans i18nKey="trade.tabs.buy_redeem.redeem_both">
+          If you want to redeem two tokens at the same time, we recommend that you use an <Button disabled={!activeWallet} onClick={() => setVisibleModal(true)} style={{ padding: 0, fontWeight: "bold" }} type="link">intermediary agent</Button>.
+        </Trans>
+        {" "} {!activeWallet ? <Button onClick={() => setWalletModalVisibility(true)} style={{ padding: 0, fontWeight: "bold", height: "auto" }} type="link">
+          <Trans i18nKey="trade.tabs.buy_redeem.add_wallet">Please add your wallet to use</Trans>
+        </Button> : null}{activeWallet ? "" : "."}
+      </Paragraph>
+      <RedeemBothModal visible={visibleModal} onCancel={() => setVisibleModal(false)} />
     </>
   );
 };

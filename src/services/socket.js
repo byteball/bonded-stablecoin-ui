@@ -33,6 +33,10 @@ if (!botCheck(navigator.userAgent)) {
       aa: config.TOKEN_REGISTRY,
     });
 
+    client.justsaying("light/new_aa_to_watch", {
+      aa: config.CARBURETOR_FACTORY,
+    });
+
     const updateOracle = setInterval(() => {
       store.dispatch(updateOracleValues());
     }, 1000 * 60);

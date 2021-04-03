@@ -227,6 +227,8 @@
         "big_change": "The transaction would change the price too much, please try a smaller amount",
         "redeem": "Redeem",
         "title_redeem": "Redeem token{{number}} {{symbol}}",
+        "redeem_both": "If you want to redeem two tokens at the same time, we recommend that you use an <1>intermediary agent</1>.",
+        "add_wallet": "Please add your wallet to use",
         "name": "Buy/redeem",
         "liquidity": "<0>You can earn additional interest by adding these tokens to liquidity pools, see <1>liquidity.obyte.org</1>.</0>"
       },
@@ -263,6 +265,7 @@
       "check": "Check",
       "edit": "Edit",
       "open": "Open",
+      "cancel": "Cancel",
       "done": "Done"
     },
     "add_wallet": {
@@ -315,6 +318,28 @@
       "desc": "Description",
       "no_desc": "no description",
       "no_info": "No information about this oracle"
+    },
+    "redeem-both": {
+      "amount": "{{symbol}} amount",
+      "send_execute": "Send {{count}} {{symbol}} and execute",
+      "send_execute_plural": "Send {{count}} {{symbol}} and execute",
+      "send": "Send {{count}} {{symbol}}",
+      "send_plural": "Send {{count}} {{symbol}}",
+      "withdraw_all_label": "Withdraw all the change when executing",
+      "expect_values": "Expected values (tokens in the intermediary agent plus tokens in the fields)",
+      "total": "Total {{symbol}} in the intermediary agent",
+      "count_to_redeem": "Count {{symbol}} to redeem",
+      "you_get": "You get {{count}} {{symbol}}",
+      "you_get_plural": "You get {{count}} {{symbol}}",
+      "withdraw_all": "Withdraw all",
+      "create_title": "We are waiting for the transaction to become stable",
+      "create_title_action": "Create an intermediary agent",
+      "create_btn": "Create intermediary agent",
+      "info": "The address from which the request will be sent will be the owner of intermediary agent.",
+      "modal_title": "Simultaneously redeem",
+      "desc": "To <1>simultaneously</1> redeem {{symbol1}} and {{symbol2}}, you need to<7><0>create an intermediary Autonomous Agent</0><1>send {{symbol1}} and {{symbol2}} to the intermediary AA in two separate transactions.</1></7><8>Once the AA has received both tokens, it will automatically redeem them in such a proportion that the fee is 0. Then, you'll be able to withdraw the excess amount of the token ({symbol1 || \"T1\"} or {symbol2 || \"T2\"}) that was not fully redeemed.</8>",
+      "add_title": "Add tokens",
+      "github": "Open github page with the AA source code"
     },
     "select_wallet": {
       "title": "Select wallet"
