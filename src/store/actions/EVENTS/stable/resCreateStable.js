@@ -14,7 +14,7 @@ export const resCreateStable = ({
 }) => (dispatch, getState, socket) => {
   const addStablecoin = setInterval(async () => {
     let def = false;
-    let stable_state = false;
+    let bonded_state = false;
     let deposit_state = false;
     let governance_state = false;
     let isError = false;
@@ -24,11 +24,11 @@ export const resCreateStable = ({
       governance_state = await socket.api.getAaStateVars({
         address: governance_aa,
       });
-      stable_state = await socket.api.getAaStateVars({ address });
+      bonded_state = await socket.api.getAaStateVars({ address });
     } catch {
       isError = true;
     }
-    if (def && stable_state && deposit_state && governance_state && !isError) {
+    if (def && bonded_state && deposit_state && governance_state && !isError) {
       const store = getState();
       const pendingParam = store.pendings.stablecoin.params;
       clearInterval(addStablecoin);

@@ -1,7 +1,7 @@
 import { CHANGE_ACTIVE, REQ_CHANGE_ACTIVE, UPDATE_ORACLES, LOAD_PREV_TRANSACTIONS, ADD_NEW_TRANSACTION, UPDATE_TRANSACTION, ADD_STABLE_TRANSACTION } from "../types";
 import { EVENT_CREATE_TOKEN } from "../types/events";
 import {
-  CHANGE_STABLE_STATE,
+  CHANGE_BONDED_STATE,
   CHANGE_DEPOSIT_STATE,
   CHANGE_GOVERNANCE_STATE,
 } from "../types/state";
@@ -11,7 +11,7 @@ const initialState = {
   deposit_aa: undefined,
   governance_aa: undefined,
   params: {},
-  stable_state: {},
+  bonded_state: {},
   deposit_state: {},
   governance_state: {},
   oracleValue1: 0,
@@ -42,7 +42,7 @@ export const activeReducer = (state = initialState, action) => {
         ...state,
         address: action.payload.address,
         params: action.payload.params,
-        stable_state: action.payload.stable_state,
+        bonded_state: action.payload.bonded_state,
         deposit_state: action.payload.deposit_state,
         governance_state: action.payload.governance_state,
         deposit_aa: action.payload.deposit_aa,
@@ -67,10 +67,10 @@ export const activeReducer = (state = initialState, action) => {
         ["symbol" + action.payload.type]: action.payload.symbol,
       };
     }
-    case CHANGE_STABLE_STATE: {
+    case CHANGE_BONDED_STATE: {
       return {
         ...state,
-        stable_state: action.payload,
+        bonded_state: action.payload,
       };
     }
     case CHANGE_DEPOSIT_STATE: {

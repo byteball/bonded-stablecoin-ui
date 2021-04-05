@@ -23,26 +23,26 @@ export const Deposits = ({ openWalletModal }) => {
     deposit_state,
     params,
     deposit_aa,
-    stable_state,
+    bonded_state,
     symbol2,
     symbol3,
   } = useSelector((state) => state.active);
   const { t } = useTranslation();
-  const { interest_rate, min_deposit_term, challenge_immunity_period, decimals2, reserve_asset_decimals } = getParams(params, stable_state);
+  const { interest_rate, min_deposit_term, challenge_immunity_period, decimals2, reserve_asset_decimals } = getParams(params, bonded_state);
   const [timestamp, setTimestamp] = useState(moment().unix());
   const { activeWallet } = useSelector((state) => state.settings);
   const [my, all, minProtectionRatio] = useGetDeposits(deposit_state, decimals2, min_deposit_term, challenge_immunity_period, reserve_asset_decimals, activeWallet);
   const growth_factor = $get_growth_factor(
     interest_rate,
     timestamp,
-    stable_state.rate_update_ts,
-    stable_state.growth_factor
+    bonded_state.rate_update_ts,
+    bonded_state.growth_factor
   );
   const new_growth_factor = $get_growth_factor(
     interest_rate,
     timestamp + 3600 * 24 * 30,
-    stable_state.rate_update_ts,
-    stable_state.growth_factor
+    bonded_state.rate_update_ts,
+    bonded_state.growth_factor
   );
 
   useEffect(() => {
@@ -129,7 +129,7 @@ export const Deposits = ({ openWalletModal }) => {
         setVisible={setVisibleOpenDeposit}
         activeWallet={activeWallet}
         deposit_aa={deposit_aa}
-        asset={stable_state.asset2}
+        asset={bonded_state.asset2}
         decimals={decimals2}
         growth_factor={growth_factor}
         new_growth_factor={new_growth_factor}

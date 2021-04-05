@@ -8,10 +8,10 @@ export const eventIdentification = (type, unit, params, _, active) => {
 
   if (!unit) return null
 
-  const { symbol1, symbol2, symbol3, stable_state, governance_state, reserve_asset_symbol, address,
+  const { symbol1, symbol2, symbol3, bonded_state, governance_state, reserve_asset_symbol, address,
     deposit_aa,
     governance_aa, deposit_state } = active;
-  const { asset1, asset2 } = stable_state;
+  const { asset1, asset2 } = bonded_state;
   const { asset } = deposit_state;
 
   const { messages } = unit;

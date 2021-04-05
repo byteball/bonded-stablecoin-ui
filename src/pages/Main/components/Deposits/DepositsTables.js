@@ -42,14 +42,14 @@ export const DepositsTables = ({
   const {
     deposit_state,
     deposit_aa,
-    stable_state,
+    bonded_state,
     symbol2,
     symbol3,
     reserve_asset_symbol,
     params
   } = useSelector((state) => state.active);
 
-  const actualParams = getParams(params, stable_state);
+  const actualParams = getParams(params, bonded_state);
 
   const mySortedDeposits = my.sort((a, b) => b.ts - a.ts);
   const allSortedDeposits = all.sort((a, b) => a.protection_ratio - b.protection_ratio);
@@ -328,7 +328,7 @@ export const DepositsTables = ({
               };
             }}
             locale={{
-              emptyText: <DepositLocaleForEmpty isActive={stable_state.interest_rate} />,
+              emptyText: <DepositLocaleForEmpty isActive={bonded_state.interest_rate} />,
             }}
             pagination={{ pageSize: 20, hideOnSinglePage: true }}
           />
@@ -339,7 +339,7 @@ export const DepositsTables = ({
               bordered={false}
               dataSource={mySortedDeposits}
               locale={{
-                emptyText: <DepositLocaleForEmpty isActive={stable_state.interest_rate} />,
+                emptyText: <DepositLocaleForEmpty isActive={bonded_state.interest_rate} />,
               }}
               renderItem={(item) => (
                 <DepositsItem
@@ -387,7 +387,7 @@ export const DepositsTables = ({
 
             }}
             locale={{
-              emptyText: <DepositLocaleForEmpty isActive={stable_state.interest_rate} />,
+              emptyText: <DepositLocaleForEmpty isActive={bonded_state.interest_rate} />,
             }}
             pagination={{ pageSize: 20, hideOnSinglePage: true }}
           />
@@ -398,7 +398,7 @@ export const DepositsTables = ({
               bordered={false}
               dataSource={recipientSortedDeposits}
               locale={{
-                emptyText: <DepositLocaleForEmpty isActive={stable_state.interest_rate} />,
+                emptyText: <DepositLocaleForEmpty isActive={bonded_state.interest_rate} />,
               }}
               renderItem={(item) => (
                 <DepositsItem
@@ -454,7 +454,7 @@ export const DepositsTables = ({
 
             }}
             locale={{
-              emptyText: <DepositLocaleForEmpty isActive={stable_state.interest_rate} />,
+              emptyText: <DepositLocaleForEmpty isActive={bonded_state.interest_rate} />,
             }}
             pagination={{ pageSize: 20, hideOnSinglePage: true }}
           />
@@ -465,7 +465,7 @@ export const DepositsTables = ({
               bordered={false}
               dataSource={allSortedDeposits}
               locale={{
-                emptyText: <DepositLocaleForEmpty isActive={stable_state.interest_rate} />,
+                emptyText: <DepositLocaleForEmpty isActive={bonded_state.interest_rate} />,
               }}
               renderItem={(item) => (
                 <DepositsItem

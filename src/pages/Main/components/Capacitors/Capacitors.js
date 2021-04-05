@@ -12,13 +12,13 @@ import config from "config";
 const { Title, Text } = Typography;
 const { Countdown } = Statistic;
 
-export const Capacitors = ({ stable_state, address, params, reserve_asset_symbol }) => {
+export const Capacitors = ({ bonded_state, address, params, reserve_asset_symbol }) => {
   const [width] = useWindowSize();
   const { t } = useTranslation();
   const link = generateLink(1e4, { move_capacity: 1 }, undefined, address);
   const timeToNextMovement =
-    stable_state.lost_peg_ts +
-    (stable_state.move_capacity_timeout ||
+    bonded_state.lost_peg_ts +
+    (bonded_state.move_capacity_timeout ||
       params.move_capacity_timeout ||
       2 * 3600);
 
@@ -46,7 +46,7 @@ export const Capacitors = ({ stable_state, address, params, reserve_asset_symbol
               descr={t("trade.tabs.capacitor.fast.desc", "This capacity is immediately available to reward users who move the price back to the peg.")}
             />
           }
-          value={(Number(stable_state.fast_capacity / 10 ** params.reserve_asset_decimals) || 0).toFixed(params.reserve_asset_decimals)}
+          value={(Number(bonded_state.fast_capacity / 10 ** params.reserve_asset_decimals) || 0).toFixed(params.reserve_asset_decimals)}
           suffix={currency}
           precision={params.reserve_asset_decimals}
         />
@@ -58,7 +58,7 @@ export const Capacitors = ({ stable_state, address, params, reserve_asset_symbol
               descr={t("trade.tabs.capacitor.slow.desc", "This capacity is reserved for the future and will be gradually moved into the fast capacity.")}
             />
           }
-          value={(Number(stable_state.slow_capacity / 10 ** params.reserve_asset_decimals) || 0).toFixed(params.reserve_asset_decimals) || 0}
+          value={(Number(bonded_state.slow_capacity / 10 ** params.reserve_asset_decimals) || 0).toFixed(params.reserve_asset_decimals) || 0}
           suffix={currency}
           precision={params.reserve_asset_decimals}
         />

@@ -15,16 +15,16 @@ export const SelectStablecoin = () => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
 
-  const getLastFeedName = (params, stable_state) => {
-    if (stable_state && ("oracles" in stable_state))
-      return stable_state.oracles.length ? stable_state.oracles[stable_state.oracles.length - 1].feed_name : null;
+  const getLastFeedName = (params, bonded_state) => {
+    if (bonded_state && ("oracles" in bonded_state))
+      return bonded_state.oracles.length ? bonded_state.oracles[bonded_state.oracles.length - 1].feed_name : null;
     else
       return params.feed_name3 || params.feed_name2 || params.feed_name1;
   };
 
   // heuristics to determine the target currency/asset/index. It might fail.
-  const getTargetCurrency = (params, stable_state) => {
-    let feed_name = getLastFeedName(params, stable_state);
+  const getTargetCurrency = (params, bonded_state) => {
+    let feed_name = getLastFeedName(params, bonded_state);
     if (!feed_name)
       return 'GBYTE';
     if (params.leverage) {
@@ -44,9 +44,9 @@ export const SelectStablecoin = () => {
   const optionList = [];
 
   for (const aa in data) {
-    const { asset_2, symbol, params, stable_state } = data[aa];
-    const targetCurrency = getTargetCurrency(params, stable_state);
-    const interest_rate_percent = stable_state ? Decimal.mul(stable_state.interest_rate, 100).toNumber() : null;
+    const { asset_2, symbol, params, bonded_state } = data[aa];
+    const targetCurrency = getTargetCurrency(params, bonded_state);
+    const interest_rate_percent = bonded_state ? Decimal.mul(bonded_state.interest_rate, 100).toNumber() : null;
     if (!recentList.includes(aa)) {
       optionList.push(
         <Select.Option value={aa} key={aa}>
@@ -59,9 +59,9 @@ export const SelectStablecoin = () => {
   }
 
   const optionListRecent = loaded && recentList.filter(aa => data[aa]).map((aa) => {
-    const { asset_2, symbol, params, stable_state } = data[aa];
-    const targetCurrency = getTargetCurrency(params, stable_state);
-    const interest_rate_percent = stable_state ? Decimal.mul(stable_state.interest_rate, 100).toNumber() : null;
+    const { asset_2, symbol, params, bonded_state } = data[aa];
+    const targetCurrency = getTargetCurrency(params, bonded_state);
+    const interest_rate_percent = bonded_state ? Decimal.mul(bonded_state.interest_rate, 100).toNumber() : null;
     return (
       <Select.Option value={aa} key={aa}>
         <CoinIcon width="1em" height="1em" style={{ marginRight: 10 }} type={2}  symbol={symbol} />

@@ -20,7 +20,7 @@ export const Issue = () => {
   const {
     address,
     params,
-    stable_state,
+    bonded_state,
     deposit_aa,
     symbol1,
     symbol2,
@@ -41,7 +41,7 @@ export const Issue = () => {
   const [convert, setConvert] = useState(false);
   const [enableHelp, setEnableHelp] = useState(false);
   const { t } = useTranslation();
-  const reserve = stable_state.reserve;
+  const reserve = bonded_state.reserve;
   const [amount, setAmount] = useState(undefined);
   const [width] = useWindowSize();
   let isActiveIssue = false;
@@ -70,14 +70,14 @@ export const Issue = () => {
     });
 
   const { setFieldsValue, resetFields } = form;
-  const actualParams = getParams(params, stable_state);
+  const actualParams = getParams(params, bonded_state);
 
   useEffect(() => {
     const get_exchange_result = $get_exchange_result({
       tokens1: tokens1 * 10 ** actualParams.decimals1 || 0,
       tokens2: tokens2 * 10 ** actualParams.decimals2 || 0,
       params: actualParams,
-      vars: stable_state,
+      vars: bonded_state,
       oracle_price: oraclePrice,
       timestamp: Math.floor(Date.now() / 1000),
       reservePrice,
@@ -107,7 +107,7 @@ export const Issue = () => {
     setFieldsValue,
     oraclePrice,
     params,
-    stable_state,
+    bonded_state,
     reservePrice,
   ]);
 
@@ -151,7 +151,7 @@ export const Issue = () => {
   }
 
   const new_p2 = amount !== undefined ? (bPriceInversed ? 1 / amount.p2 : amount.p2) : undefined;
-  const old_p2 = bPriceInversed ? 1 / stable_state.p2 : stable_state.p2;
+  const old_p2 = bPriceInversed ? 1 / bonded_state.p2 : bonded_state.p2;
   const t_p2 = amount !== undefined ? (bPriceInversed ? 1 / amount.target_p2 : amount.target_p2) : undefined;
 
   const priceChange =
@@ -239,7 +239,7 @@ export const Issue = () => {
           ]}
         >
           <Input
-            placeholder={t("trade.tabs.buy_redeem.amount1_placeholder", "Amount of tokens1 ({{symbolOrAsset}} — growth tokens)", { symbolOrAsset: symbol1 || stable_state.asset1 })}
+            placeholder={t("trade.tabs.buy_redeem.amount1_placeholder", "Amount of tokens1 ({{symbolOrAsset}} — growth tokens)", { symbolOrAsset: symbol1 || bonded_state.asset1 })}
             autoComplete="off"
             suffix={
               <span style={{ color: "#ccc" }}>
@@ -293,7 +293,7 @@ export const Issue = () => {
                     : reserve_asset_symbol || "")}
               </span>
             }
-            placeholder={t("trade.tabs.buy_redeem.amount2_placeholder", "Amount of tokens2 ({{symbolOrAsset}} — interest tokens)", { symbolOrAsset: symbol2 || stable_state.asset2 })}
+            placeholder={t("trade.tabs.buy_redeem.amount2_placeholder", "Amount of tokens2 ({{symbolOrAsset}} — interest tokens)", { symbolOrAsset: symbol2 || bonded_state.asset2 })}
             autoComplete="off"
           />
         </Form.Item>
@@ -330,12 +330,12 @@ export const Issue = () => {
             className={styles.label}
             style={{ marginBottom: reserve ? 0 : 20 }}
           >
-            <b>{"p2" in stable_state ? t("trade.tabs.buy_redeem.price_change", "{{pair}} price change", { pair: p2Pair }) + ": " : t("trade.tabs.buy_redeem.price", "{{pair}} price", { pair: p2Pair }) + ": "}</b>
+            <b>{"p2" in bonded_state ? t("trade.tabs.buy_redeem.price_change", "{{pair}} price change", { pair: p2Pair }) + ": " : t("trade.tabs.buy_redeem.price", "{{pair}} price", { pair: p2Pair }) + ": "}</b>
             {isActiveIssue && amount !== undefined ? (
               <>
                 {priceChange > 0 ? "+" : ""}
                 {priceChange.toFixed(4)}
-                {"p2" in stable_state &&
+                {"p2" in bonded_state &&
                   " (" +
                   (changePricePercent > 0 ? "+" : "") +
                   changePricePercent.toFixed(2) +
@@ -360,7 +360,7 @@ export const Issue = () => {
           )}
         </>
 
-        {"p2" in stable_state && <Text
+        {"p2" in bonded_state && <Text
           type="secondary"
           className={styles.label}
           style={{ marginBottom: 20 }}
@@ -370,7 +370,7 @@ export const Issue = () => {
             <>
               {priceChangeP1 > 0 ? "+" : ""}
               {priceChangeP1.toFixed(4)}
-              {"p2" in stable_state &&
+              {"p2" in bonded_state &&
                 " (" +
                 (priceChangePercentP1 > 0 ? "+" : "") +
                 priceChangePercentP1.toFixed(2) +

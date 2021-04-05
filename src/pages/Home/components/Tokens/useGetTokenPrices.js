@@ -16,7 +16,7 @@ export const useGetTokenPrices = (list) => {
   list && tokensList.forEach((item) => {
     info = {
       ...info, [item.pegged]: {
-        stable_state: item.address in list ? list[item.address].stable_state : {},
+        bonded_state: item.address in list ? list[item.address].bonded_state : {},
         params: item.address in list ? list[item.address].params : {},
         address: item.address,
       }
@@ -41,15 +41,15 @@ export const useGetTokenPrices = (list) => {
 
 
       for (const pegged in info) {
-        const { params, stable_state } = info[pegged];
-        const s1 = stable_state.supply1 / 10 ** params.decimals1;
-        const s2 = stable_state.supply2 / 10 ** params.decimals2;
-        const oraclePrice = isBot ? await getOraclePriceForBot(info[pegged].stable_state, info[pegged].params) : await getOraclePrice(info[pegged].stable_state, info[pegged].params);
+        const { params, bonded_state } = info[pegged];
+        const s1 = bonded_state.supply1 / 10 ** params.decimals1;
+        const s2 = bonded_state.supply2 / 10 ** params.decimals2;
+        const oraclePrice = isBot ? await getOraclePriceForBot(info[pegged].bonded_state, info[pegged].params) : await getOraclePrice(info[pegged].bonded_state, info[pegged].params);
         const bPriceInversed = "oracles" in params ? params.oracles[0].op === "*" && !params.leverage : params.op1 === "*" && !params.leverage;
 
         info[pegged].p3InReserve = bPriceInversed ? 1 / oraclePrice : oraclePrice;
-        info[pegged].p2InReserve = info[pegged].stable_state.p2;
-        info[pegged].p1InReserve = params.m * s1 ** (params.m - 1) * s2 ** params.n * stable_state.dilution_factor;
+        info[pegged].p2InReserve = info[pegged].bonded_state.p2;
+        info[pegged].p1InReserve = params.m * s1 ** (params.m - 1) * s2 ** params.n * bonded_state.dilution_factor;
         info[pegged].reserve = config.reserves[info[pegged].params.reserve_asset].name;
       }
 

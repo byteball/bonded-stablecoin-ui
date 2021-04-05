@@ -18,7 +18,7 @@ const { Text } = Typography;
 export const Statistics = ({ windowWidth }) => {
   const {
     address,
-    stable_state,
+    bonded_state,
     params,
     oraclePrice,
     deposit_state,
@@ -27,11 +27,11 @@ export const Statistics = ({ windowWidth }) => {
     symbol3,
     reserve_asset_symbol
   } = useSelector((state) => state.active);
-  const actualParams = getParams(params, stable_state);
+  const actualParams = getParams(params, bonded_state);
   const [timestamp, setTimestamp] = useState(Math.floor(Date.now() / 1000));
   const [showBlock, setShowBlock] = useState(false);
   const { t } = useTranslation();
-  const { supply1, supply2 } = stable_state;
+  const { supply1, supply2 } = bonded_state;
   const { decimals1, decimals2, reserve_asset } = actualParams;
   const { supply } = deposit_state;
   const s1 = supply1 / 10 ** decimals1;
@@ -40,18 +40,18 @@ export const Statistics = ({ windowWidth }) => {
     params.m *
     s1 ** (params.m - 1) *
     s2 ** params.n *
-    stable_state.dilution_factor;
+    bonded_state.dilution_factor;
 
   const target_p2 =
     oraclePrice &&
-    !isEmpty(stable_state) &&
+    !isEmpty(bonded_state) &&
     $get_target_p2(
       oraclePrice,
       actualParams.leverage,
       actualParams.interest_rate,
       timestamp,
-      stable_state.rate_update_ts,
-      stable_state.growth_factor
+      bonded_state.rate_update_ts,
+      bonded_state.growth_factor
     );
 
   useEffect(() => {
@@ -68,18 +68,18 @@ export const Statistics = ({ windowWidth }) => {
   let currentPrice = 0;
   let targetPrice = 0;
 
-  if ("p2" in stable_state) {
+  if ("p2" in bonded_state) {
     if ("oracles" in actualParams) {
       if (actualParams.oracles[0].op === "*" && !actualParams.leverage) {
-        currentPrice = 1 / stable_state.p2;
+        currentPrice = 1 / bonded_state.p2;
       } else {
-        currentPrice = stable_state.p2;
+        currentPrice = bonded_state.p2;
       }
     } else {
       if (actualParams.op1 === "*" && !actualParams.leverage) {
-        currentPrice = 1 / stable_state.p2;
+        currentPrice = 1 / bonded_state.p2;
       } else {
-        currentPrice = stable_state.p2;
+        currentPrice = bonded_state.p2;
       }
     }
   }
@@ -104,11 +104,11 @@ export const Statistics = ({ windowWidth }) => {
   const displayOraclePrice = (bPriceInversed || actualParams.leverage) ? oraclePrice : 1 / oraclePrice;
   const reserve_symbol = reserve_asset in config.reserves ? config.reserves[reserve_asset].name : reserve_asset_symbol || "";
   const p2UnitsText = bPriceInversed 
-  ? t("trade.statistic.p2UnitsText.inversed", "The shown price is the price of the reserve asset {{reserveSymbolOrAsset}} in terms of Token2 ({{symbol2orAsset}}).", {reserveSymbolOrAsset: reserve_symbol || '', symbol2orAsset: symbol2 || stable_state.asset2}) 
-  : t("trade.statistic.p2UnitsText.not_inversed", "The shown price is the price of Token2 ({{symbol2OrAsset}}) in terms of the reserve asset {{reserveSymbol}}.", {symbol2OrAsset: symbol2 || stable_state.asset2, reserveSymbol: reserve_symbol || ''});
+  ? t("trade.statistic.p2UnitsText.inversed", "The shown price is the price of the reserve asset {{reserveSymbolOrAsset}} in terms of Token2 ({{symbol2orAsset}}).", {reserveSymbolOrAsset: reserve_symbol || '', symbol2orAsset: symbol2 || bonded_state.asset2}) 
+  : t("trade.statistic.p2UnitsText.not_inversed", "The shown price is the price of Token2 ({{symbol2OrAsset}}) in terms of the reserve asset {{reserveSymbol}}.", {symbol2OrAsset: symbol2 || bonded_state.asset2, reserveSymbol: reserve_symbol || ''});
   const p2Unit = bPriceInversed ? symbol2 : reserve_symbol;
 
-  const currentPriceDifference = stable_state.p2
+  const currentPriceDifference = bonded_state.p2
     ? (currentPrice - targetPrice) / targetPrice
     : 0;
 
@@ -137,7 +137,7 @@ export const Statistics = ({ windowWidth }) => {
     {
       title: t("trade.statistic.reserve.name", "Reserve"),
       descr: t("trade.statistic.reserve.desc", "Total amount of reserve locked to back the issuance of T1 and T2 tokens"),
-      value: "reserve" in stable_state ? stable_state.reserve : 0,
+      value: "reserve" in bonded_state ? bonded_state.reserve : 0,
       decimals: actualParams.reserve_asset_decimals,
       currency:
         reserve_asset in config.reserves ? config.reserves[reserve_asset].name : reserve_asset_symbol || '',

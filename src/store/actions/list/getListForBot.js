@@ -57,7 +57,7 @@ export const getListForBot = () => async (dispatch) => {
             const state = info.data.data;
             list[res.address].params = getParams(list[res.address].params, state);
             list[res.address].reserve = state.reserve || 0;
-            list[res.address].stable_state = state;
+            list[res.address].bonded_state = state;
           })
       );
       list[res.address] = {

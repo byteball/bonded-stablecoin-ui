@@ -20,9 +20,9 @@ export const Parameters = () => {
   const { activeWallet } = useSelector((state) => state.settings);
   const { t } = useTranslation();
   const initialParams = active.params;
-  const params = getParams(initialParams, active.stable_state);
+  const params = getParams(initialParams, active.bonded_state);
   const {
-    stable_state,
+    bonded_state,
     deposit_state,
     oracleValue1,
     oracleValue2,
@@ -77,8 +77,8 @@ export const Parameters = () => {
             {t("trade.tabs.parameters.title_tokens", "Tokens")}
           </Title>
           <TokensParameters
-            asset1={stable_state.asset1}
-            asset2={stable_state.asset2}
+            asset1={bonded_state.asset1}
+            asset2={bonded_state.asset2}
             asset={deposit_state.asset}
             symbol1={symbol1}
             symbol2={symbol2}

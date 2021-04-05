@@ -17,7 +17,7 @@ const { Title, Text } = Typography;
 export const Governance = ({ openWalletModal }) => {
   const {
     governance_state,
-    stable_state,
+    bonded_state,
     params,
     symbol1,
     symbol2,
@@ -25,7 +25,7 @@ export const Governance = ({ openWalletModal }) => {
   } = useSelector((state) => state.active);
   const [currentParams, setCurrentParams] = useState(undefined);
   const { activeWallet } = useSelector((state) => state.settings);
-  const actualParams = getParams(params, stable_state);
+  const actualParams = getParams(params, bonded_state);
   const location = useLocation();
   const { t } = useTranslation();
   const [width] = useWindowSize();
@@ -54,7 +54,7 @@ export const Governance = ({ openWalletModal }) => {
       value: actualParams["interest_rate"] || "0",
     },
     "oracles": {
-      value: generateOraclesString(actualParams, stable_state.oracles),
+      value: generateOraclesString(actualParams, bonded_state.oracles),
     },
     fee_multiplier: {
       value: actualParams["fee_multiplier"],
@@ -111,7 +111,7 @@ export const Governance = ({ openWalletModal }) => {
         governance[param] = {
           ...governance[param],
           leader: governance_state[row],
-          value: generateOraclesString(actualParams, stable_state.oracles),
+          value: generateOraclesString(actualParams, bonded_state.oracles),
         };
       }
     } else if (row.includes("balance_")) {
@@ -280,12 +280,12 @@ export const Governance = ({ openWalletModal }) => {
                 leader={item.leader}
                 supports={item.supports}
                 decimals={actualParams.decimals1}
-                governance_aa={stable_state.governance_aa}
+                governance_aa={bonded_state.governance_aa}
                 base_governance={base_governance}
                 activeWallet={activeWallet}
                 balance={balance}
                 supportList={item.name in supportList ? supportList[item.name] : []}
-                asset={stable_state.asset1}
+                asset={bonded_state.asset1}
                 symbol={symbol1}
                 supportParamsByAddress={
                   item.name in supportParamsByAddress &&

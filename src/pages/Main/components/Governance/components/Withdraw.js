@@ -8,7 +8,7 @@ import { WithdrawModal } from "modals/WithdrawModal/WithdrawModal";
 export const Withdraw = ({ choiceParams, balance, symbol }) => {
   const { t } = useTranslation();
   const [visible, setVisible] = useState(false);
-  const { params, stable_state, symbol1, governance_aa } = useSelector(
+  const { params, bonded_state, symbol1, governance_aa } = useSelector(
     (state) => state.active
   );
   const { activeWallet } = useSelector((state) => state.settings);
@@ -39,7 +39,7 @@ export const Withdraw = ({ choiceParams, balance, symbol }) => {
       <WithdrawModal
         visible={visible}
         setVisible={setVisible}
-        asset={stable_state.asset1}
+        asset={bonded_state.asset1}
         symbol={symbol1}
         decimals={params.decimals1}
         governance_aa={governance_aa}
