@@ -27,7 +27,7 @@ export const SelectStablecoin = () => {
   const getTargetCurrency = (params, bonded_state) => {
     let feed_name = getLastFeedName(params, bonded_state);
     if (!feed_name)
-      return params.reserve_asset && config.reserves[params.reserve_asset]
+      return config.reserves[params.reserve_asset]
         ? config.reserves[params.reserve_asset].name
         : 'GBYTE';
     if (params.leverage) {
