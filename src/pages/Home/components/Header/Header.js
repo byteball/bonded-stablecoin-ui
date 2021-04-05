@@ -16,12 +16,13 @@ const { pegged } = config;
 export const Header = ({ type, setType }) => {
   const { t } = useTranslation();
   const { lang } = useSelector((state) => state.settings);
+  if (!pegged[type]) return null;
   const peggedList = Object.keys(pegged);
   const otherList = peggedList.filter((p) => p !== type && ['USD', 'BTC', 'GOLD'].includes(p));
   const basename = lang && lang !== "en" ? "/" + lang : "";
-  const stableLink = pegged[type].nonGbyteReserve ? `${basename}/trade/${pegged[type].address}` : `${basename}/buy/${pegged[type].address}`;
+  const stableLink = pegged[type].nonGbyteReserve ? `${basename}/trade/${pegged[type].address}/buy-redeem` : `${basename}/buy/${pegged[type].address}`;
   const interestLink = `${basename}/buy/${pegged[type].address}`;
-  const growthLink = `${basename}/trade/${pegged[type].address}`;
+  const growthLink = `${basename}/trade/${pegged[type].address}/buy-redeem`;
   return (
     <>
       <header className={styles.header}>
