@@ -187,7 +187,7 @@ export const AddTokensToCarburetor = () => {
       </QRButton>
 
       <div style={{ marginTop: 10, marginBottom: 10 }}>
-        <Checkbox onChange={(checked) => { setWithdrawAllChange(checked) }}>{t("modals.redeem-both.withdraw_all_label", "Withdraw all the change when executing")}</Checkbox>
+        <Checkbox checked={withdrawAllChange} onChange={(ev) => { setWithdrawAllChange(ev.target.checked) }}>{t("modals.redeem-both.withdraw_all_label", "Withdraw all the change when executing")}</Checkbox>
       </div>
 
       <div style={{ marginBottom: 10 }}>
