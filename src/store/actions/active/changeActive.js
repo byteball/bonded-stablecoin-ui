@@ -88,7 +88,7 @@ export const changeActive = (address) => async (dispatch, getState, socket) => {
     payload: {
       address,
       params,
-      stable_state: stableInfo,
+      bonded_state: stableInfo,
       deposit_state: depositInfo,
       governance_state: governanceInfo,
       oracleValue1: oracleValue1 !== "none" ? oracleValue1 : 0,

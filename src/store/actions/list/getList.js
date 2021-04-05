@@ -85,7 +85,7 @@ export const getList = () => async (dispatch, getState, socket) => {
         socket.api.getAaStateVars({ address: res.address }).then((state) => {
           list[res.address].params = getParams(list[res.address].params, state);
           list[res.address].reserve = state.reserve || 0;
-          list[res.address].stable_state = state;
+          list[res.address].bonded_state = state;
         })
       );
       list[res.address] = {

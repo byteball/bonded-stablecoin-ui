@@ -26,7 +26,7 @@ export const eventManager = (err, result) => {
     address,
     deposit_aa,
     governance_aa,
-    stable_state,
+    bonded_state,
     deposit_state,
     governance_state,
     reserve_asset_symbol,
@@ -46,8 +46,8 @@ export const eventManager = (err, result) => {
       const { messages } = body.unit;
       const payload = getAAPayload(messages);
       const assets = [
-        stable_state.asset1,
-        stable_state.asset2,
+        bonded_state.asset1,
+        bonded_state.asset2,
         deposit_state.asset,
       ];
       if ("asset" in payload && assets.includes(payload.asset))
@@ -64,12 +64,12 @@ export const eventManager = (err, result) => {
         const vars = response.responseVars;
         let symbol;
         let type;
-        if (stable_state.asset1 in vars && !symbol1) {
+        if (bonded_state.asset1 in vars && !symbol1) {
           type = 1;
-          symbol = vars[stable_state.asset1];
-        } else if (stable_state.asset2 in vars && !symbol2) {
+          symbol = vars[bonded_state.asset1];
+        } else if (bonded_state.asset2 in vars && !symbol2) {
           type = 2;
-          symbol = vars[stable_state.asset2];
+          symbol = vars[bonded_state.asset2];
         } else if (deposit_state.asset in vars && !symbol3) {
           type = 3;
           symbol = vars[deposit_state.asset];
@@ -111,7 +111,7 @@ export const eventManager = (err, result) => {
     if (isReq) {
       const { messages } = body.unit;
       const payload = getAAPayload(messages);
-      const { asset1, asset2 } = stable_state;
+      const { asset1, asset2 } = bonded_state;
       bondedEventManager({
         isReq,
         payload,
@@ -134,7 +134,7 @@ export const eventManager = (err, result) => {
       const { messages } = body.unit;
       const payload = getAAPayload(messages);
       const { asset } = deposit_state;
-      const { asset2 } = stable_state;
+      const { asset2 } = bonded_state;
       depositsEventManager({
         isReq,
         payload,

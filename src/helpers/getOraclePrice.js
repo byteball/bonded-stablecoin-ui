@@ -1,13 +1,13 @@
 import socket from "services/socket";
 
 export const getOraclePrice = async (
-  stable_state,
+  bonded_state,
   params,
   showOracles = false
 ) => {
   let oracleValue1, oracleValue2, oracleValue3;
-  if ("oracles" in stable_state) {
-    const { oracles } = stable_state;
+  if ("oracles" in bonded_state) {
+    const { oracles } = bonded_state;
     if (oracles[0]) {
       oracleValue1 = await socket.api.getDataFeed({
         oracles: [oracles[0].oracle],

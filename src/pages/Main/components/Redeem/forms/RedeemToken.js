@@ -16,7 +16,7 @@ const { Text } = Typography;
 export const RedeemToken = ({
   address,
   activeWallet,
-  stable_state,
+  bonded_state,
   reserve_asset_symbol,
   reservePrice,
   symbol1,
@@ -28,7 +28,7 @@ export const RedeemToken = ({
   oraclePrice,
   supply
 }) => {
-  const asset = stable_state && stable_state["asset" + type];
+  const asset = bonded_state && bonded_state["asset" + type];
   const decimals = actualParams && actualParams["decimals" + type];
   const reserve_asset_decimals =
     actualParams && actualParams.reserve_asset_decimals;
@@ -61,14 +61,14 @@ export const RedeemToken = ({
         tokens1: type === 1 && tokens ? -(tokens * 10 ** decimals) : 0,
         tokens2: type === 2 && tokens ? -(tokens * 10 ** decimals) : 0,
         params: actualParams,
-        vars: stable_state,
+        vars: bonded_state,
         oracle_price: oraclePrice,
         timestamp: Math.floor(Date.now() / 1000),
         reservePrice,
       });
 
     setExchange(get_exchange_result);
-  }, [getFieldsValue, tokens, activeWallet, address, asset, decimals, valid, stable_state]);
+  }, [getFieldsValue, tokens, activeWallet, address, asset, decimals, valid, bonded_state]);
 
   const link = generateLink(
     Math.trunc(Number(tokens).toFixed(decimals) * 10 ** decimals),

@@ -16,10 +16,10 @@ export const TransactionsTable = ({ source, type }) => {
   const { t } = useTranslation();
   const {
     params,
-    stable_state,
+    bonded_state,
   } = active;
   const { activeWallet } = useSelector((state) => state.settings);
-  const actualParams = getParams(params, stable_state);
+  const actualParams = getParams(params, bonded_state);
 
   return <div className={styles.wrap}>
     <div className={styles.head + " " + styles.row}>
