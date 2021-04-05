@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { changeActive } from "store/actions/active/changeActive";
 import { Decimal } from "decimal.js";
 import CoinIcon from "stablecoin-icons";
+import config from "config";
 
 const { OptGroup } = Select;
 
@@ -26,7 +27,9 @@ export const SelectStablecoin = () => {
   const getTargetCurrency = (params, bonded_state) => {
     let feed_name = getLastFeedName(params, bonded_state);
     if (!feed_name)
-      return 'GBYTE';
+      return params.reserve_asset && config.reserves[params.reserve_asset]
+        ? config.reserves[params.reserve_asset].name
+        : 'GBYTE';
     if (params.leverage) {
       if (feed_name.includes('GBYTE') || feed_name.includes('USD'))
         feed_name = feed_name.replace('_', '/');
