@@ -129,7 +129,7 @@ export const AddTokensToCarburetor = () => {
         ref={token1Button}
         onClick={() => { t1Form.resetFields(); setCountTokens1({ value: "", valid: false }); }}
         disabled={countTokens1 && !countTokens1.valid}
-        href={generateLink((countTokens1.value || 0) * 10 ** decimals1, { curve_address, auto_withdraw: withdrawAllChange && amount2InCarburetor > 0 ? 1 : undefined }, activeWallet, carburetorAddress, bonded_state.asset1, true)}
+        href={generateLink(Math.round((countTokens1.value || 0) * 10 ** decimals1), { curve_address, auto_withdraw: withdrawAllChange && amount2InCarburetor > 0 ? 1 : undefined }, activeWallet, carburetorAddress, bonded_state.asset1, true)}
       >
         {amount2InCarburetor > 0 ? t("modals.redeem-both.send_execute", "Send {{count}} {{symbol}} and execute", { count: countTokens1.valid ? countTokens1.value : "", symbol: symbol1 || "T1" }) : t("modals.redeem-both.send", "Send {{count}} {{symbol}}", { count: countTokens1.valid ? countTokens1.value : "", symbol: symbol1 || "T1" })}
       </QRButton>
@@ -181,7 +181,7 @@ export const AddTokensToCarburetor = () => {
         ref={token2Button}
         disabled={countTokens2 && !countTokens2.valid}
         onClick={() => { t2Form.resetFields(); setCountTokens2({ value: "", valid: false }); }}
-        href={generateLink((countTokens2.value || 0) * 10 ** decimals2, { curve_address, auto_withdraw: withdrawAllChange && amount1InCarburetor > 0 ? 1 : undefined }, activeWallet, carburetorAddress, bonded_state.asset2, true)}
+        href={generateLink(Math.round((countTokens2.value || 0) * 10 ** decimals2), { curve_address, auto_withdraw: withdrawAllChange && amount1InCarburetor > 0 ? 1 : undefined }, activeWallet, carburetorAddress, bonded_state.asset2, true)}
       >
         {amount1InCarburetor > 0 ? t("modals.redeem-both.send_execute", "Send {{count}} {{symbol}} and execute", { count: countTokens2.valid ? countTokens2.value : "", symbol: symbol2 || "T2" }) : t("modals.redeem-both.send", "Send {{count}} {{symbol}}", { count: countTokens2.valid ? countTokens2.value : "", symbol: symbol2 || "T2" })}
       </QRButton>
