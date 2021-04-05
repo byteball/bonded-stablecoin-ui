@@ -5,17 +5,17 @@ const initDepositParams = {
   reporter_share: 0.2,
 }
 
-export const getParams = (params, stable_state) => {
+export const getParams = (params, bonded_state) => {
   const newParams = {};
-  const deposit_params = { ...initDepositParams, ...stable_state.deposit_params };
+  const deposit_params = { ...initDepositParams, ...bonded_state.deposit_params };
 
   for (const param in params) {
     newParams[param] =
-      param in stable_state ? stable_state[param] : params[param];
+      param in bonded_state ? bonded_state[param] : params[param];
   }
 
-  if("oracles" in stable_state){
-    newParams.oracles = stable_state.oracles
+  if("oracles" in bonded_state){
+    newParams.oracles = bonded_state.oracles
   }
   
   return { ...deposit_params, ...newParams }

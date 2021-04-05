@@ -108,8 +108,8 @@ export const ExchangeForm = () => {
   useEffect(() => {
     (async () => {
       if (currentTokenData && inited) {
-        const { stable_state, params } = currentTokenData;
-        const price = await getOraclePrice(stable_state, params);
+        const { bonded_state, params } = currentTokenData;
+        const price = await getOraclePrice(bonded_state, params);
         setOraclePrice(price);
       }
     })();
@@ -153,18 +153,18 @@ export const ExchangeForm = () => {
   useEffect(() => {
     (async () => {
       if (!currentTokenData) return undefined;
-      const { stable_state, params } = currentTokenData;
+      const { bonded_state, params } = currentTokenData;
 
       const result =
         currentTokenData &&
         oraclePrice &&
         oraclePrice !== undefined &&
-        !isEmpty(stable_state) &&
+        !isEmpty(bonded_state) &&
         $get_exchange_result({
           tokens1: 0,
           tokens2: amountToken * 10 ** params.decimals2,
           params: params,
-          vars: stable_state,
+          vars: bonded_state,
           oracle_price: oraclePrice,
           timestamp: Math.floor(Date.now() / 1000),
           reservePrice
@@ -199,10 +199,10 @@ export const ExchangeForm = () => {
 
   useEffect(() => {
     if (!currentTokenData) return undefined;
-    const { stable_state, params } = currentTokenData;
+    const { bonded_state, params } = currentTokenData;
 
     const result =
-      stable_state &&
+      bonded_state &&
       params &&
       oraclePrice &&
       activeCurrency !== "gbyte" &&
@@ -210,7 +210,7 @@ export const ExchangeForm = () => {
         tokens1: 0,
         tokens2: 0,
         params: params,
-        vars: stable_state,
+        vars: bonded_state,
         oracle_price: oraclePrice,
         timestamp: Math.floor(Date.now() / 1000),
         reservePrice
@@ -281,7 +281,7 @@ export const ExchangeForm = () => {
       tokens1: 0,
       tokens2: amountToken * 10 ** currentTokenData.params.decimals2,
       params: currentTokenData.params,
-      vars: currentTokenData.stable_state,
+      vars: currentTokenData.bonded_state,
       oracle_price: oraclePrice,
       timestamp: Math.floor(Date.now() / 1000),
       reservePrice,

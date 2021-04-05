@@ -16,10 +16,10 @@ const f = (x) => (~(x + "").indexOf(".") ? (x + "").split(".")[1].length : 0);
 export const AddTokensToCarburetor = () => {
   const { activeWallet } = useSelector((state) => state.settings);
   const { address: carburetorAddress, carburetor_balance } = useSelector((state) => state.carburetor);
-  const { params, reservePrice, oraclePrice, stable_state, symbol1, symbol2, reserve_asset_symbol, address: curve_address } = useSelector((state) => state.active);
+  const { params, reservePrice, oraclePrice, bonded_state, symbol1, symbol2, reserve_asset_symbol, address: curve_address } = useSelector((state) => state.active);
   const [calculation, setCalculation] = useState(undefined);
   const { m, n, decimals1, decimals2, reserve_asset_decimals } = params;
-  const { asset1, asset2 } = stable_state;
+  const { asset1, asset2 } = bonded_state;
   const { t } = useTranslation();
   const token1Button = useRef(null);
   const token2Button = useRef(null);
@@ -34,7 +34,7 @@ export const AddTokensToCarburetor = () => {
   const amount1 = (Number(countTokens1.valid && countTokens1.value) || 0) + ((amount1InCarburetor / 10 ** decimals1) || 0);
   const amount2 = (Number(countTokens2.valid && countTokens2.value) || 0) + ((amount2InCarburetor / 10 ** decimals2) || 0);
 
-  const { p2, dilution_factor, supply1, supply2 } = stable_state;
+  const { p2, dilution_factor, supply1, supply2 } = bonded_state;
 
   const new_supply1 = supply1 - amount1 * 10 ** decimals1;
   const new_supply2 = supply2 - amount2 * 10 ** decimals2;
@@ -58,7 +58,7 @@ export const AddTokensToCarburetor = () => {
     count2 = 0;
   }
 
-  const actualParams = getParams(params, stable_state);
+  const actualParams = getParams(params, bonded_state);
 
   useEffect(() => {
     const get_exchange_result =
@@ -67,14 +67,14 @@ export const AddTokensToCarburetor = () => {
         tokens1: -(count1 * 10 ** decimals1),
         tokens2: -(count2 * 10 ** decimals2),
         params: actualParams,
-        vars: stable_state,
+        vars: bonded_state,
         oracle_price: oraclePrice,
         timestamp: Math.floor(Date.now() / 1000),
         reservePrice,
       });
 
     setCalculation(get_exchange_result);
-  }, [activeWallet, decimals1, decimals2, stable_state, count1, count2]);
+  }, [activeWallet, decimals1, decimals2, bonded_state, count1, count2]);
 
   const [t1Form] = Form.useForm();
   const [t2Form] = Form.useForm();
@@ -103,7 +103,7 @@ export const AddTokensToCarburetor = () => {
                   type: "number",
                   minValue: Number(1 / 10 ** decimals1).toFixed(decimals1),
                   maxDecimals: decimals1,
-                  maxValue: stable_state.supply1 / 10 ** decimals1,
+                  maxValue: bonded_state.supply1 / 10 ** decimals1,
                   onError: () => { setCountTokens1((o) => ({ ...o, valid: false })) },
                   onSuccess: () => { setCountTokens1((o) => ({ ...o, valid: true })) }
                 }),
@@ -129,7 +129,7 @@ export const AddTokensToCarburetor = () => {
         ref={token1Button}
         onClick={() => { t1Form.resetFields(); setCountTokens1({ value: "", valid: false }); }}
         disabled={countTokens1 && !countTokens1.valid}
-        href={generateLink((countTokens1.value || 0) * 10 ** decimals1, { curve_address, auto_withdraw: withdrawAllChange && amount2InCarburetor > 0 ? 1 : undefined }, activeWallet, carburetorAddress, stable_state.asset1, true)}
+        href={generateLink(Math.round((countTokens1.value || 0) * 10 ** decimals1), { curve_address, auto_withdraw: withdrawAllChange && amount2InCarburetor > 0 ? 1 : undefined }, activeWallet, carburetorAddress, bonded_state.asset1, true)}
       >
         {amount2InCarburetor > 0 ? t("modals.redeem-both.send_execute", "Send {{count}} {{symbol}} and execute", { count: countTokens1.valid ? countTokens1.value : "", symbol: symbol1 || "T1" }) : t("modals.redeem-both.send", "Send {{count}} {{symbol}}", { count: countTokens1.valid ? countTokens1.value : "", symbol: symbol1 || "T1" })}
       </QRButton>
@@ -155,7 +155,7 @@ export const AddTokensToCarburetor = () => {
                   type: "number",
                   minValue: Number(1 / 10 ** decimals2).toFixed(decimals2),
                   maxDecimals: decimals2,
-                  maxValue: stable_state.supply2 / 10 ** decimals2,
+                  maxValue: bonded_state.supply2 / 10 ** decimals2,
                   onError: () => { setCountTokens2((o) => ({ ...o, valid: false })) },
                   onSuccess: () => { setCountTokens2((o) => ({ ...o, valid: true })) }
                 }),
@@ -181,13 +181,13 @@ export const AddTokensToCarburetor = () => {
         ref={token2Button}
         disabled={countTokens2 && !countTokens2.valid}
         onClick={() => { t2Form.resetFields(); setCountTokens2({ value: "", valid: false }); }}
-        href={generateLink((countTokens2.value || 0) * 10 ** decimals2, { curve_address, auto_withdraw: withdrawAllChange && amount1InCarburetor > 0 ? 1 : undefined }, activeWallet, carburetorAddress, stable_state.asset2, true)}
+        href={generateLink(Math.round((countTokens2.value || 0) * 10 ** decimals2), { curve_address, auto_withdraw: withdrawAllChange && amount1InCarburetor > 0 ? 1 : undefined }, activeWallet, carburetorAddress, bonded_state.asset2, true)}
       >
         {amount1InCarburetor > 0 ? t("modals.redeem-both.send_execute", "Send {{count}} {{symbol}} and execute", { count: countTokens2.valid ? countTokens2.value : "", symbol: symbol2 || "T2" }) : t("modals.redeem-both.send", "Send {{count}} {{symbol}}", { count: countTokens2.valid ? countTokens2.value : "", symbol: symbol2 || "T2" })}
       </QRButton>
 
       <div style={{ marginTop: 10, marginBottom: 10 }}>
-        <Checkbox onChange={(checked) => { setWithdrawAllChange(checked) }}>{t("modals.redeem-both.withdraw_all_label", "Withdraw all the change when executing")}</Checkbox>
+        <Checkbox checked={withdrawAllChange} onChange={(ev) => { setWithdrawAllChange(ev.target.checked) }}>{t("modals.redeem-both.withdraw_all_label", "Withdraw all the change when executing")}</Checkbox>
       </div>
 
       <div style={{ marginBottom: 10 }}>

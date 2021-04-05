@@ -73,8 +73,8 @@ export const PopularInterest = ({ prices, hideTitle = false, showAll = false }) 
 
   useEffect(() => {
     if (showAll) {
-      const otherList = Object.entries(data).map(([address, { stable_state, symbol, params }]) => {
-        const apy = ("interest_rate" in stable_state ? stable_state.interest_rate : params.interest_rate) * 100;
+      const otherList = Object.entries(data).map(([address, { bonded_state, symbol, params }]) => {
+        const apy = ("interest_rate" in bonded_state ? bonded_state.interest_rate : params.interest_rate) * 100;
         
         if (tokensList.findIndex((t) => symbol && (t.name === symbol)) === -1) {
           if (apy) {

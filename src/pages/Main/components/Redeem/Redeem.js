@@ -13,7 +13,7 @@ export const Redeem = ({ setWalletModalVisibility }) => {
   const {
     address,
     params,
-    stable_state,
+    bonded_state,
     symbol1,
     symbol2,
     reservePrice,
@@ -27,7 +27,7 @@ export const Redeem = ({ setWalletModalVisibility }) => {
   const tokens2Field = tokens.find((t) => t.name[0] === "r_tokens2");
   const tokens1 = tokens1Field ? tokens1Field.value : 0;
   const tokens2 = tokens2Field ? tokens2Field.value : 0;
-  const actualParams = getParams(params, stable_state);
+  const actualParams = getParams(params, bonded_state);
   const [visibleModal, setVisibleModal] = useState(false);
   return (
     <>
@@ -39,16 +39,16 @@ export const Redeem = ({ setWalletModalVisibility }) => {
         symbol1={symbol1}
         symbol2={symbol2}
         setTokens={setTokens}
-        stable_state={stable_state}
+        bonded_state={bonded_state}
         reserve_asset_symbol={reserve_asset_symbol}
         actualParams={actualParams}
         activeWallet={activeWallet}
         reservePrice={reservePrice}
         key={1}
         type={1}
-        p2={stable_state.p2}
+        p2={bonded_state.p2}
         oraclePrice={oraclePrice}
-        supply={stable_state.supply1 / 10 ** actualParams.decimals1}
+        supply={bonded_state.supply1 / 10 ** actualParams.decimals1}
       />
       <Title level={3}>{t("trade.tabs.buy_redeem.title_redeem", "Redeem token{{number}} {{symbol}}", { number: 2, symbol: symbol2 ? "(" + symbol2 + ")" : "" })}</Title>
       <RedeemToken
@@ -58,16 +58,16 @@ export const Redeem = ({ setWalletModalVisibility }) => {
         symbol1={symbol1}
         symbol2={symbol2}
         setTokens={setTokens}
-        stable_state={stable_state}
+        bonded_state={bonded_state}
         reserve_asset_symbol={reserve_asset_symbol}
         actualParams={actualParams}
         reservePrice={reservePrice}
         activeWallet={activeWallet}
         key={2}
         type={2}
-        p2={stable_state.p2}
+        p2={bonded_state.p2}
         oraclePrice={oraclePrice}
-        supply={stable_state.supply2 / 10 ** actualParams.decimals2}
+        supply={bonded_state.supply2 / 10 ** actualParams.decimals2}
       />
       <Paragraph type="secondary">
         <Trans i18nKey="trade.tabs.buy_redeem.redeem_both">

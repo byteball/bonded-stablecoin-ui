@@ -38,7 +38,7 @@ const tabList = ["buy", "charts", "deposits", "capacitor", "governance", "parame
 export const MainPage = ({ setWalletModalVisibility }) => {
   const {
     address,
-    stable_state,
+    bonded_state,
     deposit_state,
     reserve_asset_symbol,
     params,
@@ -54,7 +54,7 @@ export const MainPage = ({ setWalletModalVisibility }) => {
   const [handleSkip, setHandleSkip] = useState(false);
   const [tabInitialized, setTabInitialized] = useState(false);
   const [addressInitialized, setAddressInitialized] = useState(false);
-  const actualParams = getParams(params, stable_state);
+  const actualParams = getParams(params, bonded_state);
   const urlParams = useParams();
   const history = useHistory();
   const location = useLocation();
@@ -97,16 +97,16 @@ export const MainPage = ({ setWalletModalVisibility }) => {
   }, [tab])
 
   useEffect(() => {
-    if (loaded && !isEmpty(stable_state) && !tabInitialized) {
+    if (loaded && !isEmpty(bonded_state) && !tabInitialized) {
       if (tabList.includes(hash)) {
-        if ("reserve" in stable_state || ["parameters", "charts"].includes(hash)) {
+        if ("reserve" in bonded_state || ["parameters", "charts"].includes(hash)) {
           setCurrentTab(hash === "buy" ? "buy-redeem" : hash);
         } else {
           setCurrentTab("buy-redeem");
         }
         history.replace({ hash: undefined });
       } else if (!tab) {
-        if ("reserve" in stable_state) {
+        if ("reserve" in bonded_state) {
           setCurrentTab("charts");
         } else {
           setCurrentTab("buy-redeem");
@@ -116,7 +116,7 @@ export const MainPage = ({ setWalletModalVisibility }) => {
       }
       setTabInitialized(true);
     }
-  }, [loaded, tabInitialized, stable_state]);
+  }, [loaded, tabInitialized, bonded_state]);
 
   const handleClickToLiquidity = () => {
     ReactGA.event({
@@ -132,7 +132,7 @@ export const MainPage = ({ setWalletModalVisibility }) => {
     address !== "undefined" &&
     ((!symbol1 && !pendings.tokens1) ||
       (!symbol2 && !pendings.tokens2) ||
-      (!symbol3 && !pendings.tokens3 && stable_state.interest_rate))
+      (!symbol3 && !pendings.tokens3 && bonded_state.interest_rate))
   ) {
     return (
       <RegisterSymbols
@@ -140,15 +140,15 @@ export const MainPage = ({ setWalletModalVisibility }) => {
         symbol2={symbol2}
         symbol3={symbol3}
         pendings={pendings}
-        asset1={stable_state.asset1}
-        asset2={stable_state.asset2}
+        asset1={bonded_state.asset1}
+        asset2={bonded_state.asset2}
         asset3={deposit_state.asset}
         decimals1={actualParams.decimals1}
         decimals2={actualParams.decimals2}
         address={address}
         activeWallet={activeWallet}
         handleSkip={setHandleSkip}
-        interest={!!stable_state.interest_rate}
+        interest={!!bonded_state.interest_rate}
       />
     );
   } else
@@ -162,7 +162,7 @@ export const MainPage = ({ setWalletModalVisibility }) => {
             animated={false}
           >
             <TabPane
-              disabled={!("reserve" in stable_state)}
+              disabled={!("reserve" in bonded_state)}
               tab={
                 <span>
                   <LineChartOutlined /> {t("trade.tabs.charts.name", "Charts")}
@@ -180,7 +180,7 @@ export const MainPage = ({ setWalletModalVisibility }) => {
               }
               key="buy-redeem"
             >
-              {"reserve" in stable_state ? (
+              {"reserve" in bonded_state ? (
                 <Row style={{ marginTop: 20 }}>
                   <Col md={{ span: 10 }} xs={{ span: 24 }}>
                     <Issue />
@@ -203,7 +203,7 @@ export const MainPage = ({ setWalletModalVisibility }) => {
               </div>
             </TabPane>
             <TabPane
-              disabled={!("reserve" in stable_state) || (!stable_state.interest_rate && !deposit_state.supply)}
+              disabled={!("reserve" in bonded_state) || (!bonded_state.interest_rate && !deposit_state.supply)}
               tab={
                 <span>
                   <ImportOutlined /> {t("trade.tabs.deposits.name", "Deposits")}
@@ -214,7 +214,7 @@ export const MainPage = ({ setWalletModalVisibility }) => {
               <Deposits params={actualParams} openWalletModal={setWalletModalVisibility} />
             </TabPane>
             <TabPane
-              disabled={!("reserve" in stable_state)}
+              disabled={!("reserve" in bonded_state)}
               tab={
                 <span>
                   <CapacitorIcon />
@@ -225,14 +225,14 @@ export const MainPage = ({ setWalletModalVisibility }) => {
             >
               <Capacitors
                 address={address}
-                stable_state={stable_state}
+                bonded_state={bonded_state}
                 params={actualParams}
                 reserve_asset_symbol={reserve_asset_symbol}
               />
             </TabPane>
 
             <TabPane
-              disabled={!("reserve" in stable_state)}
+              disabled={!("reserve" in bonded_state)}
               tab={
                 <span>
                   <GovernanceIcon />
@@ -244,7 +244,7 @@ export const MainPage = ({ setWalletModalVisibility }) => {
               <Governance openWalletModal={setWalletModalVisibility} />
             </TabPane>
             <TabPane
-              disabled={!("reserve" in stable_state)}
+              disabled={!("reserve" in bonded_state)}
               tab={
                 <span>
                   <NodeIndexOutlined />

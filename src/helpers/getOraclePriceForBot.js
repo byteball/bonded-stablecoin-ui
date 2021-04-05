@@ -2,13 +2,13 @@ import axios from "axios";
 import config from "../config";
 
 export const getOraclePriceForBot = async (
-  stable_state,
+  bonded_state,
   params,
   showOracles = false
 ) => {
   let oracleValue1, oracleValue2, oracleValue3;
-  if ("oracles" in stable_state) {
-    const { oracles } = stable_state;
+  if ("oracles" in bonded_state) {
+    const { oracles } = bonded_state;
     if (oracles[0]) {
       oracleValue1 = await axios.get(config.BUFFER_URL + "/get_data_feed/" + oracles[0].oracle + "/" + oracles[0].feed_name).then(response => response.data.data);
     }
