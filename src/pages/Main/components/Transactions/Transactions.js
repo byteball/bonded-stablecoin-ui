@@ -19,20 +19,23 @@ export const Transactions = () => {
     address,
     deposit_aa,
     governance_aa,
-    transactions: { curve, deposit, governance }
+    stable_aa,
+    bonded_state: {decision_engine_aa},
+    transactions: { curve, depositOrStable, governance, de }
   } = active;
 
   useEffect(() => {
     dispatch(getPrevTransactions());
   }, [address]);
 
-  if (isEmpty(curve) && isEmpty(deposit) && isEmpty(governance)) {
+  if (isEmpty(curve) && isEmpty(depositOrStable) && isEmpty(governance)) {
     return <div style={{ display: "flex", justifyContent: "center", paddingTop: 50, paddingBottom: 50 }}><Spin size="large" /></div>
   }
 
   const curveSource = getSourceFromObject(curve);
-  const depositSource = getSourceFromObject(deposit);
+  const depositOrStableSource = getSourceFromObject(depositOrStable);
   const governanceSource = getSourceFromObject(governance);
+  const deSource = decision_engine_aa ? getSourceFromObject(de): undefined;
 
   return <div>
     <Title level={3}>{t("trade.tabs.transactions.title", "Transactions")}</Title>
@@ -57,22 +60,37 @@ export const Transactions = () => {
         </div>
       </TabPane>
 
-      <TabPane tab={t("trade.tabs.transactions.deposits", "Deposits")} key="deposits-2">
+      <TabPane tab={stable_aa ? t("trade.tabs.transactions.stable", "Stable") : t("trade.tabs.transactions.deposits", "Deposits")} key="deposits-2">
         <Text>{t("trade.tabs.transactions.address", "The address of the autonomous agent")}: </Text>
         <a
           href={`https://${config.TESTNET ? "testnet" : ""
-            }explorer.obyte.org/#${deposit_aa}`}
+            }explorer.obyte.org/#${stable_aa || deposit_aa}`}
           target="_blank"
           rel="noopener"
         >
-          {deposit_aa}
+          {stable_aa || deposit_aa}
         </a>
         <div style={{ marginTop: 25 }}>
-          <TransactionsTable type="deposit" source={depositSource} />
+          <TransactionsTable type={stable_aa ? "stable" : "deposit"} source={depositOrStableSource} />
         </div>
       </TabPane>
 
-      <TabPane tab={t("trade.tabs.transactions.governance", "Governance")} key="governance-3">
+      {deSource && <TabPane tab={t("trade.tabs.transactions.de", "Decision engine")} key="de-3">
+        <Text>{t("trade.tabs.transactions.address", "The address of the autonomous agent")}: </Text>
+        <a
+          href={`https://${config.TESTNET ? "testnet" : ""
+            }explorer.obyte.org/#${governance_aa}`}
+          target="_blank"
+          rel="noopener"
+        >
+          {decision_engine_aa}
+        </a>
+        <div style={{ marginTop: 25 }}>
+          <TransactionsTable type="de" source={deSource} />
+        </div>
+      </TabPane>}
+
+      <TabPane tab={t("trade.tabs.transactions.governance", "Governance")} key="governance-4">
         <Text>{t("trade.tabs.transactions.address", "The address of the autonomous agent")}: </Text>
         <a
           href={`https://${config.TESTNET ? "testnet" : ""

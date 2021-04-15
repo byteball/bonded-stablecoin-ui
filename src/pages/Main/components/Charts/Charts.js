@@ -14,7 +14,7 @@ import { useWindowSize } from 'hooks/useWindowSize';
 const { Title } = Typography;
 
 export const Charts = ({ params, isActive}) => {
-  const { symbol1, symbol2, address, reserve_asset_symbol } = useSelector((state) => state.active);
+  const { symbol1, symbol2, address, reserve_asset_symbol, fund_aa, symbol4 } = useSelector((state) => state.active);
   const [width] = useWindowSize();
   const now = moment().format('YYYY-MM-DD');
   const chartRef = useRef(null);
@@ -46,7 +46,7 @@ export const Charts = ({ params, isActive}) => {
     priceScaleId: 'right',
     lineColor: 'rgba(0, 55, 255, 1)',
     bottomColor: 'rgba(0, 55, 255, 0.04)',
-    title: `${symbol1} price (in ${reserveToken})`,
+    title: `${fund_aa ? symbol4 : symbol1} price (in ${reserveToken})`,
     priceFormat: {
       type: "custom",
       minMove: 1 / 1e9,
@@ -112,11 +112,11 @@ export const Charts = ({ params, isActive}) => {
       }
     }
 
-    if (symbol1) {
+    if (fund_aa ? symbol4 : symbol1) {
       let T1Data;
       try {
         T1Data = await axios.get(
-          `${config.STATS_URL}/candles/${symbol1}-${reserveToken}?period=${type}&start=${from}&end=${to}`
+          `${config.STATS_URL}/candles/${fund_aa ? symbol4 : symbol1}-${reserveToken}?period=${type}&start=${from}&end=${to}`
         );
         T1 = T1Data.data.map((v) => ({
           value: v.open_price,
@@ -157,7 +157,7 @@ export const Charts = ({ params, isActive}) => {
             if (lineSeriesT1) {
               lineSeriesT1.setData(candleDaily.T1);
               lineSeriesT1.applyOptions({
-                title: t("trade.tabs.charts.legend", "{{symbol}} price (in {{currency}})", {symbol: symbol1, currency: reserveToken})
+                title: t("trade.tabs.charts.legend", "{{symbol}} price (in {{currency}})", {symbol: fund_aa ? symbol4 : symbol1, currency: reserveToken})
               });
             }
             if (lineSeriesT2) {
@@ -176,7 +176,7 @@ export const Charts = ({ params, isActive}) => {
             if (lineSeriesT1) {
               lineSeriesT1.setData(candleHourly.T1);
               lineSeriesT1.applyOptions({
-                title: t("trade.tabs.charts.legend", "{{symbol}} price (in {{currency}})", {symbol: symbol1, currency: reserveToken})
+                title: t("trade.tabs.charts.legend", "{{symbol}} price (in {{currency}})", {symbol: fund_aa ? symbol4 : symbol1, currency: reserveToken})
               });
             }
             if (lineSeriesT2) {
@@ -233,7 +233,7 @@ export const Charts = ({ params, isActive}) => {
         inUSD={inUSD}
         legends={legends}
         reserveToken={reserveToken}
-        symbol1={symbol1}
+        symbol1={fund_aa ? symbol4 : symbol1}
         symbol2={symbol2}
         handleHideT1={handleHideT1}
         handleHideT2={handleHideT2}

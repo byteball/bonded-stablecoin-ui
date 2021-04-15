@@ -143,4 +143,20 @@ export const paramsDescription = () => ({
     name: i18n.t("params.proposal_min_support.name", "Proposal min support"),
     desc: i18n.t("params.proposal_min_support.desc", "What share of the total Token1 supply should vote for a grant proposal for the proposal to be eligible to win.")
   },
+  below_peg_threshold: {
+    name: i18n.t("params.below_peg_threshold.name", "Below peg threshold"),
+    desc: i18n.t("params.below_peg_threshold.desc", "Threshold deviation of the price below the peg that starts a countdown before the DE intervention"),
+  },
+  below_peg_timeout: {
+    name: i18n.t("params.below_peg_timeout.name", "Below peg timeout"),
+    desc: i18n.t("params.below_peg_timeout.desc", "How long the price has to stay below the peg for the DE to interfere"),
+  },
+  min_reserve_delta: {
+    name: i18n.t("params.min_reserve_delta.name", "Min reserve delta"),
+    desc: i18n.t("params.min_reserve_delta.desc", "Minimum amount of a DE-initiated transaction"),
+  },
+  decision_engine_aa: {
+    name: i18n.t("params.decision_engine_aa.name", "Decision engine AA"),
+    desc: i18n.t("params.decision_engine_aa.desc", "Autonomous Agent of Decision Engine. It manages the Stability Fund to keep the price stable."),
+  }
 });

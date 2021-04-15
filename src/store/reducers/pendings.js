@@ -11,6 +11,7 @@ const initialState = {
   tokens1: false,
   tokens2: false,
   tokens3: false,
+  tokens4: false,
   stablecoin: {
     params: null,
     sendReq: false,
@@ -26,6 +27,7 @@ export const pendingsReducer = (state = initialState, action) => {
         tokens1: false,
         tokens2: false,
         tokens3: false,
+        tokens4: false
       };
     }
     case EVENT_PENDING_TOKEN: {

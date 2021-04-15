@@ -40,10 +40,10 @@ export const AddWalletAddressModal = ({ visible, setShowWalletModal }) => {
   };
 
   const handleAdd = (address) => {
-    if (address) {
-      dispatch(addWallet(address));
+    if (address.valid && address.value) {
+      dispatch(addWallet(address.value));
+      handleCancel();
     }
-    handleCancel();
   };
 
   useEffect(() => {
@@ -92,7 +92,7 @@ export const AddWalletAddressModal = ({ visible, setShowWalletModal }) => {
             autoFocus={true}
             onKeyPress={(ev) => {
               if (ev.key === "Enter") {
-                handleAdd(address.value);
+                handleAdd(address);
               }
             }}
           />

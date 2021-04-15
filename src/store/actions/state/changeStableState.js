@@ -1,6 +1,6 @@
-import { CHANGE_BONDED_STATE } from "../../types/state";
+import { CHANGE_STABLE_STATE } from "../../types/state";
 
 export const changeStableState = (state) => ({
-  type: CHANGE_BONDED_STATE,
+  type: CHANGE_STABLE_STATE,
   payload: state,
 });

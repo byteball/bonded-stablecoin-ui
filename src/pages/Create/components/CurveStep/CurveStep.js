@@ -15,7 +15,7 @@ const { useForm } = Form;
 
 const initialValues = {
   m: 2,
-  n: 0.5,
+  n: 2,
   leverage: 0,
   op1: "*",
   interest_rate: 0,
@@ -25,7 +25,7 @@ const initialValues = {
   reserve_asset_decimals: 9,
 };
 
-export const CurverStep = ({ setCurrent, setData }) => {
+export const CurverStep = ({ setCurrent, setData, type }) => {
   const [form] = useForm();
   const { getFieldsValue, setFieldsValue } = form;
   const { t } = useTranslation();
@@ -74,6 +74,10 @@ export const CurverStep = ({ setCurrent, setData }) => {
       onSuccess: () => setValidFields((v) => ({ ...v, [name]: true })),
       onError: () => setValidFields((v) => ({ ...v, [name]: false })),
     });
+
+  useEffect(()=>{
+    setFieldsValue({ n: type === 2 ? 2 : 0.5 });
+  }, [type]);
 
   useEffect(() => {
     const getStatusOracle = async () => {

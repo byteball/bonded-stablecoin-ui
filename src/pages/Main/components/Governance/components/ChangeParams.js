@@ -286,6 +286,7 @@ export const ChangeParams = ({
         decimals={decimals}
         symbol={symbol}
         balance={balance}
+        fund_aa={fund_aa}
       />
     </>
   );

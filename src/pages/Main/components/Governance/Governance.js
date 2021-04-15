@@ -21,7 +21,10 @@ export const Governance = ({ openWalletModal }) => {
     params,
     symbol1,
     symbol2,
-    base_governance
+    symbol4,
+    fund_aa,
+    base_governance,
+    fund_state
   } = useSelector((state) => state.active);
   const [currentParams, setCurrentParams] = useState(undefined);
   const { activeWallet } = useSelector((state) => state.settings);
@@ -70,21 +73,27 @@ export const Governance = ({ openWalletModal }) => {
     },
     slow_capacity_share: {
       value: actualParams["slow_capacity_share"],
-    },
-    "deposits.min_deposit_term": {
-      value: actualParams["min_deposit_term"],
-    },
-    "deposits.challenging_period": {
-      value: actualParams["challenging_period"],
-    },
-    "deposits.challenge_immunity_period": {
-      value: actualParams["challenge_immunity_period"],
-    },
-    "deposits.reporter_share": {
-      value: actualParams["reporter_share"],
     }
   };
-
+  if (fund_aa) {
+    initParams.decision_engine_aa = {
+      value: bonded_state.decision_engine_aa
+    }
+  } else {
+    initParams["deposits.min_deposit_term"] = {
+      value: actualParams["min_deposit_term"]
+    }
+    initParams["deposits.challenging_period"] = {
+      value: actualParams["challenging_period"]
+    }
+    initParams["deposits.challenge_immunity_period"] = {
+      value: actualParams["challenge_immunity_period"]
+    }
+    initParams["deposits.reporter_share"] = {
+      value: actualParams["reporter_share"]
+    }
+  }
+  
   let supportParamsByAddress = {};
   const governance = {};
   const balances = {};
@@ -135,11 +144,11 @@ export const Governance = ({ openWalletModal }) => {
         const value = row.includes("support_oracles") ? info.slice(1).slice(0, info.length - 2).join("_") : info[info.length - 2];
         const param = row.includes("support_oracles") ? "oracles" : info.slice(0, -2).join("_");
         if (!(param in supportList)) supportList[param] = []
-          supportList[param] = [...supportList[param], {
-            support: governance_state[row],
-            value,
-            address
-          }];
+        supportList[param] = [...supportList[param], {
+          support: governance_state[row],
+          value,
+          address
+        }];
         if (row.includes("support_oracles")) {
           const oraclesRow = info.join("_");
 
@@ -241,17 +250,18 @@ export const Governance = ({ openWalletModal }) => {
       <Title level={3}>{t("trade.tabs.governance.title", "Governance")}</Title>
       <p>
         <Text type="secondary">
-          <Trans i18nKey="trade.tabs.governance.desc" symbol1={symbol1} symbol2={symbol2}>
-            {{symbol1: symbol1 || "T1"}} holders can vote to change various
+          <Trans i18nKey="trade.tabs.governance.desc" symbol1={fund_aa ? symbol4 || "T_SF" : symbol1 || "T1"} symbol2={symbol2}>
+            {{ symbol1: fund_aa ? symbol4 || "T_SF" : symbol1 || "T1" }} holders can vote to change various
             parameters of the stablecoin and ensure its success. <br /> The value
-            of {{symbol1: symbol1 || "T1"}} grows as more {{symbol2: symbol2 || "T2"}} tokens are bought.
+            of {{ symbol1: fund_aa ? symbol4 || "T_SF" : symbol1 || "T1" }} grows as more {{ symbol2: symbol2 || "T2" }} tokens are bought.
           </Trans>
         </Text>
       </p>
 
       <Withdraw
         choiceParams={choiceParams}
-        symbol={symbol1}
+        symbol={fund_aa ? symbol4 : symbol1}
+        decimals={fund_aa ? actualParams.reserve_asset_decimals :  actualParams.decimals1}
         balance={
           (activeWallet in balances &&
             balances[activeWallet] / 10 ** actualParams.decimals1) ||
@@ -279,14 +289,15 @@ export const Governance = ({ openWalletModal }) => {
                 name={item.name}
                 leader={item.leader}
                 supports={item.supports}
-                decimals={actualParams.decimals1}
+                decimals={fund_aa ? actualParams.reserve_asset_decimals :  actualParams.decimals1}
                 governance_aa={bonded_state.governance_aa}
                 base_governance={base_governance}
                 activeWallet={activeWallet}
                 balance={balance}
                 supportList={item.name in supportList ? supportList[item.name] : []}
-                asset={bonded_state.asset1}
-                symbol={symbol1}
+                asset={fund_state?.shares_asset || bonded_state.asset1}
+                fund_aa={fund_aa}
+                symbol={fund_aa ? symbol4 : symbol1}
                 supportParamsByAddress={
                   item.name in supportParamsByAddress &&
                     activeWallet in supportParamsByAddress[item.name]

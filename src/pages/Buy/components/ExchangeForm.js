@@ -153,7 +153,7 @@ export const ExchangeForm = () => {
   useEffect(() => {
     (async () => {
       if (!currentTokenData) return undefined;
-      const { bonded_state, params } = currentTokenData;
+      const { bonded_state, params, fund } = currentTokenData;
 
       const result =
         currentTokenData &&
@@ -167,7 +167,8 @@ export const ExchangeForm = () => {
           vars: bonded_state,
           oracle_price: oraclePrice,
           timestamp: Math.floor(Date.now() / 1000),
-          reservePrice
+          reservePrice,
+          isV2: !!fund
         });
 
       if (result && activeCurrency === "gbyte" && inited) {
@@ -199,7 +200,7 @@ export const ExchangeForm = () => {
 
   useEffect(() => {
     if (!currentTokenData) return undefined;
-    const { bonded_state, params } = currentTokenData;
+    const { bonded_state, params, fund } = currentTokenData;
 
     const result =
       bonded_state &&
@@ -213,7 +214,8 @@ export const ExchangeForm = () => {
         vars: bonded_state,
         oracle_price: oraclePrice,
         timestamp: Math.floor(Date.now() / 1000),
-        reservePrice
+        reservePrice,
+        isV2: !!fund
       });
     if (result && activeCurrency !== "gbyte" && inited) {
       const expectT2 =
@@ -285,6 +287,7 @@ export const ExchangeForm = () => {
       oracle_price: oraclePrice,
       timestamp: Math.floor(Date.now() / 1000),
       reservePrice,
+      isV2: currentTokenData.fund
     });
 
   if (!inited) return <Spin />;
