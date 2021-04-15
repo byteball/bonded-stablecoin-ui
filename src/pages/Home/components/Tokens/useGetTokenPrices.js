@@ -46,11 +46,12 @@ export const useGetTokenPrices = (list) => {
         const s2 = bonded_state.supply2 / 10 ** params.decimals2;
         const oraclePrice = isBot ? await getOraclePriceForBot(info[pegged].bonded_state, info[pegged].params) : await getOraclePrice(info[pegged].bonded_state, info[pegged].params);
         const bPriceInversed = "oracles" in params ? params.oracles[0].op === "*" && !params.leverage : params.op1 === "*" && !params.leverage;
+        const reserveAsset = config.reserves[info[pegged].params.reserve_asset] || null;
 
         info[pegged].p3InReserve = bPriceInversed ? 1 / oraclePrice : oraclePrice;
         info[pegged].p2InReserve = info[pegged].bonded_state.p2;
         info[pegged].p1InReserve = params.m * s1 ** (params.m - 1) * s2 ** params.n * bonded_state.dilution_factor;
-        info[pegged].reserve = config.reserves[info[pegged].params.reserve_asset].name;
+        info[pegged].reserve = reserveAsset ? reserveAsset.name : info[pegged].params.reserve_asset;
       }
 
       const newInterest = {};

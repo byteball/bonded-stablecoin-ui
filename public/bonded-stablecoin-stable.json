@@ -1,0 +1,9 @@
+{
+	"version": "1.0",
+	"description": "Bonded Stablecoin Stable AA.",
+	"homepage_url": "https://ostable.org",
+	"source_url": "https://github.com/byteball/bonded-stablecoin",
+	"field_descriptions": {
+		"to": "Send the coins to this address instead of the caller."
+	}
+}
