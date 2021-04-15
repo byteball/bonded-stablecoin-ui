@@ -1,19 +1,20 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, Suspense } from "react";
 import { Typography } from "antd";
 import { useTranslation, Trans } from 'react-i18next';
 import { Helmet } from "react-helmet";
-import Graph3D from "react-graph3d-vis";
 
 import capacitor from "./img/capacitor.svg";
 import agent from "./img/agent.svg";
 import styles from "./HowItWorksPage.module.css";
+
+const Graph3D = React.lazy(() => import('react-graph3d-vis'));
 
 const { Title } = Typography;
 
 export const HowItWorksPage = () => {
   const { t } = useTranslation();
   const [data, setData] = useState([])
-  
+
   useEffect(() => {
     const data = [];
     for (let i = 0; i <= 10; i = i + 1) {
@@ -64,36 +65,38 @@ export const HowItWorksPage = () => {
                   <li>- <i>s</i><sub>2</sub> is the total supply of token2 — IUSD.</li>
                 </ul>
               </Trans>
-              <div className={styles.image}>
-                {data.length > 0 && <Graph3D
-                  data={data}
-                  options={{
-                    width: "100%",
-                    height: "480px",
-                    style: "surface",
-                    keepAspectRatio: false,
-                    showPerspective: true,
-                    showGrid: true,
-                    showShadow: false,
-                    xLabel: "s1 (GRD)",
-                    yLabel: "s2 (IUSD)",
-                    zLabel: "Reserve",
-                    zValueLabel: (z) => z / 1000 + "k",
-                    yValueLabel: (z) => z / 1000 + "k",
-                    tooltip: ({x,y,z}) =>`
+              <Suspense fallback={<div>Loading...</div>}>
+                <div className={styles.image}>
+                  {data.length > 0 && <Graph3D
+                    data={data}
+                    options={{
+                      width: "100%",
+                      height: "480px",
+                      style: "surface",
+                      keepAspectRatio: false,
+                      showPerspective: true,
+                      showGrid: true,
+                      showShadow: false,
+                      xLabel: "s1 (GRD)",
+                      yLabel: "s2 (IUSD)",
+                      zLabel: "Reserve",
+                      zValueLabel: (z) => z / 1000 + "k",
+                      yValueLabel: (z) => z / 1000 + "k",
+                      tooltip: ({ x, y, z }) => `
                       <div style="text-align: left;">
                         s1 (GRD): ${x} <br/>
                         s2 (IUSD): ${y} <br/>
                         Reserve (GBYTE): ${z}
                       </div>
                       `,
-                    cameraPosition: {
-                      distance: 2,
-                      vertical: 0.2
-                    }
-                  }}
-                />}
-              </div>
+                      cameraPosition: {
+                        distance: 2,
+                        vertical: 0.2
+                      }
+                    }}
+                  />}
+                </div>
+              </Suspense>
             </div>
             <div className={styles.infoSecond}>
               <Trans i18nKey="how_it_works.curve">
@@ -166,7 +169,7 @@ export const HowItWorksPage = () => {
         <div className={styles.action}>
           <div>
             <Trans i18nKey="how_it_works.read">
-            Read a <a href="https://medium.com/obyte/using-multi-dimensional-bonding-curves-to-create-stablecoins-81e857b4355c" target="_blank" rel="noopener">more thorough introduction to bonded stablecoins</a> in our blog.
+              Read a <a href="https://medium.com/obyte/using-multi-dimensional-bonding-curves-to-create-stablecoins-81e857b4355c" target="_blank" rel="noopener">more thorough introduction to bonded stablecoins</a> in our blog.
             </Trans>
           </div>
         </div>

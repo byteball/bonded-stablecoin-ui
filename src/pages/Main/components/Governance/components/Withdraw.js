@@ -5,10 +5,10 @@ import { useTranslation } from 'react-i18next';
 
 import { WithdrawModal } from "modals/WithdrawModal/WithdrawModal";
 
-export const Withdraw = ({ choiceParams, balance, symbol }) => {
+export const Withdraw = ({ choiceParams, balance, symbol, decimals }) => {
   const { t } = useTranslation();
   const [visible, setVisible] = useState(false);
-  const { params, bonded_state, symbol1, governance_aa } = useSelector(
+  const { bonded_state, governance_aa, fund_aa } = useSelector(
     (state) => state.active
   );
   const { activeWallet } = useSelector((state) => state.settings);
@@ -17,7 +17,7 @@ export const Withdraw = ({ choiceParams, balance, symbol }) => {
     <>
       <p>
         <b>
-          {t("trade.tabs.governance.withdraw.balance", "Your {{symbol}} balance locked in governance Autonomous Agent is {{balance}}.", {balance, symbol: symbol || "T1"})}
+          {t("trade.tabs.governance.withdraw.balance", "Your {{symbol}} balance locked in governance Autonomous Agent is {{balance}}.", {balance, symbol: symbol || (fund_aa ? "T_SF" : "T1")})}
         </b>
       </p>
 
@@ -27,7 +27,6 @@ export const Withdraw = ({ choiceParams, balance, symbol }) => {
           {choiceParams.map((p) => t(`params.${p.replace("deposits.", '')}.name`, p.replace("deposits.", ''))).join(", ").toLowerCase()}.
         </p>
       )}
-      {/* {t("trade.tabs.parameters." + choiceParams).join(", ")}. */}
       <Button
         disabled={choiceParams.length > 0 || balance === 0}
         type="primary"
@@ -40,8 +39,8 @@ export const Withdraw = ({ choiceParams, balance, symbol }) => {
         visible={visible}
         setVisible={setVisible}
         asset={bonded_state.asset1}
-        symbol={symbol1}
-        decimals={params.decimals1}
+        symbol={symbol}
+        decimals={decimals}
         governance_aa={governance_aa}
         activeWallet={activeWallet}
         max={balance}

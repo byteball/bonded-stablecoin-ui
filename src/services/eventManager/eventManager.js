@@ -1,17 +1,17 @@
-import { isEqual } from "lodash";
 import i18n from "../../locale/index";
 import config from "config";
 import { store } from "index";
 import { tokensEventManager } from "./lowerManagers/tokens";
 import { bondedEventManager } from "./lowerManagers/bonded";
 import { depositsEventManager } from "./lowerManagers/deposits";
+import { stableEventManager } from "./lowerManagers/stable";
+import { deEventManager } from "./lowerManagers/de";
 import { openNotification } from "utils/openNotification";
 import { reqIssueStablecoin } from "store/actions/pendings/reqIssueStablecoin";
 import { resCreateStable } from "store/actions/EVENTS/stable/resCreateStable";
 import { governanceEventManager } from "./lowerManagers/governance";
 import { addNotStableTransaction } from "store/actions/active/addNotStableTransaction";
 import { addStableTransaction } from "store/actions/active/addStableTransaction";
-import { changeCarburetor } from "store/actions/carburetor/changeCarburetor";
 
 const importantSubject = ["light/aa_request", "light/aa_response"];
 
@@ -21,6 +21,7 @@ export const eventManager = (err, result) => {
   if (!subject || !importantSubject.includes(subject)) {
     return null;
   }
+
   const state = store.getState();
   const {
     address,
@@ -28,19 +29,27 @@ export const eventManager = (err, result) => {
     governance_aa,
     bonded_state,
     deposit_state,
+    stable_state,
     governance_state,
     reserve_asset_symbol,
     symbol1,
     symbol2,
     symbol3,
+    symbol4,
+    fund_state,
+    stable_aa,
+    params: paramsStablecoin
   } = state.active;
   const { activeWallet } = state.settings;
   const { params } = state.pendings.stablecoin;
+  const { aa_address } = body;
 
-  if (!address) return null;
+  if (!address && !config.FACTORY_AAS.includes(aa_address)) return null;
+
   const isReq = subject === "light/aa_request";
   const isRes = subject === "light/aa_response";
-  const { aa_address } = body;
+  
+  const de_aa = bonded_state?.decision_engine_aa;
   if (aa_address === config.TOKEN_REGISTRY) {
     if (isReq) {
       const { messages } = body.unit;
@@ -48,8 +57,13 @@ export const eventManager = (err, result) => {
       const assets = [
         bonded_state.asset1,
         bonded_state.asset2,
-        deposit_state.asset,
+        stable_state?.asset || deposit_state?.asset,
       ];
+
+      if (fund_state?.shares_asset) {
+        assets.push(fund_state.shares_asset);
+      }
+
       if ("asset" in payload && assets.includes(payload.asset))
         tokensEventManager({
           isReq,
@@ -70,9 +84,15 @@ export const eventManager = (err, result) => {
         } else if (bonded_state.asset2 in vars && !symbol2) {
           type = 2;
           symbol = vars[bonded_state.asset2];
-        } else if (deposit_state.asset in vars && !symbol3) {
+        } else if (deposit_state?.asset && (deposit_state.asset in vars) && !symbol3) {
           type = 3;
           symbol = vars[deposit_state.asset];
+        } else if (stable_state?.asset && (stable_state.asset in vars) && !symbol3) {
+          type = 3;
+          symbol = vars[stable_state.asset];
+        } else if (fund_state?.shares_asset && (fund_state.shares_asset in vars) && !symbol4) {
+          type = 4;
+          symbol = vars[fund_state.shares_asset];
         }
         if (type !== undefined) {
           tokensEventManager({
@@ -89,21 +109,22 @@ export const eventManager = (err, result) => {
       const { messages } = body.unit;
       const payload = getAAPayload(messages);
       const reserveAsset = payload.reserve_asset in config.reserves ? config.reserves[payload.reserve_asset].name : reserve_asset_symbol || payload.reserve_asset.slice(0, 6) + "...";
-      if (isEqual(params, payload)) {
+
+      if (isPendingStablecoin(params, payload)) {
         openNotification(
-          i18n.t("notification.create.req_author", "You have sent a request to create a new stablecoin pegged to {{feed_name}} with interest {{interest_rate}}%", {feed_name: payload.feed_name1 || reserveAsset, interest_rate: payload.interest_rate * 100 || 0})
+          i18n.t("notification.create.req_author", "You have sent a request to create a new stablecoin pegged to {{feed_name}} with interest {{interest_rate}}%", { feed_name: payload.feed_name1 || reserveAsset, interest_rate: payload.interest_rate * 100 || 0 })
         )
         store.dispatch(reqIssueStablecoin());
       } else {
         openNotification(
-          i18n.t("notification.create.req", "Another user sent a request to create a new stablecoin pegged to {{feed_name}} with interest {{interest_rate}}%", {feed_name: payload.feed_name1 || reserveAsset, interest_rate: payload.interest_rate * 100 || 0})
+          i18n.t("notification.create.req", "Another user sent a request to create a new stablecoin pegged to {{feed_name}} with interest {{interest_rate}}%", { feed_name: payload.feed_name1 || reserveAsset, interest_rate: payload.interest_rate * 100 || 0 })
         );
       }
     } else if (isRes) {
       const { response, bounced } = body;
       if (bounced) return null;
       const vars = response.responseVars;
-      if (vars && "address" in vars && "asset_1" in vars && "asset_2" in vars) {
+      if (vars && ("address" in vars) && ("asset_1" in vars) && ("asset_2" in vars)) {
         store.dispatch(resCreateStable({ ...vars }));
       }
     }
@@ -123,6 +144,11 @@ export const eventManager = (err, result) => {
         symbol1,
         symbol2,
         symbol3,
+        stable_aa,
+        deposit_aa,
+        rate_update_ts: bonded_state.rate_update_ts,
+        growth_factor: bonded_state.growth_factor,
+        interest_rate: paramsStablecoin.interest_rate
       });
 
       store.dispatch(addNotStableTransaction({ type: "curve", unit: body.unit }));
@@ -144,9 +170,9 @@ export const eventManager = (err, result) => {
         isAuthor: body.unit.authors[0].address === activeWallet,
       });
 
-      store.dispatch(addNotStableTransaction({ type: "deposit", unit: body.unit }));
+      store.dispatch(addNotStableTransaction({ type: "depositOrStable", unit: body.unit }));
     } else if (isRes) {
-      store.dispatch(addStableTransaction({ type: "deposit", response: body }))
+      store.dispatch(addStableTransaction({ type: "depositOrStable", response: body }))
     }
   } else if (aa_address === governance_aa) {
     if (isReq) {
@@ -162,11 +188,45 @@ export const eventManager = (err, result) => {
     } else if (isRes) {
       store.dispatch(addStableTransaction({ type: "governance", response: body }))
     }
-  } else if (aa_address === config.CARBURETOR_FACTORY) {
-    if (isRes) {
-      if (body.trigger_address === activeWallet) {
-        store.dispatch(changeCarburetor(activeWallet));
-      }
+  } else if (aa_address === stable_aa) {
+    if (isReq) {
+      const { messages } = body.unit;
+      const { asset } = stable_state;
+      const { asset2 } = bonded_state;
+      stableEventManager({
+        isReq,
+        asset,
+        asset2,
+        messages,
+        symbol3,
+        isAuthor: body.unit.authors[0].address === activeWallet,
+      });
+
+      store.dispatch(addNotStableTransaction({ type: "depositOrStable", unit: body.unit }));
+    } else if (isRes) {
+      store.dispatch(addStableTransaction({ type: "depositOrStable", response: body }))
+    }
+  } else if (de_aa && aa_address === de_aa) {
+    if (isReq) {
+      const { messages } = body.unit;
+      const payload = getAAPayload(messages);
+      const { asset } = stable_state;
+      const { asset2 } = bonded_state;
+      deEventManager({
+        isReq,
+        payload,
+        asset,
+        asset2,
+        messages,
+        symbol4,
+        shares_asset: fund_state?.shares_asset,
+        decimals2: paramsStablecoin.decimals2,
+        isAuthor: body.unit.authors[0].address === activeWallet
+      });
+
+      store.dispatch(addNotStableTransaction({ type: "de", unit: body.unit }));
+    } else if (isRes) {
+      store.dispatch(addStableTransaction({ type: "de", response: body }))
     }
   }
 };
@@ -190,3 +250,19 @@ export const getAAPaymentsSum = (messages = [], list = [], asset, isExclude = fa
 }).reduce((accumulator, current) => {
   return accumulator + current.amount;
 }, 0);
+
+/* eslint eqeqeq: "off" */
+const isPendingStablecoin = (p, a) => {
+  if (!p || !a) return false;
+
+  if (a.decimals1 == p.decimals1 &&
+    a.decimals2 == p.decimals2 &&
+    a.interest_rate == p.interest_rate &&
+    a.feed_name1 === p.feed_name1 &&
+    a.op1 === p.op1 &&
+    a.m === p.m &&
+    a.n === p.n &&
+    a.reserve_asset === p.reserve_asset){
+      return true
+    }
+}

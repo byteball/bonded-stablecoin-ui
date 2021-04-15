@@ -1,6 +1,6 @@
 import { ADD_NEW_TRANSACTION } from "store/types";
 
-const types = ["curve", "deposit", "governance"];
+const types = ["curve", "depositOrStable", "governance", "de"];
 
 export const addNotStableTransaction = ({ type, unit }) => async (dispatch) => {
   if (types.includes(type) && unit) {

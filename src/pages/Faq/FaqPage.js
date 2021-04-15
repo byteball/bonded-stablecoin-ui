@@ -328,6 +328,29 @@ export const FaqPage = () => {
             </p>
           </Trans>
         </Panel>
+
+        <Panel
+          header={t("faq.questions.13.question", "What is the Stability Fund and Decision Engine?")}
+          key="13"
+          className={styles.panel}
+        >
+          <Trans i18nKey="faq.questions.13.answer">
+            <p>In v2 stablecoins, they are used to automatically keep the price near the peg. </p>
+            <p>The Decision Engine (DE) is an Autonomous Agent that uses the funds in the Stability Fund to correct the price by buying or selling growth tokens. The Stability Fund is another AA that just holds all growth tokens and assets in the reserve currency contributed by investors. The investors get shares of the fund in exchange.</p>
+            <p>Since the fund holds growth tokens as part of its assets, and they appreciate as more interest (stable+) tokens are issued, buying shares of the fund is a way to bet on growth of the companion stablecoin.</p>
+            <p>The DE can be replaced by governance to optimize its behavior to both better keep the peg and generate greater shareholder value.</p>
+          </Trans>
+        </Panel>
+
+        <Panel
+          header={t("faq.questions.14.question", "Can OUSD be staked?")}
+          key="14"
+          className={styles.panel}
+        >
+          <Trans i18nKey="faq.questions.14.answer">
+            <p>Yes, just convert it to IUSD. Any time later, you can sell IUSD back to OUSD and get more OUSD.</p>
+          </Trans>
+        </Panel>
       </Collapse>
       <div className={styles.action}>
         <Trans i18nKey="faq.action">

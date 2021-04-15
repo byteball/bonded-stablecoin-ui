@@ -15,6 +15,7 @@ import styles from "./GovernanceItem.module.css";
 import { parseOracle, viewParameter } from "./viewParameter";
 import { percentageParams } from "./components/percentageParams";
 import { QRButton } from "components/QRButton/QRButton";
+import config from "config";
 
 const { Countdown } = Statistic;
 
@@ -37,6 +38,7 @@ export const GovernanceItem = ({
   asset,
   symbol,
   base_governance,
+  fund_aa,
   refEl
 }) => {
   const [selectedParam, setSelectedParam] = useState(undefined);
@@ -107,6 +109,13 @@ export const GovernanceItem = ({
           </div>)
         } else if (percentageParams.includes(name)) {
           return value * 100 + "%";
+        } else if (name === "decision_engine_aa") {
+          return <a href={`https://${config.TESTNET ? "testnet" : ""
+            }explorer.obyte.org/#${value}`}
+            target="_blank"
+            rel="noopener">
+            {value}
+          </a>
         } else {
           return value;
         }
@@ -119,7 +128,7 @@ export const GovernanceItem = ({
       render: (value, records) => {
         return (
           <Button type="link" style={{ padding: 0 }} onClick={() => setActiveSupportValue(records.value)}>
-            <ShowDecimalsValue decimals={decimals} value={value} /><>&nbsp;</>{symbol || "T1"}
+            <ShowDecimalsValue decimals={decimals} value={value} /><>&nbsp;</>{symbol || (fund_aa ? "T_SF" : "T1")}
           </Button>
         );
       },
@@ -144,14 +153,14 @@ export const GovernanceItem = ({
   const valueView = viewParameter(value, name);
   const info = paramsDescription();
 
-  if(!(name.replace("deposits.", '') in info)){
+  if (!(name.replace("deposits.", '') in info)) {
     return null
   }
 
   return (
     <div className={styles.itemWrap} ref={refEl}>
       <Row>
-        <Col sm={name === "oracles" ? { span: 24 } : { span: 12 }} xs={{ span: 24 }}>
+        <Col sm={name === "oracles" || name === "decision_engine_aa" ? { span: 24 } : { span: 12 }} xs={{ span: 24 }}>
           <div className={styles.itemName}>
             <Label
               label={info[name.replace("deposits.", '')].name}
@@ -159,17 +168,17 @@ export const GovernanceItem = ({
             />
           </div>
         </Col>
-        <Col sm={name === "oracles" ? { span: 24 } : { span: 12 }} xs={{ span: 24 }}>
-          <div className={styles.itemCurrent} style={name === "oracles" ? { textAlign: "left", wordBreak: "break-all" } : { wordBreak: "break-all" }}>
-            <span style={name === "oracles" ? { display: valueView !== "-" ? "block" : "inline", fontSize: 14, fontWeight: "bold" } : (width <= 576 ? { fontSize: 14, fontWeight: "bold" } : { display: "inline" })}>{t("trade.tabs.governance.current_value", "Current value")}:</span>{" "}
+        <Col sm={name === "oracles" || name === "decision_engine_aa" ? { span: 24 } : { span: 12 }} xs={{ span: 24 }}>
+          <div className={styles.itemCurrent} style={name === "oracles" || name === "decision_engine_aa" ? { textAlign: "left", wordBreak: "break-all" } : { wordBreak: "break-all" }}>
+            <span style={name === "oracles" || name === "decision_engine_aa" ? { display: valueView !== "-" ? "block" : "inline", fontSize: 14, fontWeight: "bold" } : (width <= 576 ? { fontSize: 14, fontWeight: "bold" } : { display: "inline" })}>{t("trade.tabs.governance.current_value", "Current value")}:</span>{" "}
             {valueView}
           </div>
         </Col>
       </Row>
       <Row align="top">
-        <Col sm={name === "oracles" && width < 720 ? { span: 24 } : { span: 12 }}>
+        <Col sm={(name === "oracles" || name === "decision_engine_aa") && width < 720 ? { span: 24 } : { span: 12 }}>
           {leader &&
-            <div><b style={name === "oracles" ? { display: valueView !== "-" ? "block" : "inline" } : { display: "inline" }}>{t("trade.tabs.governance.leader", "Leader")}:</b> {leaderView}</div>}
+            <div><b style={name === "oracles" || name === "decision_engine_aa" ? { display: valueView !== "-" ? "block" : "inline" } : { display: "inline" }}>{t("trade.tabs.governance.leader", "Leader")}:</b> {leaderView}</div>}
           <div>{isChoice && <div><b>{t("trade.tabs.governance.my_choice", "My choice")}: </b>{choiceView}</div>}</div>
         </Col>
         {challengingPeriod ? (
@@ -178,11 +187,11 @@ export const GovernanceItem = ({
             sm={{ span: 12 }}
             style={{ paddingRight: 10 }}
           >
-            <div className={styles.secondInfo} style={name === "oracles" && width < 720 ? { textAlign: "left" } : {}}>
+            <div className={styles.secondInfo} style={(name === "oracles" || name === "decision_engine_aa") && width < 720 ? { textAlign: "left" } : {}}>
               <div>
                 {new Date() <= challengingPeriod && !isExpired ? (
                   <>
-                   {t("trade.tabs.governance.expires_period", "Challenging period expires in")} {" "}
+                    {t("trade.tabs.governance.expires_period", "Challenging period expires in")} {" "}
                     <Countdown
                       valueStyle={{ fontSize: 14, display: "inline", wordBreak: "break-all" }}
                       value={moment.utc(challengingPeriod)}
@@ -192,31 +201,31 @@ export const GovernanceItem = ({
                     />
                   </>
                 ) : (
-                    <div>
-                      {source.length === 0 && <div>
-                        <Button
-                          type="link"
-                          style={{ padding: 0, lineHeight: "1em", height: "auto" }}
-                          onClick={() => { setSelectedParam(name); setVisible(true); }}
-                        >
-                          {t("trade.tabs.governance.another_value", "suggest another value")}
-                        </Button>
-                      </div>}
-                      {leader && <QRButton
+                  <div>
+                    {source.length === 0 && <div>
+                      <Button
                         type="link"
                         style={{ padding: 0, lineHeight: "1em", height: "auto" }}
-                        href={linkCommit}
-                        size="small"
-                        disabled={
-                          now < challengingPeriod ||
-                          leader === value ||
-                          leader === undefined
-                        }
+                        onClick={() => { setSelectedParam(name); setVisible(true); }}
                       >
-                        {t("trade.tabs.governance.commit", "commit")}
-                      </QRButton>}
-                    </div>
-                  )}
+                        {t("trade.tabs.governance.another_value", "suggest another value")}
+                      </Button>
+                    </div>}
+                    {leader && <QRButton
+                      type="link"
+                      style={{ padding: 0, lineHeight: "1em", height: "auto" }}
+                      href={linkCommit}
+                      size="small"
+                      disabled={
+                        now < challengingPeriod ||
+                        leader === value ||
+                        leader === undefined
+                      }
+                    >
+                      {t("trade.tabs.governance.commit", "commit")}
+                    </QRButton>}
+                  </div>
+                )}
               </div>
               {isChoice && <div>
                 <QRButton
@@ -234,23 +243,23 @@ export const GovernanceItem = ({
             </div>
           </Col>
         ) : (
-            <Col
-              xs={{ span: 24 }}
-              sm={{ span: 12 }}
-              style={{
-                textAlign: "right",
-                paddingRight: 10,
-              }}
+          <Col
+            xs={{ span: 24 }}
+            sm={{ span: 12 }}
+            style={{
+              textAlign: "right",
+              paddingRight: 10,
+            }}
+          >
+            <Button
+              type="link"
+              style={{ padding: 0, lineHeight: "1em", height: "auto" }}
+              onClick={() => { setSelectedParam(name); setVisible(true); }}
             >
-              <Button
-                type="link"
-                style={{ padding: 0, lineHeight: "1em", height: "auto" }}
-                onClick={() => { setSelectedParam(name); setVisible(true); }}
-              >
-                {t("trade.tabs.governance.another_value", "suggest another value")}
-              </Button>
-            </Col>
-          )}
+              {t("trade.tabs.governance.another_value", "suggest another value")}
+            </Button>
+          </Col>
+        )}
       </Row>
       {source.length > 0 && (
         <>
@@ -291,6 +300,7 @@ export const GovernanceItem = ({
         decimals={decimals}
         symbol={symbol}
         balance={balance}
+        fund_aa={fund_aa}
         supportParamsByAddress={supportParamsByAddress}
         supportsByValue={supportsByValue}
         isMyVote={
@@ -300,6 +310,7 @@ export const GovernanceItem = ({
       <SupportListModal
         decimals={decimals}
         symbol={symbol}
+        fund_aa={fund_aa}
         onCancel={() => setActiveSupportValue(undefined)}
         activeSupportValue={activeSupportValue}
         supportList={supportList.filter(a => a.value === activeSupportValue)} />
