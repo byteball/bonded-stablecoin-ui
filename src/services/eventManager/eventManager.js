@@ -110,7 +110,7 @@ export const eventManager = (err, result) => {
       const payload = getAAPayload(messages);
       const reserveAsset = payload.reserve_asset in config.reserves ? config.reserves[payload.reserve_asset].name : reserve_asset_symbol || payload.reserve_asset.slice(0, 6) + "...";
 
-      if (identificationStablecoin(params, payload)) {
+      if (isPendingStablecoin(params, payload)) {
         openNotification(
           i18n.t("notification.create.req_author", "You have sent a request to create a new stablecoin pegged to {{feed_name}} with interest {{interest_rate}}%", { feed_name: payload.feed_name1 || reserveAsset, interest_rate: payload.interest_rate * 100 || 0 })
         )
@@ -252,7 +252,7 @@ export const getAAPaymentsSum = (messages = [], list = [], asset, isExclude = fa
 }, 0);
 
 /* eslint eqeqeq: "off" */
-const identificationStablecoin = (p, a) => {
+const isPendingStablecoin = (p, a) => {
   if (!p || !a) return false;
 
   if (a.decimals1 == p.decimals1 &&

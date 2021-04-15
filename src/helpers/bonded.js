@@ -27,7 +27,7 @@ export const $get_turnover = (
 
 export const $get_p2 = (s1, s2, dilution_factor, m, n, isV2) => {
   if (isV2) {
-    return Decimal(s1).pow(m).mul(n).mul(Decimal(s2).pow(n - 1)).toNumber() // s1 ** m * n * s2 ** (n - 1);
+    return Decimal(s1).pow(m).mul(n).mul(Decimal(s2).pow(n - 1)).toNumber()
   } else {
     return (
       dilution_factor *
@@ -83,7 +83,7 @@ export const $get_target_p2 = (
     .toNumber();
 };
 
-export const $get_distance = (p2, target_p2) => (p2 && target_p2) ? Math.abs(p2 - target_p2) / Math.min(p2, target_p2) : 0;
+export const $get_distance = (p2, target_p2, isV2) => (p2 && target_p2) ? Math.abs(p2 - target_p2) / (isV2 ? Math.min(p2, target_p2) : target_p2): 0;
 
 export const $get_exchange_result = ({
   tokens1,
@@ -131,7 +131,7 @@ export const $get_exchange_result = ({
   );
   const new_growth_factor = $get_growth_factor(interest_rate, timestamp, rate_update_ts, growth_factor);
   const distance =
-    initial_p2 !== undefined && target_p2 ? Math.abs(initial_p2 - target_p2) / (isV2 ? Math.min(initial_p2, target_p2) : target_p2) : 0;
+    initial_p2 !== undefined && target_p2 ? $get_distance(initial_p2, target_p2, true) : 0;
 
   if (tokens_stable) tokens2 += tokens_stable / new_growth_factor;
 
@@ -148,7 +148,7 @@ export const $get_exchange_result = ({
   let p2 = $get_p2(s1, s2, dilution_factor, m, n, isV2);
   const new_reserve = Math.ceil(r * 10 ** reserve_asset_decimals);
   const reserve_delta = new_reserve - reserve;
-  const new_distance = target_p2 ? Math.abs(p2 - target_p2) / (isV2 ? Math.min(target_p2, p2) : target_p2) : 0;
+  const new_distance = target_p2 ? $get_distance(p2, target_p2, true) : 0;
   const avg_reserve = (reserve + new_reserve) / 2;
 
   let fee,

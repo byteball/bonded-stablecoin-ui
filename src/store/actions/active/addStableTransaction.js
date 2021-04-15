@@ -6,7 +6,7 @@ export const addStableTransaction = ({ type, response }) => async (dispatch, get
   if (types.includes(type) && response) {
     let chain;
     const store = getState();
-    if (type === "de") {
+    if (type === "de" && response?.objResponseUnit?.unit) {
       chain = await socket.api.getAaResponseChain({
         trigger_unit: response.objResponseUnit.unit
       });

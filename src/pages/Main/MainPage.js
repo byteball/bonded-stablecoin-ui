@@ -46,7 +46,6 @@ export const MainPage = ({ setWalletModalVisibility }) => {
     reserve_asset_symbol,
     fund_aa,
     fund_state,
-    stable_aa,
     stable_state,
     params,
     symbol1,
@@ -252,7 +251,7 @@ export const MainPage = ({ setWalletModalVisibility }) => {
                 </Trans>
               </div>
             </TabPane>
-            {stable_aa ? <TabPane
+            {fund_aa ? <TabPane
               disabled={!("reserve" in bonded_state)}
               tab={
                 <span>

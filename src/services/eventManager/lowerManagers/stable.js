@@ -10,7 +10,8 @@ export const stableEventManager = ({
   asset,
 }) => {
   if (isReq) {
-    if (messages.find(m => m.app === "payment" && m.payload.asset === asset2)) {
+    const messageWithAsset2 = messages.find(m => m.app === "payment" && m.payload.asset === asset2);
+    if (messageWithAsset2) {
       if (isAuthor) {
         openNotification(
           i18n.t("notification.deposits.buy_stable.req_author", "You have sent a request to buy {{symbol}}", { symbol: symbol3 || "T_STABLE" })
