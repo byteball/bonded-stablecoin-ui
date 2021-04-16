@@ -3,7 +3,7 @@ import { LOAD_PREV_TRANSACTIONS } from "store/types";
 export const getPrevTransactions = () => async (dispatch, getState, socket) => {
 
   const store = getState();
-  const { active: { address, deposit_aa, governance_aa, stable_aa, bonded_state: { decision_engine_aa } } } = store;
+  const { active: { address, deposit_aa, governance_aa, stable_aa, fund_state, bonded_state: { decision_engine_aa } } } = store;
 
   const curveResponses = await socket.api.getAaResponses({
     aa: address
@@ -79,10 +79,26 @@ export const getPrevTransactions = () => async (dispatch, getState, socket) => {
         objResponseUnit: t.objResponseUnit
       }
     }).then(async (data) => {
-      const chain = await socket.api.getAaResponseChain({
-        trigger_unit: data.unit.unit
-      });
-      return { ...data, chain }
+      let isRedeem;
+      const messages = data.unit.messages;
+      for (const message in messages) {
+        const msg = messages[message];
+        if (msg.app === "payment" && "asset" in msg.payload) {
+          const assetInPayload = msg.payload.asset;
+          if (assetInPayload === fund_state.shares_asset) {
+            isRedeem = true;
+          }
+        }
+      }
+
+      if (isRedeem) {
+        const chain = await socket.api.getAaResponseChain({
+          trigger_unit: data.unit.unit
+        });
+        return { ...data, chain }
+      } else {
+        return data
+      }
     })
     return unitInfo;
   });
