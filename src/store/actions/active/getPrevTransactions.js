@@ -81,10 +81,9 @@ export const getPrevTransactions = () => async (dispatch, getState, socket) => {
     }).then(async (data) => {
       let isRedeem;
       const messages = data.unit.messages;
-      for (const message in messages) {
-        const msg = messages[message];
-        if (msg.app === "payment" && "asset" in msg.payload) {
-          const assetInPayload = msg.payload.asset;
+      for (const message of messages) {
+        if (message.app === "payment" && "asset" in message.payload) {
+          const assetInPayload = message.payload.asset;
           if (assetInPayload === fund_state.shares_asset) {
             isRedeem = true;
           }

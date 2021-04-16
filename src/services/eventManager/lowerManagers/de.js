@@ -17,7 +17,7 @@ export const deEventManager = ({
         );
       } else {
         openNotification(
-          i18n.t("notification.de.fix.req", "Another user sent a request to the fix price")
+          i18n.t("notification.de.fix.req", "Another user sent a request to fix the price")
         );
       }
     } else {
