@@ -131,7 +131,7 @@ export const $get_exchange_result = ({
   );
   const new_growth_factor = $get_growth_factor(interest_rate, timestamp, rate_update_ts, growth_factor);
   const distance =
-    initial_p2 !== undefined && target_p2 ? $get_distance(initial_p2, target_p2, true) : 0;
+    initial_p2 !== undefined && target_p2 ? $get_distance(initial_p2, target_p2, isV2) : 0;
 
   if (tokens_stable) tokens2 += tokens_stable / new_growth_factor;
 
@@ -148,7 +148,7 @@ export const $get_exchange_result = ({
   let p2 = $get_p2(s1, s2, dilution_factor, m, n, isV2);
   const new_reserve = Math.ceil(r * 10 ** reserve_asset_decimals);
   const reserve_delta = new_reserve - reserve;
-  const new_distance = target_p2 ? $get_distance(p2, target_p2, true) : 0;
+  const new_distance = target_p2 ? $get_distance(p2, target_p2, isV2) : 0;
   const avg_reserve = (reserve + new_reserve) / 2;
 
   let fee,

@@ -34,15 +34,14 @@ export const StabilityFund = () => {
   const shares_supply = fund_state.shares_supply || 0;
   const s1 = bonded_state.supply1 / 10 ** decimals1;
   const s2 = bonded_state.supply2 / 10 ** decimals2;
-  const p1_in_full_units = m * s1 ** (m - 1) * s2 ** n;
-  const p1 = p1_in_full_units * 10 ** (reserve_asset_decimals - decimals1) || 0;
+  const p1 = m * s1 ** (m - 1) * s2 ** n;
 
   const t1Balance = fund_balance?.[asset1] || 0;
   const reserveBalance = fund_balance?.[reserve_asset] || 0;
-  const balance = reserveBalance + p1 * (t1Balance);
+  const balance = reserveBalance + p1 * 10 ** (reserve_asset_decimals - decimals1) * (t1Balance);
 
   const reserveBalancePercent = reserveBalance ? +Number((reserveBalance / balance) * 100).toFixed(2) : 0;
-  const t1BalancePercent = t1Balance ? +Number((p1 * t1Balance / balance) * 100).toFixed(2) : 0;
+  const t1BalancePercent = t1Balance ? +Number((p1 * 10 ** (reserve_asset_decimals - decimals1) * t1Balance / balance) * 100).toFixed(2) : 0;
 
   const share_price = shares_supply ? balance / shares_supply : 1;
 
@@ -193,7 +192,7 @@ export const StabilityFund = () => {
             data={
               [
                 { symbol: reserve_asset_symbol || "RESERVE", type: reserve_asset_symbol || "RESERVE", value: reserveBalance / 10 ** reserve_asset_decimals },
-                { symbol: symbol1 || "T1", type: t1Balance / 10 ** decimals1 + " " + (symbol1 || "T1"), value: (p1 * t1Balance) / 10 ** reserve_asset_decimals }
+                { symbol: symbol1 || "T1", type: t1Balance / 10 ** decimals1 + " " + (symbol1 || "T1"), value: (p1  * 10 ** (reserve_asset_decimals - decimals1) * t1Balance) / 10 ** reserve_asset_decimals }
               ]
             } angleField="value" colorField="type" />
         </Suspense>

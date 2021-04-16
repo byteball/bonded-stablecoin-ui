@@ -199,6 +199,11 @@ export const eventManager = (err, result) => {
         asset2,
         messages,
         symbol3,
+        stable_aa,
+        decimals2: paramsStablecoin.decimals2,
+        interest_rate: paramsStablecoin.interest_rate,
+        rate_update_ts: bonded_state.rate_update_ts,
+        growth_factor: bonded_state.growth_factor,
         isAuthor: body.unit.authors[0].address === activeWallet,
       });
 

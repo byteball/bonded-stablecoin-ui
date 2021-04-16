@@ -66,7 +66,7 @@ export const AddWalletAddressModal = ({ visible, setShowWalletModal }) => {
           key="add"
           type="primary"
           disabled={!address.valid}
-          onClick={() => handleAdd(address.value)}
+          onClick={() => handleAdd(address)}
         >
           {t("modals.common.add", "Add")}
         </Button>,
