@@ -108,7 +108,7 @@ export const IssueAndRedeem = () => {
 
   useEffect(() => {
     setToAsset(currentPairs[0].asset)
-  }, [fromAsset]);
+  }, [fromAsset, address]);
 
   useEffect(() => {
     if (input1) {

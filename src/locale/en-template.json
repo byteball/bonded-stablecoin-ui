@@ -331,7 +331,7 @@
       "param_value": "Parameter value",
       "your_balance": "Your current balance on the governance AA",
       "add_more": "Add more (optional)",
-      "count_tokens": "Count of tokens1 ({{symbol}})",
+      "count_tokens": "Count of {{symbol}}",
       "your_supported_value": "Your supported value is",
       "total_support": "Total support for this value",
       "your_support": "Your support for this value"
@@ -821,7 +821,7 @@
     "de": {
       "fix": {
         "req_author": "You have sent a request to fix the price",
-        "req": "Another user sent a request to the fix price"
+        "req": "Another user sent a request to fix the price"
       },
       "buy": {
         "req_author": "You have sent a request to buy {{symbol}}",
@@ -866,12 +866,16 @@
         "req": "Another user sent a request to open a Deposit"
       },
       "buy_stable": {
-        "req_author": "You have sent a request to buy {{symbol}}",
-        "req": "Another user sent a request to buy {{symbol}}"
+        "req_author": "You have sent a request to buy {{count}} {{symbol}}",
+        "req_author_plural": "You have sent a request to buy {{count}} {{symbol}}",
+        "req": "Another user sent a request to buy {{count}} {{symbol}}",
+        "req_plural": "Another user sent a request to buy {{count}} {{symbol}}"
       },
       "sell_stable": {
-        "req_author": "You have sent a request to sell {{symbol}}",
-        "req": "Another user sent a request to sell {{symbol}}"
+        "req_author": "You have sent a request to sell {{count}} {{symbol}}",
+        "req_author_plural": "You have sent a request to sell {{count}} {{symbol}}",
+        "req": "Another user sent a request to sell {{count}} {{symbol}}",
+        "req_plural": "Another user sent a request to sell {{count}} {{symbol}}"
       }
     },
     "tokens": {
