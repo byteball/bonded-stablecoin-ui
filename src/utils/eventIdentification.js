@@ -8,11 +8,12 @@ export const eventIdentification = (type, unit, params, _, active) => {
 
   if (!unit) return null
 
-  const { symbol1, symbol2, symbol3, bonded_state, governance_state, reserve_asset_symbol, address,
-    deposit_aa,
-    governance_aa, deposit_state } = active;
+  const { symbol1, symbol2, symbol3, symbol4, bonded_state, governance_state, reserve_asset_symbol, address,
+    deposit_aa, governance_aa, deposit_state, stable_state, stable_aa, fund_state } = active;
   const { asset1, asset2 } = bonded_state;
-  const { asset } = deposit_state;
+  
+  const asset = stable_state?.asset || deposit_state?.asset
+  const de = bonded_state?.decision_engine_aa;
 
   const { messages } = unit;
 
@@ -40,11 +41,11 @@ export const eventIdentification = (type, unit, params, _, active) => {
         undefined,
         undefined
       ]
-    } else if (isEmpty(payload) || "to" in payload || "max_fee_percent" in payload || "min_reserve_tokens" in payload) {
+    } else if (isEmpty(payload) || "to" in payload || "max_fee_percent" in payload || "notifyDE" in payload) {
 
       let inputT1;
       let inputT2;
-      let pendingAmount = "[loading]";
+      let pendingAmount = "[pending]";
 
       for (const message in messages) {
         const msg = messages[message];
@@ -74,6 +75,10 @@ export const eventIdentification = (type, unit, params, _, active) => {
     } else if ("name" in payload && "value" in payload) {
       return [
         i18n.t("trade.tabs.transactions.events.change_param_auto", "Change {{name}} to {{value}}", { name, value: payload.value })
+      ]
+    } else if ("notifyDE" in payload) {
+      return [
+        i18n.t("trade.tabs.transactions.events.notifyDE", "Notify Decision Engine")
       ]
     }
   } else if (type === "deposit") {
@@ -199,6 +204,87 @@ export const eventIdentification = (type, unit, params, _, active) => {
       return [
         i18n.t("trade.tabs.transactions.events.remove_support_param", "Remove support for the {{name}}", { name }),
       ]
+    }
+  } else if (type === "stable") {
+    let action; // "buy" or "sell"
+    for (const message in messages) {
+      const msg = messages[message];
+      if (msg.app === "payment" && "asset" in msg.payload) {
+        const assetInPayload = msg.payload.asset;
+        if (assetInPayload === asset2) {
+          action = "buy"
+        } else if (assetInPayload === asset) {
+          action = "sell"
+        }
+      }
+    }
+    if (action === "buy") {
+      const amount = getAAPayment(unit.messages, payload.to ? [stable_aa] : [address, stable_aa, governance_aa], asset2) / 10 ** decimals2;
+      const output = unit?.objResponseUnit?.messages ? getAAPayment(unit.objResponseUnit.messages, [payload.to || unit.trigger_address], asset) / 10 ** decimals2 : "[pending]";
+
+      return [
+        i18n.t("trade.tabs.transactions.events.buy_stable", "Buy {{symbol}}", { symbol: symbol3 }),
+        amount,
+        symbol2,
+        `${output} ${symbol3}`,
+        payload.to
+      ];
+    } else if (action === "sell") {
+      const amount = getAAPayment(unit.messages, [address, stable_aa, governance_aa], asset);
+      const output = unit?.objResponseUnit?.messages ? getAAPayment(unit.objResponseUnit.messages, [unit.trigger_address], asset2) / (10 ** decimals2) : "[pending]";
+      const forwardOutput = !output && getAAPayment(unit.objResponseUnit.messages, [address], asset2) / 10 ** decimals2;
+      return [
+        i18n.t("trade.tabs.transactions.events.sell_stable", "Sell {{symbol}}", { symbol: symbol3 }),
+        amount / 10 ** decimals2,
+        symbol3,
+        `${forwardOutput || output} ${symbol2}`
+      ];
+    }
+  } else if (type === "de") {
+    if (("act" in payload)) {
+      return [i18n.t("trade.tabs.transactions.events.fix_price", "Fix price")]
+    } if ("tx" in payload && unit.trigger_address === address){
+      return [i18n.t("trade.tabs.transactions.events.notifyDE", "Notify Decision Engine")]
+    }
+    else {
+      let action; // "buy" or "redeem"
+      for (const message in messages) {
+        const msg = messages[message];
+        if (msg.app === "payment" && "asset" in msg.payload) {
+          const assetInPayload = msg.payload.asset;
+          if (assetInPayload === fund_state.shares_asset) {
+            action = "redeem"
+          }
+        } else {
+          action = "buy"
+        }
+      }
+
+      const info = unit?.objResponseUnit?.messages?.find((m) => m.app === "data")?.payload?.payments[0];
+
+      if (action === "buy") {
+        const amount = getAAPaymentsSum(unit.messages, [de], reserve_asset);
+
+        let output = info ? info.amount / 10 ** reserve_asset_decimals : undefined;
+        return [
+          i18n.t("trade.tabs.transactions.events.buy_shares", "Buy {{symbol}}", { symbol: symbol4 }),
+          amount / 10 ** reserve_asset_decimals,
+          reserve_asset_symbol,
+          output ? `${output} ${symbol4}` : "[pending]"
+        ];
+
+      } else if (action === "redeem") {
+        const amount = getAAPayment(unit.messages, [de], fund_state.shares_asset);
+        const outputResponse = unit?.other?.chain ? unit?.other?.chain.find((item)=>item.objResponseUnit?.messages?.[0]?.payload?.payments?.[0].asset === "base") : undefined;
+        const output = outputResponse && outputResponse.objResponseUnit.messages[0].payload.payments[0].amount / 10 ** reserve_asset_decimals;
+
+        return [
+          i18n.t("trade.tabs.transactions.events.sell_shares", "Sell {{symbol}}", { symbol: symbol4 }),
+          amount / 10 ** reserve_asset_decimals,
+          symbol4,
+          output ? `${output} ${reserve_asset_symbol}` : "[pending]",
+        ]
+      }
     }
   }
 

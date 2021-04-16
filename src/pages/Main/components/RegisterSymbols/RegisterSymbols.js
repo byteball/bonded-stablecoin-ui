@@ -23,7 +23,10 @@ export const RegisterSymbols = (props) => {
     initCurrentStep = 1;
   } else if (!props.symbol3 && !props.pendings.tokens3) {
     initCurrentStep = 2;
+  } else if (!props.symbol4 && !props.pendings.tokens4) {
+    initCurrentStep = 3;
   }
+
   const [width] = useWindowSize();
   const [currentStep, setCurrentStep] = useState(initCurrentStep);
   const currentSymbol = currentStep + 1;
@@ -34,11 +37,23 @@ export const RegisterSymbols = (props) => {
   const [descr, setDescr] = useState(initStateValue);
   const { t } = useTranslation();
 
-  const currentAsset = props["asset" + currentSymbol];
-  const currentDecimals =
-    currentSymbol === 3 || currentSymbol === 2
-      ? props.decimals2
-      : props.decimals1;
+  let currentAsset;
+
+  if (currentSymbol === 1 || currentSymbol === 2 || currentSymbol === 3) {
+    currentAsset = props["asset" + currentSymbol];
+  } else if (currentSymbol === 4) {
+    currentAsset = props.fund_asset;
+  }
+
+  let currentDecimals;
+
+  if (currentSymbol === 3 || currentSymbol === 2) {
+    currentDecimals = props.decimals2;
+  } else if (currentSymbol === 4) {
+    currentDecimals = props.reserve_asset_decimals;
+  } else {
+    currentDecimals = props.decimals1;
+  }
 
   useEffect(() => {
     if (!props.symbol1 && !props.pendings.tokens1) {
@@ -47,6 +62,8 @@ export const RegisterSymbols = (props) => {
       setCurrentStep(1);
     } else if (!props.symbol3 && !props.pendings.tokens3) {
       setCurrentStep(2);
+    } else if (!props.symbol4 && !props.pendings.tokens4) {
+      setCurrentStep(3);
     }
   }, [props]);
 
@@ -79,10 +96,16 @@ export const RegisterSymbols = (props) => {
           setIsAvailable(false);
         } else {
           setIsAvailable(true);
-          const initDescr =
-            currentSymbol === 3
-              ? `Stable token for bonded stablecoin (${props.address})`
-              : `Token${currentSymbol} for bonded stablecoin (${props.address})`;
+          let initDescr;
+
+          if (currentSymbol === 3) {
+            initDescr = `Stable token for bonded stablecoin (${props.address})`;
+          } if (currentSymbol === 4) {
+            initDescr = `Stability fund shares for bonded stablecoin (${props.address})`;
+          } else {
+            initDescr = `Token${currentSymbol} for bonded stablecoin (${props.address})`;
+          }
+
           setDescr({
             value: initDescr,
             valid: true,
@@ -174,7 +197,9 @@ export const RegisterSymbols = (props) => {
         <Step title={t("reg_symbol.step", "Symbol for tokens{{token}}", { token: "1" })} />
         <Step title={t("reg_symbol.step", "Symbol for tokens{{token}}", { token: "2" })} />
         <Step style={!props.interest ? { display: 'none' } : {}} title={t("reg_symbol.step_stable", "Symbol for stable tokens")} />
+        {props.isV2 && <Step title={t("reg_symbol.step_fond", "Symbol for fund tokens")} />}
       </Steps>
+
       {symbolByCurrentAsset && (
         <p style={{ paddingTop: 20, maxWidth: 600 }}>
           <Text type="secondary">
@@ -243,21 +268,21 @@ export const RegisterSymbols = (props) => {
                 {t("reg_symbol.check_availability", "Check availability")}
               </Button>
             ) : (
-                <Button
-                  disabled={!token.valid || !tokenSupport.valid}
-                  key="btn-reg"
-                  href={generateLink(
-                    tokenSupport.value * 1e9,
-                    data,
-                    props.activeWallet,
-                    config.TOKEN_REGISTRY
-                  )}
-                >
-                  {isAvailable && !symbolByCurrentAsset
-                    ? t("reg_symbol.register", "Register")
-                    : t("reg_symbol.register_anyway", "Register anyway")}
-                </Button>
-              )}
+              <Button
+                disabled={!token.valid || !tokenSupport.valid}
+                key="btn-reg"
+                href={generateLink(
+                  tokenSupport.value * 1e9,
+                  data,
+                  props.activeWallet,
+                  config.TOKEN_REGISTRY
+                )}
+              >
+                {isAvailable && !symbolByCurrentAsset
+                  ? t("reg_symbol.register", "Register")
+                  : t("reg_symbol.register_anyway", "Register anyway")}
+              </Button>
+            )}
             <Button
               type="link"
               danger

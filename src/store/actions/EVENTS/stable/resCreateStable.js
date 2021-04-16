@@ -9,26 +9,25 @@ export const resCreateStable = ({
   address,
   asset_1,
   asset_2,
+  stable_aa,
   deposit_aa,
   governance_aa,
 }) => (dispatch, getState, socket) => {
   const addStablecoin = setInterval(async () => {
     let def = false;
     let bonded_state = false;
-    let deposit_state = false;
-    let governance_state = false;
+    let fund_aa;
     let isError = false;
+
     try {
       def = await socket.api.getDefinition(address);
-      deposit_state = await socket.api.getAaStateVars({ address: deposit_aa });
-      governance_state = await socket.api.getAaStateVars({
-        address: governance_aa,
-      });
       bonded_state = await socket.api.getAaStateVars({ address });
+      fund_aa = bonded_state?.fund_aa;
     } catch {
       isError = true;
     }
-    if (def && bonded_state && deposit_state && governance_state && !isError) {
+
+    if (def && bonded_state && (stable_aa || deposit_aa) && !isError) {
       const store = getState();
       const pendingParam = store.pendings.stablecoin.params;
       clearInterval(addStablecoin);
@@ -44,14 +43,18 @@ export const resCreateStable = ({
             asset_1,
             asset_2,
             deposit: deposit_aa,
+            stable: stable_aa,
+            fund: fund_aa,
             governance: governance_aa,
           },
         },
       });
+
       const a = def[1].params;
-      const p = def[1].params;
+      const p = pendingParam;
+
       let isEqual =
-        a.decimals1 == p.decimals1 &&
+        a && p && a.decimals1 == p.decimals1 &&
         a.decimals2 == p.decimals2 &&
         a.interest_rate == p.interest_rate &&
         a.feed_name1 === p.feed_name1 &&
@@ -75,7 +78,6 @@ export const resCreateStable = ({
             modal.destroy();
           },
         });
-      } else {
       }
     }
   }, 1000 * 30);

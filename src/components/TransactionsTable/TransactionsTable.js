@@ -14,14 +14,25 @@ const { Text } = Typography;
 export const TransactionsTable = ({ source, type }) => {
   const active = useSelector((state) => state.active);
   const { t } = useTranslation();
-  const {
-    params,
-    bonded_state,
-  } = active;
+  const { params, bonded_state, fund_aa, address } = active;
   const { activeWallet } = useSelector((state) => state.settings);
   const actualParams = getParams(params, bonded_state);
 
-  return <div className={styles.wrap}>
+  const getUserName = (adr) => {
+    if (fund_aa && (adr === fund_aa)) {
+      return "Stability fund"
+    } else if (adr === address) {
+      return "Curve AA"
+    } else if (("decision_engine_aa" in bonded_state) && bonded_state.decision_engine_aa === adr) {
+      return "DE"
+    } else if(config.FACTORY_AAS.includes(adr)){
+      return "Factory AA"
+    } else {
+      return undefined;
+    }
+  }
+
+return <div className={styles.wrap}>
     <div className={styles.head + " " + styles.row}>
       <div className={styles.status}><Text strong>{t("trade.tabs.transactions.head.status", "Status")}</Text></div>
       <div className={styles.event}><Text strong>{t("trade.tabs.transactions.head.event", "Event")}</Text></div>
@@ -47,10 +58,10 @@ export const TransactionsTable = ({ source, type }) => {
           <div className={styles.statusInfo}><span className={styles.label}>{t("trade.tabs.transactions.head.status", "Status")}:</span><Text type="secondary">{item.bounced ? <span style={{ color: "#F4222D" }}>Error</span> : (item.isStable ? <span style={{ color: "#52C51A" }}>Stable</span> : <span style={{ color: "#FBAD13" }}>Not stable</span>)}</Text></div>
         </div>
         <div className={styles.event}><span className={styles.label}>{t("trade.tabs.transactions.head.event", "Event")}:</span><Text type="secondary">{event}</Text></div>
-        <div className={styles.input}><span className={styles.label}>{t("trade.tabs.transactions.head.input", "Input")}:</span><Text type="secondary">{(!item.bounced && input) || "-"} {(!item.bounced && inputCurrency) || ""}</Text></div>
+        <div className={styles.input}><span className={styles.label}>{t("trade.tabs.transactions.head.input", "Input")}:</span><Text type="secondary">{(!item.bounced && input) || "-"} {(!item.bounced && input && inputCurrency) || ""}</Text></div>
         <div className={styles.output}><span className={styles.label}>{t("trade.tabs.transactions.output", "Output")}:</span> <Text type="secondary">{(!item.bounced && output) || "-"}</Text></div>
         <div className={styles.user}><span className={styles.label}>{t("trade.tabs.transactions.head.user", "User")}:</span><Text type="secondary">{<Tooltip title={user || item.trigger_address}>
-          {(user || item.trigger_address).slice(0, 14) + "..."}
+          {getUserName(user || item.trigger_address) || (user || item.trigger_address).slice(0, 14) + "..."}
         </Tooltip>}</Text></div>
         <div className={styles.time}><span className={styles.label}>{t("trade.tabs.transactions.head.time", "Time")}:</span><Text type="secondary">{ts}</Text></div>
       </a>

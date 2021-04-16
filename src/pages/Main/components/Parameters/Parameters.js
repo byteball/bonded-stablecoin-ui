@@ -12,6 +12,7 @@ import { DepositsParameters } from "./components/DepositsParameters";
 import styles from "./Parameters.module.css";
 import { getParams } from "helpers/getParams";
 import config from "config";
+import { DecisionEngineParameters } from "./components/DecisionEngineParameters";
 
 const { Title } = Typography;
 
@@ -24,17 +25,22 @@ export const Parameters = () => {
   const {
     bonded_state,
     deposit_state,
+    stable_state,
+    fund_state,
     oracleValue1,
     oracleValue2,
     oracleValue3,
     symbol1,
     symbol2,
     symbol3,
+    symbol4,
     reserve_asset_symbol,
     deposit_aa,
     governance_aa,
     address,
-    base_governance
+    base_governance,
+    stable_aa,
+    fund_aa
   } = active;
   return (
     <div>
@@ -71,6 +77,9 @@ export const Parameters = () => {
             curve_aa={address}
             deposit_aa={deposit_aa}
             governance_aa={governance_aa}
+            stable_aa={stable_aa}
+            fund_aa={fund_aa}
+            decision_engine_aa={bonded_state?.decision_engine_aa}
           />
 
           <Title level={4} type="secondary">
@@ -79,17 +88,35 @@ export const Parameters = () => {
           <TokensParameters
             asset1={bonded_state.asset1}
             asset2={bonded_state.asset2}
-            asset={deposit_state.asset}
+            asset={stable_state?.asset || deposit_state?.asset}
+            shares_asset={fund_state?.shares_asset}
             symbol1={symbol1}
             symbol2={symbol2}
             symbol3={symbol3}
+            symbol4={symbol4}
           />
         </div>
         <div className={styles.column}>
-          <Title level={4} type="secondary">
-            {t("trade.tabs.parameters.title_deposits", "Deposits")}
-          </Title>
-          <DepositsParameters params={params} address={address} activeWallet={activeWallet} />
+          {fund_aa ? <>
+            <Title level={4} type="secondary">
+              {t("trade.tabs.parameters.title_de", "Decision engine")}
+            </Title>
+            <DecisionEngineParameters
+              below_peg_threshold={params.below_peg_threshold}
+              below_peg_timeout={params.below_peg_timeout}
+              min_reserve_delta={params.min_reserve_delta}
+              decision_engine_aa={bonded_state?.decision_engine_aa}
+              reserve_asset_decimals={params.reserve_asset_decimals}
+              reserve_asset_symbol={reserve_asset_symbol}
+              address={address}
+              activeWallet={activeWallet}
+            />
+          </> : <>
+            <Title level={4} type="secondary">
+              {t("trade.tabs.parameters.title_deposits", "Deposits")}
+            </Title>
+            <DepositsParameters params={params} address={address} activeWallet={activeWallet} />
+          </>}
           <Title level={4} type="secondary">
             {t("trade.tabs.parameters.title_capacitor", "Capacitor")}
           </Title>

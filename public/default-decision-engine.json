@@ -1,0 +1,11 @@
+{
+	"version": "1.0",
+	"description": "Bonded Stablecoin Decision Engine AA.",
+	"homepage_url": "https://ostable.org",
+	"source_url": "https://github.com/byteball/bonded-stablecoin",
+	"field_descriptions": {
+		"to": "Send the coins to this address instead of the caller.",
+		"p2": "Initial price of token2.",
+		"act": "Trigger the DE to correct the price."
+	}
+}

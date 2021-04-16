@@ -1,3 +1,4 @@
+import config from "config";
 import React from "react";
 import { percentageParams } from "./components/percentageParams";
 
@@ -10,6 +11,13 @@ export const viewParameter = (value, name, isBlock = false) => {
       })
     } else if (percentageParams.includes(name)) {
       return value * 100 + "%"
+    } else if (name === "decision_engine_aa") {
+      return <a href={`https://${config.TESTNET ? "testnet" : ""
+        }explorer.obyte.org/#${value}`}
+        target="_blank"
+        rel="noopener">
+        {value}
+      </a>
     } else {
       return value;
     }

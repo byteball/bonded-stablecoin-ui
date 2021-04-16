@@ -4,6 +4,7 @@
   "author": "Obyte",
   "license": "MIT",
   "dependencies": {
+    "@ant-design/charts": "^1.1.1",
     "@ant-design/icons": "^4.2.1",
     "@craco/craco": "^6.0.0",
     "@fortawesome/fontawesome-svg-core": "^1.2.32",
@@ -20,7 +21,7 @@
     "i18next": "^19.8.4",
     "lightweight-charts": "^3.1.5",
     "lodash": "^4.17.19",
-    "obyte": "^0.1.9",
+    "obyte": "^0.1.14",
     "obyte-qr-button": "^0.0.5",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
@@ -36,11 +37,13 @@
     "redux": "^4.0.5",
     "redux-persist": "^6.0.0",
     "redux-thunk": "^2.3.0",
+    "source-map-explorer": "^2.5.2",
     "stablecoin-icons": "^0.0.1"
   },
   "scripts": {
     "start": "craco start",
     "build": "craco build",
+    "analyze": "source-map-explorer 'build/static/js/*.js'",
     "test": "craco test",
     "eject": "react-scripts eject"
   },

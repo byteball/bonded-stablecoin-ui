@@ -35,6 +35,10 @@
         "inversed": "The shown price is the price of the reserve asset {{reserveSymbolOrAsset}} in terms of Token2 ({{symbol2orAsset}}).",
         "not_inversed": "The shown price is the price of Token2 ({{symbol2OrAsset}}) in terms of the reserve asset {{reserveSymbol}}."
       },
+      "fund_supply": {
+        "name": "Fund tokens supply",
+        "desc": "Total supply of fund tokens"
+      },
       "token1_supply": {
         "name": "Tokens1 supply",
         "desc": "Total supply of Token1 (growth tokens)"
@@ -50,6 +54,10 @@
       "reserve": {
         "name": "Reserve",
         "desc": "Total amount of reserve locked to back the issuance of T1 and T2 tokens"
+      },
+      "fund_price": {
+        "name": "{{symbol4}} price",
+        "desc": "The current price of fund tokens."
       },
       "token1_price": {
         "name": "{{symbol1}} price",
@@ -89,6 +97,7 @@
         "curve": "Curve",
         "address": "The address of the autonomous agent",
         "deposits": "Deposits",
+        "de": "Decision engine",
         "governance": "Governance",
         "name": "Transactions",
         "events": {
@@ -96,6 +105,7 @@
           "move_capacity": "Move capacity from slow pool to fast one",
           "redeem": "Redeem tokens",
           "change_param_auto": "Change {{name}} to {{value}}",
+          "notifyDE": "Notify Decision Engine",
           "change_recipient": "Change the interest recipient",
           "add_protection": "Add protection",
           "withdraw_protection": "Withdraw protection",
@@ -108,6 +118,11 @@
           "add_support_param": "Add support for the {{name}} value of {{value}}",
           "withdraw_balance": "Withdraw balance from governance",
           "remove_support_param": "Remove support for the {{name}}",
+          "buy_stable": "Buy {{symbol}}",
+          "sell_stable": "Sell {{symbol}}",
+          "fix_price": "Fix price",
+          "buy_shares": "Buy {{symbol}}",
+          "sell_shares": "Sell {{symbol}}",
           "conf": "Configuration",
           "not_indent": "Unidentified"
         }
@@ -223,8 +238,9 @@
         "below_target": "below the target",
         "send": "Send",
         "protect": "1% was added to protect against price volatility, you'll get this amount back if the prices don't change.",
-        "redeem_will_receive": "You will get {{amount}} {{symbol}}",
+        "protect_v2": "1% of this amount will be added to protect against price volatility, you will receive this amount back if prices do not change.",
         "big_change": "The transaction would change the price too much, please try a smaller amount",
+        "redeem_will_receive": "You will get {{amount}} {{symbol}}",
         "redeem": "Redeem",
         "title_redeem": "Redeem token{{number}} {{symbol}}",
         "redeem_both": "If you want to redeem two tokens at the same time, we recommend that you use an <1>intermediary agent</1>.",
@@ -235,7 +251,10 @@
       "parameters": {
         "title_curve": "Curve",
         "title_deposits": "Deposits",
+        "title_stable": "Stable",
+        "title_fund": "Stability fund",
         "title_governance": "Governance",
+        "title_de": "Decision engine",
         "edit": "edit",
         "show_info": "Show info",
         "latest_value": "Latest value",
@@ -243,12 +262,31 @@
         "asset": "asset",
         "tokens2": "Tokens2",
         "stable_tokens": "Stable tokens",
+        "fund_tokens": "Fund tokens",
         "title": "Parameters of the stablecoin",
         "view": "View on explorer",
         "title_autonomous_agents": "Autonomous Agents",
         "title_tokens": "Tokens",
         "title_capacitor": "Capacitor",
         "name": "Parameters"
+      },
+      "stability_fund": {
+        "title": "Stability fund",
+        "desc": "In v2 stablecoins, the fund is used to automatically keep the price near the peg.",
+        "info_title": "Fund information",
+        "total_asset": "Total asset value",
+        "buy_title": "Buy",
+        "buy_desc": "The GBYTE you invest will be added to the fund's reserves and you'll get its shares in exchange.",
+        "amount": "Amount of shares",
+        "send": "Send {{count}}",
+        "send_plural": "Send {{count}}",
+        "redeem_title": "Redeem",
+        "redeem_desc": "When you redeem, you get your share of the fund's assets in reserve currency {{reserve_asset_symbol}}, plus your share of {{symbol}} is redeemed (potentially affecting the price and paying fees) and the proceeds in {{reserve_asset_symbol}} are also sent to you.",
+        "fix_title": "Fix {{symbol}} price",
+        "next_fix": "Time until the next fix",
+        "expired": "Expired",
+        "fix_btn": "Send fix request",
+        "name": "Stability fund"
       }
     }
   },
@@ -415,10 +453,12 @@
     "allow": "allow",
     "disallow": "disallow",
     "title": "Create",
+    "de_desc": "The decision engine automatically intervenes when it is necessary to return the price back to the peg. A Stability Fund is created to make this possible, all growth tokens are held by the Fund, and investors buy shares in the Fund.",
     "steps": {
       "curve": "Curve",
       "capacitor": "Capacitor",
       "governance": "Governance",
+      "decision": "Decision engine",
       "create": "Create"
     },
     "setting": "Parameter setting",
@@ -555,6 +595,22 @@
     "proposal_min_support": {
       "name": "Proposal min support",
       "desc": "What share of the total Token1 supply should vote for a grant proposal for the proposal to be eligible to win."
+    },
+    "below_peg_threshold": {
+      "name": "Below peg threshold",
+      "desc": "Threshold deviation of the price below the peg that starts a countdown before the DE intervention"
+    },
+    "below_peg_timeout": {
+      "name": "Below peg timeout",
+      "desc": "How long the price has to stay below the peg for the DE to interfere"
+    },
+    "min_reserve_delta": {
+      "name": "Min reserve delta",
+      "desc": "Minimum amount of a DE-initiated transaction"
+    },
+    "decision_engine_aa": {
+      "name": "Decision engine AA",
+      "desc": "Autonomous Agent of Decision Engine. It manages the Stability Fund to keep the price stable."
     }
   },
   "faq": {
@@ -610,6 +666,14 @@
       "12": {
         "question": "I want to trade a stablecoin pegged to asset X but it doesn’t exist",
         "answer": "<0>If an oracle that posts the price of X already exists, you  can <1>create the corresponding stablecoin</1> right away!</0><1>If there is no such oracle yet - create the oracle. You have to be a developer though. There are sources of <1>example oracle</1> to help you get started. If you are not a developer and cannot hire one, signal your demand  in <3>Obyte discord</3>.</1>"
+      },
+      "13": {
+        "question": "What is the Stability Fund and Decision Engine?",
+        "answer": "<0>In v2 stablecoins, they are used to automatically keep the price near the peg. </0><1>The Decision Engine (DE) is an Autonomous Agent that uses the funds in the Stability Fund to correct the price by buying or selling growth tokens. The Stability Fund is another AA that just holds all growth tokens and assets in the reserve currency contributed by investors. The investors get shares of the fund in exchange.</1><2>Since the fund holds growth tokens as part of its assets, and they appreciate as more interest (stable+) tokens are issued, buying shares of the fund is a way to bet on growth of the companion stablecoin.</2><3>The DE can be replaced by governance to optimize its behavior to both better keep the peg and generate greater shareholder value.</3>"
+      },
+      "14": {
+        "question": "Can OUSD be staked?",
+        "answer": "<0>Yes, just convert it to IUSD. Any time later, you can sell IUSD back to OUSD and get more OUSD.</0>"
       }
     },
     "action": "Any other questions? Read the <1> introductory article </1> or ask on <3>Discord</3>."
@@ -698,6 +762,7 @@
     "title": "Register symbols",
     "step": "Symbol for tokens{{token}}",
     "step_stable": "Symbol for stable tokens",
+    "step_fond": "Symbol for fund tokens",
     "taken_desc": "This stablecoin already has a symbol {{symbol}} assigned to it. Attempting to assign a new symbol will start a dispute process which can take more than 30 days. The symbol that gets more support (in terms of GBYTE deposits) eventually wins.",
     "symbol": "Symbol",
     "placeholder_support": "Support (Min amount 0.1 GB)",
@@ -753,6 +818,20 @@
         "req": "Another user sent a request to move capacity from a slow pool to a fast pool"
       }
     },
+    "de": {
+      "fix": {
+        "req_author": "You have sent a request to fix the price",
+        "req": "Another user sent a request to the fix price"
+      },
+      "buy": {
+        "req_author": "You have sent a request to buy {{symbol}}",
+        "req": "Another user sent a request to buy {{symbol}}"
+      },
+      "sell": {
+        "req_author": "You have sent a request to redeem {{symbol}}",
+        "req": "Another user sent a request to redeem {{symbol}}"
+      }
+    },
     "deposits": {
       "change_recipient": {
         "req_author": "You have sent a request to change the interest recipient",
@@ -785,6 +864,14 @@
       "open": {
         "req_author": "You have sent a request to open a Deposit",
         "req": "Another user sent a request to open a Deposit"
+      },
+      "buy_stable": {
+        "req_author": "You have sent a request to buy {{symbol}}",
+        "req": "Another user sent a request to buy {{symbol}}"
+      },
+      "sell_stable": {
+        "req_author": "You have sent a request to sell {{symbol}}",
+        "req": "Another user sent a request to sell {{symbol}}"
       }
     },
     "tokens": {

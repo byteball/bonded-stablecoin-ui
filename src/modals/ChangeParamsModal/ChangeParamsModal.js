@@ -27,7 +27,8 @@ export const ChangeParamsModal = ({
   isMyVote,
   supportParamsByAddress,
   supportsByValue,
-  base_governance
+  base_governance,
+  fund_aa
 }) => {
   const { t } = useTranslation();
   const validateParams = {
@@ -73,6 +74,11 @@ export const ChangeParamsModal = ({
     "deposits.reporter_share": {
       validator: (value) => value >= 0 && value <= 100,
       rule: t("modals.change_param.valid.reporter_share", "The value of the reporter_share (as a percentage) parameter must be in the range from 0 to 100")
+    },
+    decision_engine_aa: {
+      validator: (value) => {
+        return obyte.utils.isValidAddress(value);
+      },
     }
   };
 
@@ -261,7 +267,7 @@ export const ChangeParamsModal = ({
     if (value === "") {
       setParamValue({ value: undefined, valid: undefined });
     } else if (
-      reg.test(String(value)) &&
+     (reg.test(String(value)) || param === "decision_engine_aa") &&
       validateParams[param].validator(value)
     ) {
       setParamValue({ value, valid: true });
@@ -360,7 +366,7 @@ export const ChangeParamsModal = ({
                   {viewParameter(supportParamsByAddress.value, param, true)}{param === "oracles" ? <span> — </span> : ":"}
                 </b>{" "}
                 {supportParamsByAddress.support / 10 ** decimals}{" "}
-                {symbol || "T1"}
+                {symbol || (fund_aa ? "T_SF" : "T1")}
               </Text>
             </p>
           )}
@@ -371,7 +377,7 @@ export const ChangeParamsModal = ({
           help={((!paramValue.valid && paramValue.value !== undefined) || validationStatus === false) ? validateParams[param].rule : undefined}
         >
           <Input
-            placeholder={param.replace("deposits.", '').replace("_", ' ')}
+            placeholder={param.replace("deposits.", '').replaceAll("_", ' ')}
             autoComplete="off"
             autoFocus={!isMyVote}
             disabled={isMyVote || param === "oracles"}
@@ -517,10 +523,10 @@ export const ChangeParamsModal = ({
         {balance !== 0 && <Text type="secondary">{t("modals.change_param.add_more", "Add more (optional)")}:</Text>}
         <Form.Item>
           <Input
-            placeholder={t("modals.change_param.count_tokens", "Count of tokens1 ({{symbol}})", {symbol: symbol || asset})}
+            placeholder={t("modals.change_param.count_tokens", "Count of {{symbol}}", {symbol: symbol || asset})}
             autoComplete="off"
             onChange={handleChangeAmount}
-            suffix={symbol || "T1"}
+            suffix={symbol || (fund_aa ? "T_SF" : "T1")}
             autoFocus={isMyVote}
             value={amount.value}
             ref={supportInput}

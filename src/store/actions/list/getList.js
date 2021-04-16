@@ -56,6 +56,13 @@ export const getList = () => async (dispatch, getState, socket) => {
     } else if (row.includes("asset_")) {
       const [address, type] = row.split("_").slice(1);
       list[address] = { ...list[address], ["asset_" + type]: data[row] };
+    } 
+    else if (row.includes("stable_aa_")) {
+      const address = row.split("_").slice(2)[0];
+      list[address] = { ...list[address], stable: data[row] };
+    } else if (row.includes("fund_aa_")) {
+      const address = row.split("_").slice(2)[0];
+      list[address] = { ...list[address], fund: data[row] };
     }
   }
   const getSymbols = [];

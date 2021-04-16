@@ -11,10 +11,13 @@ export const TokensParameters = ({
   symbol1,
   symbol2,
   symbol3,
+  symbol4,
+  shares_asset
 }) => {
   const { t } = useTranslation();
+
   return (
-    <>
+    <div style={{ marginBottom: 20 }}>
       <div className={styles.param}>
         <div className={styles.labelWrap}>
           {t("trade.tabs.parameters.tokens1", "Tokens1")}
@@ -67,6 +70,23 @@ export const TokensParameters = ({
           </a>
         </span>
       </div>
-    </>
+      {shares_asset && <div className={styles.param}>
+        <div className={styles.labelWrap}>
+          {t("trade.tabs.parameters.fund_tokens", "Fund tokens")}
+          <span style={{ marginRight: 5 }}>:</span>
+        </div>
+        <span>
+          {symbol4 ? (symbol4 + ", " + t("trade.tabs.parameters.asset", "asset") + ": ") : null}
+          <a
+            href={`https://${config.TESTNET ? "testnet" : ""
+              }explorer.obyte.org/#${shares_asset}`}
+            target="_blank"
+            rel="noopener"
+          >
+            {shares_asset}
+          </a>
+        </span>
+      </div>}
+    </div>
   );
 };

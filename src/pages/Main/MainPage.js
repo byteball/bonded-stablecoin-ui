@@ -30,10 +30,13 @@ import { changeActive } from "store/actions/active/changeActive";
 import { changeActiveForBot } from "store/actions/active/changeActiveForBot";
 import { botCheck } from "utils/botCheck";
 import { Transactions } from "./components/Transactions/Transactions";
+import { StabilityFund } from "./components/StabilityFund/StabilityFund";
+import { IssueAndRedeem } from "./components/IssueAndRedeem/IssueAndRedeem";
+import { FundIcon } from "components/FundIcon/FundIcon";
 
 const { TabPane } = Tabs;
 
-const tabList = ["buy", "charts", "deposits", "capacitor", "governance", "parameters"];
+const tabList = ["buy", "charts", "deposits", "capacitor", "governance", "parameters", "fund"];
 
 export const MainPage = ({ setWalletModalVisibility }) => {
   const {
@@ -41,10 +44,14 @@ export const MainPage = ({ setWalletModalVisibility }) => {
     bonded_state,
     deposit_state,
     reserve_asset_symbol,
+    fund_aa,
+    fund_state,
+    stable_state,
     params,
     symbol1,
     symbol2,
     symbol3,
+    symbol4,
     loading
   } = useSelector((state) => state.active);
   const pendings = useSelector((state) => state.pendings);
@@ -66,7 +73,22 @@ export const MainPage = ({ setWalletModalVisibility }) => {
 
   useEffect(() => {
     if ((addressInitialized || !urlParams.address) && !loading && loaded && tabInitialized && currentTab && address && !tabList.includes(hash)) {
-      history.replace(`${basename}/trade/${address}/${currentTab || ""}${location.hash}`);
+      let newTab;
+      if (tab === "fund" && !(bonded_state?.fund_aa)) {
+        if ("reserve" in bonded_state) {
+          newTab = "deposits";
+        } else {
+          newTab = "buy-redeem";
+        }
+      } else if (currentTab === "deposits" && bonded_state?.fund_aa) {
+        if ("reserve" in bonded_state) {
+          newTab = "fund";
+        } else {
+          newTab = "buy-redeem";
+        }
+      }
+
+      history.replace(`${basename}/trade/${address}/${newTab || currentTab || ""}${location.hash}`);
     }
   }, [currentTab, loaded, address, addressInitialized, loading]);
 
@@ -112,7 +134,29 @@ export const MainPage = ({ setWalletModalVisibility }) => {
           setCurrentTab("buy-redeem");
         }
       } else {
-        setCurrentTab(tab);
+        if (tab === "fund") {
+          if (bonded_state?.fund_aa) {
+            setCurrentTab(tab);
+          } else {
+            if ("reserve" in bonded_state) {
+              setCurrentTab("deposits");
+            } else {
+              setCurrentTab("buy-redeem");
+            }
+          }
+        } if (tab === "deposits") {
+          if (bonded_state?.fund_aa) {
+            if ("reserve" in bonded_state) {
+              setCurrentTab("fund");
+            } else {
+              setCurrentTab("buy-redeem");
+            }
+          } else {
+            setCurrentTab(tab);
+          }
+        } else {
+          setCurrentTab(tab);
+        }
       }
       setTabInitialized(true);
     }
@@ -132,7 +176,7 @@ export const MainPage = ({ setWalletModalVisibility }) => {
     address !== "undefined" &&
     ((!symbol1 && !pendings.tokens1) ||
       (!symbol2 && !pendings.tokens2) ||
-      (!symbol3 && !pendings.tokens3 && bonded_state.interest_rate))
+      (!symbol3 && !pendings.tokens3 && bonded_state.interest_rate) || (fund_aa && !symbol4 && !pendings.tokens4))
   ) {
     return (
       <RegisterSymbols
@@ -140,15 +184,19 @@ export const MainPage = ({ setWalletModalVisibility }) => {
         symbol2={symbol2}
         symbol3={symbol3}
         pendings={pendings}
+        fund_aa={fund_aa}
+        fund_asset={fund_state?.shares_asset}
         asset1={bonded_state.asset1}
         asset2={bonded_state.asset2}
-        asset3={deposit_state.asset}
+        asset3={stable_state?.asset || deposit_state?.asset}
         decimals1={actualParams.decimals1}
         decimals2={actualParams.decimals2}
+        reserve_asset_decimals={actualParams.reserve_asset_decimals}
         address={address}
         activeWallet={activeWallet}
         handleSkip={setHandleSkip}
-        interest={!!bonded_state.interest_rate}
+        interest={stable_state?.asset || !!bonded_state.interest_rate}
+        isV2={!!fund_aa}
       />
     );
   } else
@@ -180,29 +228,40 @@ export const MainPage = ({ setWalletModalVisibility }) => {
               }
               key="buy-redeem"
             >
-              {"reserve" in bonded_state ? (
+              {!fund_aa ? ("reserve" in bonded_state ? (
                 <Row style={{ marginTop: 20 }}>
                   <Col md={{ span: 10 }} xs={{ span: 24 }}>
                     <Issue />
                   </Col>
                   <Col md={{ span: 10, offset: 4 }} xs={{ span: 24 }}>
-                    <Redeem setWalletModalVisibility={setWalletModalVisibility}/>
+                    <Redeem setWalletModalVisibility={setWalletModalVisibility} />
                   </Col>
                 </Row>
               ) : (
-                  <Row style={{ marginTop: 20 }}>
-                    <Col span={18}>
-                      <Issue />
-                    </Col>
-                  </Row>
-                )}
+                <Row style={{ marginTop: 20 }}>
+                  <Col span={18}>
+                    <Issue />
+                  </Col>
+                </Row>
+              )) : <IssueAndRedeem />}
+
               <div style={{ textAlign: "center" }}>
                 <Trans i18nKey="trade.tabs.buy_redeem.liquidity">
                   <p>You can earn additional interest by adding these tokens to liquidity pools, see <a target="_blank" rel="noopener" href="https://liquidity.obyte.org" onClick={handleClickToLiquidity}>liquidity.obyte.org</a>.</p>
                 </Trans>
               </div>
             </TabPane>
-            <TabPane
+            {fund_aa ? <TabPane
+              disabled={!("reserve" in bonded_state)}
+              tab={
+                <span>
+                  <FundIcon /> {t("trade.tabs.stability_fund.name", "Stability fund")}
+                </span>
+              }
+              key="fund"
+            >
+              <StabilityFund />
+            </TabPane> : <TabPane
               disabled={!("reserve" in bonded_state) || (!bonded_state.interest_rate && !deposit_state.supply)}
               tab={
                 <span>
@@ -212,7 +271,7 @@ export const MainPage = ({ setWalletModalVisibility }) => {
               key="deposits"
             >
               <Deposits params={actualParams} openWalletModal={setWalletModalVisibility} />
-            </TabPane>
+            </TabPane>}
             <TabPane
               disabled={!("reserve" in bonded_state)}
               tab={

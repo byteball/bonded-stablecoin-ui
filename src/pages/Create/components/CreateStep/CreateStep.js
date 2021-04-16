@@ -8,24 +8,23 @@ import { useTranslation } from 'react-i18next';
 import { generateLink } from "utils/generateLink";
 import { pendingIssue } from "store/actions/pendings/pendingIssue";
 import { resetIssueStablecoin } from "store/actions/pendings/resetIssueStablecoin";
-import { changeActive } from "store/actions/active/changeActive";
 
 import config from "config";
 import { QRButton } from "components/QRButton/QRButton";
 
-export const CreateStep = ({ data, setCurrent }) => {
+export const CreateStep = ({ data, setCurrent, type }) => {
   const pendings = useSelector((state) => state.pendings.stablecoin);
   const { sendReq, addressIssued } = pendings;
   const dispatch = useDispatch();
   const { t } = useTranslation();
-  const link = generateLink(1.5e4, data, undefined, config.FACTORY_AAS[config.FACTORY_AAS.length - 1]);
+  const link = generateLink(1.5e4, data, undefined, config.FACTORY_AAS[config.FACTORY_AAS.length + (type === 2 ? -1 : -2)]);
 
   useEffect(() => {
     dispatch(pendingIssue(data));
   }, [dispatch, data]);
 
   if (addressIssued) {
-    dispatch(changeActive(addressIssued));
+    // dispatch(changeActive(addressIssued));
     dispatch(resetIssueStablecoin());
   }
 
@@ -55,7 +54,7 @@ export const CreateStep = ({ data, setCurrent }) => {
     <Result
       status="info"
       icon={<WalletOutlined />}
-      title= {t("create.sending_request.title", "Almost ready!")}
+      title={t("create.sending_request.title", "Almost ready!")}
       subTitle={t("create.sending_request.subTitle", "Please click the «Create» button below, this will open your Obyte wallet and you'll send a transaction that will create the new stablecoin.")}
       extra={[
         <QRButton
