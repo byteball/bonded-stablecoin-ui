@@ -10,6 +10,7 @@ export const deEventManager = ({
   symbol4,
   decision_engine_aa,
   reserve_asset_decimals,
+  reserve_asset_symbol
 }) => {
   if (isReq) {
     if ("act" in payload) {
@@ -39,11 +40,11 @@ export const deEventManager = ({
         const amount = messages.find((msg) => msg.app === "payment" && !("asset" in msg.payload))?.payload?.outputs?.find((output) => output.address === decision_engine_aa).amount / 10 ** reserve_asset_decimals;
         if (isAuthor) {
           openNotification(
-            i18n.t("notification.de.buy.req_author", "You have sent a request to buy {{symbol}} for {{amount}} GBYTE", { symbol: symbol4 || "T_SF", amount })
+            i18n.t("notification.de.buy.req_author", "You have sent a request to buy {{symbol}} for {{amount}} {{reserve_symbol}}", { symbol: symbol4 || "T_SF", amount, reserve_symbol: reserve_asset_symbol })
           );
         } else {
           openNotification(
-            i18n.t("notification.de.buy.req", "Another user sent a request to buy {{symbol}} for {{amount}} GBYTE", { symbol: symbol4 || "T_SF", amount })
+            i18n.t("notification.de.buy.req", "Another user sent a request to buy {{symbol}} for {{amount}} {{reserve_symbol}}", { symbol: symbol4 || "T_SF", reserve_symbol: reserve_asset_symbol })
           );
         }
       } else if (action === "redeem") {
