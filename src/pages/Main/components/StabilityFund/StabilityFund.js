@@ -8,7 +8,7 @@ import { generateLink } from "utils/generateLink";
 import moment from "moment";
 import { $get_exchange_result } from "helpers/bonded";
 import { useWindowSize } from "hooks/useWindowSize";
-import { Suspense } from "react";
+import { Suspense, useEffect } from "react";
 
 const Pie = React.lazy(() => import('@ant-design/charts').then(module => ({ default: module.Pie })))
 
@@ -48,6 +48,11 @@ export const StabilityFund = () => {
   const now = Math.floor(Date.now() / 1000);
   const timeToNextMovement = "below_peg_ts" in de_state ? de_state.below_peg_ts + below_peg_timeout : now;
   const [isExpired, setIsExpired] = useState(timeToNextMovement <= now);
+
+  useEffect(() => {
+    const now = Math.floor(Date.now() / 1000);
+    setIsExpired(timeToNextMovement <= now);
+  }, [timeToNextMovement]);
 
   const handleChangeBuy = (ev) => {
     const value = ev.target.value;
@@ -192,7 +197,7 @@ export const StabilityFund = () => {
             data={
               [
                 { symbol: reserve_asset_symbol || "RESERVE", type: reserve_asset_symbol || "RESERVE", value: reserveBalance / 10 ** reserve_asset_decimals },
-                { symbol: symbol1 || "T1", type: t1Balance / 10 ** decimals1 + " " + (symbol1 || "T1"), value: (p1  * 10 ** (reserve_asset_decimals - decimals1) * t1Balance) / 10 ** reserve_asset_decimals }
+                { symbol: symbol1 || "T1", type: t1Balance / 10 ** decimals1 + " " + (symbol1 || "T1"), value: (p1 * 10 ** (reserve_asset_decimals - decimals1) * t1Balance) / 10 ** reserve_asset_decimals }
               ]
             } angleField="value" colorField="type" />
         </Suspense>
@@ -202,7 +207,7 @@ export const StabilityFund = () => {
           <Statistic title={`${symbol4 || "T_FUND"} price`} precision={decimals1} suffix={reserve_asset_symbol} value={Number(share_price).toFixed(reserve_asset_decimals)} />
           <Statistic title={`${symbol1 || "T1"} price`} precision={decimals1} suffix={reserve_asset_symbol} value={Number(p1 || 0).toFixed(decimals1)} />
         </Space>
-        <Statistic style={{ marginTop: 25 }} title={t("trade.tabs.stability_fund.total_asset", "Total asset value")} valueRender={() => <span>{`${Number(reserveBalance / 10 ** reserve_asset_decimals).toFixed(decimals1)} ${reserve_asset_symbol || "RESERVE"} (${reserveBalancePercent}%)`} <br/> + {`${Number(t1Balance / 10 ** decimals1).toFixed(decimals1)} ${symbol1 || "T1"} (${t1BalancePercent}%)`} <br/> = {`${Number(balance / 10 ** reserve_asset_decimals).toFixed(reserve_asset_decimals)} ${reserve_asset_symbol}`}</span>} />
+        <Statistic style={{ marginTop: 25 }} title={t("trade.tabs.stability_fund.total_asset", "Total asset value")} valueRender={() => <span>{`${Number(reserveBalance / 10 ** reserve_asset_decimals).toFixed(decimals1)} ${reserve_asset_symbol || "RESERVE"} (${reserveBalancePercent}%)`} <br /> + {`${Number(t1Balance / 10 ** decimals1).toFixed(decimals1)} ${symbol1 || "T1"} (${t1BalancePercent}%)`} <br /> = {`${Number(balance / 10 ** reserve_asset_decimals).toFixed(reserve_asset_decimals)} ${reserve_asset_symbol}`}</span>} />
       </div>
     </div>
 
