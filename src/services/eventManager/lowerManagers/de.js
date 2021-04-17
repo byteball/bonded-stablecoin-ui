@@ -39,7 +39,7 @@ export const deEventManager = ({
         }
       }
       if (action === "buy") {
-        const amount = getAAPayment(messages, [decision_engine_aa], reserve_asset) / 10 ** reserve_asset_decimals; //messages.find((msg) => msg.app === "payment" && ("asset" in msg.payload))?.payload?.outputs?.find((output) => output.address === decision_engine_aa).amount / 10 ** reserve_asset_decimals;
+        const amount = getAAPayment(messages, [decision_engine_aa], reserve_asset) / 10 ** reserve_asset_decimals;
         if (isAuthor) {
           openNotification(
             i18n.t("notification.de.buy.req_author", "You have sent a request to buy {{symbol}} for {{amount}} {{reserve_symbol}}", { symbol: symbol4 || "T_SF", amount, reserve_symbol: reserve_asset_symbol })
