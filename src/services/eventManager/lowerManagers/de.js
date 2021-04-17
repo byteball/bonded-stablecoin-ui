@@ -44,7 +44,7 @@ export const deEventManager = ({
           );
         } else {
           openNotification(
-            i18n.t("notification.de.buy.req", "Another user sent a request to buy {{symbol}} for {{amount}} {{reserve_symbol}}", { symbol: symbol4 || "T_SF", reserve_symbol: reserve_asset_symbol })
+            i18n.t("notification.de.buy.req", "Another user sent a request to buy {{symbol}} for {{amount}} {{reserve_symbol}}", { symbol: symbol4 || "T_SF", amount, reserve_symbol: reserve_asset_symbol })
           );
         }
       } else if (action === "redeem") {
