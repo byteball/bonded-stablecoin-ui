@@ -8,8 +8,7 @@ import { generateLink } from "utils/generateLink";
 import moment from "moment";
 import { $get_exchange_result } from "helpers/bonded";
 import { useWindowSize } from "hooks/useWindowSize";
-import { Suspense } from "react";
-import { useEffect } from "react";
+import { Suspense, useEffect } from "react";
 
 const Pie = React.lazy(() => import('@ant-design/charts').then(module => ({ default: module.Pie })))
 
