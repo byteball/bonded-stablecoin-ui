@@ -1,12 +1,14 @@
 import i18n from "../../../locale/index";
 
 import { openNotification } from "utils/openNotification";
+import { getAAPayment } from "../eventManager";
 export const deEventManager = ({
   isReq,
   payload,
   isAuthor,
   messages,
   shares_asset,
+  reserve_asset,
   symbol4,
   decision_engine_aa,
   reserve_asset_decimals,
@@ -37,7 +39,7 @@ export const deEventManager = ({
         }
       }
       if (action === "buy") {
-        const amount = messages.find((msg) => msg.app === "payment" && !("asset" in msg.payload))?.payload?.outputs?.find((output) => output.address === decision_engine_aa).amount / 10 ** reserve_asset_decimals;
+        const amount = getAAPayment(messages, [decision_engine_aa], reserve_asset) / 10 ** reserve_asset_decimals; //messages.find((msg) => msg.app === "payment" && ("asset" in msg.payload))?.payload?.outputs?.find((output) => output.address === decision_engine_aa).amount / 10 ** reserve_asset_decimals;
         if (isAuthor) {
           openNotification(
             i18n.t("notification.de.buy.req_author", "You have sent a request to buy {{symbol}} for {{amount}} {{reserve_symbol}}", { symbol: symbol4 || "T_SF", amount, reserve_symbol: reserve_asset_symbol })
@@ -48,7 +50,7 @@ export const deEventManager = ({
           );
         }
       } else if (action === "redeem") {
-        const amount = messages.find((msg) => msg.app === "payment" && ("asset" in msg.payload))?.payload?.outputs?.find((output) => output.address === decision_engine_aa).amount / 10 ** reserve_asset_decimals;
+        const amount = getAAPayment(messages, [decision_engine_aa], shares_asset) / 10 ** reserve_asset_decimals;
         if (isAuthor) {
           openNotification(
             i18n.t("notification.de.sell.req_author", "You have sent a request to redeem {{amount}} {{symbol}}", { symbol: symbol4 || "T_SF", amount })
