@@ -226,6 +226,8 @@ export const eventManager = (err, result) => {
         symbol4,
         shares_asset: fund_state?.shares_asset,
         decimals2: paramsStablecoin.decimals2,
+        decision_engine_aa: bonded_state.decision_engine_aa,
+        reserve_asset_decimals: paramsStablecoin.reserve_asset_decimals,
         isAuthor: body.unit.authors[0].address === activeWallet
       });
 
