@@ -48,7 +48,7 @@ export const eventManager = (err, result) => {
 
   const isReq = subject === "light/aa_request";
   const isRes = subject === "light/aa_response";
-  
+
   const de_aa = bonded_state?.decision_engine_aa;
   if (aa_address === config.TOKEN_REGISTRY) {
     if (isReq) {
@@ -226,7 +226,11 @@ export const eventManager = (err, result) => {
         symbol4,
         shares_asset: fund_state?.shares_asset,
         decimals2: paramsStablecoin.decimals2,
-        isAuthor: body.unit.authors[0].address === activeWallet
+        reserve_asset: paramsStablecoin.reserve_asset,
+        decision_engine_aa: bonded_state.decision_engine_aa,
+        reserve_asset_decimals: paramsStablecoin.reserve_asset_decimals,
+        isAuthor: body.unit.authors[0].address === activeWallet,
+        reserve_asset_symbol
       });
 
       store.dispatch(addNotStableTransaction({ type: "de", unit: body.unit }));

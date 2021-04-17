@@ -38,7 +38,7 @@ export const Statistics = ({ windowWidth }) => {
   const { t } = useTranslation();
   const { supply1, supply2, asset1 } = bonded_state;
   const { decimals1, decimals2, reserve_asset, m, n,reserve_asset_decimals } = actualParams;
-  const { supply } = stable_state || deposit_state || {};
+  const supply = stable_state?.supply || deposit_state?.supply;
   const fund_supply = fund_state?.shares_supply;
   const s1 = supply1 / 10 ** decimals1;
   const s2 = supply2 / 10 ** decimals2;
