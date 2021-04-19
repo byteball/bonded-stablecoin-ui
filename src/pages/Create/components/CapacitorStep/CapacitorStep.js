@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Form, Input, Row, Col, Button } from "antd";
 import { useTranslation } from 'react-i18next';
 
@@ -18,8 +18,9 @@ const initialValues = {
   slow_capacity_share: 0.5,
 };
 
-export const CapacitorStep = ({ setCurrent, setData }) => {
+export const CapacitorStep = ({ setCurrent, setData, type }) => {
   const [form] = useForm();
+  const { setFieldsValue } = form;
   const { t } = useTranslation();
   const [validFields, setValidFields] = useState({
     fee_multiplier: true,
@@ -52,6 +53,11 @@ export const CapacitorStep = ({ setCurrent, setData }) => {
       onSuccess: () => setValidFields((v) => ({ ...v, [name]: true })),
       onError: () => setValidFields((v) => ({ ...v, [name]: false })),
     });
+
+    useEffect(()=>{
+      setFieldsValue({ fee_multiplier: type === 2 ? 0.1 : 2 });
+    }, [type]);
+
   return (
     <Form
       size="large"
