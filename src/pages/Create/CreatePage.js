@@ -52,7 +52,7 @@ export const CreatePage = () => {
           <CurverStep type={type} setCurrent={setCurrent} setData={setData} />
         )}
         {current === 1 && (
-          <CapacitorStep setCurrent={setCurrent} setData={setData} />
+          <CapacitorStep type={type} setCurrent={setCurrent} setData={setData} />
         )}
         {current === 2 && (
           <GovernanceStep setCurrent={setCurrent} setData={setData} />
