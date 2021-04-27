@@ -47,6 +47,8 @@ export const SelectStablecoin = () => {
   const optionList = [];
 
   for (const aa in data) {
+    if (aa === 'PU5YFREC4OBEYADLOHMBEEA4CI2Z5AKA') // broken AA
+      continue;
     const { asset_2, symbol, params, bonded_state, fund } = data[aa];
     const targetCurrency = getTargetCurrency(params, bonded_state);
     const interest_rate_percent = bonded_state ? Decimal.mul(bonded_state.interest_rate, 100).toNumber() : null;
