@@ -18,6 +18,7 @@ export const IssueAndRedeem = () => {
   const btnRef = useRef(null);
   const [meta, setMeta] = useState(undefined);
   const [error, setError] = useState(null);
+  const [currentPairs, setCurrentPairs] = useState([]);
   const { address, oraclePrice, params, reserve_asset_symbol, fund_balance, symbol1, symbol2, symbol3, symbol4, stable_state, bonded_state, fund_state, reservePrice, stable_aa, fund_aa } = useSelector((state) => state.active);
   const { activeWallet, referrer } = useSelector((state) => state.settings);
   const actualParams = getParams(params, bonded_state);
@@ -71,7 +72,9 @@ export const IssueAndRedeem = () => {
     toDecimals = decimals2;
   }
 
-  const currentPairs = pairs[fromAsset];
+  useEffect(()=>{
+    setCurrentPairs(pairs[fromAsset]);
+  }, [address, fromAsset])
 
   if (fromAsset === reserve_asset) {
     if (toAsset === shares_asset) {
@@ -107,8 +110,14 @@ export const IssueAndRedeem = () => {
   }
 
   useEffect(() => {
-    setToAsset(currentPairs[0].asset)
-  }, [fromAsset, address]);
+    setFromAsset(reserve_asset);
+  }, [address, reserve_asset])
+
+  useEffect(() => {
+    if (currentPairs?.[0]) {
+      setToAsset(currentPairs[0].asset)
+    }
+  }, [currentPairs]);
 
   useEffect(() => {
     if (input1) {
@@ -404,7 +413,7 @@ export const IssueAndRedeem = () => {
             </Form.Item>
             <Form.Item style={{ width: "50%", marginBottom: 0 }}>
               <Select size="large" placeholder="Select token" value={toAsset} onChange={(v) => setToAsset(v)} style={{ width: "100%" }}>
-                {currentPairs.map((p, i) => {
+                {currentPairs?.map((p, i) => {
                   return <Select.Option key={"option" + i} value={p.asset}>{p.symbol || p.asset}</Select.Option>
                 })}
               </Select>
