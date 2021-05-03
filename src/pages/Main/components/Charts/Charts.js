@@ -32,8 +32,8 @@ export const Charts = ({ params, isActive}) => {
   const [data, setData] = useState({ T1: [], T2: [], loaded: false });
   const [legends, setLegends] = useState({ T1: true, T2: true });
 
-  const leftSeriesOptions = {
-    priceScaleId: 'left',
+  const rightSeriesOptions = {
+    priceScaleId: 'right',
     title: `${symbol2} price (in ${inUSD ? 'USD' : reserveToken})`,
     priceFormat: {
       type: "custom",
@@ -42,8 +42,8 @@ export const Charts = ({ params, isActive}) => {
     },
   };
 
-  const rightSeriesOptions = {
-    priceScaleId: 'right',
+  const leftSeriesOptions = {
+    priceScaleId: 'left',
     lineColor: 'rgba(0, 55, 255, 1)',
     bottomColor: 'rgba(0, 55, 255, 0.04)',
     title: `${fund_aa ? symbol4 : symbol1} price (in ${reserveToken})`,
@@ -75,8 +75,8 @@ export const Charts = ({ params, isActive}) => {
           }
         });
         if (chartInstance && chart === null) {
-          setLineSeriesT2(chartInstance.addAreaSeries(leftSeriesOptions));
-          setLineSeriesT1(chartInstance.addAreaSeries(rightSeriesOptions));
+          setLineSeriesT2(chartInstance.addAreaSeries(rightSeriesOptions));
+          setLineSeriesT1(chartInstance.addAreaSeries(leftSeriesOptions));
           setChart(chartInstance);
         }
       }
