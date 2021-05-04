@@ -21,7 +21,7 @@ export const IssueAndRedeem = () => {
   const [meta, setMeta] = useState(undefined);
   const [error, setError] = useState(null);
   const [currentPairs, setCurrentPairs] = useState([]);
-  const [switchWorks, setSwitchWorks] = useState(false);
+  const [changingDirection, setChangingDirection] = useState(false);
   const { address, oraclePrice, params, reserve_asset_symbol, fund_balance, symbol1, symbol2, symbol3, symbol4, stable_state, bonded_state, fund_state, reservePrice, stable_aa, fund_aa } = useSelector((state) => state.active);
   const { activeWallet, referrer } = useSelector((state) => state.settings);
   const actualParams = getParams(params, bonded_state);
@@ -120,10 +120,10 @@ export const IssueAndRedeem = () => {
   }, [address, reserve_asset])
 
   useEffect(() => {
-    if (!switchWorks && currentPairs?.[0]) {
+    if (!changingDirection && currentPairs?.[0]) {
       setToAsset(currentPairs[0].asset)
-    } else if(switchWorks) {
-      setSwitchWorks(false);
+    } else if(changingDirection) {
+      setChangingDirection(false);
     }
   }, [currentPairs]);
 
@@ -386,7 +386,7 @@ export const IssueAndRedeem = () => {
   const changeDirection = () => {
     const oldFromAsset = `${fromAsset}`;
     const oldToAsset = `${toAsset}`;
-    setSwitchWorks(true);
+    setChangingDirection(true);
     setInput1(input2);
     setFromAsset(oldToAsset);
     setToAsset(oldFromAsset);
