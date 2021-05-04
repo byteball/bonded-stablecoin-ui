@@ -46,7 +46,7 @@ export const GovernanceItem = ({
   const [activeSupportValue, setActiveSupportValue] = useState(undefined);
   const [isExpired, setIsExpired] = useState(false);
   const { t } = useTranslation();
-  const now = Date.now();
+  const now = Math.floor(Date.now() / 1000);
   const source = [];
   const supportsByValue = {};
   const isChoice = !!choice;
@@ -189,12 +189,12 @@ export const GovernanceItem = ({
           >
             <div className={styles.secondInfo} style={(name === "oracles" || name === "decision_engine_aa") && width < 720 ? { textAlign: "left" } : {}}>
               <div>
-                {new Date() <= challengingPeriod && !isExpired ? (
+                {now <= challengingPeriod && !isExpired ? (
                   <>
                     {t("trade.tabs.governance.expires_period", "Challenging period expires in")} {" "}
                     <Countdown
                       valueStyle={{ fontSize: 14, display: "inline", wordBreak: "break-all" }}
-                      value={moment.utc(challengingPeriod)}
+                      value={moment.unix(challengingPeriod)}
                       style={{ display: "inline" }}
                       format={regularPeriod > 86400 ? "D [days] HH:mm:ss" : "HH:mm:ss"}
                       onFinish={() => setIsExpired(true)}

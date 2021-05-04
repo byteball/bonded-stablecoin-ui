@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Typography, Steps, Input, Form, Button, Space } from "antd";
 import { useTranslation } from 'react-i18next';
 import config from "config";
@@ -6,6 +6,9 @@ import socket from "services/socket";
 import { isBoolean } from "lodash";
 import { generateLink } from "utils/generateLink";
 import { useWindowSize } from "hooks/useWindowSize.js";
+import { getTargetCurrency } from "components/SelectStablecoin/SelectStablecoin";
+import { useSelector } from "react-redux";
+import { QRButton } from "components/QRButton/QRButton";
 
 const { Title, Text } = Typography;
 const { Step } = Steps;
@@ -35,7 +38,11 @@ export const RegisterSymbols = (props) => {
   const [token, setToken] = useState(initStateValue);
   const [tokenSupport, setTokenSupport] = useState(initStateValue);
   const [descr, setDescr] = useState(initStateValue);
+  const { params, bonded_state } = useSelector((state) => state.active);
   const { t } = useTranslation();
+  const checkRef = useRef(null);
+  const regRef = useRef(null);
+  const symbolInputRef = useRef(null);
 
   let currentAsset;
 
@@ -97,21 +104,31 @@ export const RegisterSymbols = (props) => {
         } else {
           setIsAvailable(true);
           let initDescr;
+          const targetCurrency = getTargetCurrency(params, bonded_state);
 
-          if (currentSymbol === 3) {
-            initDescr = `Stable token for bonded stablecoin (${props.address})`;
-          } if (currentSymbol === 4) {
-            initDescr = `Stability fund shares for bonded stablecoin (${props.address})`;
-          } else {
-            initDescr = `Token${currentSymbol} for bonded stablecoin (${props.address})`;
+          if (currentSymbol === 4) {
+            initDescr = `Stability fund shares for ${targetCurrency}-pegged stablecoin (${props.address})`;
+          } if (currentSymbol === 3) {
+            initDescr = `Stable token for ${targetCurrency}-pegged stablecoin (${props.address})`;
+          } else if (currentSymbol === 2) {
+            initDescr = `Interest token for ${targetCurrency}-pegged stablecoin (${props.address})`;
+          } else if (currentSymbol === 1) {
+            initDescr = `Growth token for ${targetCurrency}-pegged stablecoin (${props.address})`;
           }
 
           setDescr({
             value: initDescr,
             valid: true,
           });
+
+          setTokenSupport({ value: "0.1", valid: true })
         }
       })();
+      symbolInputRef?.current.blur();
+    } else if (isAvailable === undefined) {
+      symbolInputRef?.current.focus({
+        cursor: 'start',
+      });
     }
   }, [isAvailable, props.address, currentSymbol]);
 
@@ -183,6 +200,15 @@ export const RegisterSymbols = (props) => {
       helpSymbol = t("reg_symbol.taken", "This token name is already taken. This will start a dispute");
     }
   }
+
+  const clickOnRegBtn = (ev) => {
+    if (ev.key === "Enter") {
+      if (token.valid && descr.valid && tokenSupport.valid) {
+        regRef.current.click();
+      }
+    }
+  }
+
   return (
     <div>
       <Title level={3} type="secondary">
@@ -194,8 +220,8 @@ export const RegisterSymbols = (props) => {
         style={{ marginTop: 20 }}
         direction={width > 800 ? "horizontal" : "vertical"}
       >
-        <Step title={t("reg_symbol.step", "Symbol for tokens{{token}}", { token: "1" })} />
-        <Step title={t("reg_symbol.step", "Symbol for tokens{{token}}", { token: "2" })} />
+        <Step title={t("reg_symbol.step_growth", "Symbol for growth token")} />
+        <Step title={t("reg_symbol.step_interest", "Symbol for interest token")} />
         <Step style={!props.interest ? { display: 'none' } : {}} title={t("reg_symbol.step_stable", "Symbol for stable tokens")} />
         {props.isV2 && <Step title={t("reg_symbol.step_fond", "Symbol for fund tokens")} />}
       </Steps>
@@ -220,10 +246,18 @@ export const RegisterSymbols = (props) => {
             placeholder={t("reg_symbol.symbol", "Symbol")}
             allowClear
             autoFocus={true}
+            ref={symbolInputRef}
             disabled={isBoolean(isAvailable)}
             autoComplete="off"
             value={token.value}
             onChange={handleChangeSymbol}
+            onKeyPress={(ev) => {
+              if (ev.key === "Enter") {
+                if (token.valid) {
+                  checkRef.current.click();
+                }
+              }
+            }}
           />
         </Form.Item>
         {isAvailable !== undefined && isAvailable !== null && (
@@ -235,6 +269,7 @@ export const RegisterSymbols = (props) => {
               value={tokenSupport.value}
               onChange={handleChangeSupport}
               autoFocus={isBoolean(isAvailable)}
+              onKeyPress={clickOnRegBtn}
             />
           </Form.Item>
         )}
@@ -264,13 +299,15 @@ export const RegisterSymbols = (props) => {
                 key="btn-check"
                 loading={isAvailable === null}
                 disabled={token.value === "" || !token.valid}
+                ref={checkRef}
               >
                 {t("reg_symbol.check_availability", "Check availability")}
               </Button>
             ) : (
-              <Button
+              <QRButton
                 disabled={!token.valid || !tokenSupport.valid}
                 key="btn-reg"
+                ref={regRef}
                 href={generateLink(
                   tokenSupport.value * 1e9,
                   data,
@@ -281,7 +318,7 @@ export const RegisterSymbols = (props) => {
                 {isAvailable && !symbolByCurrentAsset
                   ? t("reg_symbol.register", "Register")
                   : t("reg_symbol.register_anyway", "Register anyway")}
-              </Button>
+              </QRButton>
             )}
             <Button
               type="link"
