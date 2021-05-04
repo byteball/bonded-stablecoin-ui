@@ -272,7 +272,7 @@ export const Governance = ({ openWalletModal }) => {
         <List
           dataSource={governanceList}
           renderItem={(item, index) => {
-            const challengingStartInSeconds = item.challenging_period_start_ts + (item.name === "oracles" || item.name === "decision_engine_aa" ? params.important_challenging_period : params.regular_challenging_period);
+            const challengingPeriodEndInSeconds = item.challenging_period_start_ts + (item.name === "oracles" || item.name === "decision_engine_aa" ? params.important_challenging_period : params.regular_challenging_period);
             return (
               <GovernanceItem
                 refEl={item.refEl}
@@ -302,7 +302,7 @@ export const Governance = ({ openWalletModal }) => {
                   (governanceParams[item.name].choice || {}) &&
                   governanceParams[item.name].choice[activeWallet]
                 }
-                challengingPeriod={challengingStartInSeconds}
+                challengingPeriodEndInSeconds={challengingPeriodEndInSeconds}
                 regularPeriod={params.regular_challenging_period}
                 freezePeriod={
                   item.challenging_period_start_ts
