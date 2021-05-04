@@ -1,7 +1,9 @@
+import { SwapOutlined } from "@ant-design/icons";
 import { Col, Input, Row, Form, Select, Typography } from "antd";
 import { QRButton } from "components/QRButton/QRButton";
 import { $get_exchange_result } from "helpers/bonded";
 import { getParams } from "helpers/getParams";
+import { useWindowSize } from "hooks/useWindowSize";
 import React, { useEffect, useState, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
@@ -19,9 +21,11 @@ export const IssueAndRedeem = () => {
   const [meta, setMeta] = useState(undefined);
   const [error, setError] = useState(null);
   const [currentPairs, setCurrentPairs] = useState([]);
+  const [changingDirection, setChangingDirection] = useState(false);
   const { address, oraclePrice, params, reserve_asset_symbol, fund_balance, symbol1, symbol2, symbol3, symbol4, stable_state, bonded_state, fund_state, reservePrice, stable_aa, fund_aa } = useSelector((state) => state.active);
   const { activeWallet, referrer } = useSelector((state) => state.settings);
   const actualParams = getParams(params, bonded_state);
+  const [width] = useWindowSize();
   const { reserve_asset, reserve_asset_decimals, decimals1, decimals2, m, n } = actualParams;
   const { asset } = stable_state;
   const { asset1, asset2, reserve } = bonded_state;
@@ -72,7 +76,7 @@ export const IssueAndRedeem = () => {
     toDecimals = decimals2;
   }
 
-  useEffect(()=>{
+  useEffect(() => {
     setCurrentPairs(pairs[fromAsset]);
   }, [address, fromAsset])
 
@@ -83,10 +87,10 @@ export const IssueAndRedeem = () => {
       sendAmount = Math.round(input1 * 10 ** reserve_asset_decimals);
     } else if (toAsset === asset2) {
       currentAddress = address;
-      sendPayload = { tokens2: Math.trunc(input2 * 10 ** decimals2), ref: referrer };
+      sendPayload = { tokens2: Math.trunc(input2 * 10 ** decimals2), ref: referrer, max_fee_percent: meta?.max_fee_percent };
       sendAmount = Math.ceil(input1 * 10 ** reserve_asset_decimals);
     } else if (toAsset === asset) {
-      sendPayload = { tokens2: Math.trunc(input2 * 10 ** decimals2), tokens2_to: toAsset === asset ? stable_aa : undefined }
+      sendPayload = { tokens2: Math.trunc(input2 * 10 ** decimals2), tokens2_to: toAsset === asset ? stable_aa : undefined, max_fee_percent: meta?.max_fee_percent }
       currentAddress = address;
       sendAmount = Math.ceil(input1 * 10 ** reserve_asset_decimals);
     }
@@ -96,16 +100,18 @@ export const IssueAndRedeem = () => {
       currentAddress = stable_aa
     } else if (toAsset === reserve_asset) {
       currentAddress = address;
+      sendPayload = { max_fee_percent: meta?.max_fee_percent }
     }
     sendAmount = Math.round(input1 * 10 ** decimals2);
   } else if (fromAsset === shares_asset) {
     currentAddress = bonded_state.decision_engine_aa;
     sendAmount = Math.round(input1 * 10 ** reserve_asset_decimals);
+    sendPayload = { max_fee_percent: meta?.max_fee_percent }
   } else if (fromAsset === asset) {
     currentAddress = stable_aa
     sendAmount = Math.round(input1 * 10 ** decimals2);
     if (toAsset === reserve_asset) {
-      sendPayload = { to: address }
+      sendPayload = { to: address, max_fee_percent: meta?.max_fee_percent }
     }
   }
 
@@ -114,8 +120,10 @@ export const IssueAndRedeem = () => {
   }, [address, reserve_asset])
 
   useEffect(() => {
-    if (currentPairs?.[0]) {
+    if (!changingDirection && currentPairs?.[0]) {
       setToAsset(currentPairs[0].asset)
+    } else if(changingDirection) {
+      setChangingDirection(false);
     }
   }, [currentPairs]);
 
@@ -317,6 +325,7 @@ export const IssueAndRedeem = () => {
       meta.changePricePercent = changePricePercent;
       meta.changeFinalPricePercent = changeFinalPricePercent;
       meta.priceChangePercentP1 = priceChangePercentP1;
+      meta.max_fee_percent = meta.fee_percent ? meta.fee_percent + 1 : 1;
       setMeta(meta);
     } else {
       setMeta(undefined)
@@ -373,13 +382,22 @@ export const IssueAndRedeem = () => {
   }
 
   const addProtect = fromAsset === reserve_asset && (toAsset === asset || toAsset === asset2);
+
+  const changeDirection = () => {
+    const oldFromAsset = `${fromAsset}`;
+    const oldToAsset = `${toAsset}`;
+    setChangingDirection(true);
+    setInput1(input2);
+    setFromAsset(oldToAsset);
+    setToAsset(oldFromAsset);
+  }
   
   return <div>
-    <Title level={3}>Buy and redeem</Title>
+    <Title level={3}>{t("trade.tabs.buy_redeem.title", "Buy and redeem")}</Title>
     <Form
       size="large">
       <Row style={{ marginBottom: 50 }}>
-        <Col lg={{ span: 11 }} sm={{ span: 24 }} xs={{ span: 24 }}>
+        <Col lg={{ span: 7 }} sm={{ span: 16 }} xs={{ span: 24 }}>
           <Text type="secondary">You send:</Text>
           <Input.Group compact size="large">
             <Form.Item style={{ width: "50%", marginBottom: 0 }}>
@@ -405,7 +423,12 @@ export const IssueAndRedeem = () => {
           </Input.Group>
           {addProtect ? <Text type="secondary" style={{ fontSize: 10, lineHeight: "auto" }}>{t("trade.tabs.buy_redeem.protect_v2", "1% of this amount will be added to protect against price volatility, you will receive this amount back if prices do not change.")}</Text> : null}
         </Col>
-        <Col lg={{ span: 11, offset: 2 }} sm={{ span: 24, offset: 0 }} xs={{ span: 24, offset: 0 }}>
+        <Col lg={{ span: 2 }} sm={{ span: 16 }} xs={{ span: 24 }}>
+          <div style={{ display: "flex", justifyContent: "center", marginTop: 22 }}>
+            <SwapOutlined onClick={changeDirection} style={{ fontSize: 28, padding: 5, display: "block", height: 40, cursor: "pointer", transform: width < 992 ? "rotate(90deg)" : "none" }} />
+          </div>
+        </Col>
+        <Col lg={{ span: 7 }} sm={{ span: 16, offset: 0 }} xs={{ span: 24, offset: 0 }}>
           <Text type="secondary">You get:</Text>
           <Input.Group compact size="large">
             <Form.Item style={{ width: "50%", marginBottom: 0 }}>
@@ -422,7 +445,7 @@ export const IssueAndRedeem = () => {
           </Input.Group>
         </Col>
         <Col span="24" >
-          <div style={{ display: "flex", justifyContent: "center", marginTop: 50 }}>
+          <div style={{ display: "flex", marginTop: 50 }}>
             <div>
               <div style={{ marginBottom: 25 }}>
                 <div>
@@ -473,7 +496,7 @@ export const IssueAndRedeem = () => {
                   </Text>
                 </div>
               </div>
-              <div style={{ display: "flex", justifyContent: "center" }}>
+              <div>
                 <QRButton disabled={isDisabled} type="primary" size="large" ref={btnRef} href={link}>Exchange</QRButton>
               </div>
             </div>

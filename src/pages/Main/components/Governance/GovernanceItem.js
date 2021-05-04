@@ -23,7 +23,7 @@ export const GovernanceItem = ({
   value,
   width,
   name,
-  challengingPeriod,
+  challengingPeriodEndInSeconds,
   regularPeriod,
   supportParamsByAddress,
   supportList,
@@ -46,7 +46,7 @@ export const GovernanceItem = ({
   const [activeSupportValue, setActiveSupportValue] = useState(undefined);
   const [isExpired, setIsExpired] = useState(false);
   const { t } = useTranslation();
-  const now = Date.now();
+  const now = Math.floor(Date.now() / 1000);
   const source = [];
   const supportsByValue = {};
   const isChoice = !!choice;
@@ -181,7 +181,7 @@ export const GovernanceItem = ({
             <div><b style={name === "oracles" || name === "decision_engine_aa" ? { display: valueView !== "-" ? "block" : "inline" } : { display: "inline" }}>{t("trade.tabs.governance.leader", "Leader")}:</b> {leaderView}</div>}
           <div>{isChoice && <div><b>{t("trade.tabs.governance.my_choice", "My choice")}: </b>{choiceView}</div>}</div>
         </Col>
-        {challengingPeriod ? (
+        {challengingPeriodEndInSeconds ? (
           <Col
             xs={{ span: 24 }}
             sm={{ span: 12 }}
@@ -189,12 +189,12 @@ export const GovernanceItem = ({
           >
             <div className={styles.secondInfo} style={(name === "oracles" || name === "decision_engine_aa") && width < 720 ? { textAlign: "left" } : {}}>
               <div>
-                {new Date() <= challengingPeriod && !isExpired ? (
+                {now <= challengingPeriodEndInSeconds && !isExpired ? (
                   <>
                     {t("trade.tabs.governance.expires_period", "Challenging period expires in")} {" "}
                     <Countdown
                       valueStyle={{ fontSize: 14, display: "inline", wordBreak: "break-all" }}
-                      value={moment.utc(challengingPeriod)}
+                      value={moment.unix(challengingPeriodEndInSeconds)}
                       style={{ display: "inline" }}
                       format={regularPeriod > 86400 ? "D [days] HH:mm:ss" : "HH:mm:ss"}
                       onFinish={() => setIsExpired(true)}
@@ -217,7 +217,7 @@ export const GovernanceItem = ({
                       href={linkCommit}
                       size="small"
                       disabled={
-                        now < challengingPeriod ||
+                        now < challengingPeriodEndInSeconds ||
                         leader === value ||
                         leader === undefined
                       }
