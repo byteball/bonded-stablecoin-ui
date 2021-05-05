@@ -3,7 +3,6 @@ import { Typography, List } from "antd";
 import { Trans, useTranslation } from 'react-i18next';
 import obyte from "obyte";
 import { useSelector } from "react-redux";
-import moment from 'moment';
 
 import { getParams } from "helpers/getParams";
 import { generateOraclesString } from "helpers/generateOraclesString";
@@ -273,14 +272,7 @@ export const Governance = ({ openWalletModal }) => {
         <List
           dataSource={governanceList}
           renderItem={(item, index) => {
-            const challengingStart = moment.utc(item.challenging_period_start_ts * 1000);
-
-            challengingStart.add({
-              second: params.regular_challenging_period
-            });
-
-            const challengingStartInSeconds = challengingStart.toDate();
-
+            const challengingPeriodEndInSeconds = item.challenging_period_start_ts + (item.name === "oracles" || item.name === "decision_engine_aa" ? params.important_challenging_period : params.regular_challenging_period);
             return (
               <GovernanceItem
                 refEl={item.refEl}
@@ -310,7 +302,7 @@ export const Governance = ({ openWalletModal }) => {
                   (governanceParams[item.name].choice || {}) &&
                   governanceParams[item.name].choice[activeWallet]
                 }
-                challengingPeriod={challengingStartInSeconds}
+                challengingPeriodEndInSeconds={challengingPeriodEndInSeconds}
                 regularPeriod={params.regular_challenging_period}
                 freezePeriod={
                   item.challenging_period_start_ts
