@@ -127,6 +127,45 @@
           "not_indent": "Unidentified"
         }
       },
+      "buy_redeem": {
+        "desc_interest": "Interest token that earns {{currentInterestPercent}}% interest in {{currentPegged}} — a stable+ coin. For investors seeking predictable income.",
+        "desc_fund": "Fund token whose value is tied to the amount of {{symbol2}} issued. For investors seeking higher income, with higher risks.",
+        "desc_stable": "Stablecoin whose value is 1 {{currentPegged}}. For use in commerce and trading.",
+        "desc_gbyte": "The main token of Obyte network.",
+        "you_send": "You send",
+        "select_token": "Select token",
+        "protect_v2": "1% of this amount will be added to protect against price volatility, you will receive this amount back if prices do not change.",
+        "you_get": "You get",
+        "big_change": "The transaction would change the price too much, please try a smaller amount",
+        "hide_details": "hide details",
+        "show_details": "show details",
+        "fee": "Fee",
+        "reward": "Reward",
+        "price_change": "{{pair}} price change",
+        "price": "{{pair}} price",
+        "final_price": "Final {{pair}} price",
+        "above_target": "above the target",
+        "below_target": "below the target",
+        "title_buy": "Buy tokens",
+        "first": "You are the first to buy tokens of this stablecoin, so you should buy token 1 and token 2 at the same time.",
+        "subtitle_buy": "How many tokens of each type you want to buy",
+        "minimize": "Set token1 amount to minimize fees",
+        "amount1_placeholder": "Amount of tokens1 ({{symbolOrAsset}} — growth tokens)",
+        "convert": "Immediately convert {{symbol2}} to stable token {{symbol3}}",
+        "issue_will_receive": "will send the {{symbol2}} to a deposit and receive {{amount}} {{symbol}}",
+        "issue_will_open_deposit": "(will open a deposit)",
+        "amount2_placeholder": "Amount of tokens2 ({{symbolOrAsset}} — interest tokens)",
+        "send": "Send",
+        "protect": "1% was added to protect against price volatility, you'll get this amount back if the prices don't change.",
+        "title": "Buy and redeem",
+        "redeem_will_receive": "You will get {{amount}} {{symbol}}",
+        "redeem": "Redeem",
+        "title_redeem": "Redeem token{{number}} {{symbol}}",
+        "redeem_both": "If you want to redeem two tokens at the same time, we recommend that you use an <1>intermediary agent</1>.",
+        "add_wallet": "Please add your wallet to use",
+        "name": "Buy/redeem",
+        "liquidity": "<0>You can earn additional interest by adding these tokens to liquidity pools, see <1>liquidity.obyte.org</1>.</0>"
+      },
       "capacitor": {
         "title": "Capacitors info",
         "desc": "Capacitors store fees charged from users who moved the price away from the peg. They are used to reward those who move the price back to the peg.",
@@ -218,36 +257,6 @@
         "commit": "commit",
         "remove_support": "remove support",
         "name": "Governance"
-      },
-      "buy_redeem": {
-        "title_buy": "Buy tokens",
-        "first": "You are the first to buy tokens of this stablecoin, so you should buy token 1 and token 2 at the same time.",
-        "subtitle_buy": "How many tokens of each type you want to buy",
-        "minimize": "Set token1 amount to minimize fees",
-        "amount1_placeholder": "Amount of tokens1 ({{symbolOrAsset}} — growth tokens)",
-        "convert": "Immediately convert {{symbol2}} to stable token {{symbol3}}",
-        "issue_will_receive": "will send the {{symbol2}} to a deposit and receive {{amount}} {{symbol}}",
-        "issue_will_open_deposit": "(will open a deposit)",
-        "amount2_placeholder": "Amount of tokens2 ({{symbolOrAsset}} — interest tokens)",
-        "fee": "Fee",
-        "reward": "Reward",
-        "price_change": "{{pair}} price change",
-        "price": "{{pair}} price",
-        "final_price": "Final {{pair}} price",
-        "above_target": "above the target",
-        "below_target": "below the target",
-        "send": "Send",
-        "protect": "1% was added to protect against price volatility, you'll get this amount back if the prices don't change.",
-        "title": "Buy and redeem",
-        "protect_v2": "1% of this amount will be added to protect against price volatility, you will receive this amount back if prices do not change.",
-        "big_change": "The transaction would change the price too much, please try a smaller amount",
-        "redeem_will_receive": "You will get {{amount}} {{symbol}}",
-        "redeem": "Redeem",
-        "title_redeem": "Redeem token{{number}} {{symbol}}",
-        "redeem_both": "If you want to redeem two tokens at the same time, we recommend that you use an <1>intermediary agent</1>.",
-        "add_wallet": "Please add your wallet to use",
-        "name": "Buy/redeem",
-        "liquidity": "<0>You can earn additional interest by adding these tokens to liquidity pools, see <1>liquidity.obyte.org</1>.</0>"
       },
       "parameters": {
         "title_curve": "Curve",
@@ -687,31 +696,17 @@
     },
     "header": {
       "title": "Bonded stablecoins",
-      "desc": "The most advanced stablecoins powered by bonding curves",
-      "stable": {
-        "for": "For use in commerce and trading.",
-        "info": "{{name}}: Stablecoin whose value is 1 {{target}}."
-      },
-      "btn_buy": "Buy {{token}}",
-      "interest": {
-        "for": "For investors seeking predictable income.",
-        "info": "{{name}}: Interest token that earns {{percent}}% interest in {{type}} — a stable+ coin."
-      },
-      "growth": {
-        "for": "For investors seeking higher income, with higher risks.",
-        "info": "{{growthName}}: Growth token whose value is tied to the amount of {{interestName}} issued."
-      },
-      "need_similar_coins": "Need similar coins pegged to {{other}} or some other asset? <3></3>Select yours: <6>{peggedList.map((p) => (\n                <Option key={p} value={p}>\n                  {p}\n                </Option>\n              ))}</6> or <10>create new ones</10>."
+      "desc": "The most advanced stablecoins powered by bonding curves"
     },
     "liquidity": {
       "title": "Make money from liquidity provision",
-      "info": "<0>Add these tokens to liquidity pools on <1>Oswap</1> and earn from trading fees. Some liquidity pools are eligible for additional rewards, see <3>liquidity.obyte.org</3>.</0><1>The additional rewards are currently about <1>77% APY</1>, paid weekly.</1>"
+      "info": "<0>Add these tokens to liquidity pools on <1>Oswap</1> and earn from trading fees. Some liquidity pools are eligible for additional rewards, see <3>liquidity.obyte.org</3>.</0><1>The additional rewards are currently about <1>184% APY</1>, paid weekly.</1>"
     },
     "popular": {
       "pegged": "Pegged:",
       "price": "Price:",
       "buy": "buy",
-      "title_growth": "Most popular growth tokens",
+      "title_fund": "Most popular fund tokens",
       "title_interest": "Most popular interest bearing tokens",
       "title_stable": "Most popular stable tokens"
     },
@@ -722,17 +717,15 @@
         "1": "No overcollateralization: you pay 1 USD worth of GBYTE to get 1 USD worth of stablecoins, plain and simple.",
         "2": "They live on a DAG: no fucking miners, no blocks, no miner manipulation, no bribing of miners with fees.",
         "3": "They pay interest: there are interest-paying tokens and deposits along with the stablecoins. What’s more, you can help a good cause by redirecting interest to a charity.",
-        "4": "There is a group of people - GRD holders - who have skin in the game as their wealth depends on the success of the ecosystem. They are able to make governance decisions that would keep the stablecoin stable, liquid, and widely used.",
+        "4": "There is a group of people - SFUSD holders - who have skin in the game as their wealth depends on the success of the ecosystem. They are able to make governance decisions that would keep the stablecoin stable, liquid, and widely used.",
         "5": "They survive any volatility, even large abrupt movements of the reserve asset price. No margin calls, no liquidations.",
         "6": "They have a cool name!"
       }
     },
     "tokens": {
       "interest": {
-        "title": "IUSD — interest token that earns 16% interest in USD",
+        "title": "IUSDV2 — interest token that earns 16% interest in USD",
         "follow": "<0>IUSD is for investors seeking predictable income.</0><1>Its price is programmed to follow the growing target price. It started at exactly 1 USD on September 22, 2020 and the target price of the token grows at 16% per year. In one year, it is expected to be $1.16, in two years — $1.3456. It is a <1>stable+</1> coin.</1>",
-        "buy": "<0>You can buy IUSD and hold.</0><1>Or you can buy IUSD, <1>put it on a deposit</1>, get an equivalent amount of OUSD stablecoin in exchange, and periodically withdraw the accrued interest in OUSD.</1>",
-        "redirect": "<0>You can also redirect interest to someone else, e.g. to a charity or another nonprofit. Estonian Cryptocurrency Association, Obyte Foundation, and <1>PolloPollo</1> are already enrolled as suggested recipients.</0>"
       },
       "stable": {
         "title": "OUSD — a USD-pegged stablecoin",
@@ -740,10 +733,10 @@
         "programmed": "<0>Its price is programmed to stay near 1 USD.</0>",
         "exchange": "<0>OUSD is essentially IUSD with interest payments stripped off. You get it in exchange for depositing IUSD and can use it for payments while your deposit is accruing interest. You can withdraw interest and spend it too.</0>"
       },
-      "growth": {
-        "title": "GRD — growth and governance token",
-        "risks": "<0>GRD is for investors seeking higher income, with higher risks.</0><1>The price of GRD depends on the popularity of IUSD (and therefore OUSD). As more IUSD tokens are issued, the price of GRD grows programmatically — this follows from the bonding curve mechanics. When IUSD tokens are redeemed, GRD falls in price.</1>",
-        "vote": "<0>GRD holders can vote to tune the interest rate and various parameters of the ecosystem that are important for keeping the peg. GRD holders can even vote to hire a management team tasked with promoting the use of OUSD — which directly affects GRD price.</0><1>GRD comes from <1>gr</1>owth and <3>d</3>ollar, not from <5>gr</5>ee<7>d</7> as some might think.</1>"
+      "fund": {
+        "title": "SFUSD — growth and governance token",
+        "risks": "<0>SFUSD is for investors seeking higher income, with higher risks.</0><1>SFUSD tokens are shares in the stability fund that is programmatically managed to keep the price of IUSDV2 near the peg.</1><2>The price of SFUSD depends on the popularity of IUSDV2. As more IUSDV2 tokens are issued, the price of SFUSD grows programmatically — this follows from the bonding curve mechanics. When IUSDV2 tokens are redeemed, SFUSD falls in price.</2>",
+        "vote": "<0>SFUSD holders can vote to tune the interest rate and various parameters of the ecosystem that are important for keeping the peg. They can vote to replace the program, called Decision Engine (DE), that manages the fund. SFUSD holders can even vote to hire a management team tasked with promoting the use of OUSDV2 — which directly affects SFUSD price.</0>"
       }
     }
   },

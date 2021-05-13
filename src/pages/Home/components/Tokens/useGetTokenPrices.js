@@ -7,21 +7,24 @@ import { getOraclePrice } from "helpers/getOraclePrice";
 import { getOraclePriceForBot } from "helpers/getOraclePriceForBot";
 import { botCheck } from "utils/botCheck";
 
-export const useGetTokenPrices = (list) => {
+export const useGetTokenPrices = (list, data, balances) => {
   const [interest, setInterest] = useState({});
   const [stable, setStable] = useState({});
-  const [growth, setGrowth] = useState({});
+  const [fund, setFund] = useState({});
 
   let info = {};
-  list && tokensList.forEach((item) => {
+  list && data && tokensList.forEach((item) => {
     info = {
       ...info, [item.pegged]: {
-        bonded_state: item.address in list ? list[item.address].bonded_state : {},
+        bonded_state: item.address in data ? data[item.address] : {},
+        fund_state: list[item.address].fund in data ? data[list[item.address].fund] : {},
+        fund_balance: list[item.address].fund in balances ? balances[list[item.address].fund] : {},
         params: item.address in list ? list[item.address].params : {},
         address: item.address,
       }
     }
   });
+  
   useEffect(() => {
     (async () => {
       const isBot = botCheck(navigator.userAgent);
@@ -41,30 +44,40 @@ export const useGetTokenPrices = (list) => {
 
 
       for (const pegged in info) {
-        const { params, bonded_state } = info[pegged];
+        const { params, bonded_state, fund_state, fund_balance } = info[pegged];
+        const shares_supply = fund_state.shares_supply || 0;
+
+
         const s1 = bonded_state.supply1 / 10 ** params.decimals1;
         const s2 = bonded_state.supply2 / 10 ** params.decimals2;
+
+        const p1 = params.m * s1 ** (params.m - 1) * s2 ** params.n;
+        const t1Balance = fund_balance?.[bonded_state.asset1] || 0;
+        const reserveBalance = fund_balance?.[params.reserve_asset] || 0;
+        const balance = reserveBalance + p1 * 10 ** (params.reserve_asset_decimals - params.decimals1) * (t1Balance);
+        const share_price = shares_supply ? balance / shares_supply : 1;
+
         const oraclePrice = isBot ? await getOraclePriceForBot(info[pegged].bonded_state, info[pegged].params) : await getOraclePrice(info[pegged].bonded_state, info[pegged].params);
         const bPriceInversed = "oracles" in params ? params.oracles[0].op === "*" && !params.leverage : params.op1 === "*" && !params.leverage;
         const reserveAsset = config.reserves[info[pegged].params.reserve_asset] || null;
 
         info[pegged].p3InReserve = bPriceInversed ? 1 / oraclePrice : oraclePrice;
         info[pegged].p2InReserve = info[pegged].bonded_state.p2;
-        info[pegged].p1InReserve = params.m * s1 ** (params.m - 1) * s2 ** params.n * bonded_state.dilution_factor;
+        info[pegged].pFundInReserve = share_price;
         info[pegged].reserve = reserveAsset ? reserveAsset.name : info[pegged].params.reserve_asset;
       }
 
       const newInterest = {};
       const newStable = {};
-      const newGrowth = {};
+      const newFund = {};
 
       for (const pegged in info) {
         if (info[pegged].reserve === "GBYTE") {
-          newGrowth[pegged] = info[pegged].p1InReserve * GBYTE_USD;
+          newFund[pegged] = info[pegged].pFundInReserve * GBYTE_USD;
           newInterest[pegged] = info[pegged].p2InReserve * GBYTE_USD;
           newStable[pegged] = info[pegged].p3InReserve * GBYTE_USD;
         } else if (info[pegged].reserve === "OBIT") {
-          newGrowth[pegged] = info[pegged].p1InReserve * BTC_USD;
+          newFund[pegged] = info[pegged].pFundInReserve * BTC_USD;
           newInterest[pegged] = info[pegged].p2InReserve * BTC_USD;
           newStable[pegged] = (1 / info[pegged].p3InReserve) * BTC_USD;
         }
@@ -72,8 +85,8 @@ export const useGetTokenPrices = (list) => {
 
       setInterest(newInterest);
       setStable(newStable);
-      setGrowth(newGrowth);
+      setFund(newFund);
     })();
   }, [])
-  return [interest, stable, growth]
+  return [interest, stable, fund]
 }

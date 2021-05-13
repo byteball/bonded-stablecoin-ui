@@ -8,12 +8,12 @@ import CoinIcon from "stablecoin-icons";
 import styles from "./Popular.module.css";
 import config from "config";
 
-const PopularItem = ({ pegged, name, price, logo, link }) => {
+const PopularItem = ({ pegged, name, price, link }) => {
   const { t } = useTranslation();
   return (
     <Col xs={{ span: 12 }} sm={{ span: 6 }} lg={{ span: 4 }} className={styles.item}>
       <div>
-        <CoinIcon symbol={name} width="80" height="80" type={1} />
+        <CoinIcon pegged={pegged} width="80" height="80" type={1} />
       </div>
       <div className={styles.name}>{name}</div>
       <div>{t("home.popular.pegged", "Pegged:")} <span>{pegged}</span></div>
@@ -29,46 +29,40 @@ const PopularItem = ({ pegged, name, price, logo, link }) => {
   )
 }
 
-export const PopularGrowth = ({ prices }) => {
+export const PopularFund = ({ prices }) => {
   const { lang } = useSelector((state) => state.settings);
   const basename = lang && lang !== "en" ? "/" + lang : "";
   const { t } = useTranslation();
 
   const tokensList = [
     {
-      name: "GRD",
-      address: config.TESTNET ? "7FSSFG2Y5QHQTKVRFB3VWL6UNX3WB36O" : "26XAPPPTTYRIOSYNCUV3NS2H57X5LZLJ",
+      name: "SFUSD",
+      address: config.TESTNET ? "2SEBEEDTEC7LTDVZ765MGQXJW33GSRUD" : "VLKI3XMMX5YULOBA6ZXBXDPI6TXF6V3D",
       pegged: "USD",
       price: 0
     },
     {
-      name: "GRB",
-      address: config.TESTNET ? "YMH724SHU7D6ZM4DMSP5RHQYB7OII2QQ" : "Z7GNZCFDEWFKYOO6OIAZN7GH7DEKDHKA",
+      name: "SFGB",
+      address: config.TESTNET ? "RWTVFCMFLI3N2G4P2YENMLKC6CY7IYT6" : "Z7GNZCFDEWFKYOO6OIAZN7GH7DEKDHKA",
       pegged: "BTC",
       price: 0
     },
     {
-      name: "GRETH",
-      address: config.TESTNET ? "2M5WRWDNWWMQ6BTCYNIC5G5UPW23TECO" : "HXFNVF4ENNIEJZHS2MQLG4AKQ4SAXUNH",
+      name: "SFETH",
+      address: config.TESTNET ? "DM6R6EMQPUX5C4BC7XU62KEMHE4J6IFF" : "MMN3JBJWTT7ZZL7I7K66GSZQ3MHTPW47",
       pegged: "ETH",
       price: 0
     },
     {
-      name: "GRGB",
-      address: config.TESTNET ? "UH6SNZMZKHWMRM7IQZGFPD5PQULZZSBI" : "UH6SNZMZKHWMRM7IQZGFPD5PQULZZSBI",
+      name: "SFGB",
+      address: config.TESTNET ? "KPIRFOCMNT3OPG4EIO7CAWNDEEDAR62F" : "TGEKFP4PFQT43CGUNZSM4GHRMNBWPAVE",
       pegged: "GBYTE",
-      price: 0
-    },
-    {
-      name: "GRAU",
-      address: config.TESTNET ? "VE63FHFCPXLLXK6G6HXQDO5DVLS2IDOC" : "UCWEMOXEYFUDDBJLHIHZ3NIAX3QD2YFD",
-      pegged: "GOLD",
       price: 0
     }
   ];
 
   return <div className={styles.wrap}>
-    <h2 className={styles.title}>{t("home.popular.title_growth", "Most popular growth tokens")}</h2>
+    <h2 className={styles.title}>{t("home.popular.title_fund", "Most popular fund tokens")}</h2>
     <Row justify="center" gutter={[16, 16]}>
       {tokensList.map((item, index) => <PopularItem
         key={item.name + index}
@@ -76,7 +70,6 @@ export const PopularGrowth = ({ prices }) => {
         name={item.name}
         price={prices[item.pegged] || 0}
         pegged={item.pegged}
-        logo={item.logo}
         address={item.address}
         link={`${basename}/trade/${item.address}/buy-redeem`}
       />)}
