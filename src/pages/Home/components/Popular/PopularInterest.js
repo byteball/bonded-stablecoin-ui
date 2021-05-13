@@ -17,7 +17,7 @@ export const tokensList = [
   },
   {
     name: "IBITV2",
-    address: config.TESTNET ? "RWTVFCMFLI3N2G4P2YENMLKC6CY7IYT6" : "Z7GNZCFDEWFKYOO6OIAZN7GH7DEKDHKA",
+    address: config.TESTNET ? "RWTVFCMFLI3N2G4P2YENMLKC6CY7IYT6" : "KSBNS2R5HUBN5AHYJLZVCADEQAHOLRCD",
     pegged: "BTC",
   },
   {
@@ -29,6 +29,12 @@ export const tokensList = [
     name: "IGBV2",
     address: config.TESTNET ? "KPIRFOCMNT3OPG4EIO7CAWNDEEDAR62F" : "TGEKFP4PFQT43CGUNZSM4GHRMNBWPAVE",
     pegged: "GBYTE",
+  },
+  {
+    name: "IAUG",
+    address: config.TESTNET ? "QRNUJJ6GYRXBGZXO3KCIS3CGEAMN5FA7" : "L5AZ5Q6BY5DKFL4CDMF5P6EWZ7I5KBYC",
+    pegged: "GOLD",
+    price: 0
   }
 ]
 
