@@ -398,7 +398,7 @@ export const IssueAndRedeem = () => {
       size="large">
       <Row style={{ marginBottom: 50 }}>
         <Col lg={{ span: 7 }} sm={{ span: 16 }} xs={{ span: 24 }}>
-          <Text type="secondary">You send:</Text>
+          <Text type="secondary">{t("trade.tabs.buy_redeem.you_send", "You send")}:</Text>
           <Input.Group compact size="large">
             <Form.Item style={{ width: "50%", marginBottom: 0 }}>
               <Input
@@ -429,7 +429,7 @@ export const IssueAndRedeem = () => {
           </div>
         </Col>
         <Col lg={{ span: 7 }} sm={{ span: 16, offset: 0 }} xs={{ span: 24, offset: 0 }}>
-          <Text type="secondary">You get:</Text>
+          <Text type="secondary">{t("trade.tabs.buy_redeem.you_get", "You get")}:</Text>
           <Input.Group compact size="large">
             <Form.Item style={{ width: "50%", marginBottom: 0 }}>
               <Input onKeyPress={onEnter} disabled={fromAsset !== reserve_asset || toAsset === shares_asset || toAsset === asset2 || toAsset === asset} autoFocus={true} placeholder="Amount" onChange={handleInput2} value={input2} style={{ width: "100%" }} />

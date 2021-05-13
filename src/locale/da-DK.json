@@ -527,31 +527,16 @@
     },
     "header": {
       "title": "Bonded stablecoins",
-      "desc": "De mest avancerede stablecoins baseret på priskurver",
-      "stable": {
-        "for": "Til brug for handel og spekulation.",
-        "info": "{{name}}: Stablecoin, hvor værdien er 1 {{target}}."
-      },
-      "btn_buy": "Køb {{token}}",
-      "interest": {
-        "for": "For investorer, der søger en forudsigelig indkomst.",
-        "info": "{{name}}: Rentebærende token, der optjener {{percent}}% i rente i {{type}} - en Stable+ coin."
-      },
-      "growth": {
-        "for": "For investorer, der søger en større indtjening med højere risiko.",
-        "info": "{{growthName}}: Vækst-token, hvis værdi er knyttet til mængden af udstedte {{interestName}}-tokens."
-      },
-      "need_similar_coins": "Har du behov for en lignende coin låst til prisen på {{other}} eller et andet aktiv? <3></3>Vælg din: <6/> eller <10>opret nye</10>."
+      "desc": "De mest avancerede stablecoins baseret på priskurver"
     },
     "liquidity": {
       "title": "Tjen penge ved at bidrage til likviditetspuljer",
-      "info": "<0>Tilføj disse tokens til likviditetspuljer på <1>Oswap</1> og få del i handlesgebyrer. Nogle likviditetspuljer giver endvidere yderligere dusører. Se <3>liquidity.obyte.org</3> for mere information.</0><1>De ekstra dusører udbetales ugentligt og svarer PT til ca. <1>77% årlig</1> procentuel fortjeneste.</1>"
+      "info": "<0>Tilføj disse tokens til likviditetspuljer på <1>Oswap</1> og få del i handlesgebyrer. Nogle likviditetspuljer giver endvidere yderligere dusører. Se <3>liquidity.obyte.org</3> for mere information.</0><1>De ekstra dusører udbetales ugentligt og svarer PT til ca. <1>184% årlig</1> procentuel fortjeneste.</1>"
     },
     "popular": {
       "pegged": "Pegged:",
       "price": "Pris:",
       "buy": "buy",
-      "title_growth": "Mest populære vækst-tokens",
       "title_interest": "Mest populære rentebærende tokens",
       "title_stable": "Mest populære stabile tokens"
     },
@@ -562,7 +547,7 @@
         "1": "Ingen overkollateralisering: du betaler GBYTE for 1 USD for at få stablecoins til en værdi af 1 USD. Ganske enkelt.",
         "2": "De eksisterer på en DAG: ingen blokproducenter, ingen blokke, ingen udefrakommende manipulation, ingen bestikkelse med transaktionsgebyrer.",
         "3": "De optjener renter: der er rentebærende tokens og depoter i forbindelse med stablecoins. Ydermere kan du vælge at støtte en god sag ved at donere renteindtægten til velgørenhed.",
-        "4": "En gruppe mennesker - indehavere af GRD tokens - der har hånden på kogepladen eftersom værdien af deres tokens afhænger af succesen af hele økosystemet. De har også ret til at deltage i administrative beslutninger, der kan sikre stabilitet, likviditet og størst mulig udbredelse.",
+        "4": "En gruppe mennesker - indehavere af SFUSD tokens - der har hånden på kogepladen eftersom værdien af deres tokens afhænger af succesen af hele økosystemet. De har også ret til at deltage i administrative beslutninger, der kan sikre stabilitet, likviditet og størst mulig udbredelse.",
         "5": "De overlever al volatilitet, selv voldsomme udsving på reserve-valutaen. Ingen margin-kald og ingen likvidationer.",
         "6": "De har et sejt navn!"
       }
@@ -570,9 +555,7 @@
     "tokens": {
       "interest": {
         "title": "IUSD - rentebærende token, der giver 16% i rente i USD",
-        "follow": "<0>IUSD er for investorer, der søger forudsigelig indkomst.</0><1>Kursen er programmeret til at følge den stigende target-pris. Den begyndte på præcis 1 USD den 22. september 2020, og target-prisen på den stiger med 16 % om året. Efter et år, forventes den at være $1,16, efter to år — $1,3456. Det er en <1>stable+</1> token.</1>",
-        "buy": "<0>Du kan købe IUSD og holde.</0><1>Eller du kan købe IUSD, <1>deponere dem i et depot</1> og modtage en tilsvarende mængde OUSD stablecoins samtidigt med at du løbende kan hæve optjente renter i OUSD fra depotet.</1>",
-        "redirect": "<0>Du kan også vælge at donere renterne til en anden, f.eks. en velgørende organisation. Estonian Cryptocurrency Association, Obyte Foundation og <1>PolloPollo</1> er allerede oprettet som mulige modtagere af renter.</0>"
+        "follow": "<0>IUSD er for investorer, der søger forudsigelig indkomst.</0><1>Kursen er programmeret til at følge den stigende target-pris. Den begyndte på præcis 1 USD den 22. september 2020, og target-prisen på den stiger med 16 % om året. Efter et år, forventes den at være $1,16, efter to år — $1,3456. Det er en <1>stable+</1> token.</1>"
       },
       "stable": {
         "title": "OUSD - en stablecoin låst til USD-kursen",

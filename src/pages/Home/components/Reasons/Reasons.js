@@ -44,7 +44,7 @@ const ReasonsNotTracking = ({ forwardedRef }) => {
           <div className={styles.item}>
             <div className={styles.label}>005</div>
             <div className={styles.info}>
-              {t("home.reasons.info.4", "There is a group of people - GRD holders - who have skin in the game as their wealth depends on the success of the ecosystem. They are able to make governance decisions that would keep the stablecoin stable, liquid, and widely used.")}
+              {t("home.reasons.info.4", "There is a group of people — SFUSD holders — who have skin in the game as their wealth depends on the success of the ecosystem. They are able to make governance decisions that would keep the stablecoin stable, liquid, and widely used.")}
             </div>
           </div>
 
