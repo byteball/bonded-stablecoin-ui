@@ -34,7 +34,6 @@ export const tokensList = [
     name: "IAUG",
     address: config.TESTNET ? "QRNUJJ6GYRXBGZXO3KCIS3CGEAMN5FA7" : "L5AZ5Q6BY5DKFL4CDMF5P6EWZ7I5KBYC",
     pegged: "GOLD",
-    price: 0
   }
 ]
 
