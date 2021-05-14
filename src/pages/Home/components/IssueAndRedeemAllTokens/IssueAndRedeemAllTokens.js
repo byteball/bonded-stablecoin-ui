@@ -1,10 +1,12 @@
 import { SwapOutlined } from "@ant-design/icons";
 import { Col, Input, Row, Form, Select, Typography } from "antd";
+import CoinIcon from "stablecoin-icons";
 import { QRButton } from "components/QRButton/QRButton";
 import { $get_exchange_result } from "helpers/bonded";
 import { getParams } from "helpers/getParams";
 import { useWindowSize } from "hooks/useWindowSize";
 import React, { useEffect, useState, useRef, useMemo } from "react";
+import ReactGA from "react-ga";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { generateLink } from "utils/generateLink";
@@ -13,6 +15,7 @@ import { getTargetCurrency } from "components/SelectStablecoin/SelectStablecoin"
 import "./IssueAndRedeemAllTokens.module.css";
 import { updateSymbols } from "store/actions/symbols/updateSymbols";
 import { updatePrices } from "store/actions/prices/updatePrices";
+import { GbyteIcon } from "components/GbyteIcon/GbyteIcon";
 
 const { Text } = Typography;
 
@@ -49,6 +52,7 @@ export const IssueAndRedeemAllTokens = () => {
   const [infoForGetPrice, setInfoForGetPrice] = useState([]);
   const [visibleReserveNotification, setVisibleReserveNotification] = useState(false);
   const [toAssetInit, setTtoAssetInit] = useState(false);
+  const [assetsType, setAssetsType] = useState({});
 
   const stable_aa = list[address]?.stable || {};
   const fund_aa = list[address]?.fund || {};
@@ -81,11 +85,32 @@ export const IssueAndRedeemAllTokens = () => {
   const { asset1, asset2, reserve } = bonded_state;
   const symbol1 = symbolList[asset1]?.symbol;
   const symbol2 = symbolList[asset2]?.symbol;
-  const currentPegged = getTargetCurrency(actualParams, bonded_state);
-  const currentInterestPercent = actualParams.interest_rate * 100;
   const reserve_asset_symbol = symbolList[actualParams.reserve_asset]?.symbol;
 
   const { shares_asset, shares_supply } = fund_state;
+
+  let fromAssetType;
+  let toAssetType;
+
+  if (fromAsset === asset2) {
+    fromAssetType = "T2"
+  } else if (fromAsset === asset) {
+    fromAssetType = "STABLE"
+  } else if (fromAsset === shares_asset) {
+    fromAssetType = "FUND"
+  } else if (fromAsset === reserve_asset) {
+    fromAssetType = "RESERVE"
+  }
+
+  if (toAsset === asset2) {
+    toAssetType = "T2"
+  } else if (toAsset === asset) {
+    toAssetType = "STABLE"
+  } else if (toAsset === shares_asset) {
+    toAssetType = "FUND"
+  } else if (toAsset === reserve_asset) {
+    toAssetType = "RESERVE"
+  }
 
   let fromDecimals;
   let toDecimals;
@@ -115,7 +140,7 @@ export const IssueAndRedeemAllTokens = () => {
       sendPayload = { tokens2: Math.trunc(input2 * 10 ** decimals2), ref: referrer, max_fee_percent: meta?.max_fee_percent };
       sendAmount = Math.ceil(input1 * 10 ** reserve_asset_decimals);
     } else if (toAsset === asset) {
-      sendPayload = { tokens2: Math.trunc(input2 * 10 ** decimals2), tokens2_to: toAsset === asset ? stable_aa : undefined, max_fee_percent: meta?.max_fee_percent }
+      sendPayload = { tokens2: Math.trunc(meta?.expect_t2), tokens2_to: toAsset === asset ? stable_aa : undefined, max_fee_percent: meta?.max_fee_percent }
       currentAddress = address;
       sendAmount = Math.ceil(input1 * 10 ** reserve_asset_decimals);
     }
@@ -153,6 +178,7 @@ export const IssueAndRedeemAllTokens = () => {
     let fullPairs = {};
     let assets = [];
     const infoForGetPrice = [];
+    const assetsType = {};
     for (const address in list) {
       const coin = list[address];
       if ("fund" in coin) {
@@ -160,29 +186,36 @@ export const IssueAndRedeemAllTokens = () => {
         const actualParams = getParams(coin.params, coin.bonded_state)
         const peggedToCurrency = getTargetCurrency(coin.params, coin.bonded_state);
         const apy = actualParams.interest_rate * 100;
+
         infoForGetPrice.push({ address, bonded_state: coin.bonded_state, params: coin.params });
 
+        assetsType[coin.asset_2] = { type: 2, peggedToCurrency, apy, info: `— ${peggedToCurrency} ${apy}% APY` };
+        assetsType[coin.asset_fund] = { type: 1, peggedToCurrency, info: `— ${peggedToCurrency} stability fund`, symbol2: coin.symbol };
+        assetsType[coin.asset_stable] = { type: 3, peggedToCurrency, info: `— ${peggedToCurrency}-pegged` };
+
         if (coin.reserve > 0) {
-          fullPairs[reserve_asset] = [...(fullPairs?.[reserve_asset] || []), { asset: coin.asset_2, address, type: "interest", peggedToCurrency, apy, info: `— ${peggedToCurrency} ${apy}% APY` }]
-          fullPairs[reserve_asset] = [...(fullPairs?.[reserve_asset] || []), { asset: coin.asset_fund, address, type: "fund", peggedToCurrency, info: `— ${peggedToCurrency} stability fund` }]
-          fullPairs[reserve_asset] = [...(fullPairs?.[reserve_asset] || []), { asset: coin.asset_stable, address, type: "stable", peggedToCurrency, info: `— ${peggedToCurrency}-pegged` }]
+          fullPairs[reserve_asset] = [...(fullPairs?.[reserve_asset] || []), { asset: coin.asset_2, address }]
+          fullPairs[reserve_asset] = [...(fullPairs?.[reserve_asset] || []), { asset: coin.asset_fund, address }]
+          fullPairs[reserve_asset] = [...(fullPairs?.[reserve_asset] || []), { asset: coin.asset_stable, address }]
 
-          fullPairs[coin.asset_2] = [...(fullPairs?.[coin.asset_2] || []), { asset: coin.asset_stable, address, type: "stable", peggedToCurrency, info: `— ${peggedToCurrency}-pegged` }]
-          fullPairs[coin.asset_2] = [...(fullPairs?.[coin.asset_2] || []), { asset: reserve_asset, address, type: "reserve", peggedToCurrency }]
+          fullPairs[coin.asset_2] = [...(fullPairs?.[coin.asset_2] || []), { asset: coin.asset_stable, address }]
+          fullPairs[coin.asset_2] = [...(fullPairs?.[coin.asset_2] || []), { asset: reserve_asset, address }]
 
-          fullPairs[coin.asset_fund] = [...(fullPairs?.[coin.asset_fund] || []), { asset: reserve_asset, address, type: "reserve", peggedToCurrency }]
+          fullPairs[coin.asset_fund] = [...(fullPairs?.[coin.asset_fund] || []), { asset: reserve_asset, address }]
 
-          fullPairs[coin.asset_stable] = [...(fullPairs?.[coin.asset_stable] || []), { asset: coin.asset_2, address, type: "interest", peggedToCurrency, apy, info: `— ${peggedToCurrency} ${apy}% APY` }]
-          fullPairs[coin.asset_stable] = [...(fullPairs?.[coin.asset_stable] || []), { asset: reserve_asset, address, type: "reserve", peggedToCurrency }]
+          fullPairs[coin.asset_stable] = [...(fullPairs?.[coin.asset_stable] || []), { asset: coin.asset_2, address }]
+          fullPairs[coin.asset_stable] = [...(fullPairs?.[coin.asset_stable] || []), { asset: reserve_asset, address }]
 
         } else {
-          fullPairs[reserve_asset] = [...(fullPairs?.[coin.asset_fund] || []), { asset: coin.asset_fund, address, type: "fund", peggedToCurrency, info: `— ${peggedToCurrency} stability fund` }]
+          fullPairs[reserve_asset] = [...(fullPairs?.[coin.asset_fund] || []), { asset: coin.asset_fund, address }]
         }
         assets = [...assets, reserve_asset, coin.asset_stable, coin.asset_fund, coin.asset_2]
       }
     }
 
     setPairs(fullPairs);
+    setAssetsType(assetsType);
+
     if (Object.keys(list).length > 0) {
       setInfoForGetPrice(infoForGetPrice)
     }
@@ -247,7 +280,7 @@ export const IssueAndRedeemAllTokens = () => {
 
     if (fromAsset === reserve_asset) {
       if (toAsset === asset) {
-        if (input1) {
+        if (Number(input1)) {
           const exchange = $get_exchange_result({
             tokens1: 0,
             tokens2: 0,
@@ -258,6 +291,7 @@ export const IssueAndRedeemAllTokens = () => {
           if (exchange) {
             meta = exchange;
             const expect = Math.abs(Math.trunc(exchange.expectNewT2));
+            meta.expect_t2 = expect;
             setInput2(+Number((expect / 10 ** decimals2) * exchange.growth_factor).toFixed(decimals2));
           }
         } else {
@@ -467,12 +501,12 @@ export const IssueAndRedeemAllTokens = () => {
 
   useEffect(() => {
     let description;
-    if (toAsset === asset2) {
-      description = t("trade.tabs.buy_redeem.desc_interest", "Interest token that earns {{currentInterestPercent}}% interest in {{currentPegged}} — a stable+ coin. For investors seeking predictable income.", { currentPegged, currentInterestPercent })
-    } else if (toAsset === shares_asset) {
-      description = t("trade.tabs.buy_redeem.desc_fund", "Fund token whose value is tied to the amount of {{symbol2}} issued. For investors seeking higher income, with higher risks.", { symbol2 })
-    } else if (toAsset === asset) {
-      description = t("trade.tabs.buy_redeem.desc_stable", "Stablecoin whose value is 1 {{currentPegged}}. For use in commerce and trading.", { currentPegged })
+    if (assetsType[toAsset] && assetsType[toAsset].type === 2) {
+      description = t("trade.tabs.buy_redeem.desc_interest", "Interest token that earns {{currentInterestPercent}}% interest in {{currentPegged}} — a stable+ coin. For investors seeking predictable income.", { currentPegged: assetsType[toAsset].peggedToCurrency, currentInterestPercent: assetsType[toAsset].apy })
+    } else if (assetsType[toAsset] && assetsType[toAsset].type === 1) {
+      description = t("trade.tabs.buy_redeem.desc_fund", "Fund token whose value is tied to the amount of {{symbol2}} issued. For investors seeking higher income, with higher risks.", { symbol2: assetsType[toAsset].symbol2 })
+    } else if (assetsType[toAsset] && assetsType[toAsset].type === 3) {
+      description = t("trade.tabs.buy_redeem.desc_stable", "Stablecoin whose value is 1 {{currentPegged}}. For use in commerce and trading.", { currentPegged: assetsType[toAsset]?.peggedToCurrency })
     } else if (toAsset === "base") {
       description = t("trade.tabs.buy_redeem.desc_gbyte", "The main token of Obyte network.")
     }
@@ -493,7 +527,7 @@ export const IssueAndRedeemAllTokens = () => {
   return <div style={{ paddingBottom: 50 }}>
     <Form size="large">
       <Row style={{ marginBottom: 70 }}>
-        <Col lg={{ span: 7, offset: 4 }} sm={{ span: 16, offset: 4 }} xs={{ span: 24 }}>
+        <Col lg={{ span: 8, offset: 3 }} sm={{ span: 17, offset: 3 }} xs={{ span: 24 }}>
           <Text>{t("trade.tabs.buy_redeem.you_send", "You send")}:</Text>
           <Input.Group compact size="large">
             <Form.Item style={{ width: "40%", marginBottom: 0 }}>
@@ -505,8 +539,8 @@ export const IssueAndRedeemAllTokens = () => {
               />
             </Form.Item>
             <Form.Item style={{ width: "60%", marginBottom: 0 }}>
-              <Select size="large" placeholder={t("trade.tabs.buy_redeem.select_token", "Select token")} value={fromAsset} onChange={(v) => setFromAsset(v)} style={{ width: "100%" }} dropdownStyle={{ fontWeight: 400 }} className="select-issue">
-                {fromList.map((asset) => <Select.Option key={"send-" + asset} value={asset}>{symbolList[asset]?.symbol || asset}</Select.Option>)}
+              <Select optionFilterProp="children" showSearch={true} size="large" placeholder={t("trade.tabs.buy_redeem.select_token", "Select token")} value={fromAsset} onChange={(v) => setFromAsset(v)} style={{ width: "100%" }} dropdownStyle={{ fontWeight: 400 }} className="select-issue">
+                {fromList.map((asset) => <Select.Option key={"send-" + asset} value={asset}> {asset in assetsType ? <CoinIcon width="1em" height="1em" style={{ marginRight: 5, marginBottom: -1.5 }} pegged={assetsType[asset].peggedToCurrency} type={assetsType[asset].type} /> : (asset === "base" ? <GbyteIcon width="1em" height="1em" style={{ marginRight: 3, marginBottom: -1.5 }} /> : null)} {symbolList[asset]?.symbol || asset}</Select.Option>)}
               </Select>
             </Form.Item>
           </Input.Group>
@@ -517,15 +551,15 @@ export const IssueAndRedeemAllTokens = () => {
             <SwapOutlined onClick={changeDirection} style={{ fontSize: 28, padding: 5, display: "block", height: 40, cursor: "pointer", transform: width < 992 ? "rotate(90deg)" : "none" }} />
           </div>
         </Col>
-        <Col lg={{ span: 7, offset: 0 }} sm={{ span: 16, offset: 4 }} xs={{ span: 24, offset: 0 }}>
+        <Col lg={{ span: 8, offset: 0 }} sm={{ span: 17, offset: 3 }} xs={{ span: 24, offset: 0 }}>
           <Text>{t("trade.tabs.buy_redeem.you_get", "You get")}:</Text>
           <Input.Group compact size="large" style={{ borderColor: "#0137FF" }}>
             <Form.Item style={{ width: "40%", marginBottom: 0 }}>
               <Input onKeyPress={onEnter} disabled={fromAsset !== reserve_asset || toAsset === shares_asset || toAsset === asset2 || toAsset === asset} autoFocus={true} placeholder="Amount" onChange={handleInput2} value={input2} style={{ width: "100%", borderColor: "#0137FF" }} />
             </Form.Item>
             <Form.Item style={{ width: "60%", marginBottom: 0 }}>
-              <Select size="large" bordered={true} placeholder={t("trade.tabs.buy_redeem.select_token", "Select token")} value={toAsset} onChange={(v) => setToAsset(v)} style={{ width: "100%", borderColor: "#0137FF" }} dropdownStyle={{}} className="select-issue">
-                {currentPairs?.map((p, i) => <Select.Option key={"option" + i} value={p.asset}>{symbolList[p.asset]?.symbol || p.asset} {p.info} </Select.Option>)}
+              <Select optionFilterProp="children" showSearch={true} size="large" bordered={true} placeholder={t("trade.tabs.buy_redeem.select_token", "Select token")} value={toAsset} onChange={(v) => setToAsset(v)} style={{ width: "100%", borderColor: "#0137FF" }} dropdownStyle={{}} className="select-issue">
+                {currentPairs?.map((p, i) => <Select.Option key={"option" + i} value={p.asset}> {assetsType[p.asset] ? <CoinIcon width="1em" height="1em" style={{ marginRight: 5, marginBottom: -1.5 }} pegged={assetsType[p.asset].peggedToCurrency} type={assetsType[p.asset]?.type} /> : (p.asset === "base" ? <GbyteIcon width="1em" height="1em" style={{ marginRight: 3, marginBottom: -1.5 }} /> : null)} {symbolList[p.asset]?.symbol || p.asset} {assetsType[p.asset]?.info || null} </Select.Option>)}
               </Select>
             </Form.Item>
             <div style={{ minHeight: 66 }}>
@@ -592,7 +626,13 @@ export const IssueAndRedeemAllTokens = () => {
             </Row>
           </div>}
           <div style={{ display: "flex", justifyContent: "center", marginTop: 20 }}>
-            <QRButton disabled={isDisabled} type="primary" size="large" ref={btnRef} href={link}>Exchange</QRButton>
+            <QRButton onClick={() =>
+              ReactGA.event({
+                category: "Exchange",
+                action: `${fromAssetType} -> ${toAssetType}`,
+                label: `${symbolList[fromAsset]?.symbol} -> ${symbolList[toAsset]?.symbol}`,
+              })
+            } disabled={isDisabled} type="primary" size="large" ref={btnRef} href={link}>{t("trade.tabs.buy_redeem.exchange", "Exchange")}</QRButton>
           </div>
         </Col>
       </Row>

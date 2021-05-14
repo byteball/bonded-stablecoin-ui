@@ -3,9 +3,8 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import socket from "services/socket";
 import { tokensList } from "pages/Home/components/Popular/PopularInterest";
-import { getOraclePrice } from "helpers/getOraclePrice";
-import { getOraclePriceForBot } from "helpers/getOraclePriceForBot";
 import { botCheck } from "utils/botCheck";
+import { $get_growth_factor } from "helpers/bonded.js";
 
 export const useGetTokenPrices = (list, data, balances) => {
   const [interest, setInterest] = useState({});
@@ -42,11 +41,11 @@ export const useGetTokenPrices = (list, data, balances) => {
           ifnone: "none",
         });
 
+      const now = Date.now() / 1000;
 
       for (const pegged in info) {
         const { params, bonded_state, fund_state, fund_balance } = info[pegged];
         const shares_supply = fund_state.shares_supply || 0;
-
 
         const s1 = bonded_state.supply1 / 10 ** params.decimals1;
         const s2 = bonded_state.supply2 / 10 ** params.decimals2;
@@ -57,11 +56,16 @@ export const useGetTokenPrices = (list, data, balances) => {
         const balance = reserveBalance + p1 * 10 ** (params.reserve_asset_decimals - params.decimals1) * (t1Balance);
         const share_price = shares_supply ? balance / shares_supply : 1;
 
-        const oraclePrice = isBot ? await getOraclePriceForBot(info[pegged].bonded_state, info[pegged].params) : await getOraclePrice(info[pegged].bonded_state, info[pegged].params);
-        const bPriceInversed = "oracles" in params ? params.oracles[0].op === "*" && !params.leverage : params.op1 === "*" && !params.leverage;
         const reserveAsset = config.reserves[info[pegged].params.reserve_asset] || null;
 
-        info[pegged].p3InReserve = bPriceInversed ? 1 / oraclePrice : oraclePrice;
+        const growth_factor = $get_growth_factor (
+          bonded_state.interest_rate || params.interest_rate,
+          now,
+          bonded_state.rate_update_ts,
+          bonded_state.growth_factor
+        );
+
+        info[pegged].p3InReserve = info[pegged].bonded_state.p2 / growth_factor;
         info[pegged].p2InReserve = info[pegged].bonded_state.p2;
         info[pegged].pFundInReserve = share_price;
         info[pegged].reserve = reserveAsset ? reserveAsset.name : info[pegged].params.reserve_asset;
