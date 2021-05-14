@@ -21,40 +21,14 @@
   display: inline-block;
 }
 
-.link_wrap a {
-  background-color: #0037ff;
-  text-transform: uppercase;
-  font-size: 16px;
-  padding: 5px 10px;
-  box-sizing: border-box;
-  margin-top: 10px;
-  border-radius: 5px;
-  color: #ffffff;
-  text-decoration: none;
-  display: inline-block;
-}
-
 .header {
   padding-top: 20px;
-  /* background-image: url("./img/hero-bg2.svg"); */
   background-image: url("./img/bg2.svg");
   background-repeat: no-repeat;
   background-size: cover;
   background-position-x: 100%;
   position: relative;
-  /* background-position-x: center; */
 }
-/* .header::after {
-  content: "";
-  display: block;
-  background-image: url("./img/woman.svg");
-  background-repeat: no-repeat;
-  width: 300px;
-  height: 400px;
-  position: absolute;
-  bottom: 40px;
-  z-index: 999;
-} */
 
 .logo {
   margin-bottom: 20px;
@@ -79,41 +53,6 @@
 .titleWrap {
   text-align: center;
   margin-bottom: 60px;
-}
-
-.tokenItem {
-  display: flex;
-  color: #333333;
-  font-weight: 600;
-}
-
-.tokenItemSubTitle {
-  margin-bottom: 10px;
-  font-size: 18px;
-  line-height: 21px;
-  font-weight: 300;
-}
-
-.tokenItem img {
-  width: 360px;
-}
-
-.tokenItem svg {
-  width: 360px;
-}
-
-.tokenItemGraph {
-  width: 50%;
-  text-align: right;
-  position: relative;
-}
-
-.tokenItemTitle {
-  padding-left: 20px;
-  font-size: 24px;
-  width: 50%;
-  max-width: 466px;
-  line-height: 28px;
 }
 
 .action {
@@ -158,8 +97,7 @@
   .tokenItemGraph {
     text-align: center;
   }
-  .tokenItemTitle,
-  .tokenItemGraph {
+  .tokenItemTitle, .tokenItemGraph {
     width: 100%;
   }
 }

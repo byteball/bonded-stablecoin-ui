@@ -527,31 +527,16 @@
     },
     "header": {
       "title": "Monedas estables vinculadas",
-      "desc": "Las monedas estables más avanzadas alimentadas por curvas de unión",
-      "stable": {
-        "for": "Para uso en comercio e intercambio.",
-        "info": "{{name}}: Moneda estable cuyo valor es 1 {{target}}."
-      },
-      "btn_buy": "Comprar {{token}}",
-      "interest": {
-        "for": "Para los inversores que buscan ingresos predecibles.",
-        "info": "{{name}}: Token de interes que gana {{percent}}% de intereses en {{type}} — una moneda estable+."
-      },
-      "growth": {
-        "for": "Para los inversores que buscan mayores ingresos, con mayores riesgos.",
-        "info": "{{growthName}}: Moneda de crecimiento cuyo valor está vinculado a la cantidad de {{interestName}} emitida."
-      },
-      "need_similar_coins": "Necesitas monedas similares vinculadas a {{other}} o algún otro activo? <3/> Selecciona la tuya: <6/> o <10>crea nuevas</10>."
+      "desc": "Las monedas estables más avanzadas alimentadas por curvas de unión"
     },
     "liquidity": {
       "title": "Gana dinero con la provisión de liquidez",
-      "info": "<0>Agrega estas monedas a las piscinas de liquidez en <1>Oswap</1> y gana gracias a las comisiones de intercambio. Algunas piscinas de liquidez son elegibles para obtener recompensas adicionales, ver <3>liquidity.obyte.org</3>.</0><1>Las recompensas adicionales son actualmente de alrededor de <1>77% APY</1>, pagadas semanalmente.</1>"
+      "info": "<0>Agrega estas monedas a las piscinas de liquidez en <1>Oswap</1> y gana gracias a las comisiones de intercambio. Algunas piscinas de liquidez son elegibles para obtener recompensas adicionales, ver <3>liquidity.obyte.org</3>.</0><1>Las recompensas adicionales son actualmente de alrededor de <1>184% APY</1>, pagadas semanalmente.</1>"
     },
     "popular": {
       "pegged": "Pegged:",
       "price": "Precio:",
       "buy": "buy",
-      "title_growth": "Monedas de crecimiento más populares",
       "title_interest": "Monedas de portación de interés más populares",
       "title_stable": "Monedas estables más populares"
     },
@@ -562,7 +547,7 @@
         "1": "No hay sobre colateralización: pagas 1 USD de valor de GBYTE para obtener 1 USD de valor de monedas estables, claro y simple.",
         "2": "Viven en un DAG: sin mineros, sin bloques, sin manipulación de mineros, sin sobornar a los mineros con comisiones.",
         "3": "Pagan intereses: hay monedas de pago de intereses y depósitos junto con las monedas estables. Es más, puedes ayudar a una buena causa dirigiendo el interés hacia una organización benéfica.",
-        "4": "Hay un grupo de personas -los titulares de GRD- que tienen piel en juego ya que su riqueza depende del éxito del ecosistema. Son capaces de tomar decisiones de gobierno que mantengan la estabilidad de las monedas estables, líquidas y ampliamente utilizadas.",
+        "4": "Hay un grupo de personas -los titulares de SFUSD- que tienen piel en juego ya que su riqueza depende del éxito del ecosistema. Son capaces de tomar decisiones de gobierno que mantengan la estabilidad de las monedas estables, líquidas y ampliamente utilizadas.",
         "5": "Sobreviven a cualquier volatilidad, incluso a grandes movimientos abruptos del precio de los activos de reserva. No llamadas al margen, no liquidaciones.",
         "6": "¡Tienen un nombre genial!"
       }
@@ -570,9 +555,7 @@
     "tokens": {
       "interest": {
         "title": "IUSD — moneda de interés que gana un 16% de interés en USD",
-        "follow": "<0>IUSD es para inversores que buscan ingresos predecibles.</0><1>Su precio está programado para seguir el precio objetivo de crecimiento. Comenzó exactamente a 1 USD el 22 de septiembre de 2020 y el precio objetivo de la moneda crece al 16 % por año. En un año, se espera que sea de $1.16, en dos años — $1.3456. Es una moneda <1>estable+</1>.</1>",
-        "buy": "<0>Puedes comprar IUSD y guardarlo. </0><1>O puedes comprar IUSD, <1>ponerlo en un depósito</1>, obtener una cantidad equivalente de monedas estables OUSD a cambio, y retirar periódicamente el interés acumulado en OUSD. </1>",
-        "redirect": "<0>También puedes redirigir el interés a otra persona, por ejemplo, a una organización benéfica u otra organización sin fines de lucro. Asociación Estonia de Criptomonedas, Fundación Obyte y <1>PolloPollo</1> ya están inscritos como destinatarios sugeridos.</0>"
+        "follow": "<0>IUSD es para inversores que buscan ingresos predecibles.</0><1>Su precio está programado para seguir el precio objetivo de crecimiento. Comenzó exactamente a 1 USD el 22 de septiembre de 2020 y el precio objetivo de la moneda crece al 16 % por año. En un año, se espera que sea de $1.16, en dos años — $1.3456. Es una moneda <1>estable+</1>.</1>"
       },
       "stable": {
         "title": "OUSD — una moneda estable fijada al USD",

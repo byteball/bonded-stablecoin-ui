@@ -11,34 +11,29 @@ import config from "config";
 
 export const tokensList = [
   {
-    name: "IUSD",
-    address: config.TESTNET ? "7FSSFG2Y5QHQTKVRFB3VWL6UNX3WB36O" : "26XAPPPTTYRIOSYNCUV3NS2H57X5LZLJ",
+    name: "IUSDV2",
+    address: config.TESTNET ? "2SEBEEDTEC7LTDVZ765MGQXJW33GSRUD" : "VLKI3XMMX5YULOBA6ZXBXDPI6TXF6V3D",
     pegged: "USD",
-    apy: 16
   },
   {
-    name: "IBIT",
-    address: config.TESTNET ? "YMH724SHU7D6ZM4DMSP5RHQYB7OII2QQ" : "Z7GNZCFDEWFKYOO6OIAZN7GH7DEKDHKA",
+    name: "IBITV2",
+    address: config.TESTNET ? "RWTVFCMFLI3N2G4P2YENMLKC6CY7IYT6" : "KSBNS2R5HUBN5AHYJLZVCADEQAHOLRCD",
     pegged: "BTC",
-    apy: 11
   },
   {
-    name: "ITH",
-    address: config.TESTNET ? "2M5WRWDNWWMQ6BTCYNIC5G5UPW23TECO" : "HXFNVF4ENNIEJZHS2MQLG4AKQ4SAXUNH",
+    name: "ITHV2",
+    address: config.TESTNET ? "DM6R6EMQPUX5C4BC7XU62KEMHE4J6IFF" : "MMN3JBJWTT7ZZL7I7K66GSZQ3MHTPW47",
     pegged: "ETH",
-    apy: 32
   },
   {
-    name: "IGB",
-    address: config.TESTNET ? "UH6SNZMZKHWMRM7IQZGFPD5PQULZZSBI" : "UH6SNZMZKHWMRM7IQZGFPD5PQULZZSBI",
+    name: "IGBV2",
+    address: config.TESTNET ? "KPIRFOCMNT3OPG4EIO7CAWNDEEDAR62F" : "TGEKFP4PFQT43CGUNZSM4GHRMNBWPAVE",
     pegged: "GBYTE",
-    apy: 16
   },
   {
-    name: "IAU",
-    address: config.TESTNET ? "VE63FHFCPXLLXK6G6HXQDO5DVLS2IDOC" : "UCWEMOXEYFUDDBJLHIHZ3NIAX3QD2YFD",
+    name: "IAUG",
+    address: config.TESTNET ? "QRNUJJ6GYRXBGZXO3KCIS3CGEAMN5FA7" : "L5AZ5Q6BY5DKFL4CDMF5P6EWZ7I5KBYC",
     pegged: "GOLD",
-    apy: 8
   }
 ]
 
@@ -47,7 +42,7 @@ const PopularItem = ({ pegged, name, apy, link, price, showAll }) => {
   return (
     <Col xs={{ span: 12 }} sm={{ span: 6 }} lg={{ span: 4 }} className={styles.item}>
       <div>
-        <CoinIcon symbol={name} width="80" height="80" type={2} />
+        <CoinIcon pegged={pegged} width="80" height="80" type={2} />
       </div>
       <div className={styles.name}>{name}</div>
       {!showAll && pegged && <div>{t("home.popular.pegged", "Pegged:")} <span>{pegged}</span></div>}
@@ -71,11 +66,20 @@ export const PopularInterest = ({ prices, hideTitle = false, showAll = false }) 
   const { t } = useTranslation();
   const basename = lang && lang !== "en" ? "/" + lang : "";
 
+  const tokensListChanged = tokensList.map((item) => {
+    const address = item.address;
+    const apy = ("interest_rate" in data[address].bonded_state ? data[address].bonded_state.interest_rate : data[address].params.interest_rate) * 100;
+    return {
+      ...item,
+      apy
+    }
+  });
+
   useEffect(() => {
     if (showAll) {
-      const otherList = Object.entries(data).map(([address, { bonded_state, symbol, params }]) => {
+      const otherList = Object.entries(data).filter((item) => item[1].fund).map(([address, { bonded_state, symbol, params }]) => {
         const apy = ("interest_rate" in bonded_state ? bonded_state.interest_rate : params.interest_rate) * 100;
-        
+
         if (tokensList.findIndex((t) => symbol && (t.name === symbol)) === -1) {
           if (apy) {
             return {
@@ -96,8 +100,8 @@ export const PopularInterest = ({ prices, hideTitle = false, showAll = false }) 
     }
   }, [data, showAll]);
 
-  const allList = [...tokensList, ...otherList];
-  
+  const allList = [...tokensListChanged, ...otherList];
+
   return <div className={styles.wrap}>
     {!hideTitle ? <h2 className={styles.title}>{t("home.popular.title_interest", "Most popular interest bearing tokens")}</h2> : null}
     <Row justify="center" gutter={[16, 16]}>

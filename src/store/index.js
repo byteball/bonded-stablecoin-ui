@@ -10,6 +10,8 @@ import { connectionReducer } from "./reducers/connection";
 import { pendingsReducer } from "./reducers/pendings";
 import { dataReducer } from "./reducers/data";
 import { carburetorReducer } from "./reducers/carburetor";
+import { symbolsReducer } from "./reducers/symbols";
+import { pricesReducer } from "./reducers/prices";
 
 const rootReducer = combineReducers({
   settings: settingsReducer,
@@ -18,13 +20,15 @@ const rootReducer = combineReducers({
   pendings: pendingsReducer,
   connected: connectionReducer,
   data: dataReducer,
-  carburetor: carburetorReducer
+  carburetor: carburetorReducer,
+  symbols: symbolsReducer,
+  prices: pricesReducer
 });
 
 const persistConfig = {
   key: "bonded",
   storage,
-  whitelist: ["settings"],
+  whitelist: ["settings", "symbols", "prices"],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
