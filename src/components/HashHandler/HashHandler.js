@@ -81,7 +81,7 @@ export const HashHandler = ({ children }) => {
             const keys = Object.keys(data);
             let maxReserve = { address: null, reserve: 0 };
             keys.forEach((address) => {
-              if (data[address].reserve >= maxReserve.reserve) {
+              if (data[address].fund && (data[address].reserve >= maxReserve.reserve)) {
                 maxReserve = { address, reserve: data[address].reserve };
               }
             });

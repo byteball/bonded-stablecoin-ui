@@ -1,7 +1,7 @@
 import { UPDATE_PRICES } from "../../types";
 import { getOraclePrice } from "helpers/getOraclePrice";
 
-const expireIn = 10; // minutes
+const expireIn = 7; // minutes
 
 export const updatePrices = (info = []) => async (dispatch, getState) => {
   const store = getState();

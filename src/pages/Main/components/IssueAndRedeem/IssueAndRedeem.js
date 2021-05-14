@@ -90,7 +90,7 @@ export const IssueAndRedeem = () => {
       sendPayload = { tokens2: Math.trunc(input2 * 10 ** decimals2), ref: referrer, max_fee_percent: meta?.max_fee_percent };
       sendAmount = Math.ceil(input1 * 10 ** reserve_asset_decimals);
     } else if (toAsset === asset) {
-      sendPayload = { tokens2: Math.trunc(input2 * 10 ** decimals2), tokens2_to: toAsset === asset ? stable_aa : undefined, max_fee_percent: meta?.max_fee_percent }
+      sendPayload = { tokens2: Math.trunc(meta?.expect_t2), tokens2_to: toAsset === asset ? stable_aa : undefined, max_fee_percent: meta?.max_fee_percent }
       currentAddress = address;
       sendAmount = Math.ceil(input1 * 10 ** reserve_asset_decimals);
     }
@@ -167,7 +167,7 @@ export const IssueAndRedeem = () => {
     let error;
     if (fromAsset === reserve_asset) {
       if (toAsset === asset) {
-        if (input1) {
+        if (Number(input1)) {
           const exchange = $get_exchange_result({
             tokens1: 0,
             tokens2: 0,
@@ -178,6 +178,7 @@ export const IssueAndRedeem = () => {
           if (exchange) {
             meta = exchange;
             const expect = Math.abs(Math.trunc(exchange.expectNewT2));
+            meta.expect_t2 = expect;
             setInput2(+Number((expect / 10 ** decimals2) * exchange.growth_factor).toFixed(decimals2));
           }
         } else {
@@ -209,7 +210,7 @@ export const IssueAndRedeem = () => {
           ...commonData
         });
         const expect = Math.abs(Math.trunc(exchange.expectNewT2));
-        if (expect) {
+        if (Number(input1) && expect) {
           setInput2(+Number(expect / 10 ** decimals2).toFixed(decimals2));
           meta = exchange;
         } else {

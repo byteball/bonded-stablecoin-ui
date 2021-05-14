@@ -22,7 +22,7 @@ export const Capacitors = ({ bonded_state, address, params, reserve_asset_symbol
       params.move_capacity_timeout ||
       2 * 3600);
 
-  const isExpiry = moment.utc().unix() > timeToNextMovement;
+  const isExpiry = Date.now() / 1000 > timeToNextMovement;
   const hours = Math.round(params.move_capacity_timeout / 3600);
   const minutes = Math.round(params.move_capacity_timeout - 3600 * hours) / 60;
   
@@ -74,7 +74,7 @@ export const Capacitors = ({ bonded_state, address, params, reserve_asset_symbol
                   <Countdown
                     title={t("trade.tabs.capacitor.time_until.title", "Time until the next movement")}
                     // format="D [days] HH:mm:ss"
-                    value={Math.floor(Date.now() / 1000) + timeToNextMovement}
+                    value={moment.unix(timeToNextMovement)}
                   />
                 )}
               </>
