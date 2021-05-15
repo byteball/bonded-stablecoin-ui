@@ -8,6 +8,10 @@ import React, { useEffect, useState, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import { generateLink } from "utils/generateLink";
+import ReactGA from "react-ga";
+import CoinIcon from "stablecoin-icons";
+import { GbyteIcon } from "components/GbyteIcon/GbyteIcon";
+import { getTargetCurrency } from "components/SelectStablecoin/SelectStablecoin";
 
 const { Title, Text } = Typography;
 
@@ -30,27 +34,28 @@ export const IssueAndRedeem = () => {
   const { asset } = stable_state;
   const { asset1, asset2, reserve } = bonded_state;
   const { shares_asset, shares_supply } = fund_state;
+  const peggedCurrency = getTargetCurrency(actualParams, bonded_state);
 
   const pairs = reserve ? {
     [reserve_asset]: [
-      { symbol: symbol2, asset: asset2 },
-      { symbol: symbol4, asset: shares_asset },
-      { symbol: symbol3, asset: asset },
+      { symbol: symbol2, asset: asset2, type: 2 },
+      { symbol: symbol4, asset: shares_asset, type: 1 },
+      { symbol: symbol3, asset: asset, type: 3 },
     ],
     [asset2]: [
-      { symbol: symbol3, asset },
-      { symbol: reserve_asset_symbol, asset: reserve_asset }
+      { symbol: symbol3, asset, type: 3 },
+      { symbol: reserve_asset_symbol, asset: reserve_asset, type: 0 }
     ],
     [shares_asset]: [
-      { symbol: reserve_asset_symbol, asset: reserve_asset },
+      { symbol: reserve_asset_symbol, asset: reserve_asset, type: 0 },
     ],
     [asset]: [
-      { symbol: symbol2, asset: asset2 },
-      { symbol: reserve_asset_symbol, asset: reserve_asset }
+      { symbol: symbol2, asset: asset2, type: 2 },
+      { symbol: reserve_asset_symbol, asset: reserve_asset, type: 0 }
     ]
   } : {
     [reserve_asset]: [
-      { symbol: symbol4, asset: shares_asset },
+      { symbol: symbol4, asset: shares_asset, type: 1 },
     ]
   }
 
@@ -59,7 +64,9 @@ export const IssueAndRedeem = () => {
   const [fromAsset, setFromAsset] = useState(reserve_asset);
 
   let fromDecimals;
+  let fromInfo;
   let toDecimals;
+  let toInfo;
   let currentAddress;
   let sendAmount;
   let sendPayload = {};
@@ -81,37 +88,49 @@ export const IssueAndRedeem = () => {
   }, [address, fromAsset])
 
   if (fromAsset === reserve_asset) {
+    fromInfo = { symbol: reserve_asset_symbol, type: "RESERVE" }
     if (toAsset === shares_asset) {
+      toInfo = { symbol: symbol4, type: "FUND" }
       currentAddress = bonded_state.decision_engine_aa;
       sendPayload = { ref: referrer }
       sendAmount = Math.round(input1 * 10 ** reserve_asset_decimals);
     } else if (toAsset === asset2) {
+      toInfo = { symbol: symbol2, type: "T2" }
       currentAddress = address;
       sendPayload = { tokens2: Math.trunc(input2 * 10 ** decimals2), ref: referrer, max_fee_percent: meta?.max_fee_percent };
       sendAmount = Math.ceil(input1 * 10 ** reserve_asset_decimals);
     } else if (toAsset === asset) {
+      toInfo = { symbol: symbol3, type: "STABLE" }
       sendPayload = { tokens2: Math.trunc(meta?.expect_t2), tokens2_to: toAsset === asset ? stable_aa : undefined, max_fee_percent: meta?.max_fee_percent }
       currentAddress = address;
       sendAmount = Math.ceil(input1 * 10 ** reserve_asset_decimals);
     }
 
   } else if (fromAsset === asset2) {
+    fromInfo = { symbol: symbol2, type: "T2" }
     if (toAsset === asset) {
-      currentAddress = stable_aa
+      toInfo = { symbol: symbol3, type: "STABLE" }
+      currentAddress = stable_aa;
     } else if (toAsset === reserve_asset) {
+      toInfo = { symbol: reserve_asset_symbol, type: "RESERVE" }
       currentAddress = address;
       sendPayload = { max_fee_percent: meta?.max_fee_percent }
     }
     sendAmount = Math.round(input1 * 10 ** decimals2);
   } else if (fromAsset === shares_asset) {
+    fromInfo = { symbol: symbol4, type: "FUND" }
     currentAddress = bonded_state.decision_engine_aa;
     sendAmount = Math.round(input1 * 10 ** reserve_asset_decimals);
     sendPayload = { max_fee_percent: meta?.max_fee_percent }
   } else if (fromAsset === asset) {
-    currentAddress = stable_aa
+    fromInfo = { symbol: symbol3, type: "STABLE" }
+    currentAddress = stable_aa;
     sendAmount = Math.round(input1 * 10 ** decimals2);
     if (toAsset === reserve_asset) {
+      toInfo = { symbol: reserve_asset_symbol, type: "RESERVE" }
       sendPayload = { to: address, max_fee_percent: meta?.max_fee_percent }
+    } else {
+      toInfo = { symbol: symbol2, type: "T2" }
     }
   }
 
@@ -122,7 +141,7 @@ export const IssueAndRedeem = () => {
   useEffect(() => {
     if (!changingDirection && currentPairs?.[0]) {
       setToAsset(currentPairs[0].asset)
-    } else if(changingDirection) {
+    } else if (changingDirection) {
       setChangingDirection(false);
     }
   }, [currentPairs]);
@@ -392,7 +411,7 @@ export const IssueAndRedeem = () => {
     setFromAsset(oldToAsset);
     setToAsset(oldFromAsset);
   }
-  
+
   return <div>
     <Title level={3}>{t("trade.tabs.buy_redeem.title", "Buy and redeem")}</Title>
     <Form
@@ -413,12 +432,12 @@ export const IssueAndRedeem = () => {
               <Select size="large" placeholder="Select token" value={fromAsset} onChange={(v) => setFromAsset(v)} style={{ width: "100%" }} >
                 {reserve ? (
                   <>
-                    <Select.Option value={reserve_asset}>{reserve_asset_symbol}</Select.Option>
-                    <Select.Option value={asset2}>{symbol2 || "T2"}</Select.Option>
-                    <Select.Option value={shares_asset}>{symbol4 || "T_SF"}</Select.Option>
-                    <Select.Option value={asset}>{symbol3 || "T_STABLE"}</Select.Option>
+                    <Select.Option value={reserve_asset}> {reserve_asset === "base" ? <GbyteIcon width="1em" height="1em" style={{ marginRight: 3, marginBottom: -1.5 }} /> : null} {reserve_asset_symbol}</Select.Option>
+                    <Select.Option value={asset2}><CoinIcon width="1em" height="1em" style={{ marginRight: 5, marginBottom: -1.5 }} pegged={peggedCurrency} type={2} /> {symbol2 || "T2"}</Select.Option>
+                    <Select.Option value={shares_asset}><CoinIcon width="1em" height="1em" style={{ marginRight: 5, marginBottom: -1.5 }} pegged={peggedCurrency} type={1} /> {symbol4 || "T_SF"}</Select.Option>
+                    <Select.Option value={asset}><CoinIcon width="1em" height="1em" style={{ marginRight: 5, marginBottom: -1.5 }} pegged={peggedCurrency} type={3} /> {symbol3 || "T_STABLE"}</Select.Option>
                   </>
-                ) : <Select.Option value={reserve_asset}>{reserve_asset_symbol}</Select.Option>}
+                ) : <Select.Option value={reserve_asset}>{reserve_asset === "base" ? <GbyteIcon width="1em" height="1em" style={{ marginRight: 3, marginBottom: -1.5 }} /> : null} {reserve_asset_symbol}</Select.Option>}
               </Select>
             </Form.Item>
           </Input.Group>
@@ -438,7 +457,7 @@ export const IssueAndRedeem = () => {
             <Form.Item style={{ width: "50%", marginBottom: 0 }}>
               <Select size="large" placeholder="Select token" value={toAsset} onChange={(v) => setToAsset(v)} style={{ width: "100%" }}>
                 {currentPairs?.map((p, i) => {
-                  return <Select.Option key={"option" + i} value={p.asset}>{p.symbol || p.asset}</Select.Option>
+                  return <Select.Option key={"option" + i} value={p.asset}>{p.type > 0 ? <CoinIcon width="1em" height="1em" style={{ marginRight: 5, marginBottom: -1.5 }} pegged={peggedCurrency} type={p.type} /> : (p.asset === "base" ? <GbyteIcon width="1em" height="1em" style={{ marginRight: 3, marginBottom: -1.5 }} /> : null)} {p.symbol || p.asset}</Select.Option>
                 })}
               </Select>
             </Form.Item>
@@ -498,7 +517,11 @@ export const IssueAndRedeem = () => {
                 </div>
               </div>
               <div>
-                <QRButton disabled={isDisabled} type="primary" size="large" ref={btnRef} href={link}>Exchange</QRButton>
+                <QRButton onClick={() => ReactGA.event({
+                  category: "Exchange (Trade page)",
+                  action: `${fromInfo.type} -> ${toInfo.type}`,
+                  label: `${fromInfo.symbol} -> ${toInfo.symbol}`,
+                })} disabled={isDisabled} type="primary" size="large" ref={btnRef} href={link}>Exchange</QRButton>
               </div>
             </div>
           </div>
