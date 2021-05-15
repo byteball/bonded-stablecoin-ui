@@ -1,14 +1,14 @@
 import { Space, Typography, Statistic, Row, Col, Input } from "antd";
 import { QRButton } from "components/QRButton/QRButton";
 import { getParams } from "helpers/getParams";
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, Suspense, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import { generateLink } from "utils/generateLink";
 import moment from "moment";
 import { $get_exchange_result } from "helpers/bonded";
 import { useWindowSize } from "hooks/useWindowSize";
-import { Suspense, useEffect } from "react";
+import ReactGA from "react-ga";
 
 const Pie = React.lazy(() => import('@ant-design/charts').then(module => ({ default: module.Pie })))
 
@@ -220,7 +220,11 @@ export const StabilityFund = () => {
         </Paragraph>
         <Space wrap={true}>
           <Input onKeyPress={handleEnterBuy} style={{ width: "100%" }} placeholder={t("trade.tabs.stability_fund.amount", "Amount of shares")} value={inputBuy} onChange={handleChangeBuy} size="large" />
-          <QRButton ref={buyRef} href={link} size="large" disabled={!Number(inputBuy)} type="primary">{t("trade.tabs.stability_fund.send", "Send {{count}}", { count: Number(inputBuy) ? +Number(amountByteForBuy / 10 ** reserve_asset_decimals).toFixed(reserve_asset_decimals) : "" })} {reserve_asset_symbol || "RESERVE"}</QRButton>
+          <QRButton onClick={() => ReactGA.event({
+            category: "Fund page",
+            action: "Buy fund tokens",
+            label: `Buy ${symbol4}`,
+          })} ref={buyRef} href={link} size="large" disabled={!Number(inputBuy)} type="primary">{t("trade.tabs.stability_fund.send", "Send {{count}}", { count: Number(inputBuy) ? +Number(amountByteForBuy / 10 ** reserve_asset_decimals).toFixed(reserve_asset_decimals) : "" })} {reserve_asset_symbol || "RESERVE"}</QRButton>
         </Space>
         {Number(inputBuy) ? <Paragraph type="secondary">
           <div><b>{t("trade.tabs.buy_redeem.fee", "Fee")}:</b> 0</div>
@@ -243,7 +247,11 @@ export const StabilityFund = () => {
         </Paragraph>
         <Space wrap={true} align="end">
           <Input onKeyPress={handleEnterRedeem} placeholder={t("trade.tabs.stability_fund.amount", "Amount of shares")} value={inputRedeem} onChange={handleChangeRedeem} size="large" />
-          <QRButton ref={redeemRef} href={link2} size="large" disabled={!isValidRedeem} type="primary">{t("trade.tabs.stability_fund.send", "Send {{count}}", { count: Number(inputRedeem) ? +Number(inputRedeem).toFixed(reserve_asset_decimals) : "" })} {symbol4 || "T_FUND"}</QRButton>
+          <QRButton onClick={() => ReactGA.event({
+            category: "Fund page",
+            action: "Sell fund tokens",
+            label: `Sell ${symbol4}`,
+          })} ref={redeemRef} href={link2} size="large" disabled={!isValidRedeem} type="primary">{t("trade.tabs.stability_fund.send", "Send {{count}}", { count: Number(inputRedeem) ? +Number(inputRedeem).toFixed(reserve_asset_decimals) : "" })} {symbol4 || "T_FUND"}</QRButton>
         </Space>
         {Number(inputRedeem) && isValidRedeem ? <Paragraph type="secondary">
           <div>{t("trade.tabs.buy_redeem.redeem_will_receive", "You will get {{amount}} {{symbol}}", { amount: (you_get).toFixed(reserve_asset_decimals), symbol: reserve_asset_symbol || "RESERVE" })}</div>
@@ -280,7 +288,11 @@ export const StabilityFund = () => {
         /> : <Statistic
           title={t("trade.tabs.stability_fund.next_fix", "Time until the next fix")}
           value={t("trade.tabs.stability_fund.expired", "Expired")} />}
-        <QRButton type="primary" disabled={!isExpired} href={linkFixedPrice}>{t("trade.tabs.stability_fund.fix_btn", "Send fix request")}</QRButton>
+        <QRButton type="primary" onClick={() => ReactGA.event({
+          category: "Fund page",
+          action: "Fix price",
+          label: `Fix ${symbol2} price`,
+        })} disabled={!isExpired} href={linkFixedPrice}>{t("trade.tabs.stability_fund.fix_btn", "Send fix request")}</QRButton>
       </Space>
     </div>
   </div>
