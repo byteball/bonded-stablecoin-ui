@@ -24,7 +24,7 @@ import CoinIcon from "stablecoin-icons";
 import { $get_exchange_result } from "helpers/bonded";
 import { getOraclePrice } from "helpers/getOraclePrice";
 import { generateLink } from "utils/generateLink";
-import { addExchangeRecepient } from "store/actions/settings/addExchangeRecepient";
+import { addExchangeRecipient } from "store/actions/settings/addExchangeRecipient";
 // import { useGetCurrency } from "../hooks/useGetCurrency";
 import { useGetRanges } from "../hooks/useGetRanges";
 import { createExchange } from "../createExchange";
@@ -252,7 +252,7 @@ export const ExchangeForm = () => {
       after: ({ isError, clear = true }) => {
         if (!isError) {
           message.success(t("buy.exchange_success", "The exchange was successfully added to the list and is waiting for payment"));
-          dispatch(addExchangeRecepient(recipient.value));
+          dispatch(addExchangeRecipient(recipient.value));
         } else {
           message.error(t("buy.exchange_error", "An error occurred, please try again later"));
         }
