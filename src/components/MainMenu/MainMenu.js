@@ -31,8 +31,8 @@ export const MainMenu = ({ mode, pathname, onClose, width }) => {
         </NavLink>
       </Menu.Item>
       <Menu.Item key="/buy" style={{ marginRight: 10 }}>
-        <NavLink to={`${basename}/buy`} replace={true}>
-          {t("main_menu.buy", "Buy interest tokens")}
+        <NavLink to={`${basename}/buy`} replace={true} style={{ color: "#FFAA09" }}>
+          {t("main_menu.buy_with_btc", "Buy with Bitcoin")}
         </NavLink>
       </Menu.Item>
       <Menu.Item key={`${basename}/referral`} style={{ marginRight: 10 }}>

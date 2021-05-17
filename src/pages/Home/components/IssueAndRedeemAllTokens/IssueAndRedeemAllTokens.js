@@ -7,7 +7,7 @@ import { getParams } from "helpers/getParams";
 import { useWindowSize } from "hooks/useWindowSize";
 import React, { useEffect, useState, useRef, useMemo } from "react";
 import ReactGA from "react-ga";
-import { useTranslation } from "react-i18next";
+import { useTranslation, Trans } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { generateLink } from "utils/generateLink";
 import config from "config";
@@ -634,6 +634,24 @@ export const IssueAndRedeemAllTokens = () => {
               })
             } disabled={isDisabled} type="primary" size="large" ref={btnRef} href={link}>{t("trade.tabs.buy_redeem.exchange", "Exchange")}</QRButton>
           </div>
+          {!activeWallet && <div style={{ textAlign: "center", marginTop: 10 }}>
+            <Text type="secondary" style={{ fontSize: 14, display: "block" }}>
+              <Trans i18nKey="trade.tabs.buy_redeem.open_wallet">
+                Clicking "Exchange" will open your Obyte wallet. <a
+                  href="https://obyte.org/#download"
+                  target="_blank"
+                  rel="noopener"
+                  onClick={
+                    () => {
+                      ReactGA.event({
+                        category: "Stablecoin",
+                        action: "Install wallet (Home page)"
+                      })
+                    }
+                  }>Install</a> it if you don't have one yet.
+              </Trans>
+            </Text>
+          </div>}
         </Col>
       </Row>
     </Form>
