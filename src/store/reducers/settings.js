@@ -24,7 +24,7 @@ const initialState = {
   visitedBefore: false,
   exchanges_recepient: undefined,
   pendingExchanges: undefined,
-  exchangesFormInit: {
+  formInit: {
     currentToken: undefined,
     amountToken: undefined,
     currentCurrency: undefined,
@@ -128,7 +128,7 @@ export const settingsReducer = (state = initialState, action) => {
     case UPDATE_EXCHANGE_FORM: {
       return {
         ...state,
-        exchangesFormInit: { ...action.payload },
+        formInit: { ...action.payload },
       };
     }
     default:
