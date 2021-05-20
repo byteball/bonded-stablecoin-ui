@@ -69,7 +69,8 @@ export const eventIdentification = (type, unit, params, _, active) => {
           i18n.t("trade.tabs.transactions.events.redeem", "Redeem tokens"),
           `${inputT1 ? (inputT1 / 10 ** decimals1) + " " + symbol1 : ""} ${inputT2 ? (inputT2 / 10 ** decimals2) + " " + symbol2 : ""}`,
           "",
-          pendingAmount + " " + reserve_asset_symbol
+          pendingAmount + " " + reserve_asset_symbol,
+          payload.to || unit.trigger_address
         ]
       }
     } else if ("name" in payload && "value" in payload) {
