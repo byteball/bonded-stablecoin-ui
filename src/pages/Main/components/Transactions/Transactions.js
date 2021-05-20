@@ -79,7 +79,7 @@ export const Transactions = () => {
         <Text>{t("trade.tabs.transactions.address", "The address of the autonomous agent")}: </Text>
         <a
           href={`https://${config.TESTNET ? "testnet" : ""
-            }explorer.obyte.org/#${governance_aa}`}
+            }explorer.obyte.org/#${decision_engine_aa}`}
           target="_blank"
           rel="noopener"
         >
