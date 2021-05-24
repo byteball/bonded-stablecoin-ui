@@ -12,6 +12,9 @@ import { resCreateStable } from "store/actions/EVENTS/stable/resCreateStable";
 import { governanceEventManager } from "./lowerManagers/governance";
 import { addNotStableTransaction } from "store/actions/active/addNotStableTransaction";
 import { addStableTransaction } from "store/actions/active/addStableTransaction";
+import { isEqual } from "lodash";
+import ReactGA from "react-ga";
+import { removeTrackedExchange } from "store/actions/tracked/removeTrackedExchange";
 
 const importantSubject = ["light/aa_request", "light/aa_response"];
 
@@ -41,15 +44,39 @@ export const eventManager = (err, result) => {
     params: paramsStablecoin
   } = state.active;
   const { activeWallet } = state.settings;
+  const { trackedExchanges, lastExchange } = state.tracked;
   const { params } = state.pendings.stablecoin;
   const { aa_address } = body;
-
-  if (!address && !config.FACTORY_AAS.includes(aa_address)) return null;
 
   const isReq = subject === "light/aa_request";
   const isRes = subject === "light/aa_response";
 
+  const expiresIn = 5; // min
+
+  if (isReq && (lastExchange > (Date.now() - 1000 * 60 * expiresIn))) {
+    const author = body.unit.authors[0]?.address;
+    const sendPayload = getAAPayload(body.unit.messages);
+
+    const current = trackedExchanges.find((item) => item.create_at > (Date.now() - 1000 * 60 * expiresIn) && item.aa === aa_address && isEqual(item.payload, sendPayload) && getAAPayment(body.unit.messages, [item.aa], item.fromAsset) === Number(item.amount) && activeWallet ? activeWallet === author : true);
+
+    if (current) {
+      const { label, action } = current;
+
+      ReactGA.event({
+        category: "Exchange request",
+        action,
+        label
+      });
+
+      store.dispatch(removeTrackedExchange(current));
+    }
+
+  }
+
+  if (!address && !config.FACTORY_AAS.includes(aa_address)) return null;
+
   const de_aa = bonded_state?.decision_engine_aa;
+
   if (aa_address === config.TOKEN_REGISTRY) {
     if (isReq) {
       const { messages } = body.unit;
@@ -271,7 +298,7 @@ const isPendingStablecoin = (p, a) => {
     a.op1 === p.op1 &&
     a.m === p.m &&
     a.n === p.n &&
-    a.reserve_asset === p.reserve_asset){
-      return true
-    }
+    a.reserve_asset === p.reserve_asset) {
+    return true
+  }
 }
