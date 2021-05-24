@@ -2,7 +2,7 @@
   "main_menu": {
     "menu": "Menu",
     "trade": "Trade",
-    "buy": "Buy interest tokens",
+    "buy_with_btc": "Buy with Bitcoin",
     "referral": "Referral program",
     "create": "Create",
     "how": "How it works",
@@ -146,6 +146,8 @@
         "final_price": "Final {{pair}} price",
         "above_target": "above the target",
         "below_target": "below the target",
+        "exchange": "Exchange",
+        "open_wallet": "Clicking \"Exchange\" will open your Obyte wallet. <1>Install</1> it if you don't have one yet.",
         "title_buy": "Buy tokens",
         "first": "You are the first to buy tokens of this stablecoin, so you should buy token 1 and token 2 at the same time.",
         "subtitle_buy": "How many tokens of each type you want to buy",
@@ -413,17 +415,14 @@
     }
   },
   "buy": {
-    "title": "Buy interest tokens",
-    "desc": "Buy interest earning tokens (IUSD, IBIT, etc) for any crypto in one easy step.",
+    "title_btc": "Buy interest tokens with BTC",
+    "desc_v2": "Buy interest earning tokens (IUSDV2, IBITV2, etc) for BTC in one easy step.",
     "exchange_success": "The exchange was successfully added to the list and is waiting for payment",
     "exchange_error": "An error occurred, please try again later",
     "exchange_warning": "{{currency}}-to-GBYTE exchange service is currently unavailable, please pay with another currency or try again later.",
     "you_send": "You <1>send</1>",
     "amount": "Amount",
     "currency_to_pay": "Currency to pay",
-    "popular_cryptocurrencies": "Popular cryptocurrencies",
-    "others": "Others",
-    "better_rate": "You get a better rate if you pay in GBYTE",
     "you_get": "You <1>get</1>",
     "will_receive": "The token you will receive",
     "first_exchanged": "Your <1>{{activeCurrency}}</1> will be first exchanged for GBYTE, then GBYTE converted to  {{symbol}}. <8>{{activeCurrency}}</8> to GBYTE exchange is performed by <12>{{providerName}}</12>.",
@@ -434,7 +433,7 @@
     "volatility": "1% was added to protect against price volatility, you'll get this amount back if the prices don't change.",
     "open_wallet": "Clicking \"Buy\" will open your Obyte wallet. <1>Install</1> it if you don't have one yet.",
     "min": "Sorry, the minimum {{activeCurrency}} amount is {{min}}. Please increase the {{activeCurrency}} amount.",
-    "buying_growth": "For buying growth tokens (GRD, GRB, etc) and redemption, go to the <2>trading page</2>.",
+    "buying_v2": "For buying stable tokens (OUSDV2, OBITV2, etc), fund tokens (SFUSD, SFGB, etc), and redemption, go to the <2>trading page</2>.",
     "updated": "This page will be updated automatically",
     "status": "Status",
     "status_loading": "loading status...",
@@ -626,16 +625,8 @@
   "faq": {
     "questions": {
       "0": {
-        "question": "How do I buy/sell IUSD or GRD?",
-        "answer": "<0>You can buy or sell the tokens for GBYTE on the <1>trading page</1> or buy IUSD from a simpler <3>buy interest tokens page</3> of this website. The website helps you to construct a request that you send to an <5>Autonomous Agent</5> from your <7>Obyte</7> wallet.</0><1>Some exchanges might also list the tokens to enable you to buy/sell them for BTC or fiat.</1>"
-      },
-      "1": {
-        "question": "How do I buy/sell OUSD?",
-        "answer": "<0>You can buy IUSD first, then open a <1>deposit</1> to receive the equivalent amount of OUSD. While the deposit is open, you can also periodically withdraw the accrued interest (16% p.a.) or choose a charity or your friend or relative who will receive the interest. When you don’t need OUSD any more, you can close the deposit, receive your IUSD back, then sell IUSD.</0><1>Some exchanges might also list OUSD to enable you to buy/sell the token for BTC or fiat.</1>"
-      },
-      "2": {
-        "question": "My deposit was closed, why?",
-        "answer": "<0>Probably it did not have enough protection. A deposit with the smallest protection can be closed by anybody by sending the required amount of OUSD. You don't lose anything when your deposit is closed as you have already received your OUSD but you stop receiving interest. To protect your deposit from closing, you need to add some GBYTE to the deposit on the <1>deposits page</1>.</0>"
+        "question": "How do I buy/sell IUSDV2, OUSDV2, or SFUSD?",
+        "answer": "<0>You can buy or sell the tokens for GBYTE on the <1>home page</1>, on the more advanced <3>trading page</3>, or buy IUSDV2 for BTC on the <5>Buy with Bitcoin page</5> of this website. The website helps you to construct a request that you send to an <7>Autonomous Agent</7> from your <9>Obyte</9> wallet.</0><1>Some exchanges might also list the tokens to enable you to buy/sell them for BTC or fiat.</1>"
       },
       "3": {
         "question": "Who operates the minting of all these tokens?",
@@ -646,7 +637,7 @@
         "answer": "<0>No, they are not <1>smart contracts</1>. They are neither smart, nor contracts, they are dumb programs that blindly follow the immutable rules.</0>"
       },
       "5": {
-        "question": "IUSD constantly grows thanks to interest. Assuming this attracts new users, GRD should grow too and both token holders win, who loses then?",
+        "question": "IUSDV2 constantly grows thanks to interest. Assuming this attracts new users, SFUSD should grow too and both token holders win, who loses then?",
         "answer": "<0>It’s not zero-sum. In the bonding curve that is used to issue the tokens, the total value of the tokens is greater than the value of the reserve that was initially invested to create them. So, yes, it is possible for each group to win in terms of the value of their assets, and not at the expense of the other group.</0>"
       },
       "6": {
@@ -655,7 +646,7 @@
       },
       "7": {
         "question": "What makes stablecoins pegged to their benchmark?",
-        "answer": "<0>The price of IUSD is “attracted” to the target (benchmark) with the help of a so-called capacitor.</0><1>Every purchase of IUSD or GRD from the bonding curve and every sale to the bonding curve affect the IUSD price. If a transaction pushes the price away from the target, it is “punished” with a fee, the farther away from the target, the more the fee. The collected fees get accumulated in a capacitor. Every transaction that corrects the price back to the target, is rewarded using the funds accumulated in the capacitor.</1><2>Due to the type of the bonding curve chosen, it is the holders of GRD who are the first to react to any deviations of the price from the target and correct them. For example, when too many people buy IUSD, they pull the price of IUSD below the peg (because IUSD token’s power in the curve formula is ½, i.e. less than 1, hence its partial derivative has negative power). There are two ways to correct the deviation: sell IUSD back to the curve, which is not a good idea because its price is currently below the fair price; or buy more GRD tokens. By buying more GRD tokens, traders push GRD price up (because the power in the curve formula is 2, i.e. more than 1, hence its partial derivative has positive power), therefore one who buys earlier gets a better price and traders rush to be the first to buy while the price is still below equilibrium.</2><3>Read the <1>blog article introducing bonded stablecoins</1> for more details.</3>"
+        "answer": "<0>The price of IUSDV2 is “attracted” to the target (benchmark) with the help of a so-called capacitor.</0><1>Every purchase of IUSDV2 from the bonding curve and every sale to the bonding curve affect the IUSDV2 price. If a transaction pushes the price away from the target, it is “punished” with a fee, the farther away from the target, the more the fee. The collected fees get accumulated in a capacitor. Every transaction that corrects the price back to the target, is rewarded using the funds accumulated in the capacitor.</1><2>Also, the stability fund buys or sells the other token — GRDV2 — in order to correct the price back to the peg. When and how much the fund buys or sells, is determined by an algorithm that can be changed only by governance decision of SFUSD holders.</2><3>In addition to that, traders who anticipate that the fund would eventually correct the price, can profit from buying or selling IUSDV2 before the fund intervenes. Their trades move the price closer to the peg and might make the fund's intervention unnecessary.</3><4>Read the <1>blog article introducing bonded stablecoins</1> and <3>updates introduced in version 2 stablecoins</3> for more details.</4>"
       },
       "8": {
         "question": "What are the risks?",
@@ -663,11 +654,11 @@
       },
       "9": {
         "question": "How are bonded stablecoins different from DAI, USDT, USDC, etc?",
-        "answer": "<0>One can earn interest with bonded stablecoins. One can get IUSD, immediately put it on a deposit, get OUSD in exchange, use it for payments in a stable currency while interest payments accumulate, and withdraw interest from time to time.</0><1>One can also redirect interest to a good cause, e.g. to a charity.</1>"
+        "answer": "<0>One can earn interest with bonded stablecoins. When OUSDV2 stablecoins are not used, one can \"stake\" them by converting to IUSDV2 whose target price constantly grows. After some time, one can convert IUSDV2 back to OUSDV2 and get more OUSDV2 in exchange, which reflects the interest earned while OUSDV2 was staked.</0>"
       },
       "10": {
         "question": "How do bonded stablecoins compare against discount stablecoins?",
-        "answer": "<0>Bonded stablecoins is our next generation stablecoin design and it improves above <1>discount stablecoins</1> in virtually all dimensions. In particular:</0><1><0>- bonded stablecoins do not expire any more, they are perpetual.</0><1>- OUSD is truly stable, there is no appreciation, it targets the familiar and well-established unit of account, USD.</1><2>- there are no auctions any more and users don’t need to look after their loans and refill collateral or risk losing their collateral when its price falls abruptly.</2><3>- there is no overcollateralization any more, which was commonly misunderstood.</3><4>- there is no need to balance risks against the amount of capital wasted in excess collateral.</4></1>"
+        "answer": "<0>Bonded stablecoins is our next generation stablecoin design and it improves above <1>discount stablecoins</1> in virtually all dimensions. In particular:</0><1><0>- bonded stablecoins do not expire any more, they are perpetual.</0><1>- OUSDV2 is truly stable, there is no appreciation, it targets the familiar and well-established unit of account, USD.</1><2>- there are no auctions any more and users don’t need to look after their loans and refill collateral or risk losing their collateral when its price falls abruptly.</2><3>- there is no overcollateralization any more, which was commonly misunderstood.</3><4>- there is no need to balance risks against the amount of capital wasted in excess collateral.</4></1>"
       },
       "11": {
         "question": "Can I trade with leverage?",
@@ -682,8 +673,8 @@
         "answer": "<0>In v2 stablecoins, they are used to automatically keep the price near the peg. </0><1>The Decision Engine (DE) is an Autonomous Agent that uses the funds in the Stability Fund to correct the price by buying or selling growth tokens. The Stability Fund is another AA that just holds all growth tokens and assets in the reserve currency contributed by investors. The investors get shares of the fund in exchange.</1><2>Since the fund holds growth tokens as part of its assets, and they appreciate as more interest (stable+) tokens are issued, buying shares of the fund is a way to bet on growth of the companion stablecoin.</2><3>The DE can be replaced by governance to optimize its behavior to both better keep the peg and generate greater shareholder value.</3>"
       },
       "14": {
-        "question": "Can OUSD be staked?",
-        "answer": "<0>Yes, just convert it to IUSD. Any time later, you can sell IUSD back to OUSD and get more OUSD.</0>"
+        "question": "Can OUSDV2 be staked?",
+        "answer": "<0>Yes, just convert it to IUSDV2. Any time later, you can sell IUSDV2 back to OUSDV2 and get more OUSDV2.</0>"
       }
     },
     "action": "Any other questions? Read the <1> introductory article </1> or ask on <3>Discord</3>."
@@ -716,8 +707,8 @@
         "0": "100% crypto backed: no need to trust any custodians or intermediaries.",
         "1": "No overcollateralization: you pay 1 USD worth of GBYTE to get 1 USD worth of stablecoins, plain and simple.",
         "2": "They live on a DAG: no fucking miners, no blocks, no miner manipulation, no bribing of miners with fees.",
-        "3": "They pay interest: there are interest-paying tokens and deposits along with the stablecoins. What’s more, you can help a good cause by redirecting interest to a charity.",
-        "4": "There is a group of people - SFUSD holders - who have skin in the game as their wealth depends on the success of the ecosystem. They are able to make governance decisions that would keep the stablecoin stable, liquid, and widely used.",
+        "3": "They pay interest: there are interest-paying tokens and staking along with the stablecoins.",
+        "4": "There is a group of people — SFUSD holders — who have skin in the game as their wealth depends on the success of the ecosystem. They are able to make governance decisions that would keep the stablecoin stable, liquid, and widely used.",
         "5": "They survive any volatility, even large abrupt movements of the reserve asset price. No margin calls, no liquidations.",
         "6": "They have a cool name!"
       }
@@ -725,13 +716,13 @@
     "tokens": {
       "interest": {
         "title": "IUSDV2 — interest token that earns 16% interest in USD",
-        "follow": "<0>IUSD is for investors seeking predictable income.</0><1>Its price is programmed to follow the growing target price. It started at exactly 1 USD on September 22, 2020 and the target price of the token grows at 16% per year. In one year, it is expected to be $1.16, in two years — $1.3456. It is a <1>stable+</1> coin.</1>",
+        "follow": "<0>IUSDV2 is for investors seeking predictable income.</0><1>Its price is programmed to follow the growing target price. It started at exactly 1 USD on April 16, 2021 and the target price of the token grows at 16% per year. In one year, it is expected to be $1.16, in two years — $1.3456. It is a <1>stable+</1> coin.</1>"
       },
       "stable": {
-        "title": "OUSD — a USD-pegged stablecoin",
-        "payments": "<0>OUSD is a familiar unit of account best suited for payments. </0><1>Unlike USD, it can be freely and instantly moved cross-border, and the fees are fractions of a cent.</1>",
+        "title": "OUSDV2 — a USD-pegged stablecoin",
+        "payments": "<0>OUSDV2 is a familiar unit of account best suited for payments. </0><1>Unlike USD, it can be freely and instantly moved cross-border, and the fees are fractions of a cent.</1>",
         "programmed": "<0>Its price is programmed to stay near 1 USD.</0>",
-        "exchange": "<0>OUSD is essentially IUSD with interest payments stripped off. You get it in exchange for depositing IUSD and can use it for payments while your deposit is accruing interest. You can withdraw interest and spend it too.</0>"
+        "exchange": "<0>You can “stake” OUSDV2 by converting it to IUSDV2. Any time later, you can make a reverse conversion and get more OUSDV2 in exchange.</0>"
       },
       "fund": {
         "title": "SFUSD — growth and governance token",
@@ -742,13 +733,21 @@
   },
   "how_it_works": {
     "title": "How it works",
-    "desc": "There is some math behind all this. IUSD and GRD tokens exist on a <1>bonding curve</1>, that is a mathematical formula that connects the amounts of IUSD and GRD tokens issued with the amount of the reserve currency  <5>— Bytes —</5> used to issue them.",
-    "formula": "The formula is like: <2><0>r</0> = <2>S</2><3>1</3><4>2</4> <6>S</6><7>2</7><8>1/2</8></2>,",
-    "where": "where:<1><0>- <1>r</1> is the total amount of GBYTE reserve locked to issue both tokens;</0><1>- <1>s</1><2>1</2> is the total supply of token1 — GRD;</1><2>- <1>s</1><2>2</2> is the total supply of token2 — IUSD.</2></1>",
-    "curve": "<0>That is, in order to issue more GRD or IUSD tokens, one needs to lock some reserve in GBYTE, and when one wants to redeem GRD or IUSD, they get a share of the reserve back. The prices of GRD and IUSD, i.e. how much reserve one needs to pay per token, or can get back per token, depend on the current supplies of the tokens.</0><1>How is the peg maintained? There is a target price of IUSD which is 1 USD plus interest accrued since inception. The target price is known from GBYTE/USD price reported by an oracle that feeds data from cryptocurrency exchanges and the time elapsed since the stablecoin was launched. Whenever someone wants to buy or sell IUSD or GRD such that this transaction would push IUSD price away from the target, they have to pay a fee. The farther away from the target, the larger the fee gets. Conversely, whenever someone pushes the price closer to the target, they get a reward, which is paid from the previously accumulated fees.</1>",
-    "capacitor": "This mechanism is called a <1>capacitor</1>. It gets “charged” with fees when traders move the price away from the target, and releases the charge to reward those who move the price closer to the target.",
-    "agents": "<0>All this is operated by several <1><0>Autonomous Agents</0></1> which are programs that run on <3>Obyte</3> distributed ledger, do the math quickly (they are good at math, unlike some people), and can never be changed by anybody.</0><1>All transactions are transparent, quickly verified by multiple independently operated computers, and can never be reversed. There are no fallible humans who could interfere with the work of Autonomous Agents, no fraudulent banksters who could run away with your money, lose it to a bad investment, or pay it to themselves as a quarterly bonus. The coins cannot be printed at will, they are issued strictly against the reserve, strictly according to the above formula. The reserve is stored by an Autonomous Agent and can be withdrawn only in exchange for the tokens, again strictly according to the bonding curve formula.</1>",
-    "read": "Read a <1>more thorough introduction to bonded stablecoins</1> in our blog."
+    "agents": "<0>All this is operated by several <1><0>Autonomous Agents</0></1> which are programs that run on <3>Obyte</3> distributed ledger, do the math quickly (they are good at math, unlike some people), and can never be changed by anybody.</0><1>All transactions are transparent, quickly verified by multiple independently operated computers, and can never be reversed. There are no fallible humans who could interfere with the work of Autonomous Agents, no fraudulent banksters who could run away with your money, lose it to a bad investment, or pay it to themselves as a quarterly bonus. The coins cannot be printed at will, they are issued strictly against the reserve, strictly according to the above formula. The reserve is stored by an Autonomous Agent and can be withdrawn only in exchange for the tokens, again strictly according to the bonding curve formula.</1>"
+  },
+  "how_it_works_v2": {
+    "desc": "There is some math behind all this. The USD-pegged stablecoin operates based on two main tokens — IUSDV2 and GRDV2 — that exist on a <1>bonding curve</1>, that is a mathematical formula that connects the amounts of IUSDV2 and GRDV2 tokens issued with the amount of the reserve currency  <5>— Bytes —</5> used to issue them.",
+    "formula": "The formula is like: <2><0>r</0> = <2>s</2><3>1</3><4>2</4> <6>s</6><7>2</7><8>2</8></2>,",
+    "where": "where:<1><0>- <1>r</1> is the total amount of GBYTE reserve locked to issue both tokens;</0><1>- <1>s</1><2>1</2> is the total supply of token1 — GRDV2;</1><2>- <1>s</1><2>2</2> is the total supply of token2 — IUSDV2.</2></1>",
+    "curve": "<0>That is, in order to issue more GRDV2 or IUSDV2 tokens, one needs to lock some reserve in GBYTE, and when one wants to redeem GRDV2 or IUSDV2, they get a share of the reserve back. The prices of GRDV2 and IUSDV2, i.e. how much reserve one needs to pay per token, or can get back per token, depend on the current supplies of the tokens.</0><1>The price of token1 (GRDV2) is <1><0>p</0><1>1</1> =  <3>2</3> <5>s</5><6>1</6> <8>s</8><9>2</9><10>2</10></1></1><2>The price of token2 (IUSDV2) is <1><0>p</0><1>2</1> = <3>2</3> <5>s</5><6>1</6><7>2</7> <9>s</9><10>2</10></1></2><3>The stability mechanisms are designed to keep the price <1>p</1><2>2</2> of IUSDV2 near its target price which is 1 USD plus interest accrued since inception. The target price is known from GBYTE/USD price reported by an oracle that feeds data from cryptocurrency exchanges and the time elapsed since the stablecoin was launched.</3>",
+    "mechanisms": "There are 3 mechanisms that keep the price near the target:",
+    "title_capacitor": "1. The capacitor",
+    "capacitor": "Whenever someone wants to buy or sell IUSDV2 such that this transaction would push the IUSDV2 price away from the target, they have to pay a fee. The farther away from the target, the larger the fee gets. The fees get accumulated in a special reserve which is called a capacitor. Whenever someone pushes the price closer to the target, they get a reward, which is paid from the capacitor. This way, the capacitor incentivizes the trades that correct the price, and disincentivizes the trades that push the price away from the target.",
+    "title_fund": "2. Stability Fund",
+    "fund": "The fund holds the entire supply of GRDV2 and some amount of the reserve currency GBYTE that was contributed by investors. The fund is algorithmically managed by an Autonomous Agent called <1>Decision Engine</1>, which can use the fund’s GBYTE and GRDV2 to buy or redeem GRDV2 in order to change its supply <3>s</3><4>1</4> and thus change the price <6>p</6><7>2</7> back to the target. Investors buy shares SFUSD in the fund by contributing GBYTE into its reserves. They do so anticipating that the shares would appreciate thanks to the growth of IUSDV2 issuance which raises the worth of the fund’s GRDV2 holdings.",
+    "title_trader": "3. Trader Incentives",
+    "trader_incentives": "Knowing that the Stability Fund would eventually intervene and correct the price back to the target, traders can make a profit by buying or selling before the Fund. For example, they can buy IUSDV2 when it trades below the target anticipating that the price will soon rise to the target and they’ll have an opportunity to sell higher. By buying or selling before the Fund, they move the price to the target and make the Fund’s intervention unnecessary.",
+    "read": "Read a <1>more thorough introduction to bonded stablecoins</1> in our blog and <3>updates introduced in version 2 stablecoins</3>."
   },
   "reg_symbol": {
     "available": "Symbol name {{value}} is available, you can register it",
@@ -778,7 +777,7 @@
     "clipboard_link": "Your link was copied to the clipboard",
     "no_auth": "To get a referral link, <1>add your wallet address</1>",
     "your_link_desc": "Use it in your blogs, tweets, posts, newsletters, public profiles, videos, etc and earn referral rewards for bringing new holders into Bonded Stablecoins.",
-    "info": "<0>The referral rewards are paid in IUSD every Sunday and are proportional to dollar balances of the referred users in all tokens (stablecoins, interest tokens, growth tokens) issued on this website, as well as other tokens based on them: shares in <1>oswap</1> liquidity pools and shares in arbitrage bots. The larger the total balances at the end of the weekly period, the larger the reward. Your weekly reward increases if the referred users accumulate more, decreases if they redeem or sell their tokens.</0><1>The current weekly reward is <1>{{pReferrerRewards}}% of the balances of all referred users</1> at the end of the week (<3>{{pReferrerRewardsAPY}}% per year</3>).</1><2>Your referrals also get rewarded for buying tokens through your link — they are expected to get <1>{{pReferralRewards}}% of their balances</1> every week.</2><3>The total amount paid to all referrers and referred users is <1>$3,000 weekly</1> and is distributed in proportion to the referrals balances.</3>",
+    "info": "<0>The referral rewards are paid in IUSDV2 every Sunday and are proportional to dollar balances of the referred users in all tokens (stablecoins, interest tokens, growth tokens) issued on this website, as well as other tokens based on them: shares in <1>oswap</1> liquidity pools and shares in arbitrage bots. The larger the total balances at the end of the weekly period, the larger the reward. Your weekly reward increases if the referred users accumulate more, decreases if they redeem or sell their tokens.</0><1>The current weekly reward is <1>{{pReferrerRewards}}% of the balances of all referred users</1> at the end of the week (<3>{{pReferrerRewardsAPY}}% per year</3>).</1><2>Your referrals also get rewarded for buying tokens through your link — they are expected to get <1>{{pReferralRewards}}% of their balances</1> every week.</2><3>The total amount paid to all referrers and referred users is <1>$3,000 weekly</1> and is distributed in proportion to the referrals balances.</3>",
     "title_list": "Here is the list of your referrals and their current balances",
     "total": "Total",
     "empty": "no referrals yet"
@@ -787,8 +786,9 @@
     "title": "Stable+ coins",
     "sub_title_1": "Stablecoins that earn interest",
     "sub_title_2": "Best suited for investors seeking predictable income",
-    "programmed": "<0>The prices of <1>stable+</1> coins are programmed to follow the growing target price. For example, IUSD — a USD-pegged coin — started at exactly 1 USD on September 22, 2020 and the target price of the token grows at 16% per year. In one year, it is expected to be $1.16, in two years — $1.3456.</0>",
+    "programmed": "<0>The prices of <1>stable+</1> coins are programmed to follow the growing target price. For example, IUSDV2 — a USD-pegged coin — started at exactly 1 USD on April 16, 2021 and the target price of the token grows at 16% per year. In one year, it is expected to be $1.16, in two years — $1.3456.</0>",
     "curve": "<0>This is made possible by a bonding curve that mathematically bonds their prices with the prices of the companion <1>growth</1> tokens. Every deviation from the target price activates incentives for the traders of both stable+ and growth tokens that make them buy or sell their tokens and eventually correct the price of the stable+ coin back to the target. They do so to make a profit.</0>",
+    "stake": "<0>If you received OUSDV2 — a USD-pegged stablecoin — you can \"stake\" it by converting to IUSDV2 and holding IUSDV2. Any time later, you can convert IUSDV2 back to OUSDV2 and get more OUSDV2 in exchange than originally invested.</0>",
     "choose": "Choose your stable+ coin"
   },
   "notification": {
@@ -819,12 +819,12 @@
         "req": "Another user sent a request to fix the price"
       },
       "buy": {
-        "req_author": "You have sent a request to buy {{symbol}}",
-        "req": "Another user sent a request to buy {{symbol}}"
+        "req_author": "You have sent a request to buy {{symbol}} for {{amount}} {{reserve_symbol}}",
+        "req": "Another user sent a request to buy {{symbol}} for {{amount}} {{reserve_symbol}}"
       },
       "sell": {
-        "req_author": "You have sent a request to redeem {{symbol}}",
-        "req": "Another user sent a request to redeem {{symbol}}"
+        "req_author": "You have sent a request to redeem {{amount}} {{symbol}}",
+        "req": "Another user sent a request to redeem {{amount}} {{symbol}}"
       }
     },
     "deposits": {

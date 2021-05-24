@@ -12,6 +12,7 @@ import { dataReducer } from "./reducers/data";
 import { carburetorReducer } from "./reducers/carburetor";
 import { symbolsReducer } from "./reducers/symbols";
 import { pricesReducer } from "./reducers/prices";
+import { trackedReducer } from "./reducers/tracked";
 
 const rootReducer = combineReducers({
   settings: settingsReducer,
@@ -22,7 +23,8 @@ const rootReducer = combineReducers({
   data: dataReducer,
   carburetor: carburetorReducer,
   symbols: symbolsReducer,
-  prices: pricesReducer
+  prices: pricesReducer,
+  tracked: trackedReducer
 });
 
 const persistConfig = {

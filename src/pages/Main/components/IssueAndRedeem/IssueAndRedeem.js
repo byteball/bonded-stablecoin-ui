@@ -6,12 +6,13 @@ import { getParams } from "helpers/getParams";
 import { useWindowSize } from "hooks/useWindowSize";
 import React, { useEffect, useState, useRef } from "react";
 import { useTranslation } from "react-i18next";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { generateLink } from "utils/generateLink";
 import ReactGA from "react-ga";
 import CoinIcon from "stablecoin-icons";
 import { GbyteIcon } from "components/GbyteIcon/GbyteIcon";
 import { getTargetCurrency } from "components/SelectStablecoin/SelectStablecoin";
+import { addTrackedExchanges } from "store/actions/tracked/addTrackedExchanges";
 
 const { Title, Text } = Typography;
 
@@ -19,6 +20,7 @@ const f = (x) => (~(x + "").indexOf(".") ? (x + "").split(".")[1].length : 0);
 
 export const IssueAndRedeem = () => {
   const { t } = useTranslation();
+  const dispatch = useDispatch();
   const [input1, setInput1] = useState(undefined);
   const [input2, setInput2] = useState(undefined);
   const btnRef = useRef(null);
@@ -517,11 +519,18 @@ export const IssueAndRedeem = () => {
                 </div>
               </div>
               <div>
-                <QRButton onClick={() => ReactGA.event({
-                  category: "Exchange (Trade page)",
-                  action: `${fromInfo.type} -> ${toInfo.type}`,
-                  label: `${fromInfo.symbol} -> ${toInfo.symbol}`,
-                })} disabled={isDisabled} type="primary" size="large" ref={btnRef} href={link}>Exchange</QRButton>
+                <QRButton onClick={() => {
+                  const action = `${fromInfo.type} -> ${toInfo.type}`;
+                  const label = `${fromInfo.symbol} -> ${toInfo.symbol}`;
+                  const category = "Exchange (Trade page)";
+                  ReactGA.event({
+                    category,
+                    action,
+                    label
+                  });
+
+                  dispatch(addTrackedExchanges({ aa: currentAddress, payload: sendPayload, activeWallet, action, label, category, fromAsset, amount: Math.round(sendAmount) }));
+                }} disabled={isDisabled} type="primary" size="large" ref={btnRef} href={link}>Exchange</QRButton>
               </div>
             </div>
           </div>

@@ -25,51 +25,19 @@ export const FaqPage = () => {
         )}
       >
         <Panel
-          header={t("faq.questions.0.question", "How do I buy/sell IUSD or GRD?")}
+          header={t("faq.questions.0.question", "How do I buy/sell IUSDV2, OUSDV2, or SFUSD?")}
           key="0"
           className={styles.panel}
         >
           <Trans i18nKey="faq.questions.0.answer">
             <p>
-              You can buy or sell the tokens for GBYTE on the <a href="/trade">trading page</a> or buy IUSD from a simpler <a href="/buy">buy interest tokens page</a> of this website. The website helps
+              You can buy or sell the tokens for GBYTE on the <a href="/">home page</a>, on the more advanced <a href="/trade">trading page</a>, or buy IUSDV2 for BTC on the <a href="/buy">Buy with Bitcoin page</a> of this website. The website helps
               you to construct a request that you send to an <a href="https://obyte.org/platform/autonomous-agents" target="_blank" rel="noopener">Autonomous Agent</a> from
               your <a href="https://obyte.org/" target="_blank" rel="noopener">Obyte</a> wallet.
             </p>
             <p>
               Some exchanges might also list the tokens to enable you to buy/sell
               them for BTC or fiat.
-            </p>
-          </Trans>
-        </Panel>
-
-        <Panel
-          header={t("faq.questions.1.question", "How do I buy/sell OUSD?")}
-          key="1"
-          className={styles.panel}
-        >
-          <Trans i18nKey="faq.questions.1.answer">
-            <p>
-              You can buy IUSD first, then open a <a href="trade/26XAPPPTTYRIOSYNCUV3NS2H57X5LZLJ#deposits">deposit</a> to receive the
-              equivalent amount of OUSD. While the deposit is open, you can also
-              periodically withdraw the accrued interest (16% p.a.) or choose a
-              charity or your friend or relative who will receive the interest.
-              When you don’t need OUSD any more, you can close the deposit,
-              receive your IUSD back, then sell IUSD.
-            </p>
-            <p>
-              Some exchanges might also list OUSD to enable you to buy/sell the token for BTC or fiat.
-            </p>
-          </Trans>
-        </Panel>
-
-        <Panel
-          header={t("faq.questions.2.question", "My deposit was closed, why?")} 
-          key="2"
-          className={styles.panel}
-        >
-          <Trans i18nKey="faq.questions.2.answer">
-            <p>
-              Probably it did not have enough protection. A deposit with the smallest protection can be closed by anybody by sending the required amount of OUSD. You don't lose anything when your deposit is closed as you have already received your OUSD but you stop receiving interest. To protect your deposit from closing, you need to add some GBYTE to the deposit on the <a href="trade/26XAPPPTTYRIOSYNCUV3NS2H57X5LZLJ#deposits">deposits page</a>.
             </p>
           </Trans>
         </Panel>
@@ -103,7 +71,7 @@ export const FaqPage = () => {
         </Panel>
 
         <Panel
-          header={t("faq.questions.5.question", "IUSD constantly grows thanks to interest. Assuming this attracts new users, GRD should grow too and both token holders win, who loses then?")}
+          header={t("faq.questions.5.question", "IUSDV2 constantly grows thanks to interest. Assuming this attracts new users, SFUSD should grow too and both token holders win, who loses then?")}
           key="5"
           className={styles.panel}
         >
@@ -156,12 +124,12 @@ export const FaqPage = () => {
         >
           <Trans i18nKey="faq.questions.7.answer">
             <p>
-              The price of IUSD is “attracted” to the target (benchmark) with the
+              The price of IUSDV2 is “attracted” to the target (benchmark) with the
               help of a so-called capacitor.
             </p>
             <p>
-              Every purchase of IUSD or GRD from the bonding curve and every sale
-              to the bonding curve affect the IUSD price. If a transaction pushes
+              Every purchase of IUSDV2 from the bonding curve and every sale
+              to the bonding curve affect the IUSDV2 price. If a transaction pushes
               the price away from the target, it is “punished” with a fee, the
               farther away from the target, the more the fee. The collected fees
               get accumulated in a capacitor. Every transaction that corrects the
@@ -169,22 +137,13 @@ export const FaqPage = () => {
               the capacitor.
             </p>
             <p>
-              Due to the type of the bonding curve chosen, it is the holders of
-              GRD who are the first to react to any deviations of the price from
-              the target and correct them. For example, when too many people buy
-              IUSD, they pull the price of IUSD below the peg (because IUSD
-              token’s power in the curve formula is ½, i.e. less than 1, hence its
-              partial derivative has negative power). There are two ways to
-              correct the deviation: sell IUSD back to the curve, which is not a
-              good idea because its price is currently below the fair price; or
-              buy more GRD tokens. By buying more GRD tokens, traders push GRD
-              price up (because the power in the curve formula is 2, i.e. more
-              than 1, hence its partial derivative has positive power), therefore
-              one who buys earlier gets a better price and traders rush to be the
-              first to buy while the price is still below equilibrium.
+              Also, the stability fund buys or sells the other token — GRDV2 — in order to correct the price back to the peg. When and how much the fund buys or sells, is determined by an algorithm that can be changed only by governance decision of SFUSD holders.
             </p>
             <p>
-              Read the <a href="https://medium.com/obyte/using-multi-dimensional-bonding-curves-to-create-stablecoins-81e857b4355c" target="_blank" rel="noopener">blog article introducing bonded stablecoins</a> for more
+              In addition to that, traders who anticipate that the fund would eventually correct the price, can profit from buying or selling IUSDV2 before the fund intervenes. Their trades move the price closer to the peg and might make the fund's intervention unnecessary.
+            </p>
+            <p>
+              Read the <a href="https://medium.com/obyte/using-multi-dimensional-bonding-curves-to-create-stablecoins-81e857b4355c" target="_blank" rel="noopener">blog article introducing bonded stablecoins</a> and <a href="https://blog.obyte.org/bonded-stablecoins-version-2-better-price-stability-and-stakable-tokens-ca8c900552ab" target="_blank" rel="noopener">updates introduced in version 2 stablecoins</a> for more
               details.
             </p>
           </Trans>
@@ -211,14 +170,8 @@ export const FaqPage = () => {
         >
           <Trans i18nKey="faq.questions.9.answer">
             <p>
-              One can earn interest with bonded stablecoins. One can get IUSD,
-              immediately put it on a deposit, get OUSD in exchange, use it for
-              payments in a stable currency while interest payments accumulate,
-              and withdraw interest from time to time.
-            </p>
-            <p>
-              One can also redirect interest to a good cause, e.g. to a charity.
-            </p>
+              One can earn interest with bonded stablecoins. When OUSDV2 stablecoins are not used, one can "stake" them by converting to IUSDV2 whose target price constantly grows. After some time, one can convert IUSDV2 back to OUSDV2 and get more OUSDV2 in exchange, which reflects the interest earned while OUSDV2 was staked.
+             </p>
           </Trans>
         </Panel>
 
@@ -238,7 +191,7 @@ export const FaqPage = () => {
                 - bonded stablecoins do not expire any more, they are perpetual.
               </li>
               <li>
-                - OUSD is truly stable, there is no appreciation, it targets the
+                - OUSDV2 is truly stable, there is no appreciation, it targets the
                 familiar and well-established unit of account, USD.
               </li>
               <li>
@@ -343,12 +296,12 @@ export const FaqPage = () => {
         </Panel>
 
         <Panel
-          header={t("faq.questions.14.question", "Can OUSD be staked?")}
+          header={t("faq.questions.14.question", "Can OUSDV2 be staked?")}
           key="14"
           className={styles.panel}
         >
           <Trans i18nKey="faq.questions.14.answer">
-            <p>Yes, just convert it to IUSD. Any time later, you can sell IUSD back to OUSD and get more OUSD.</p>
+            <p>Yes, just convert it to IUSDV2. Any time later, you can sell IUSDV2 back to OUSDV2 and get more OUSDV2.</p>
           </Trans>
         </Panel>
       </Collapse>
