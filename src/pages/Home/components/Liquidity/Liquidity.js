@@ -13,16 +13,19 @@ const LiquidityNotTracking = ({ forwardedRef }) => {
       action: "Click to " + name
     })
   }
+
+  const percent = 184;
+
   return (
     <div ref={forwardedRef} className={styles.liquidity}>
       <h2 className={styles.title}><Trans i18nKey="home.liquidity.title">Make money from liquidity provision</Trans></h2>
       <div className={styles.wrapper}>
         <div className={styles.info}>
-          <Trans i18nKey="home.liquidity.info">
+          <Trans i18nKey="home.liquidity.info" percent={percent}>
             <p>Add these tokens to liquidity pools on <a target="_blank" onClick={() => handleClickLink("Oswap")} rel="noopener" href="https://oswap.io/">Oswap</a> and
              earn from trading fees. Some liquidity pools are eligible for additional rewards,
              see <a target="_blank" rel="noopener" href="https://liquidity.obyte.org" onClick={() => handleClickLink("liquidity")}>liquidity.obyte.org</a>.</p>
-            <p>The additional rewards are currently about <b>184% APY</b>, paid weekly.</p>
+            <p>The additional rewards are currently about <b>{{ percent }}% APY</b>, paid weekly.</p>
           </Trans>
         </div>
         <div className={styles.illustration}>
