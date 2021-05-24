@@ -11,7 +11,6 @@ import { useGetTokenPrices } from "pages/Home/components/Tokens/useGetTokenPrice
 import styles from "./StablePlusPage.module.css";
 import { ReactComponent as Curve } from "./img/curve.svg";
 import safeIllustration from "../Home/components/Tokens/img/safe.svg";
-import charityIllustration from "../Home/components/Tokens/img/charity.svg";
 
 export const StablePlusPage = () => {
   const { data } = useSelector((state) => state.list);
@@ -21,8 +20,7 @@ export const StablePlusPage = () => {
   const [shown, setShown] = useState({
     programmed: false,
     curve: false,
-    hold: false,
-    charity: false,
+    stake: false,
     lost: false
   });
 
@@ -56,8 +54,7 @@ export const StablePlusPage = () => {
       </div>
       <ProgrammedPriced isShown={shownAnimation.programmed} onEnterViewport={() => handleShown("programmed")} />
       <BondingCurve onEnterViewport={() => handleShown("curve")} />
-      <Hold onEnterViewport={() => handleShown("hold")} />
-      <Charity onEnterViewport={() => handleShown("charity")} />
+      <Stake onEnterViewport={() => handleShown("stake")} />
       <StableCoinsList onEnterViewport={() => handleShown("list")} prices={interest} />
     </div>
   </>
@@ -68,7 +65,7 @@ const ProgrammedPricedNotTracking = ({ forwardedRef, isShown }) => {
     <div className={styles.wrapper} ref={forwardedRef}>
       <div className={styles.first + " " + styles.text}>
         <Trans i18nKey="stableplus.programmed">
-          <p>The prices of <b>stable+</b> coins are programmed to follow the growing target price. For example, IUSD — a USD-pegged coin — started at exactly 1 USD on September 22, 2020 and the target price of the token grows at 16% per year. In one year, it is expected to be $1.16, in two years — $1.3456.</p>
+          <p>The prices of <b>stable+</b> coins are programmed to follow the growing target price. For example, IUSDV2 — a USD-pegged coin — started at exactly 1 USD on April 16, 2021 and the target price of the token grows at 16% per year. In one year, it is expected to be $1.16, in two years — $1.3456.</p>
         </Trans>
       </div>
       <div className={styles.second + " " + styles.img}>
@@ -91,7 +88,7 @@ const BondingCurveNotTracking = ({ forwardedRef }) => {
       <div className={styles.second + " " + styles.text}>
         <Trans i18nKey="stableplus.curve">
           <p>
-            This is made possible by a bonding curve that mathematically bonds their prices with the prices of the companion <i>growth</i> tokens. Every deviation from the target price activates incentives for the traders of both stable+ and growth tokens that make them buy or sell their tokens and eventually correct the price of the stable+ coin back to the target. They do so to make a profit.
+            This is made possible by a bonding curve that mathematically bonds their prices with the prices of the companion <i>growth</i> tokens. Every deviation from the target price activates incentives for the traders stable+ tokens that make them buy or sell the tokens, plus there is a <i>stability fund</i> that buys and sells the growth tokens in order to change the price. They both eventually correct the price of the stable+ coin back to the target. They do so to make a profit.
           </p>
         </Trans>
       </div>
@@ -99,38 +96,18 @@ const BondingCurveNotTracking = ({ forwardedRef }) => {
   )
 }
 
-const HoldNotTracking = ({ forwardedRef }) => {
+const StakeNotTracking = ({ forwardedRef }) => {
   return (
     <div className={styles.wrapper} ref={forwardedRef}>
       <div className={styles.first + " " + styles.text}>
-        <Trans i18nKey="home.tokens.interest.buy">
-          <p>You can buy IUSD and hold.</p>
-          <p>Or you can buy IUSD, <a href="/trade#deposits" target="_blank" rel="noopener">put it on a deposit</a>, get an equivalent amount of OUSD stablecoin in exchange, and periodically withdraw the accrued interest in OUSD.</p>
+        <Trans i18nKey="stableplus.stake">
+          <p>If you received OUSDV2 — a USD-pegged stablecoin — you can "stake" it by converting to IUSDV2 and holding IUSDV2. Any time later, you can convert IUSDV2 back to OUSDV2 and get more OUSDV2 in exchange than originally invested.</p>
         </Trans>
       </div>
       <div className={styles.second + " " + styles.img}>
         <div className={styles.illustration} style={{ paddingLeft: 10 }}>
           <img alt="Safe deposit" src={safeIllustration} />
         </div>
-      </div>
-    </div>
-  )
-}
-
-const CharityNotTracking = ({ forwardedRef }) => {
-  return (
-    <div className={styles.wrapper} ref={forwardedRef}>
-      <div className={styles.first + " " + styles.img}>
-        <div className={styles.illustration + " " + styles.big}>
-          <img alt="Charity" src={charityIllustration} />
-        </div>
-      </div>
-      <div className={styles.second + " " + styles.text}>
-        <Trans i18nKey="home.tokens.interest.redirect">
-          <p>
-            You can also redirect interest to someone else, e.g. to a charity or another nonprofit. Estonian Cryptocurrency Association, Obyte Foundation, and <a href="https://pollopollo.org/" target="_blank" rel="noopener">PolloPollo</a> are already enrolled as suggested recipients.
-          </p>
-        </Trans>
       </div>
     </div>
   )
@@ -153,6 +130,5 @@ const StableCoinsListNotTracking = ({ forwardedRef, prices }) => {
 
 const ProgrammedPriced = handleViewport(ProgrammedPricedNotTracking, { threshold: 0.8 });
 const BondingCurve = handleViewport(BondingCurveNotTracking, { threshold: 0.8 });
-const Hold = handleViewport(HoldNotTracking, { threshold: 0.8 });
-const Charity = handleViewport(CharityNotTracking, { threshold: 0.8 });
+const Stake = handleViewport(StakeNotTracking, { threshold: 0.8 });
 const StableCoinsList = handleViewport(StableCoinsListNotTracking, { threshold: 0.5 });
