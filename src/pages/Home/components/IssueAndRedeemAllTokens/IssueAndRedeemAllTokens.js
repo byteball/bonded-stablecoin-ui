@@ -16,6 +16,7 @@ import "./IssueAndRedeemAllTokens.module.css";
 import { updateSymbols } from "store/actions/symbols/updateSymbols";
 import { updatePrices } from "store/actions/prices/updatePrices";
 import { GbyteIcon } from "components/GbyteIcon/GbyteIcon";
+import { addTrackedExchanges } from "store/actions/tracked/addTrackedExchanges";
 
 const { Text } = Typography;
 
@@ -626,13 +627,18 @@ export const IssueAndRedeemAllTokens = () => {
             </Row>
           </div>}
           <div style={{ display: "flex", justifyContent: "center", marginTop: 20 }}>
-            <QRButton onClick={() =>
+            <QRButton onClick={() => {
+              const action = `${fromAssetType} -> ${toAssetType}`;
+              const label = `${symbolList[fromAsset]?.symbol} -> ${symbolList[toAsset]?.symbol}`;
+              const category = "Exchange";
               ReactGA.event({
-                category: "Exchange",
-                action: `${fromAssetType} -> ${toAssetType}`,
-                label: `${symbolList[fromAsset]?.symbol} -> ${symbolList[toAsset]?.symbol}`,
-              })
-            } disabled={isDisabled} type="primary" size="large" ref={btnRef} href={link}>{t("trade.tabs.buy_redeem.exchange", "Exchange")}</QRButton>
+                category,
+                action,
+                label
+              });
+
+              dispatch(addTrackedExchanges({ aa: currentAddress, payload: sendPayload, activeWallet, action, label, category, fromAsset, amount: Math.round(sendAmount) }));
+            }} disabled={isDisabled} type="primary" size="large" ref={btnRef} href={link}>{t("trade.tabs.buy_redeem.exchange", "Exchange")}</QRButton>
           </div>
           {!activeWallet && <div style={{ textAlign: "center", marginTop: 10 }}>
             <Text type="secondary" style={{ fontSize: 14, display: "block" }}>
