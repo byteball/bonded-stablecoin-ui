@@ -7,6 +7,6 @@ export const addTrackedExchanges = ({ payload = {}, aa, ...props }) => async (di
   const cleanPayload = omitBy(payload, isNil);
   dispatch({
     type: ADD_TRACKED_EXCHANGES,
-    payload: { ...props, create_at: Date.now(), payload: cleanPayload, aa }
+    payload: { ...props, created_at: Date.now(), payload: cleanPayload, aa }
   })
 }

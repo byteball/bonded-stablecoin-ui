@@ -522,14 +522,14 @@ export const IssueAndRedeem = () => {
                 <QRButton onClick={() => {
                   const action = `${fromInfo.type} -> ${toInfo.type}`;
                   const label = `${fromInfo.symbol} -> ${toInfo.symbol}`;
-
+                  const category = "Exchange (Trade page)";
                   ReactGA.event({
-                    category: "Exchange (Trade page)",
+                    category,
                     action,
                     label
                   });
-                  
-                  dispatch(addTrackedExchanges({ aa: currentAddress, payload: sendPayload, activeWallet, action, label, fromAsset, amount: Math.round(sendAmount) }));
+
+                  dispatch(addTrackedExchanges({ aa: currentAddress, payload: sendPayload, activeWallet, action, label, category, fromAsset, amount: Math.round(sendAmount) }));
                 }} disabled={isDisabled} type="primary" size="large" ref={btnRef} href={link}>Exchange</QRButton>
               </div>
             </div>

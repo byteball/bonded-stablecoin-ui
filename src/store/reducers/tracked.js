@@ -9,15 +9,15 @@ const initialState = {
 export const trackedReducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_TRACKED_EXCHANGES: {
-      const activeExchanges = state?.trackedExchanges?.filter((item) => item.create_at < Date.now() + 1000 * 60 * 30) || [];
+      const activeExchanges = state?.trackedExchanges?.filter((item) => item.created_at < Date.now() + 1000 * 60 * 30) || [];
       return {
         ...state,
         trackedExchanges: [...activeExchanges, { ...action.payload }],
-        lastExchange: action.payload.create_at
+        lastExchange: action.payload.created_at
       }
     }
     case REMOVE_TRACKED_EXCHANGE: {
-      const exchanges = state?.trackedExchanges?.filter((item) => !(item.aa === action.payload.aa && isEqual(item.payload, action.payload.aa) && Number(action.payload.amount) === item.amount && action.payload.activeWallet ? item.activeWallet && (item.activeWallet === action.payload.activeWallet) : true));
+      const exchanges = state?.trackedExchanges?.filter((item) => !(item.aa === action.payload.aa && isEqual(item.payload, action.payload.aa) && (Number(action.payload.amount) === item.amount) && (action.payload.activeWallet ? item.activeWallet && (item.activeWallet === action.payload.activeWallet) : true)));
       return {
         ...state,
         trackedExchanges: exchanges

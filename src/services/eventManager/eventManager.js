@@ -55,15 +55,15 @@ export const eventManager = (err, result) => {
 
   if (isReq && (lastExchange > (Date.now() - 1000 * 60 * expiresIn))) {
     const author = body.unit.authors[0]?.address;
-    const sendPayload = getAAPayload(body.unit.messages);
+    const sentPayload = getAAPayload(body.unit.messages);
 
-    const current = trackedExchanges.find((item) => item.create_at > (Date.now() - 1000 * 60 * expiresIn) && item.aa === aa_address && isEqual(item.payload, sendPayload) && getAAPayment(body.unit.messages, [item.aa], item.fromAsset) === Number(item.amount) && activeWallet ? activeWallet === author : true);
+    const current = trackedExchanges.find((item) => item.created_at > (Date.now() - 1000 * 60 * expiresIn) && (item.aa === aa_address) && isEqual(item.payload, sentPayload) && (getAAPayment(body.unit.messages, [item.aa], item.fromAsset) === Number(item.amount)) && (activeWallet ? activeWallet === author : true));
 
     if (current) {
-      const { label, action } = current;
+      const { label, action, category } = current;
 
       ReactGA.event({
-        category: "Exchange request",
+        category: category + " request",
         action,
         label
       });

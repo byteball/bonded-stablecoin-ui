@@ -630,13 +630,14 @@ export const IssueAndRedeemAllTokens = () => {
             <QRButton onClick={() => {
               const action = `${fromAssetType} -> ${toAssetType}`;
               const label = `${symbolList[fromAsset]?.symbol} -> ${symbolList[toAsset]?.symbol}`;
+              const category = "Exchange";
               ReactGA.event({
-                category: "Exchange",
+                category,
                 action,
                 label
               });
 
-              dispatch(addTrackedExchanges({ aa: currentAddress, payload: sendPayload, activeWallet, action, label, fromAsset, amount: Math.round(sendAmount) }));
+              dispatch(addTrackedExchanges({ aa: currentAddress, payload: sendPayload, activeWallet, action, label, category, fromAsset, amount: Math.round(sendAmount) }));
             }} disabled={isDisabled} type="primary" size="large" ref={btnRef} href={link}>{t("trade.tabs.buy_redeem.exchange", "Exchange")}</QRButton>
           </div>
           {!activeWallet && <div style={{ textAlign: "center", marginTop: 10 }}>
