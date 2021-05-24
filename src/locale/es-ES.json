@@ -531,7 +531,7 @@
     },
     "liquidity": {
       "title": "Gana dinero con la provisión de liquidez",
-      "info": "<0>Agrega estas monedas a las piscinas de liquidez en <1>Oswap</1> y gana gracias a las comisiones de intercambio. Algunas piscinas de liquidez son elegibles para obtener recompensas adicionales, ver <3>liquidity.obyte.org</3>.</0><1>Las recompensas adicionales son actualmente de alrededor de <1>184% APY</1>, pagadas semanalmente.</1>"
+      "info": "<0>Agrega estas monedas a las piscinas de liquidez en <1>Oswap</1> y gana gracias a las comisiones de intercambio. Algunas piscinas de liquidez son elegibles para obtener recompensas adicionales, ver <3>liquidity.obyte.org</3>.</0><1>Las recompensas adicionales son actualmente de alrededor de <1>{{percent}}% APY</1>, pagadas semanalmente.</1>"
     },
     "popular": {
       "pegged": "Pegged:",

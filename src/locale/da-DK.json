@@ -531,7 +531,7 @@
     },
     "liquidity": {
       "title": "Tjen penge ved at bidrage til likviditetspuljer",
-      "info": "<0>Tilføj disse tokens til likviditetspuljer på <1>Oswap</1> og få del i handlesgebyrer. Nogle likviditetspuljer giver endvidere yderligere dusører. Se <3>liquidity.obyte.org</3> for mere information.</0><1>De ekstra dusører udbetales ugentligt og svarer PT til ca. <1>184% årlig</1> procentuel fortjeneste.</1>"
+      "info": "<0>Tilføj disse tokens til likviditetspuljer på <1>Oswap</1> og få del i handlesgebyrer. Nogle likviditetspuljer giver endvidere yderligere dusører. Se <3>liquidity.obyte.org</3> for mere information.</0><1>De ekstra dusører udbetales ugentligt og svarer PT til ca. <1>{{percent}}% årlig</1> procentuel fortjeneste.</1>"
     },
     "popular": {
       "pegged": "Pegged:",
