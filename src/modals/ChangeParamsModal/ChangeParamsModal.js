@@ -280,7 +280,7 @@ export const ChangeParamsModal = ({
     amount.valid ? Math.ceil(amount.value * 10 ** decimals) : 1e4,
     {
       name: param,
-      value: percentageParams.includes(param) ? paramValue.value / 100 : (param === "decision_engine_aa" ? paramValue.value : Number(paramValue.value)),
+      value: percentageParams.includes(param) ? paramValue.value / 100 : (param === "decision_engine_aa" || param === "oracles" ? paramValue.value : Number(paramValue.value)),
     },
     activeWallet,
     governance_aa,
