@@ -262,7 +262,7 @@ export const ChangeParamsModal = ({
     if (param === "move_capacity_timeout") {
       reg = /^[0-9]+$/;
     } else {
-      reg = /^(0|[1-9]\d*)([.,]\d+)?$/;
+      reg = /^(0|[.1-9]\d*)([.,]\d+)?$/;
     }
     if (value === "") {
       setParamValue({ value: undefined, valid: undefined });
@@ -280,7 +280,7 @@ export const ChangeParamsModal = ({
     amount.valid ? Math.ceil(amount.value * 10 ** decimals) : 1e4,
     {
       name: param,
-      value: percentageParams.includes(param) ? paramValue.value / 100 : paramValue.value,
+      value: percentageParams.includes(param) ? paramValue.value / 100 : (param === "decision_engine_aa" || param === "oracles" ? paramValue.value : Number(paramValue.value)),
     },
     activeWallet,
     governance_aa,
