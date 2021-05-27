@@ -263,7 +263,7 @@ export const Governance = ({ openWalletModal }) => {
         decimals={fund_aa ? actualParams.reserve_asset_decimals :  actualParams.decimals1}
         balance={
           (activeWallet in balances &&
-            balances[activeWallet] / 10 ** actualParams.decimals1) ||
+            balances[activeWallet] / 10 ** (fund_aa ? actualParams.reserve_asset_decimals : actualParams.decimals1)) ||
           0
         }
       />
