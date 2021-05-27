@@ -1,5 +1,6 @@
 import Decimal from "decimal.js";
 import { isEmpty } from "lodash";
+import { percentageParams } from "pages/Main/components/Governance/components/percentageParams";
 import { getAAPayload, getAAPayment, getAAPaymentsSum } from "services/eventManager/eventManager";
 
 import i18n from "../locale/index";
@@ -74,8 +75,18 @@ export const eventIdentification = (type, unit, params, _, active) => {
         ]
       }
     } else if ("name" in payload && "value" in payload) {
+      let value;
+      if (name === "oracles") {
+        value = payload.value.map((oracle) => {
+          return oracle.oracle + oracle.op + oracle.feed_name;
+        }).join(" ");
+      } else if (percentageParams.includes(name)) {
+        value = payload.value * 100 + "%";
+      } else {
+        value = payload.value;
+      }
       return [
-        i18n.t("trade.tabs.transactions.events.change_param_auto", "Change {{name}} to {{value}}", { name, value: payload.value })
+        i18n.t("trade.tabs.transactions.events.change_param_auto", "Change {{name}} to {{value}}", { name, value })
       ]
     } else if ("notifyDE" in payload) {
       return [
