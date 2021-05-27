@@ -58,6 +58,7 @@ export const $get_growth_factor = (
   rate_update_ts,
   growth_factor
 ) => {
+  if (growth_factor === undefined) return 0
   const term = Decimal(timestamp - rate_update_ts).div(360 * 24 * 3600);
   return Decimal(growth_factor).mul(Decimal(1 + interest_rate).pow(term)).toNumber();
 };
