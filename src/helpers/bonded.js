@@ -297,7 +297,7 @@ export const $get_exchange_result = ({
     let b = startT2 * 2;
     let i = 0
 
-    const eps = 0.05;
+    const eps = 0.015;
     const max_iterations = 100;
     
     while (true) {
