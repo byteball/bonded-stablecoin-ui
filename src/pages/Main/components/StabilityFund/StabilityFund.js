@@ -46,12 +46,12 @@ export const StabilityFund = () => {
   const share_price = shares_supply ? balance / shares_supply : 1;
 
   const now = Math.floor(Date.now() / 1000);
-  const timeToNextMovement = "below_peg_ts" in de_state ? de_state.below_peg_ts + below_peg_timeout : now;
-  const [isExpired, setIsExpired] = useState(timeToNextMovement >= now);
+  const timeToNextMovement = "below_peg_ts" in de_state ? de_state.below_peg_ts + below_peg_timeout : 0;
+  const [isExpired, setIsExpired] = useState(timeToNextMovement <= now);
 
   useEffect(() => {
     const now = Math.floor(Date.now() / 1000);
-    setIsExpired(timeToNextMovement >= now);
+    setIsExpired(timeToNextMovement <= now);
   }, [timeToNextMovement]);
 
   const handleChangeBuy = (ev) => {
