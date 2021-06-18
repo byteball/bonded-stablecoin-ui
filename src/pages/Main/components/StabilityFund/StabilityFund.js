@@ -287,7 +287,7 @@ export const StabilityFund = () => {
           title={t("trade.tabs.stability_fund.next_fix", "Time until the next fix")}
           value={moment.unix(timeToNextMovement)}
           onFinish={() => setIsExpired(true)}
-        /> : (currentMoreTarget ? <Statistic
+        /> : (!currentMoreTarget ? <Statistic
           title={t("trade.tabs.stability_fund.next_fix", "Time until the next fix")}
           value={t("trade.tabs.stability_fund.expired", "Expired")} /> : null)}
         <QRButton type="primary" onClick={() => ReactGA.event({
