@@ -28,7 +28,7 @@ export const StabilityFund = () => {
   const { activeWallet } = useSelector((state) => state.settings);
   const { symbol1, symbol2, reservePrice, oraclePrice, symbol4, fund_balance, fund_state, params, bonded_state, reserve_asset_symbol, fund_aa, de_state } = useSelector((state) => state.active);
   const actualParams = getParams(params, bonded_state);
-  const { decimals1, decimals2, reserve_asset, reserve_asset_decimals, m, n, below_peg_timeout, min_reserve_delta } = actualParams;
+  const { decimals1, decimals2, reserve_asset, reserve_asset_decimals, m, n, below_peg_timeout } = actualParams;
   const { asset1 } = bonded_state;
 
   const shares_supply = fund_state.shares_supply || 0;
