@@ -46,7 +46,7 @@ export const StabilityFund = () => {
   const share_price = shares_supply ? balance / shares_supply : 1;
 
   const now = Math.floor(Date.now() / 1000);
-  const timeToNextMovement = "below_peg_ts" in de_state ? de_state.below_peg_ts + below_peg_timeout : now;
+  const timeToNextMovement = "below_peg_ts" in de_state ? de_state.below_peg_ts + below_peg_timeout : 0;
   const [isExpired, setIsExpired] = useState(timeToNextMovement <= now);
 
   useEffect(() => {
@@ -129,7 +129,7 @@ export const StabilityFund = () => {
     isV2: !!fund_aa
   };
 
-  const exchange = t1_amount && $get_exchange_result(obj);
+  const exchange = $get_exchange_result(obj);
   const you_get_in_smallest_units = (reserve_amount - exchange.reserve_needed - (reserve_asset === "base" ? 4000 : 0));
   const you_get = +Number(you_get_in_smallest_units / 10 ** reserve_asset_decimals);
   const fee_percent = (exchange.fee / you_get_in_smallest_units) * 100;
@@ -147,7 +147,6 @@ export const StabilityFund = () => {
   const new_p2 = exchange ? (bPriceInversed ? 1 / exchange.p2 : exchange.p2) : undefined;
   const old_p2 = bPriceInversed ? 1 / bonded_state.p2 : bonded_state.p2;
   const t_p2 = exchange ? (bPriceInversed ? 1 / exchange.target_p2 : exchange.target_p2) : undefined;
-
   const priceChange = exchange && new_p2 - (old_p2 || 0);
   const changePricePercent = (priceChange / old_p2 || 0) * 100;
   const changeFinalPricePercent = exchange && exchange.target_p2
@@ -155,6 +154,9 @@ export const StabilityFund = () => {
     : 0;
 
   const p2Pair = (!bPriceInversed ? (symbol2 || "T2") + "/" + (reserve_asset_symbol || "RESERVE") : (reserve_asset_symbol || "RESERVE") + "/" + (symbol2 || "T2"));
+
+  const aboveTarget = bonded_state.p2 > exchange.target_p2;
+  const fixPriceDisabled = (!isExpired && !aboveTarget);
 
   return <div>
     <Title style={{ marginBottom: 0 }} level={3}>{t("trade.tabs.stability_fund.title", "Stability fund")}</Title>
@@ -281,18 +283,18 @@ export const StabilityFund = () => {
     <div style={{ marginBottom: 25 }}>
       <Title level={4}>{t("trade.tabs.stability_fund.fix_title", "Fix {{symbol}} price", { symbol: symbol2 })}</Title>
       <Space wrap={true} align="center" size={25}>
-        {!isExpired ? <Countdown
+        {!isExpired && !aboveTarget ? <Countdown
           title={t("trade.tabs.stability_fund.next_fix", "Time until the next fix")}
           value={moment.unix(timeToNextMovement)}
           onFinish={() => setIsExpired(true)}
-        /> : <Statistic
+        /> : (!aboveTarget ? <Statistic
           title={t("trade.tabs.stability_fund.next_fix", "Time until the next fix")}
-          value={t("trade.tabs.stability_fund.expired", "Expired")} />}
+          value={t("trade.tabs.stability_fund.expired", "Expired")} /> : null)}
         <QRButton type="primary" onClick={() => ReactGA.event({
           category: "Fund page",
           action: "Fix price",
           label: `Fix ${symbol2} price`,
-        })} disabled={!isExpired} href={linkFixedPrice}>{t("trade.tabs.stability_fund.fix_btn", "Send fix request")}</QRButton>
+        })} disabled={fixPriceDisabled} href={linkFixedPrice}>{t("trade.tabs.stability_fund.fix_btn", "Send fix request")}</QRButton>
       </Space>
     </div>
   </div>
