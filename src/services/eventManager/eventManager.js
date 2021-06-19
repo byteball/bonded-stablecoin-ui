@@ -65,7 +65,8 @@ export const eventManager = (err, result) => {
       ReactGA.event({
         category: category + " request",
         action,
-        label
+        label,
+        value: 1,
       });
 
       store.dispatch(removeTrackedExchange(current));
