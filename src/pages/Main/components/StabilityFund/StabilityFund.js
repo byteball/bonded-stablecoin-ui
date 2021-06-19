@@ -155,8 +155,8 @@ export const StabilityFund = () => {
 
   const p2Pair = (!bPriceInversed ? (symbol2 || "T2") + "/" + (reserve_asset_symbol || "RESERVE") : (reserve_asset_symbol || "RESERVE") + "/" + (symbol2 || "T2"));
 
-  const currentMoreTarget = bonded_state.p2 > exchange.target_p2;
-  const isDisabledFixed = (!isExpired && !currentMoreTarget);
+  const aboveTarget = bonded_state.p2 > exchange.target_p2;
+  const fixPriceDisabled = (!isExpired && !aboveTarget);
 
   return <div>
     <Title style={{ marginBottom: 0 }} level={3}>{t("trade.tabs.stability_fund.title", "Stability fund")}</Title>
@@ -283,18 +283,18 @@ export const StabilityFund = () => {
     <div style={{ marginBottom: 25 }}>
       <Title level={4}>{t("trade.tabs.stability_fund.fix_title", "Fix {{symbol}} price", { symbol: symbol2 })}</Title>
       <Space wrap={true} align="center" size={25}>
-        {!isExpired && !currentMoreTarget ? <Countdown
+        {!isExpired && !aboveTarget ? <Countdown
           title={t("trade.tabs.stability_fund.next_fix", "Time until the next fix")}
           value={moment.unix(timeToNextMovement)}
           onFinish={() => setIsExpired(true)}
-        /> : (!currentMoreTarget ? <Statistic
+        /> : (!aboveTarget ? <Statistic
           title={t("trade.tabs.stability_fund.next_fix", "Time until the next fix")}
           value={t("trade.tabs.stability_fund.expired", "Expired")} /> : null)}
         <QRButton type="primary" onClick={() => ReactGA.event({
           category: "Fund page",
           action: "Fix price",
           label: `Fix ${symbol2} price`,
-        })} disabled={isDisabledFixed} href={linkFixedPrice}>{t("trade.tabs.stability_fund.fix_btn", "Send fix request")}</QRButton>
+        })} disabled={fixPriceDisabled} href={linkFixedPrice}>{t("trade.tabs.stability_fund.fix_btn", "Send fix request")}</QRButton>
       </Space>
     </div>
   </div>
