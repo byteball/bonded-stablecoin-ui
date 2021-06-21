@@ -33,8 +33,8 @@ export const IssueAndRedeem = () => {
   const actualParams = getParams(params, bonded_state);
   const [width] = useWindowSize();
   const { reserve_asset, reserve_asset_decimals, decimals1, decimals2, m, n } = actualParams;
-  const { asset } = stable_state;
-  const { asset1, asset2, reserve } = bonded_state;
+  const { asset, supply } = stable_state;
+  const { asset1, asset2, reserve, supply2 } = bonded_state;
   const { shares_asset, shares_supply } = fund_state;
   const peggedCurrency = getTargetCurrency(actualParams, bonded_state);
 
@@ -240,7 +240,7 @@ export const IssueAndRedeem = () => {
       }
 
     } else if (fromAsset === asset2) {
-      if (Number(input1)) {
+      if (Number(input1) && (input1 * 10 ** decimals2) < supply2) {
         const exchange = $get_exchange_result({
           tokens1: 0,
           tokens2: toAsset === reserve_asset ? -(input1 * 10 ** actualParams.decimals2) : 0,
@@ -259,6 +259,7 @@ export const IssueAndRedeem = () => {
           setInput2(+Number(input1 * exchange?.growth_factor).toFixed(toDecimals));
         }
       } else {
+        if ((input1 * 10 ** decimals2) > supply2) error = "more_supply"
         setInput2(undefined)
       }
 
@@ -270,8 +271,9 @@ export const IssueAndRedeem = () => {
           tokens_stable: -input1 * 10 ** decimals2,
           ...commonData
         });
-        if (!exchange?.payout || exchange.payout <= 0) {
+        if (!exchange?.payout || exchange.payout <= 0 || (input1 * 10 ** decimals2) > supply) {
           setInput2(undefined);
+          if ((input1 * 10 ** decimals2) > supply) error = "more_supply"
         } else {
           meta = exchange;
           setInput2(+Number(exchange.payout / 10 ** reserve_asset_decimals).toFixed(reserve_asset_decimals))
@@ -283,9 +285,10 @@ export const IssueAndRedeem = () => {
           tokens_stable: 0,
           ...commonData
         });
-        if (input1 && Number(input1) > 0) {
+        if (input1 && Number(input1) > 0 && (input1 * 10 ** decimals2) < supply) {
           setInput2(+Number(input1 / exchange?.growth_factor).toFixed(toDecimals))
         } else {
+          if ((input1 * 10 ** decimals2) > supply) error = "more_supply"
           setInput2(undefined)
         }
       }
@@ -442,6 +445,9 @@ export const IssueAndRedeem = () => {
                 ) : <Select.Option value={reserve_asset}>{reserve_asset === "base" ? <GbyteIcon width="1em" height="1em" style={{ marginRight: 3, marginBottom: -1.5 }} /> : null} {reserve_asset_symbol}</Select.Option>}
               </Select>
             </Form.Item>
+            <div style={{ minHeight: 22 }}>
+              <span style={{ color: "#e74c3c" }}>{error ? (error === "more_supply" ? <div>{t("trade.tabs.buy_redeem.more_supply", "Enter a value less than the supply")}</div> : null) : null}</span>
+            </div>
           </Input.Group>
           {addProtect ? <Text type="secondary" style={{ fontSize: 10, lineHeight: "auto" }}>{t("trade.tabs.buy_redeem.protect_v2", "1% of this amount will be added to protect against price volatility, you will receive this amount back if prices do not change.")}</Text> : null}
         </Col>
