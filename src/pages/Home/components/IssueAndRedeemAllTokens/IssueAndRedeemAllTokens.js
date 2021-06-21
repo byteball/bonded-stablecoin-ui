@@ -352,7 +352,7 @@ export const IssueAndRedeemAllTokens = () => {
           setInput2(+Number(input1 * exchange?.growth_factor).toFixed(toDecimals));
         }
       } else {
-        if ((input1 * 10 ** decimals2) > supply2) error = "more_supply"
+        if ((input1 * 10 ** decimals2) > supply2) error = "exceeds_supply"
         setInput2(undefined)
       }
 
@@ -365,7 +365,7 @@ export const IssueAndRedeemAllTokens = () => {
           ...commonData
         });
         if (!exchange?.payout || exchange.payout <= 0 || (input1 * 10 ** decimals2) > supply) {
-          if ((input1 * 10 ** decimals2) > supply) error = "more_supply"
+          if ((input1 * 10 ** decimals2) > supply) error = "exceeds_supply"
           setInput2(undefined);
         } else {
           meta = exchange;
@@ -381,7 +381,7 @@ export const IssueAndRedeemAllTokens = () => {
         if (input1 && Number(input1) > 0 && (input1 * 10 ** decimals2) < supply) {
           setInput2(+Number(input1 / exchange?.growth_factor).toFixed(toDecimals))
         } else {
-          if ((input1 * 10 ** decimals2) > supply) error = "more_supply"
+          if ((input1 * 10 ** decimals2) > supply) error = "exceeds_supply"
           setInput2(undefined)
         }
       }
@@ -548,7 +548,7 @@ export const IssueAndRedeemAllTokens = () => {
               </Select>
             </Form.Item>
             <div style={{ minHeight: 22 }}>
-              <span style={{ color: "#e74c3c" }}>{error ? (error === "more_supply" ? <div>{t("trade.tabs.buy_redeem.more_supply", "Enter a value less than the supply")}</div> : null) : null}</span>
+              <span style={{ color: "#e74c3c" }}>{error ? (error === "exceeds_supply" ? <div>{t("trade.tabs.buy_redeem.exceeds_supply", "Enter a value less than the supply")}</div> : null) : null}</span>
             </div>
           </Input.Group>
           {visibleReserveNotification ? <Text style={{ fontSize: 10, lineHeight: "auto" }}>{t("trade.tabs.buy_redeem.protect_v2", "1% of this amount will be added to protect against price volatility, you will receive this amount back if prices do not change.")}</Text> : null}
