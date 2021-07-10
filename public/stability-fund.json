@@ -1,0 +1,10 @@
+{
+	"version": "1.0",
+	"description": "Stability Fund for Bonded Stablecoins.",
+	"homepage_url": "https://ostable.org",
+	"source_url": "https://github.com/byteball/bonded-stablecoin",
+	"field_descriptions": {
+		"payments": "Array of payments to send",
+		"forwarded_data": "Data to be forwarded to recipients"
+	}
+}
