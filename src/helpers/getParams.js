@@ -17,6 +17,10 @@ export const getParams = (params, bonded_state) => {
   if("oracles" in bonded_state){
     newParams.oracles = bonded_state.oracles
   }
+
+  if ("decision_engine_aa" in bonded_state){
+    newParams.decision_engine_aa = bonded_state.decision_engine_aa
+  }
   
   return { ...deposit_params, ...newParams }
 };

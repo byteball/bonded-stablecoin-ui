@@ -170,15 +170,15 @@ export const GovernanceItem = ({
         </Col>
         <Col sm={name === "oracles" || name === "decision_engine_aa" ? { span: 24 } : { span: 12 }} xs={{ span: 24 }}>
           <div className={styles.itemCurrent} style={name === "oracles" || name === "decision_engine_aa" ? { textAlign: "left", wordBreak: "break-all" } : { wordBreak: "break-all" }}>
-            <span style={name === "oracles" || name === "decision_engine_aa" ? { display: valueView !== "-" ? "block" : "inline", fontSize: 14, fontWeight: "bold" } : (width <= 576 ? { fontSize: 14, fontWeight: "bold" } : { display: "inline" })}>{t("trade.tabs.governance.current_value", "Current value")}:</span>{" "}
+            <span style={name === "oracles" || name === "decision_engine_aa" ? { display: name === "oracles" && valueView !== "-" ? "block" : "inline", fontSize: width > 576 ? 16 : 14, display: width > 576 ? "inline" : "block", fontWeight: "bold" } : (width <= 576 ? { fontSize: 14, fontWeight: "bold" } : { display: "inline" })}>{t("trade.tabs.governance.current_value", "Current value")}:</span>{" "}
             {valueView}
           </div>
         </Col>
       </Row>
       <Row align="top">
         <Col sm={(name === "oracles" || name === "decision_engine_aa") && width < 720 ? { span: 24 } : { span: 12 }}>
-          {leader &&
-            <div><b style={name === "oracles" || name === "decision_engine_aa" ? { display: valueView !== "-" ? "block" : "inline" } : { display: "inline" }}>{t("trade.tabs.governance.leader", "Leader")}:</b> {leaderView}</div>}
+          {(leader !== undefined && leader !== false) &&
+            <div><b style={name === "oracles" ? { display: valueView !== "-" ? "block" : "inline" } : { display: "inline" }}>{t("trade.tabs.governance.leader", "Leader")}:</b> {leaderView}</div>}
           <div>{isChoice && <div><b>{t("trade.tabs.governance.my_choice", "My choice")}: </b>{choiceView}</div>}</div>
         </Col>
         {challengingPeriodEndInSeconds ? (
@@ -211,7 +211,7 @@ export const GovernanceItem = ({
                         {t("trade.tabs.governance.another_value", "suggest another value")}
                       </Button>
                     </div>}
-                    {leader && <QRButton
+                      {(leader !== undefined && leader !== false) && <QRButton
                       type="link"
                       style={{ padding: 0, lineHeight: "1em", height: "auto" }}
                       href={linkCommit}
