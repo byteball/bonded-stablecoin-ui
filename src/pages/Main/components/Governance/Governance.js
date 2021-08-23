@@ -76,7 +76,7 @@ export const Governance = ({ openWalletModal }) => {
   };
   if (fund_aa) {
     initParams.decision_engine_aa = {
-      value: bonded_state.decision_engine_aa
+      value: actualParams["decision_engine_aa"]
     }
   } else {
     initParams["deposits.min_deposit_term"] = {

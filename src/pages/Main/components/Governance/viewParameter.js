@@ -3,7 +3,7 @@ import React from "react";
 import { percentageParams } from "./components/percentageParams";
 
 export const viewParameter = (value, name, isBlock = false) => {
-  if (value) {
+  if (value !== undefined && value !== false) {
     if (name === "oracles") {
       const oracles = parseOracle(value.trim());
       return oracles.map((oracle, i) => {
