@@ -22,5 +22,5 @@ export const getParams = (params, bonded_state) => {
     newParams.decision_engine_aa = bonded_state.decision_engine_aa
   }
   
-  return { ...deposit_params, ...newParams }
+  return { sf_capacity_share: 0, ...deposit_params, ...newParams }
 };

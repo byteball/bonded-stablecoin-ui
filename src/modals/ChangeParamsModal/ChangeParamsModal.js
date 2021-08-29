@@ -79,6 +79,10 @@ export const ChangeParamsModal = ({
       validator: (value) => {
         return obyte.utils.isValidAddress(value);
       },
+    },
+    sf_capacity_share: {
+      validator: (value) => value >= 0 && value <= 100,
+      rule: t("modals.change_param.valid.sf_capacity_share", "The value of the sf_capacity_share (as a percentage) parameter must be in the range from 0 to 100")
     }
   };
 
@@ -317,7 +321,7 @@ export const ChangeParamsModal = ({
       
   return (
     <Modal
-      title={t("modals.change_param.title", "Change {{param}}", {param: param.replace("deposits.", '').replace("_", ' ') || "param"})}
+      title={t("modals.change_param.title", "Change {{param}}", { param: param.replace("deposits.", '').replaceAll("_", ' ') || "param"})}
       visible={visible}
       onCancel={onCancel}
       width={700}

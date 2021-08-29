@@ -1,1 +1,1 @@
-export const percentageParams = ["slow_capacity_share", "interest_rate", "deposits.reporter_share", "moved_capacity_share"];
+export const percentageParams = ["slow_capacity_share", "interest_rate", "deposits.reporter_share", "moved_capacity_share", "sf_capacity_share"];

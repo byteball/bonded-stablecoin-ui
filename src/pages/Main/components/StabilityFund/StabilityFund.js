@@ -133,7 +133,7 @@ export const StabilityFund = () => {
   const you_get_in_smallest_units = (reserve_amount - exchange.reserve_needed - (reserve_asset === "base" ? 4000 : 0));
   const you_get = +Number(you_get_in_smallest_units / 10 ** reserve_asset_decimals);
   const fee_percent = (exchange.fee / you_get_in_smallest_units) * 100;
-  const isValidRedeem = !!exchange?.payout && Number(exchange.payout) > 0 && you_get > 0 && Number(inputRedeem) < shares_supply / 10 ** reserve_asset_decimals;
+  const isValidRedeem = !!exchange?.payout && Number(exchange.payout) > 0 && you_get > 0 && Number(inputRedeem) < shares_supply / 10 ** reserve_asset_decimals && (!fee_percent || fee_percent < 100);
   const [width] = useWindowSize();
   let bPriceInversed = false;
   if ("oracles" in actualParams) {

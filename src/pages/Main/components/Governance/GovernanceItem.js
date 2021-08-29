@@ -138,6 +138,7 @@ export const GovernanceItem = ({
         return (
           <Button
             type="link"
+            disabled={choice && choice === leader && freezePeriod > now}
             onClick={() => { setSelectedParam({ name, value: records.value }); setVisible(true); }}>
             {(width <= 470 || (name === "oracles" && width <= 720)) ? <ImportOutlined /> : (records.value === String(choice)
               ? t("trade.tabs.governance.add_support", "add support for this value")
@@ -170,7 +171,7 @@ export const GovernanceItem = ({
         </Col>
         <Col sm={name === "oracles" || name === "decision_engine_aa" ? { span: 24 } : { span: 12 }} xs={{ span: 24 }}>
           <div className={styles.itemCurrent} style={name === "oracles" || name === "decision_engine_aa" ? { textAlign: "left", wordBreak: "break-all" } : { wordBreak: "break-all" }}>
-            <span style={name === "oracles" || name === "decision_engine_aa" ? { display: name === "oracles" && valueView !== "-" ? "block" : "inline", fontSize: width > 576 ? 16 : 14, display: width > 576 ? "inline" : "block", fontWeight: "bold" } : (width <= 576 ? { fontSize: 14, fontWeight: "bold" } : { display: "inline" })}>{t("trade.tabs.governance.current_value", "Current value")}:</span>{" "}
+            <span style={name === "oracles" || name === "decision_engine_aa" ? { fontSize: width > 576 ? 16 : 14, display: width > 576 ? "inline" : "block", fontWeight: "bold" } : (width <= 576 ? { fontSize: 14, fontWeight: "bold" } : { display: "inline" })}>{t("trade.tabs.governance.current_value", "Current value")}:</span>{" "}
             {valueView}
           </div>
         </Col>
@@ -255,6 +256,7 @@ export const GovernanceItem = ({
               type="link"
               style={{ padding: 0, lineHeight: "1em", height: "auto" }}
               onClick={() => { setSelectedParam(name); setVisible(true); }}
+              disabled={choice && choice === leader && freezePeriod > now}
             >
               {t("trade.tabs.governance.another_value", "suggest another value")}
             </Button>
@@ -278,6 +280,7 @@ export const GovernanceItem = ({
                     type="link"
                     style={{ padding: 5 }}
                     onClick={() => { setSelectedParam(name); setVisible(true); }}
+                    disabled={choice && choice === leader && freezePeriod > now}
                   >
                     {t("trade.tabs.governance.another_value", "suggest another value")}
                   </Button>

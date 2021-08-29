@@ -142,6 +142,9 @@ export const changeActive = (address) => async (dispatch, getState, socket) => {
   const governanceDef = await socket.api.getDefinition(governance);
   const base_governance = governanceDef[1].base_aa;
 
+  const deDef = de_aa && await socket.api.getDefinition(de_aa);
+  const base_de = deDef && deDef[1].base_aa;
+
   dispatch({
     type: CHANGE_ACTIVE,
     payload: {
@@ -162,6 +165,7 @@ export const changeActive = (address) => async (dispatch, getState, socket) => {
       fund_aa: fund,
       fund_balance: fundBalance,
       base_governance,
+      base_de,
       reservePrice,
       oraclePrice,
       reserve_asset_symbol:
