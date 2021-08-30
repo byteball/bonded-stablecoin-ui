@@ -143,7 +143,7 @@ export const FaqPage = () => {
               In addition to that, traders who anticipate that the fund would eventually correct the price, can profit from buying or selling IUSDV2 before the fund intervenes. Their trades move the price closer to the peg and might make the fund's intervention unnecessary.
             </p>
             <p>
-              Read the <a href="https://medium.com/obyte/using-multi-dimensional-bonding-curves-to-create-stablecoins-81e857b4355c" target="_blank" rel="noopener">blog article introducing bonded stablecoins</a> and <a href="https://blog.obyte.org/bonded-stablecoins-version-2-better-price-stability-and-stakable-tokens-ca8c900552ab" target="_blank" rel="noopener">updates introduced in version 2 stablecoins</a> for more
+              Read the <a href="https://blog.obyte.org/using-multi-dimensional-bonding-curves-to-create-stablecoins-81e857b4355c" target="_blank" rel="noopener">blog article introducing bonded stablecoins</a> and <a href="https://blog.obyte.org/bonded-stablecoins-version-2-better-price-stability-and-stakable-tokens-ca8c900552ab" target="_blank" rel="noopener">updates introduced in version 2 stablecoins</a> for more
               details.
             </p>
           </Trans>
@@ -254,7 +254,7 @@ export const FaqPage = () => {
               Note that with this kind of leverage, you can’t be margin called and
               liquidated.
             </p>
-            <p>For details, see <a href="https://medium.com/obyte/using-multi-dimensional-bonding-curves-to-create-stablecoins-81e857b4355c" target="_blank" rel="noopener">
+            <p>For details, see <a href="https://blog.obyte.org/using-multi-dimensional-bonding-curves-to-create-stablecoins-81e857b4355c" target="_blank" rel="noopener">
                 our blog introducing bonded stablecoins
               </a>{" "}
               .
@@ -309,7 +309,7 @@ export const FaqPage = () => {
         <Trans i18nKey="faq.action">
           Any other questions? Read the 
           <a 
-          href="https://medium.com/obyte/using-multi-dimensional-bonding-curves-to-create-stablecoins-81e857b4355c"
+          href="https://blog.obyte.org/using-multi-dimensional-bonding-curves-to-create-stablecoins-81e857b4355c"
           target="_blank" rel="noopener"> introductory article </a> or ask on <a href="https://discord.obyte.org/" target="_blank">Discord</a>.
         </Trans>
       </div>

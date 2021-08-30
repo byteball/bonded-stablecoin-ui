@@ -21,7 +21,7 @@ export const BuiltOnObyteNotTracking = ({ forwardedRef }) => {
           <Trans i18nKey="home.built_on_obyte.info">
             <p>
               All these coins are issued on <a target="_blank" rel="noopener" href="https://obyte.org/">Obyte</a> — one of the first DAG based crypto networks live since 2016.
-              Obyte is the first DAG to <a target="_blank" rel="noopener" href="https://medium.com/obyte/decentralization/home">fully decentralize</a> and the first DAG to support dapps, DeFi in particular.
+              Obyte is the first DAG to <a target="_blank" rel="noopener" href="https://blog.obyte.org/decentralization/home">fully decentralize</a> and the first DAG to support dapps, DeFi in particular.
             </p>
             <p>
               Obyte team has developed several unique products such as <a target="_blank" rel="noopener" href="https://obyte.org/platform/textcoins">textcoins</a> (which allow sending cryptocurrency to email), <a target="_blank" rel="noopener" href="https://obyte.org/platform/identity">self-sovereign identity</a>, untraceable currency <a target="_blank" rel="noopener" href="https://obyte.org/platform/blackbytes">blackbytes</a>, and many others.
