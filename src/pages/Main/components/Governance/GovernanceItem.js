@@ -203,15 +203,6 @@ export const GovernanceItem = ({
                   </>
                 ) : (
                   <div>
-                    {source.length === 0 && <div>
-                      <Button
-                        type="link"
-                        style={{ padding: 0, lineHeight: "1em", height: "auto" }}
-                        onClick={() => { setSelectedParam(name); setVisible(true); }}
-                      >
-                        {t("trade.tabs.governance.another_value", "suggest another value")}
-                      </Button>
-                    </div>}
                       {(leader !== undefined && leader !== false) && <QRButton
                       type="link"
                       style={{ padding: 0, lineHeight: "1em", height: "auto" }}
@@ -233,6 +224,7 @@ export const GovernanceItem = ({
                   type="link"
                   href={linkRemoveSupport}
                   style={{ padding: 0, lineHeight: "1em", height: "auto" }}
+                  size="small"
                   disabled={
                     !isChoice ||
                     (choice && choice === leader && freezePeriod > now)
@@ -263,7 +255,7 @@ export const GovernanceItem = ({
           </Col>
         )}
       </Row>
-      {source.length > 0 && (
+      {source.length > 0 ? (
         <>
           <Divider style={{ marginTop: 10, marginBottom: 10 }} />
           <Row style={{ marginTop: 10 }}>
@@ -288,8 +280,17 @@ export const GovernanceItem = ({
               />
             </Col>
           </Row>
-        </>
-      )}
+        </>) : <>
+          {source.length === 0 && (now > challengingPeriodEndInSeconds || isExpired) && <div style={{ paddingRight: 10, textAlign: width > 576 ? "right" : "right" }}>
+            <Button
+              type="link"
+              style={{ padding: 0, lineHeight: "1em", height: "auto" }}
+              onClick={() => { setSelectedParam(name); setVisible(true); }}
+            >
+              {t("trade.tabs.governance.another_value", "suggest another value")}
+            </Button>
+          </div>}
+        </>}
       <ChangeParamsModal
         visible={visible}
         choice={choice}
