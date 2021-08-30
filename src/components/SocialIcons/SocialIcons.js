@@ -42,7 +42,7 @@ export const SocialIcons = ({size = "full", centered = false, gaLabel}) => { // 
     {
       name: "medium",
       icon: faMediumM,
-      link: "https://medium.com/obyte"
+      link: "https://blog.obyte.org"
     },
     {
       name: "reddit",

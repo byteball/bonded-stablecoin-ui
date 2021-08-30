@@ -66,7 +66,7 @@ export const eventIdentification = (type, unit, params, _, active) => {
       if (inputT1 || inputT2) {
 
         if (unit.objResponseUnit) {
-          pendingAmount = getAAPaymentsSum(unit.objResponseUnit.messages, [payload.reserve_to || unit.trigger_address], reserve_asset) / (10 ** reserve_asset_decimals);
+          pendingAmount = getAAPaymentsSum(unit.objResponseUnit.messages, [payload.reserve_to || payload.to || unit.trigger_address], reserve_asset) / (10 ** reserve_asset_decimals);
         }
 
         return [

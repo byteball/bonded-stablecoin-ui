@@ -224,7 +224,7 @@ export const HowItWorksPage = () => {
         <div className={styles.action}>
           <div>
             <Trans i18nKey="how_it_works_v2.read">
-              Read a <a href="https://medium.com/obyte/using-multi-dimensional-bonding-curves-to-create-stablecoins-81e857b4355c" target="_blank" rel="noopener">more thorough introduction to bonded stablecoins</a> in our blog and <a href="https://blog.obyte.org/bonded-stablecoins-version-2-better-price-stability-and-stakable-tokens-ca8c900552ab" target="_blank" rel="noopener">updates introduced in version 2 stablecoins</a>.
+              Read a <a href="https://blog.obyte.org/using-multi-dimensional-bonding-curves-to-create-stablecoins-81e857b4355c" target="_blank" rel="noopener">more thorough introduction to bonded stablecoins</a> in our blog and <a href="https://blog.obyte.org/bonded-stablecoins-version-2-better-price-stability-and-stakable-tokens-ca8c900552ab" target="_blank" rel="noopener">updates introduced in version 2 stablecoins</a>.
             </Trans>
           </div>
         </div>
