@@ -2,15 +2,18 @@ import Decimal from "decimal.js";
 import { isEmpty } from "lodash";
 import { percentageParams } from "pages/Main/components/Governance/components/percentageParams";
 import { getAAPayload, getAAPayment, getAAPaymentsSum } from "services/eventManager/eventManager";
+import config from "config";
 
 import i18n from "../locale/index";
+
+const v2_de_base = "625UKTER5WR5JQPQYS7CU4ST2EXFUCDG";
 
 export const eventIdentification = (type, unit, params, _, active) => {
 
   if (!unit) return null
 
   const { symbol1, symbol2, symbol3, symbol4, bonded_state, governance_state, reserve_asset_symbol, address,
-    deposit_aa, governance_aa, deposit_state, stable_state, stable_aa, fund_state } = active;
+    deposit_aa, governance_aa, deposit_state, stable_state, stable_aa, fund_state, base_de, fund_aa } = active;
   const { asset1, asset2 } = bonded_state;
   
   const asset = stable_state?.asset || deposit_state?.asset
@@ -63,7 +66,7 @@ export const eventIdentification = (type, unit, params, _, active) => {
       if (inputT1 || inputT2) {
 
         if (unit.objResponseUnit) {
-          pendingAmount = getAAPayment(unit.objResponseUnit.messages, [payload.to || unit.trigger_address], reserve_asset) / (10 ** reserve_asset_decimals);
+          pendingAmount = getAAPaymentsSum(unit.objResponseUnit.messages, [payload.reserve_to || unit.trigger_address], reserve_asset) / (10 ** reserve_asset_decimals);
         }
 
         return [
@@ -191,12 +194,23 @@ export const eventIdentification = (type, unit, params, _, active) => {
     const asPercentage = payload.name === "interest_rate" || payload.name === "reporter_share";
 
     if ("commit" in payload && "name" in payload) {
-      const leader = governance_state["leader_" + payload.name];
-      if (leader) {
-        return [
-          i18n.t("trade.tabs.transactions.events.commit_new_value", "Commit the new value of {{name}}: {{value}}", { name, value: asPercentage ? leader * 100 + "%" : leader }),
-        ]
+      const value = unit?.objResponseUnit?.messages && getAAPayload(unit.objResponseUnit.messages)?.value;
+      let leader;
+      if(value){
+        if (name === "oracles") {
+          leader = value.map((oracle) => {
+            return oracle.oracle + oracle.op + oracle.feed_name
+          }).join(" ");
+        } else {
+          leader = value;
+        }
+      } else {
+        leader = governance_state["leader_" + payload.name];
       }
+
+      return [
+        i18n.t("trade.tabs.transactions.events.commit_new_value", "Commit the new value of {{name}}: {{value}}", { name, value: asPercentage ? leader * 100 + "%" : leader }),
+      ]
     } else if ("name" in payload && "value" in payload) {
       const amount = getAAPayment(unit.messages, [governance_aa], asset1);
       return [
@@ -251,14 +265,29 @@ export const eventIdentification = (type, unit, params, _, active) => {
         symbol3,
         `${forwardOutput || output} ${symbol2}`
       ];
+    } else if (config.FACTORY_AAS.includes(unit.trigger_address)) {
+      return [i18n.t("trade.tabs.transactions.events.conf", "Configuration")]
     }
   } else if (type === "de") {
     if (("act" in payload)) {
       return [i18n.t("trade.tabs.transactions.events.fix_price", "Fix price")]
-    } if ("tx" in payload && unit.trigger_address === address){
+    } else if ("tx" in payload && unit.trigger_address === address && base_de === v2_de_base) {
+      const amount = ((getAAPaymentsSum(unit.messages, [de]) || 0) - 3000)/ 10 ** reserve_asset_decimals;
+      if (payload.tx.tokens2 < 0 && unit?.objResponseUnit?.messages && getAAPayment(unit?.objResponseUnit?.messages, [fund_aa]) > 0) {
+        const output = getAAPayment(unit.objResponseUnit.messages, [fund_aa]) / 10 ** reserve_asset_decimals
+        return [i18n.t("trade.tabs.transactions.events.forward", "Forward the proceeds to the fund"), amount, reserve_asset_symbol, `${output ? `${output} ${reserve_asset_symbol}` : "[pending]"}`]
+      } else {
+        return [i18n.t("trade.tabs.transactions.events.notifyDE", "Notify Decision Engine"), amount, reserve_asset_symbol]
+      }
+    } else if (payload.sweep_capacitor && base_de === v2_de_base) {
+      return [i18n.t("trade.tabs.transactions.events.sweep", "Sweep the funds from the capacitor")]
+    } else if (getAAPayment(unit.messages, [de], asset2) > 0 && base_de === v2_de_base) {
+      const amount = getAAPayment(unit.messages, [de], asset2) / 10 ** decimals2;
+      const output = unit?.objResponseUnit?.messages && getAAPaymentsSum(unit.objResponseUnit.messages, [address], asset2) / (10 ** decimals2);
+      return [i18n.t("trade.tabs.transactions.events.backToCurve", "Send the {{symbol}} back to the curve", {symbol: symbol2}), amount, symbol2, output ? `${output} ${symbol2}` : "[pending]"]
+    } else if ("tx" in payload && unit.trigger_address === address) {
       return [i18n.t("trade.tabs.transactions.events.notifyDE", "Notify Decision Engine")]
-    }
-    else {
+    } else {
       let action; // "buy" or "redeem"
       for (const message in messages) {
         const msg = messages[message];
@@ -287,7 +316,7 @@ export const eventIdentification = (type, unit, params, _, active) => {
 
       } else if (action === "redeem") {
         const amount = getAAPayment(unit.messages, [de], fund_state.shares_asset);
-        const outputResponse = unit?.other?.chain ? unit?.other?.chain.find((item)=>item.objResponseUnit?.messages?.[0]?.payload?.payments?.[0].asset === "base") : undefined;
+        const outputResponse = unit?.other?.chain ? unit?.other?.chain.find((item) => item.objResponseUnit?.messages?.[0]?.payload?.payments?.[0].asset === "base") : undefined;
         const output = outputResponse && outputResponse.objResponseUnit.messages[0].payload.payments[0].amount / 10 ** reserve_asset_decimals;
 
         return [

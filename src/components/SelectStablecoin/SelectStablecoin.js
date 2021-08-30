@@ -18,7 +18,7 @@ export const SelectStablecoin = () => {
   const { t } = useTranslation();
   const optionList = [];
 
-  const dataList = toPairs(data).sort(([_, a_info], [__, b_info]) => b_info.bonded_state.reserve - a_info.bonded_state.reserve).sort(([_, a_info], [__, b_info]) => {
+  const dataList = toPairs(data).sort(([_, a_info], [__, b_info]) => (b_info.bonded_state?.reserve || 0) - (a_info.bonded_state?.reserve || 0)).sort(([_, a_info], [__, b_info]) => {
     if ((a_info.fund && b_info.fund) || (!a_info.fund && !b_info.fund)) {
       return 0
     } else if (a_info.fund && (!b_info.fund)) {

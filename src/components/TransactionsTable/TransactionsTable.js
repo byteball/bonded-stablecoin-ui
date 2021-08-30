@@ -24,7 +24,7 @@ export const TransactionsTable = ({ source, type }) => {
     } else if (adr === address) {
       return "Curve AA"
     } else if (("decision_engine_aa" in bonded_state) && bonded_state.decision_engine_aa === adr) {
-      return "DE"
+      return "Decision Engine"
     } else if(config.FACTORY_AAS.includes(adr)){
       return "Factory AA"
     } else {

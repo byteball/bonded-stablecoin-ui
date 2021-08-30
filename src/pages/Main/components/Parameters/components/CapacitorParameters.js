@@ -11,6 +11,7 @@ export const CapacitorParameters = ({ params, address, activeWallet, base_govern
     threshold_distance,
     move_capacity_timeout,
     slow_capacity_share,
+    sf_capacity_share
   } = params;
   return (
     <div style={{ marginBottom: 20 }}>
@@ -67,6 +68,16 @@ export const CapacitorParameters = ({ params, address, activeWallet, base_govern
         </div>
         <span>{slow_capacity_share} {activeWallet && <ButtonEditParams param="slow_capacity_share" address={address}/>}</span>
       </div>
+      {base_governance === "LXHUYEV6IHBCTGMFNSWRBBU7DGR3JTIY" && <div className={styles.param}>
+        <div className={styles.labelWrap}>
+          <Label
+            descr={paramsDescription().sf_capacity_share.desc}
+            label={paramsDescription().sf_capacity_share.name}
+          />
+          <span className={styles.semi}>:</span>
+        </div>
+        <span>{sf_capacity_share} {activeWallet && <ButtonEditParams param="sf_capacity_share" address={address} />}</span>
+      </div>}
     </div>
   );
 };
