@@ -75,13 +75,13 @@ export const Governance = ({ openWalletModal }) => {
     }
   };
   if (fund_aa) {
-    initParams.decision_engine_aa = {
-      value: actualParams["decision_engine_aa"]
-    }
-    if (base_governance === "LXHUYEV6IHBCTGMFNSWRBBU7DGR3JTIY"){
+    if (base_governance === "LXHUYEV6IHBCTGMFNSWRBBU7DGR3JTIY") {
       initParams.sf_capacity_share = {
         value: actualParams["sf_capacity_share"] || 0
       }
+    }
+    initParams.decision_engine_aa = {
+      value: actualParams["decision_engine_aa"]
     }
   } else {
     initParams["deposits.min_deposit_term"] = {
