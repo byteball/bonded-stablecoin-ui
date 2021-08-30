@@ -17,7 +17,7 @@ export const CreateStep = ({ data, setCurrent, type }) => {
   const { sendReq, addressIssued } = pendings;
   const dispatch = useDispatch();
   const { t } = useTranslation();
-  const link = generateLink(1.5e4, data, undefined, config.FACTORY_AAS[config.FACTORY_AAS.length + (type === 2 ? -1 : -3)]);
+  const link = generateLink(1.5e4, data, undefined, config.FACTORY_AAS[config.FACTORY_AAS.length + (type === 2 ? -1 : -4)]);
 
   useEffect(() => {
     dispatch(pendingIssue(data));

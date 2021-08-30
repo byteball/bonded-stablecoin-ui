@@ -158,5 +158,9 @@ export const paramsDescription = () => ({
   decision_engine_aa: {
     name: i18n.t("params.decision_engine_aa.name", "Decision engine AA"),
     desc: i18n.t("params.decision_engine_aa.desc", "Autonomous Agent of Decision Engine. It manages the Stability Fund to keep the price stable."),
+  },
+  sf_capacity_share: {
+    name: i18n.t("params.sf_capacity_share.name", "Stability fund capacity share"),
+    desc: i18n.t("params.sf_capacity_share.desc", "What part of slow capacity is moved to stability fund"),
   }
 });

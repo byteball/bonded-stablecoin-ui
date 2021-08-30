@@ -10,31 +10,36 @@ import styles from "../../CreatePage.module.css";
 import { paramsDescription } from "pages/Create/paramsDescription";
 
 const { useForm } = Form;
-const initialValues = {
-  fee_multiplier: 0.1,
-  moved_capacity_share: 0.1,
-  threshold_distance: 0.02,
-  move_capacity_timeout: 2 * 3600,
-  slow_capacity_share: 0.5,
-};
 
 export const CapacitorStep = ({ setCurrent, setData, type }) => {
   const [form] = useForm();
   const { setFieldsValue } = form;
   const { t } = useTranslation();
+
+  const initialValues = {
+    fee_multiplier: 0.1,
+    moved_capacity_share: 0.1,
+    threshold_distance: 0.02,
+    move_capacity_timeout: 2 * 3600,
+    slow_capacity_share: 0.5,
+    sf_capacity_share: type === 2 ? 0 : undefined
+};
+
   const [validFields, setValidFields] = useState({
     fee_multiplier: true,
     moved_capacity_share: true,
     threshold_distance: true,
     move_capacity_timeout: true,
     slow_capacity_share: true,
+    sf_capacity_share: true
   });
   const nextIsActive =
     validFields.fee_multiplier &&
     validFields.moved_capacity_share &&
     validFields.threshold_distance &&
     validFields.move_capacity_timeout &&
-    validFields.slow_capacity_share;
+    validFields.slow_capacity_share &&
+    (validFields.sf_capacity_share || type === 1)
 
   const validateValue = ({
     name,
@@ -111,6 +116,7 @@ export const CapacitorStep = ({ setCurrent, setData, type }) => {
                     value,
                     type: "number",
                     minValue: 0,
+                    maxValue: 1
                   }),
               },
             ]}
@@ -138,6 +144,7 @@ export const CapacitorStep = ({ setCurrent, setData, type }) => {
                     value,
                     type: "number",
                     minValue: 0,
+                    maxValue: 0.2
                   }),
               },
             ]}
@@ -202,6 +209,7 @@ export const CapacitorStep = ({ setCurrent, setData, type }) => {
                     name: "slow_capacity_share",
                     value,
                     type: "number",
+                    maxValue: 1
                   }),
               },
             ]}
@@ -216,6 +224,33 @@ export const CapacitorStep = ({ setCurrent, setData, type }) => {
             <Input placeholder={paramsDescription().slow_capacity_share.name} autoComplete="off" />
           </Form.Item>
         </Col>
+        {type === 2 && <Col sm={{ span: 24 }} xs={{ span: 24 }} md={{ span: 7, offset: 1 }}>
+          <Form.Item
+            hasFeedback
+            validateStatus={getStatusValid(validFields.sf_capacity_share)}
+            name="sf_capacity_share"
+            rules={[
+              {
+                validator: (rule, value) =>
+                  validateValue({
+                    name: "sf_capacity_share",
+                    value,
+                    type: "number",
+                    maxValue: 1
+                  }),
+              },
+            ]}
+            label={
+              <Label
+                required
+                label={paramsDescription().sf_capacity_share.name}
+                descr={paramsDescription().sf_capacity_share.desc}
+              />
+            }
+          >
+            <Input placeholder={paramsDescription().sf_capacity_share.name} autoComplete="off" />
+          </Form.Item>
+        </Col>}
       </Row>
       <Button
         disabled={!nextIsActive}

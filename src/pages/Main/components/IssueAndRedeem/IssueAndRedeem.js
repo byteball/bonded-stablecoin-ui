@@ -186,6 +186,8 @@ export const IssueAndRedeem = () => {
   useEffect(() => {
     let meta;
     let error;
+    let isRedemption = false;
+
     if (fromAsset === reserve_asset) {
       if (toAsset === asset) {
         if (Number(input1)) {
@@ -248,6 +250,7 @@ export const IssueAndRedeem = () => {
           ...commonData
         });
         if (toAsset === reserve_asset) {
+          isRedemption = true;
           if (!exchange?.payout || exchange.payout <= 0) {
             error = "big_change";
             setInput2(undefined);
@@ -265,6 +268,7 @@ export const IssueAndRedeem = () => {
 
     } else if (fromAsset === asset) {
       if (toAsset === reserve_asset) {
+        isRedemption = true;
         const exchange = $get_exchange_result({
           tokens1: 0,
           tokens2: 0,
@@ -351,6 +355,7 @@ export const IssueAndRedeem = () => {
       meta.changeFinalPricePercent = changeFinalPricePercent;
       meta.priceChangePercentP1 = priceChangePercentP1;
       meta.max_fee_percent = meta.fee_percent ? meta.fee_percent + 1 : 1;
+      meta.isRedemption = isRedemption;
       setMeta(meta);
     } else {
       setMeta(undefined)
@@ -396,7 +401,7 @@ export const IssueAndRedeem = () => {
     }
   }
 
-  const isDisabled = input1 === undefined || input2 === undefined || Number(input1) <= 0 || Number(input2) <= 0;
+  const isDisabled = input1 === undefined || input2 === undefined || Number(input1) <= 0 || Number(input2) <= 0 || (meta?.isRedemption && meta?.fee_percent >= 100);
 
   const onEnter = (ev) => {
     if (ev.key === "Enter") {

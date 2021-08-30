@@ -138,6 +138,7 @@ export const GovernanceItem = ({
         return (
           <Button
             type="link"
+            disabled={choice && choice === leader && freezePeriod > now}
             onClick={() => { setSelectedParam({ name, value: records.value }); setVisible(true); }}>
             {(width <= 470 || (name === "oracles" && width <= 720)) ? <ImportOutlined /> : (records.value === String(choice)
               ? t("trade.tabs.governance.add_support", "add support for this value")
@@ -170,7 +171,7 @@ export const GovernanceItem = ({
         </Col>
         <Col sm={name === "oracles" || name === "decision_engine_aa" ? { span: 24 } : { span: 12 }} xs={{ span: 24 }}>
           <div className={styles.itemCurrent} style={name === "oracles" || name === "decision_engine_aa" ? { textAlign: "left", wordBreak: "break-all" } : { wordBreak: "break-all" }}>
-            <span style={name === "oracles" || name === "decision_engine_aa" ? { display: name === "oracles" && valueView !== "-" ? "block" : "inline", fontSize: width > 576 ? 16 : 14, display: width > 576 ? "inline" : "block", fontWeight: "bold" } : (width <= 576 ? { fontSize: 14, fontWeight: "bold" } : { display: "inline" })}>{t("trade.tabs.governance.current_value", "Current value")}:</span>{" "}
+            <span style={name === "oracles" || name === "decision_engine_aa" ? { fontSize: width > 576 ? 16 : 14, display: width > 576 ? "inline" : "block", fontWeight: "bold" } : (width <= 576 ? { fontSize: 14, fontWeight: "bold" } : { display: "inline" })}>{t("trade.tabs.governance.current_value", "Current value")}:</span>{" "}
             {valueView}
           </div>
         </Col>
@@ -202,15 +203,6 @@ export const GovernanceItem = ({
                   </>
                 ) : (
                   <div>
-                    {source.length === 0 && <div>
-                      <Button
-                        type="link"
-                        style={{ padding: 0, lineHeight: "1em", height: "auto" }}
-                        onClick={() => { setSelectedParam(name); setVisible(true); }}
-                      >
-                        {t("trade.tabs.governance.another_value", "suggest another value")}
-                      </Button>
-                    </div>}
                       {(leader !== undefined && leader !== false) && <QRButton
                       type="link"
                       style={{ padding: 0, lineHeight: "1em", height: "auto" }}
@@ -232,6 +224,7 @@ export const GovernanceItem = ({
                   type="link"
                   href={linkRemoveSupport}
                   style={{ padding: 0, lineHeight: "1em", height: "auto" }}
+                  size="small"
                   disabled={
                     !isChoice ||
                     (choice && choice === leader && freezePeriod > now)
@@ -255,13 +248,14 @@ export const GovernanceItem = ({
               type="link"
               style={{ padding: 0, lineHeight: "1em", height: "auto" }}
               onClick={() => { setSelectedParam(name); setVisible(true); }}
+              disabled={choice && choice === leader && freezePeriod > now}
             >
               {t("trade.tabs.governance.another_value", "suggest another value")}
             </Button>
           </Col>
         )}
       </Row>
-      {source.length > 0 && (
+      {source.length > 0 ? (
         <>
           <Divider style={{ marginTop: 10, marginBottom: 10 }} />
           <Row style={{ marginTop: 10 }}>
@@ -278,6 +272,7 @@ export const GovernanceItem = ({
                     type="link"
                     style={{ padding: 5 }}
                     onClick={() => { setSelectedParam(name); setVisible(true); }}
+                    disabled={choice && choice === leader && freezePeriod > now}
                   >
                     {t("trade.tabs.governance.another_value", "suggest another value")}
                   </Button>
@@ -285,8 +280,17 @@ export const GovernanceItem = ({
               />
             </Col>
           </Row>
-        </>
-      )}
+        </>) : <>
+          {source.length === 0 && (now > challengingPeriodEndInSeconds || isExpired) && <div style={{ paddingRight: 10, textAlign: width > 576 ? "right" : "right" }}>
+            <Button
+              type="link"
+              style={{ padding: 0, lineHeight: "1em", height: "auto" }}
+              onClick={() => { setSelectedParam(name); setVisible(true); }}
+            >
+              {t("trade.tabs.governance.another_value", "suggest another value")}
+            </Button>
+          </div>}
+        </>}
       <ChangeParamsModal
         visible={visible}
         choice={choice}

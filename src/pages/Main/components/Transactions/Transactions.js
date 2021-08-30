@@ -12,6 +12,7 @@ const { TabPane } = Tabs;
 
 export const Transactions = () => {
   const active = useSelector((state) => state.active);
+  const connected = useSelector((state) => state.connected);
   const { t } = useTranslation();
   const dispatch = useDispatch();
 
@@ -26,7 +27,7 @@ export const Transactions = () => {
 
   useEffect(() => {
     dispatch(getPrevTransactions());
-  }, [address]);
+  }, [address, connected]);
 
   if (isEmpty(curve) && isEmpty(depositOrStable) && isEmpty(governance)) {
     return <div style={{ display: "flex", justifyContent: "center", paddingTop: 50, paddingBottom: 50 }}><Spin size="large" /></div>
