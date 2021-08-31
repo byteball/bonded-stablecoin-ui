@@ -219,12 +219,15 @@ export const eventIdentification = (type, unit, params, _, active) => {
         amount && symbol1
       ]
     } else if ("withdraw" in payload) {
-      const output = getAAPayment(unit.objResponseUnit.messages, [unit.trigger_address], asset1) / (10 ** decimals1);
+      const decimals = fund_aa ? reserve_asset_decimals : decimals1;
+      const symbol = fund_aa ? symbol4 : symbol1;
+      const asset = fund_aa ? fund_state?.shares_asset : asset1;
+      const output = getAAPayment(unit.objResponseUnit.messages, [unit.trigger_address], asset) / (10 ** decimals);
       return [
         i18n.t("trade.tabs.transactions.events.withdraw_balance", "Withdraw balance from governance"),
         undefined,
         undefined,
-        `${output} ${symbol1}`
+        `${output} ${symbol}`
       ]
     } else if ("name" in payload) {
       return [
