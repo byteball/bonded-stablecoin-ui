@@ -276,7 +276,7 @@ export const eventIdentification = (type, unit, params, _, active) => {
       return [i18n.t("trade.tabs.transactions.events.fix_price", "Fix price")]
     } else if ("tx" in payload && unit.trigger_address === address && base_de === v2_de_base) {
       const amount = ((getAAPaymentsSum(unit.messages, [de]) || 0) - 3000)/ 10 ** reserve_asset_decimals;
-      if (payload.tx.tokens2 < 0 && unit?.objResponseUnit?.messages && getAAPayment(unit?.objResponseUnit?.messages, [fund_aa]) > 0) {
+      if (payload.tx.tokens2 < 0 && unit?.objResponseUnit?.messages && (getAAPayment(unit?.objResponseUnit?.messages, [fund_aa]) > 0) && isEmpty(getAAPayload(unit?.objResponseUnit?.messages))) {
         const output = getAAPayment(unit.objResponseUnit.messages, [fund_aa]) / 10 ** reserve_asset_decimals
         return [i18n.t("trade.tabs.transactions.events.forward", "Forward the proceeds to the fund"), amount, reserve_asset_symbol, `${output ? `${output} ${reserve_asset_symbol}` : "[pending]"}`]
       } else {
