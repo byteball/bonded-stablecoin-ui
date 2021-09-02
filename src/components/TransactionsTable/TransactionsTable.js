@@ -25,14 +25,14 @@ export const TransactionsTable = ({ source, type }) => {
       return "Curve AA"
     } else if (("decision_engine_aa" in bonded_state) && bonded_state.decision_engine_aa === adr) {
       return "Decision Engine"
-    } else if(config.FACTORY_AAS.includes(adr)){
+    } else if (config.FACTORY_AAS.includes(adr)) {
       return "Factory AA"
     } else {
       return undefined;
     }
   }
 
-return <div className={styles.wrap}>
+  return <div className={styles.wrap}>
     <div className={styles.head + " " + styles.row}>
       <div className={styles.status}><Text strong>{t("trade.tabs.transactions.head.status", "Status")}</Text></div>
       <div className={styles.event}><Text strong>{t("trade.tabs.transactions.head.event", "Event")}</Text></div>
@@ -42,7 +42,7 @@ return <div className={styles.wrap}>
       <div className={styles.time}><Text strong>{t("trade.tabs.transactions.head.time", "Time")}</Text></div>
     </div>
 
-    <List dataSource={source.sort((a, b) => b.timestamp - a.timestamp)} className={styles.list} renderItem={(item) => {
+    <List dataSource={source.sort(customSort)} className={styles.list} renderItem={(item) => {
       const ts = moment.unix(item.timestamp).format("DD-MM-YYYY HH:mm");
 
       const [event, input, inputCurrency, output, user] = eventIdentification(type, item, actualParams, activeWallet, active);
@@ -99,4 +99,24 @@ export const Dot = ({ size = 12, status, tooltip = "" }) => {
       <span className={styles.dot} style={{ height: size, width: size, background: color }}> </span>
     </Tooltip>
   )
+}
+
+const customSort = (a, b) => {
+  if (b.timestamp !== a.timestamp) {
+    return b.timestamp - a.timestamp
+  } else if (b.main_chain_index !== a.main_chain_index) {
+    return b.main_chain_index - a.main_chain_index
+  } else {
+    if (a.unit === b.trigger_unit) {
+      return -1;
+    } else if (b.unit === a.trigger_unit) {
+      return 1;
+    } else if (a.objResponseUnit?.unit && b.parent_units.includes(a.objResponseUnit?.unit)) {
+      return -1;
+    } else if (b.objResponseUnit?.unit && a.parent_units.includes(b.objResponseUnit?.unit)) {
+      return 1;
+    } else {
+      return 0;
+    }
+  }
 }

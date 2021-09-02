@@ -1,9 +1,8 @@
 import { Typography, Tabs, Spin } from "antd";
 import config from "config";
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
+import { useSelector } from "react-redux";
 import { useTranslation } from 'react-i18next';
-import { getPrevTransactions } from "store/actions/active/getPrevTransactions";
 import { isEmpty } from "lodash";
 import { TransactionsTable } from "components/TransactionsTable/TransactionsTable";
 
@@ -12,9 +11,7 @@ const { TabPane } = Tabs;
 
 export const Transactions = () => {
   const active = useSelector((state) => state.active);
-  const connected = useSelector((state) => state.connected);
   const { t } = useTranslation();
-  const dispatch = useDispatch();
 
   const {
     address,
@@ -24,10 +21,6 @@ export const Transactions = () => {
     bonded_state: {decision_engine_aa},
     transactions: { curve, depositOrStable, governance, de }
   } = active;
-
-  useEffect(() => {
-    dispatch(getPrevTransactions());
-  }, [address, connected]);
 
   if (isEmpty(curve) && isEmpty(depositOrStable) && isEmpty(governance)) {
     return <div style={{ display: "flex", justifyContent: "center", paddingTop: 50, paddingBottom: 50 }}><Spin size="large" /></div>
