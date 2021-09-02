@@ -4,6 +4,7 @@ export const getPrevTransactions = () => async (dispatch, getState, socket) => {
 
   const store = getState();
   const { active: { address, deposit_aa, governance_aa, stable_aa, fund_state, bonded_state: { decision_engine_aa } } } = store;
+  if(!address) return;
 
   const curveResponses = await socket.api.getAaResponses({
     aa: address
