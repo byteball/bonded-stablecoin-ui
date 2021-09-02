@@ -374,8 +374,7 @@ export const IssueAndRedeem = () => {
       sendPayload,
       activeWallet,
       currentAddress,
-      fromAsset,
-      true
+      fromAsset
     );
   } catch { }
 

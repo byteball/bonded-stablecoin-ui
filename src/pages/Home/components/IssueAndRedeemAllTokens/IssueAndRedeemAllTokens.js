@@ -466,8 +466,7 @@ export const IssueAndRedeemAllTokens = () => {
       sendPayload,
       activeWallet,
       currentAddress,
-      fromAsset,
-      true
+      fromAsset
     );
   } catch { }
 
