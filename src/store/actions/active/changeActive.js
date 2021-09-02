@@ -2,6 +2,7 @@ import { CHANGE_ACTIVE, REQ_CHANGE_ACTIVE } from "../../types";
 import config from "config";
 import { addRecentStablecoin } from "../settings/addRecentStablecoin";
 import { getOraclePrice } from "helpers/getOraclePrice";
+import { getPrevTransactions } from "./getPrevTransactions";
 
 export const changeActive = (address) => async (dispatch, getState, socket) => {
 
@@ -185,4 +186,5 @@ export const changeActive = (address) => async (dispatch, getState, socket) => {
   });
 
   dispatch(addRecentStablecoin(address));
+  dispatch(getPrevTransactions());
 };
