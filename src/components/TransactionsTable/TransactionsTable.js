@@ -108,15 +108,25 @@ const customSort = (a, b) => {
     return b.main_chain_index - a.main_chain_index
   } else {
     if (a.unit === b.trigger_unit) {
-      return -1;
+      return 1;
     } else if (b.unit === a.trigger_unit) {
-      return 1;
-    } else if (a.objResponseUnit?.unit && b.parent_units.includes(a.objResponseUnit?.unit)) {
       return -1;
-    } else if (b.objResponseUnit?.unit && a.parent_units.includes(b.objResponseUnit?.unit)) {
+    } else if (a.objResponseUnit?.unit && b.parent_units.includes(a.objResponseUnit?.unit)) {
       return 1;
+    } else if (b.objResponseUnit?.unit && a.parent_units.includes(b.objResponseUnit?.unit)) {
+      return -1;
     } else {
-      return 0;
+      if (!(a.isStable && b.isStable)) {
+        if (a.isStable) {
+          return 1;
+        } else if (b.isStable) {
+          return -1;
+        } else {
+          return 0;
+        }
+      } else {
+        return 0;
+      }
     }
   }
 }
