@@ -119,7 +119,7 @@ const customSort = (a, b) => {
       if (!(a.isStable && b.isStable)) {
         if (a.isStable) {
           return 1;
-        } else if(b.isStable) {
+        } else if (b.isStable) {
           return -1;
         } else {
           return 0;
