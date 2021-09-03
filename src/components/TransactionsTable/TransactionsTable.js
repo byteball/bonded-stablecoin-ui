@@ -111,7 +111,7 @@ const customSort = (a, b) => {
       return 1;
     } else if (b.unit === a.trigger_unit) {
       return -1;
-    } else if (a.objResponseUnit?.unit && b.parent_units.includes(a.objResponseUnit?.unit)) { // A > B
+    } else if (a.objResponseUnit?.unit && b.parent_units.includes(a.objResponseUnit?.unit)) {
       return 1;
     } else if (b.objResponseUnit?.unit && a.parent_units.includes(b.objResponseUnit?.unit)) {
       return -1;
