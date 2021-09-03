@@ -116,7 +116,17 @@ const customSort = (a, b) => {
     } else if (b.objResponseUnit?.unit && a.parent_units.includes(b.objResponseUnit?.unit)) {
       return -1;
     } else {
-      return 0;
+      if (!(a.isStable && b.isStable)) {
+        if (a.isStable) {
+          return 1;
+        } else if(b.isStable) {
+          return -1;
+        } else {
+          return 0;
+        }
+      } else {
+        return 0;
+      }
     }
   }
 }
