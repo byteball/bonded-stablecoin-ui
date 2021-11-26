@@ -65,7 +65,7 @@ const ProgrammedPricedNotTracking = ({ forwardedRef, isShown }) => {
     <div className={styles.wrapper} ref={forwardedRef}>
       <div className={styles.first + " " + styles.text}>
         <Trans i18nKey="stableplus.programmed">
-          <p>The prices of <b>stable+</b> coins are programmed to follow the growing target price. For example, IUSDV2 — a USD-pegged coin — started at exactly 1 USD on April 16, 2021 and the target price of the token grows at 16% per year. In one year, it is expected to be $1.16, in two years — $1.3456.</p>
+          <p>The prices of <b>stable+</b> coins are programmed to follow the growing target price. For example, IUSD — a USD-pegged coin — started at exactly 1 USD on April 16, 2021 and the target price of the token grows at 16% per year. In one year, it is expected to be $1.16, in two years — $1.3456.</p>
         </Trans>
       </div>
       <div className={styles.second + " " + styles.img}>
@@ -101,7 +101,7 @@ const StakeNotTracking = ({ forwardedRef }) => {
     <div className={styles.wrapper} ref={forwardedRef}>
       <div className={styles.first + " " + styles.text}>
         <Trans i18nKey="stableplus.stake">
-          <p>If you received OUSDV2 — a USD-pegged stablecoin — you can "stake" it by converting to IUSDV2 and holding IUSDV2. Any time later, you can convert IUSDV2 back to OUSDV2 and get more OUSDV2 in exchange than originally invested.</p>
+          <p>If you received OUSDV2 — a USD-pegged stablecoin — you can "stake" it by converting to IUSD and holding IUSD. Any time later, you can convert IUSD back to OUSDV2 and get more OUSDV2 in exchange than originally invested.</p>
         </Trans>
       </div>
       <div className={styles.second + " " + styles.img}>

@@ -99,7 +99,7 @@ export const RefPage = ({ setWalletModalVisibility }) => {
         <img className={styles.image} src={RefImage} alt="Referral program" />
         {activeWallet && info && !loading && <Paragraph className={styles.myInfo}>
           {info.distribution_date && <div>{t("ref.next_payment", "The next payment is on ")} {info.distribution_date}.</div>}
-          {"my_info" in info && <div>{t("ref.expected_reward", "Your expected reward is")} {Number(info.my_info.usd_reward).toFixed(2)} IUSDV2.
+          {"my_info" in info && <div>{t("ref.expected_reward", "Your expected reward is")} {Number(info.my_info.usd_reward).toFixed(2)} IUSD.
           {info.referrer_address && t("ref.you_were_referred", "You were referred by {{referrer_address}} and this includes a reward for your own balance {{balance}}.", { balance: info.my_info.usd_balance, referrer_address: info.my_info.referrer_address })}</div>}
         </Paragraph>}
       </Col>
@@ -134,7 +134,7 @@ export const RefPage = ({ setWalletModalVisibility }) => {
           </Paragraph>}
           <Trans i18nKey="ref.info" pReferrerRewards={pReferrerRewards} pReferrerRewardsAPY={pReferrerRewardsAPY} pReferralRewards={pReferralRewards}>
             <Paragraph>
-              The referral rewards are paid in IUSDV2 every Sunday and are proportional to dollar balances of the referred
+              The referral rewards are paid in IUSD every Sunday and are proportional to dollar balances of the referred
               users in all tokens (stablecoins, interest tokens, growth tokens) issued on this website, as well as other
               tokens based on them: shares in <a target="_blank" rel="noopener" href="https://oswap.io/">oswap</a> liquidity pools and shares in arbitrage bots.
               The larger the total balances at the end of the weekly period, the larger the reward. Your weekly reward increases if the referred users accumulate more, decreases if they redeem or sell their tokens.
@@ -159,7 +159,7 @@ export const RefPage = ({ setWalletModalVisibility }) => {
     {activeWallet && <Table
       loading={loading}
       columns={columns}
-      footer={() => info && info.total && Number(info.total) !== 0 && <div style={{ display: "flex", justifyContent: "flex-end" }} ><b>{t("ref.total", "Total")}: {info.total} IUSDV2</b></div>}
+      footer={() => info && info.total && Number(info.total) !== 0 && <div style={{ display: "flex", justifyContent: "flex-end" }} ><b>{t("ref.total", "Total")}: {info.total} IUSD</b></div>}
       dataSource={((info && info.referrals) || []).map((r) => ({ ...r, key: r.address }))}
       locale={{
         emptyText: t("ref.empty", "no referrals yet"),

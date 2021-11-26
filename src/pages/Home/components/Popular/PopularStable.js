@@ -43,13 +43,13 @@ export const PopularStable = ({ prices }) => {
       price: 1
     },
     {
-      name: "OBITV2",
+      name: "OBIT",
       address: config.TESTNET ? "RWTVFCMFLI3N2G4P2YENMLKC6CY7IYT6" : "KSBNS2R5HUBN5AHYJLZVCADEQAHOLRCD",
       pegged: "BTC",
       price: 0
     },
     {
-      name: "OETHV2",
+      name: "OETH",
       address: config.TESTNET ? "DM6R6EMQPUX5C4BC7XU62KEMHE4J6IFF" : "MMN3JBJWTT7ZZL7I7K66GSZQ3MHTPW47",
       pegged: "ETH",
       price: 0

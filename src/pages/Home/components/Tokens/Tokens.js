@@ -66,12 +66,12 @@ const InterestNotTracking = ({ forwardedRef, isShown }) => {
   return (
     <div className={styles.tokens} ref={forwardedRef}>
       <h3 className={styles.tokensTitle}>
-        {t("home.tokens.interest.title", "IUSDV2 — interest token that earns 16% interest in USD")}
+        {t("home.tokens.interest.title", "IUSD — interest token that earns 16% interest in USD")}
       </h3>
       <div className={styles.wrapper}>
         <div className={styles.first + " " + styles.text}>
           <Trans i18nKey="home.tokens.interest.follow">
-            <p>IUSDV2 is for investors seeking predictable income.</p>
+            <p>IUSD is for investors seeking predictable income.</p>
             <p>Its price is programmed to follow the growing target price. It started at exactly 1 USD on April 16, 2021 and the target price of the token grows at 16% per year. In one year, it is expected to be $1.16, in two years — $1.3456. It is a <b>stable+</b> coin.</p>
           </Trans>
         </div>
@@ -128,7 +128,7 @@ const StableNotTracking = ({ forwardedRef, isShown, isShownCoinAnimation, setSho
         </div>
         <div className={styles.second + " " + styles.text}>
           <Trans i18nKey="home.tokens.stable.exchange">
-            <p>You can “stake” OUSDV2 by converting it to IUSDV2. Any time later, you can make a reverse conversion and get more OUSDV2 in exchange.</p>
+            <p>You can “stake” OUSDV2 by converting it to IUSD. Any time later, you can make a reverse conversion and get more OUSDV2 in exchange.</p>
           </Trans>
         </div>
       </div>
@@ -147,8 +147,8 @@ const GrowthNotTracking = ({ forwardedRef, isShown }) => {
         <div className={styles.first + " " + styles.text}>
           <Trans i18nKey="home.tokens.fund.risks">
             <p>SFUSD is for investors seeking higher income, with higher risks.</p>
-            <p>SFUSD tokens are shares in the stability fund that is programmatically managed to keep the price of IUSDV2 near the peg.</p>
-            <p>The price of SFUSD depends on the popularity of IUSDV2. As more IUSDV2 tokens are issued, the price of SFUSD grows programmatically — this follows from the bonding curve mechanics. When IUSDV2 tokens are redeemed, SFUSD falls in price.</p>
+            <p>SFUSD tokens are shares in the stability fund that is programmatically managed to keep the price of IUSD near the peg.</p>
+            <p>The price of SFUSD depends on the popularity of IUSD. As more IUSD tokens are issued, the price of SFUSD grows programmatically — this follows from the bonding curve mechanics. When IUSD tokens are redeemed, SFUSD falls in price.</p>
           </Trans>
         </div>
         <div className={styles.second + " " + styles.img}>
