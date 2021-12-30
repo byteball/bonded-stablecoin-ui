@@ -38,7 +38,7 @@ export const Charts = ({ params, isActive}) => {
     priceFormat: {
       type: "custom",
       minMove: 1 / 1e9,
-      formatter: price => Decimal(price).toPrecision(params.reserve_asset_decimals).replace(/0*$/,"").replace(/\.$/gm, '')
+      formatter: price => Decimal(price).toPrecision(5).replace(/0*$/,"").replace(/\.$/gm, '')
     },
   };
 
@@ -50,7 +50,7 @@ export const Charts = ({ params, isActive}) => {
     priceFormat: {
       type: "custom",
       minMove: 1 / 1e9,
-      formatter: price => Decimal(price).toPrecision(params.reserve_asset_decimals).replace(/0*$/,"").replace(/\.$/gm, '')
+      formatter: price => Decimal(price).toPrecision(5).replace(/0*$/, "").replace(/\.$/gm, '')
     },
   };
 
