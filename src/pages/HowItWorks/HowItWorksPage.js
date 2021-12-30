@@ -35,9 +35,9 @@ export const HowItWorksPage = () => {
         <Title level={1}>{t("how_it_works.title", "How it works")}</Title>
         <div className={styles.subTitle}>
           <Trans i18nKey="how_it_works_v2.desc">
-            There is some math behind all this. The USD-pegged stablecoin operates based on two main tokens — IUSDV2 and GRDV2 — that exist on
+            There is some math behind all this. The USD-pegged stablecoin operates based on two main tokens — IUSD and GRDV2 — that exist on
             a <b>bonding curve</b>, that is a mathematical formula that connects the
-            amounts of IUSDV2 and GRDV2 tokens issued with the amount of the reserve
+            amounts of IUSD and GRDV2 tokens issued with the amount of the reserve
             currency{" "} <span style={{ whiteSpace: "nowrap" }}>— Bytes —</span>{" "}
             used to issue them.
           </Trans>
@@ -65,7 +65,7 @@ export const HowItWorksPage = () => {
                     - <i>r</i> is the total amount of GBYTE reserve locked to issue both tokens;
                   </li>
                   <li>- <i>s</i><sub>1</sub> is the total supply of token1 — GRDV2;</li>
-                  <li>- <i>s</i><sub>2</sub> is the total supply of token2 — IUSDV2.</li>
+                  <li>- <i>s</i><sub>2</sub> is the total supply of token2 — IUSD.</li>
                 </ul>
               </Trans>
               <Suspense fallback={<div>Loading...</div>}>
@@ -82,14 +82,14 @@ export const HowItWorksPage = () => {
                       verticalRatio: 0.8,
                       showShadow: false,
                       xLabel: "s1 (GRDV2)",
-                      yLabel: "s2 (IUSDV2)",
+                      yLabel: "s2 (IUSD)",
                       zLabel: "Reserve",
                       zValueLabel: (z) => z / 1e3 + "k",
                       yValueLabel: (y) => y / 1e3 + "k",
                       tooltip: ({ x, y, z }) => `
                       <div style="text-align: left;">
                         s<sub>1</sub> (GRDV2): ${x} <br/>
-                        s<sub>2</sub> (IUSDV2): ${y} <br/>
+                        s<sub>2</sub> (IUSD): ${y} <br/>
                         Reserve (GBYTE): ${z}
                       </div>
                       `,
@@ -105,10 +105,10 @@ export const HowItWorksPage = () => {
             <div className={styles.infoSecond}>
               <Trans i18nKey="how_it_works_v2.curve">
                 <p>
-                  That is, in order to issue more GRDV2 or IUSDV2 tokens, one needs to
+                  That is, in order to issue more GRDV2 or IUSD tokens, one needs to
                   lock some reserve in GBYTE, and when one wants to redeem GRDV2 or
-                  IUSDV2, they get a share of the reserve back. The prices of GRDV2
-                  and IUSDV2, i.e. how much reserve one needs to pay per token, or
+                  IUSD, they get a share of the reserve back. The prices of GRDV2
+                  and IUSD, i.e. how much reserve one needs to pay per token, or
                   can get back per token, depend on the current supplies of the
                   tokens.
                 </p>
@@ -118,14 +118,14 @@ export const HowItWorksPage = () => {
                   <sub>2</sub>
                   <sup>2</sup>
                 </span></p>
-                <p>The price of token2 (IUSDV2) is <span style={{ fontWeight: "bold" }}>
+                <p>The price of token2 (IUSD) is <span style={{ fontWeight: "bold" }}>
                   <i>p</i><sub>2</sub> = <span style={{ fontWeight: "500" }}>2</span> <i>s</i>
                   <sub>1</sub>
                   <sup>2</sup> <i>s</i>
                   <sub>2</sub>
                 </span></p>
                 <p>
-                  The stability mechanisms are designed to keep the price <i>p</i><sub>2</sub> of IUSDV2
+                  The stability mechanisms are designed to keep the price <i>p</i><sub>2</sub> of IUSD
                   near its target price which is 1 USD plus interest accrued since inception.
                   The target price is known from GBYTE/USD price reported by an oracle that
                   feeds data from cryptocurrency exchanges and the time elapsed since the
@@ -143,8 +143,8 @@ export const HowItWorksPage = () => {
             <div className={styles.infoFirst}>
               <div style={{ fontWeight: "bold", fontSize: 24, marginBottom: 5 }}><Trans i18nKey="how_it_works_v2.title_capacitor">1. The capacitor</Trans></div>
               <Trans i18nKey="how_it_works_v2.capacitor">
-                Whenever someone wants to buy or sell IUSDV2 such that this transaction
-                would push the IUSDV2 price away from the target, they have to pay a fee.
+                Whenever someone wants to buy or sell IUSD such that this transaction
+                would push the IUSD price away from the target, they have to pay a fee.
                 The farther away from the target, the larger the fee gets. The fees get
                 accumulated in a special reserve which is called a capacitor.
                 Whenever someone pushes the price closer to the target, they get a reward,
@@ -168,7 +168,7 @@ export const HowItWorksPage = () => {
                 The fund is algorithmically managed by an Autonomous Agent called <b>Decision Engine</b>, which can use the fund’s GBYTE and GRDV2
                 to buy or redeem GRDV2 in order to change its supply <i>s</i><sub>1</sub> and thus change the price <i>p</i><sub>2</sub> back to the target. Investors buy shares
                 SFUSD in the fund by contributing GBYTE into its reserves. They do so anticipating that the shares would appreciate thanks
-                to the growth of IUSDV2 issuance which raises the worth of the fund’s GRDV2 holdings.
+                to the growth of IUSD issuance which raises the worth of the fund’s GRDV2 holdings.
               </Trans>
             </div>
           </div>
@@ -179,7 +179,7 @@ export const HowItWorksPage = () => {
               <Trans i18nKey="how_it_works_v2.trader_incentives">
                 Knowing that the Stability Fund would eventually intervene and correct
                 the price back to the target, traders can make a profit by buying or
-                selling before the Fund. For example, they can buy IUSDV2 when it trades
+                selling before the Fund. For example, they can buy IUSD when it trades
                 below the target anticipating that the price will soon rise to the target
                 and they’ll have an opportunity to sell higher. By buying or selling
                 before the Fund, they move the price to the target and make the Fund’s

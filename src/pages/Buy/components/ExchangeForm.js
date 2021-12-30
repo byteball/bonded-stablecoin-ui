@@ -665,7 +665,7 @@ export const ExchangeForm = () => {
       )}
       <div style={{ fontSize: 16, textAlign: "center", padding: 10 }}>
         <Trans i18nKey="buy.buying_v2">
-          For buying stable tokens (OUSDV2, OBITV2, etc), fund tokens (SFUSD, SFGB, etc), and redemption, go to the{" "}
+          For buying stable tokens (OUSDV2, OBIT, etc), fund tokens (SFUSD, SFGB, etc), and redemption, go to the{" "}
           <Link to="/trade">trading page</Link>.
         </Trans>
       </div>

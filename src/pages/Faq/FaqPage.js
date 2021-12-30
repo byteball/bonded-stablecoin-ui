@@ -25,13 +25,13 @@ export const FaqPage = () => {
         )}
       >
         <Panel
-          header={t("faq.questions.0.question", "How do I buy/sell IUSDV2, OUSDV2, or SFUSD?")}
+          header={t("faq.questions.0.question", "How do I buy/sell IUSD, OUSDV2, or SFUSD?")}
           key="0"
           className={styles.panel}
         >
           <Trans i18nKey="faq.questions.0.answer">
             <p>
-              You can buy or sell the tokens for GBYTE on the <a href="/">home page</a>, on the more advanced <a href="/trade">trading page</a>, or buy IUSDV2 for BTC on the <a href="/buy">Buy with Bitcoin page</a> of this website. The website helps
+              You can buy or sell the tokens for GBYTE on the <a href="/">home page</a>, on the more advanced <a href="/trade">trading page</a>, or buy IUSD for BTC on the <a href="/buy">Buy with Bitcoin page</a> of this website. The website helps
               you to construct a request that you send to an <a href="https://obyte.org/platform/autonomous-agents" target="_blank" rel="noopener">Autonomous Agent</a> from
               your <a href="https://obyte.org/" target="_blank" rel="noopener">Obyte</a> wallet.
             </p>
@@ -71,7 +71,7 @@ export const FaqPage = () => {
         </Panel>
 
         <Panel
-          header={t("faq.questions.5.question", "IUSDV2 constantly grows thanks to interest. Assuming this attracts new users, SFUSD should grow too and both token holders win, who loses then?")}
+          header={t("faq.questions.5.question", "IUSD constantly grows thanks to interest. Assuming this attracts new users, SFUSD should grow too and both token holders win, who loses then?")}
           key="5"
           className={styles.panel}
         >
@@ -124,12 +124,12 @@ export const FaqPage = () => {
         >
           <Trans i18nKey="faq.questions.7.answer">
             <p>
-              The price of IUSDV2 is “attracted” to the target (benchmark) with the
+              The price of IUSD is “attracted” to the target (benchmark) with the
               help of a so-called capacitor.
             </p>
             <p>
-              Every purchase of IUSDV2 from the bonding curve and every sale
-              to the bonding curve affect the IUSDV2 price. If a transaction pushes
+              Every purchase of IUSD from the bonding curve and every sale
+              to the bonding curve affect the IUSD price. If a transaction pushes
               the price away from the target, it is “punished” with a fee, the
               farther away from the target, the more the fee. The collected fees
               get accumulated in a capacitor. Every transaction that corrects the
@@ -140,7 +140,7 @@ export const FaqPage = () => {
               Also, the stability fund buys or sells the other token — GRDV2 — in order to correct the price back to the peg. When and how much the fund buys or sells, is determined by an algorithm that can be changed only by governance decision of SFUSD holders.
             </p>
             <p>
-              In addition to that, traders who anticipate that the fund would eventually correct the price, can profit from buying or selling IUSDV2 before the fund intervenes. Their trades move the price closer to the peg and might make the fund's intervention unnecessary.
+              In addition to that, traders who anticipate that the fund would eventually correct the price, can profit from buying or selling IUSD before the fund intervenes. Their trades move the price closer to the peg and might make the fund's intervention unnecessary.
             </p>
             <p>
               Read the <a href="https://blog.obyte.org/using-multi-dimensional-bonding-curves-to-create-stablecoins-81e857b4355c" target="_blank" rel="noopener">blog article introducing bonded stablecoins</a> and <a href="https://blog.obyte.org/bonded-stablecoins-version-2-better-price-stability-and-stakable-tokens-ca8c900552ab" target="_blank" rel="noopener">updates introduced in version 2 stablecoins</a> for more
@@ -170,7 +170,7 @@ export const FaqPage = () => {
         >
           <Trans i18nKey="faq.questions.9.answer">
             <p>
-              One can earn interest with bonded stablecoins. When OUSDV2 stablecoins are not used, one can "stake" them by converting to IUSDV2 whose target price constantly grows. After some time, one can convert IUSDV2 back to OUSDV2 and get more OUSDV2 in exchange, which reflects the interest earned while OUSDV2 was staked.
+              One can earn interest with bonded stablecoins. When OUSDV2 stablecoins are not used, one can "stake" them by converting to IUSD whose target price constantly grows. After some time, one can convert IUSD back to OUSDV2 and get more OUSDV2 in exchange, which reflects the interest earned while OUSDV2 was staked.
              </p>
           </Trans>
         </Panel>
@@ -301,7 +301,7 @@ export const FaqPage = () => {
           className={styles.panel}
         >
           <Trans i18nKey="faq.questions.14.answer">
-            <p>Yes, just convert it to IUSDV2. Any time later, you can sell IUSDV2 back to OUSDV2 and get more OUSDV2.</p>
+            <p>Yes, just convert it to IUSD. Any time later, you can sell IUSD back to OUSDV2 and get more OUSDV2.</p>
           </Trans>
         </Panel>
       </Collapse>

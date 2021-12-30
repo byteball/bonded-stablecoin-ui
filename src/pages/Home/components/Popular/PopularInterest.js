@@ -11,17 +11,17 @@ import config from "config";
 
 export const tokensList = [
   {
-    name: "IUSDV2",
+    name: "IUSD",
     address: config.TESTNET ? "2SEBEEDTEC7LTDVZ765MGQXJW33GSRUD" : "VLKI3XMMX5YULOBA6ZXBXDPI6TXF6V3D",
     pegged: "USD",
   },
   {
-    name: "IBITV2",
+    name: "IBIT",
     address: config.TESTNET ? "RWTVFCMFLI3N2G4P2YENMLKC6CY7IYT6" : "KSBNS2R5HUBN5AHYJLZVCADEQAHOLRCD",
     pegged: "BTC",
   },
   {
-    name: "ITHV2",
+    name: "ITH",
     address: config.TESTNET ? "DM6R6EMQPUX5C4BC7XU62KEMHE4J6IFF" : "MMN3JBJWTT7ZZL7I7K66GSZQ3MHTPW47",
     pegged: "ETH",
   },

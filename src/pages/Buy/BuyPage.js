@@ -22,7 +22,7 @@ export const BuyPage = () => {
       <Helmet title="Bonded stablecoins - Buy interest tokens" />
       <Title level={1}>{t("buy.title_btc", "Buy interest tokens with BTC")}</Title>
       <Text type="secondary">
-        {t("buy.desc_v2", "Buy interest earning tokens (IUSDV2, IBITV2, etc) for BTC in one easy step.")}
+        {t("buy.desc_v2", "Buy interest earning tokens (IUSD, IBIT, etc) for BTC in one easy step.")}
       </Text>
       {pendingExchanges && current ? (
         <ExchangeView current={current} />
