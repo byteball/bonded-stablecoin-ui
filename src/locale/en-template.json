@@ -716,7 +716,7 @@
     "tokens": {
       "interest": {
         "title": "IUSD — interest token that earns 16% interest in USD",
-        "follow": "<0>IUSD is for investors seeking predictable income.</0><1>Its price is programmed to follow the growing target price. It started at exactly 1 USD on April 16, 2021 and the target price of the token grows at 16% per year. In one year, it is expected to be $1.16, in two years — $1.3456. It is a <1>stable+</1> coin.</1>"
+        "follow": "<0>IUSD is for investors seeking predictable income.</0><1>Its price is programmed to follow the growing target price. It started at exactly 1 USD on April 16, 2021 and the target price of the token grows at 16% per year. In one year, it is expected to be $1.16, in two years — $1.3456. It is a <1>stable+</1> coin. (Now the growth rate is 20% after it was changed by a governance vote.)</1>"
       },
       "stable": {
         "title": "OUSD — a USD-pegged stablecoin",
@@ -786,7 +786,7 @@
     "title": "Stable+ coins",
     "sub_title_1": "Stablecoins that earn interest",
     "sub_title_2": "Best suited for investors seeking predictable income",
-    "programmed": "<0>The prices of <1>stable+</1> coins are programmed to follow the growing target price. For example, IUSD — a USD-pegged coin — started at exactly 1 USD on April 16, 2021 and the target price of the token grows at 16% per year. In one year, it is expected to be $1.16, in two years — $1.3456.</0>",
+    "programmed": "<0>The prices of <1>stable+</1> coins are programmed to follow the growing target price. For example, IUSD — a USD-pegged coin — started at exactly 1 USD on April 16, 2021 and the target price of the token grows at 16% per year. In one year, it is expected to be $1.16, in two years — $1.3456. (Now the growth rate is 20% after it was changed by a governance vote.)</0>",
     "curve": "<0>This is made possible by a bonding curve that mathematically bonds their prices with the prices of the companion <1>growth</1> tokens. Every deviation from the target price activates incentives for the traders stable+ tokens that make them buy or sell the tokens, plus there is a <3>stability fund</3> that buys and sells the growth tokens in order to change the price. They both eventually correct the price of the stable+ coin back to the target. They do so to make a profit.</0>",
     "stake": "<0>If you received OUSD — a USD-pegged stablecoin — you can \"stake\" it by converting to IUSD and holding IUSD. Any time later, you can convert IUSD back to OUSD and get more OUSD in exchange than originally invested.</0>",
     "choose": "Choose your stable+ coin"

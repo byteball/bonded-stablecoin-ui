@@ -72,7 +72,7 @@ const InterestNotTracking = ({ forwardedRef, isShown }) => {
         <div className={styles.first + " " + styles.text}>
           <Trans i18nKey="home.tokens.interest.follow">
             <p>IUSD is for investors seeking predictable income.</p>
-            <p>Its price is programmed to follow the growing target price. It started at exactly 1 USD on April 16, 2021 and the target price of the token grows at 16% per year. In one year, it is expected to be $1.16, in two years — $1.3456. It is a <b>stable+</b> coin.</p>
+            <p>Its price is programmed to follow the growing target price. It started at exactly 1 USD on April 16, 2021 and the target price of the token grows at 16% per year. In one year, it is expected to be $1.16, in two years — $1.3456. It is a <b>stable+</b> coin. (Now the growth rate is 20% after it was changed by a governance vote.)</p>
           </Trans>
         </div>
         <div className={styles.second + " " + styles.img}>
