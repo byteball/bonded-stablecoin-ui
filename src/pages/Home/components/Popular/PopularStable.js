@@ -37,7 +37,7 @@ export const PopularStable = ({ prices }) => {
 
   const tokensList = [
     {
-      name: "OUSDV2",
+      name: "OUSD",
       address: config.TESTNET ? "2SEBEEDTEC7LTDVZ765MGQXJW33GSRUD" : "VLKI3XMMX5YULOBA6ZXBXDPI6TXF6V3D",
       pegged: "USD",
       price: 1

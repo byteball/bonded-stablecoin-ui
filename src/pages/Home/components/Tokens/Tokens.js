@@ -89,7 +89,7 @@ const StableNotTracking = ({ forwardedRef, isShown, isShownCoinAnimation, setSho
   const { t } = useTranslation();
   return (
     <div className={styles.tokens} ref={forwardedRef}>
-      <h3 className={styles.tokensTitle}>{t("home.tokens.stable.title", "OUSDV2 — a USD-pegged stablecoin")}</h3>
+      <h3 className={styles.tokensTitle}>{t("home.tokens.stable.title", "OUSD — a USD-pegged stablecoin")}</h3>
       <div className={styles.wrapper}>
         <div className={styles.first + " " + styles.img}>
           <div className={styles.illustration}>
@@ -98,7 +98,7 @@ const StableNotTracking = ({ forwardedRef, isShown, isShownCoinAnimation, setSho
         </div>
         <div className={styles.second + " " + styles.text}>
           <Trans i18nKey="home.tokens.stable.payments">
-            <p>OUSDV2 is a familiar unit of account best suited for payments. </p>
+            <p>OUSD is a familiar unit of account best suited for payments. </p>
             <p>Unlike USD, it can be freely and instantly moved cross-border, and the fees are fractions of a cent.</p>
           </Trans>
         </div>
@@ -128,7 +128,7 @@ const StableNotTracking = ({ forwardedRef, isShown, isShownCoinAnimation, setSho
         </div>
         <div className={styles.second + " " + styles.text}>
           <Trans i18nKey="home.tokens.stable.exchange">
-            <p>You can “stake” OUSDV2 by converting it to IUSD. Any time later, you can make a reverse conversion and get more OUSDV2 in exchange.</p>
+            <p>You can “stake” OUSD by converting it to IUSD. Any time later, you can make a reverse conversion and get more OUSD in exchange.</p>
           </Trans>
         </div>
       </div>
@@ -165,7 +165,7 @@ const GrowthNotTracking = ({ forwardedRef, isShown }) => {
         </div>
         <div className={styles.second + " " + styles.text}>
           <Trans i18nKey="home.tokens.fund.vote">
-            <p>SFUSD holders can vote to tune the interest rate and various parameters of the ecosystem that are important for keeping the peg. They can vote to replace the program, called Decision Engine (DE), that manages the fund. SFUSD holders can even vote to hire a management team tasked with promoting the use of OUSDV2 — which directly affects SFUSD price.</p>
+            <p>SFUSD holders can vote to tune the interest rate and various parameters of the ecosystem that are important for keeping the peg. They can vote to replace the program, called Decision Engine (DE), that manages the fund. SFUSD holders can even vote to hire a management team tasked with promoting the use of OUSD — which directly affects SFUSD price.</p>
           </Trans>
         </div>
       </div>

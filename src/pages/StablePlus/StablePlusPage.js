@@ -101,7 +101,7 @@ const StakeNotTracking = ({ forwardedRef }) => {
     <div className={styles.wrapper} ref={forwardedRef}>
       <div className={styles.first + " " + styles.text}>
         <Trans i18nKey="stableplus.stake">
-          <p>If you received OUSDV2 — a USD-pegged stablecoin — you can "stake" it by converting to IUSD and holding IUSD. Any time later, you can convert IUSD back to OUSDV2 and get more OUSDV2 in exchange than originally invested.</p>
+          <p>If you received OUSD — a USD-pegged stablecoin — you can "stake" it by converting to IUSD and holding IUSD. Any time later, you can convert IUSD back to OUSD and get more OUSD in exchange than originally invested.</p>
         </Trans>
       </div>
       <div className={styles.second + " " + styles.img}>
