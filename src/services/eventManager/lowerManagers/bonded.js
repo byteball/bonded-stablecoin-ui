@@ -35,7 +35,7 @@ export const bondedEventManager = ({
           rate_update_ts,
           old_growth_factor
         );
-        T3 = payload.tokens2 * growth_factor ? payload.tokens2 / 10 ** decimals2 : 0;
+        T3 = payload.tokens2 ? Number((payload.tokens2 * growth_factor) / 10 ** decimals2).toFixed(decimals2) : 0;
       } else {
         T2 = payload.tokens2 ? payload.tokens2 / 10 ** decimals2 : 0;
       }
