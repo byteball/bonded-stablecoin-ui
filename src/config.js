@@ -19,7 +19,7 @@ let config = {
       feedCurrency: "USD",
     },
     [process.env.REACT_APP_OUSD_RESERVE_ASSET || '']: {
-      name: "OUSDV2",
+      name: "OUSD",
       decimals: 4,
     },
     [process.env.REACT_APP_OBIT_RESERVE_ASSET || '']: {

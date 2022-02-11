@@ -433,7 +433,7 @@
     "volatility": "1% was added to protect against price volatility, you'll get this amount back if the prices don't change.",
     "open_wallet": "Clicking \"Buy\" will open your Obyte wallet. <1>Install</1> it if you don't have one yet.",
     "min": "Sorry, the minimum {{activeCurrency}} amount is {{min}}. Please increase the {{activeCurrency}} amount.",
-    "buying_v2": "For buying stable tokens (OUSDV2, OBIT, etc), fund tokens (SFUSD, SFGB, etc), and redemption, go to the <2>trading page</2>.",
+    "buying_v2": "For buying stable tokens (OUSD, OBIT, etc), fund tokens (SFUSD, SFGB, etc), and redemption, go to the <2>trading page</2>.",
     "updated": "This page will be updated automatically",
     "status": "Status",
     "status_loading": "loading status...",
@@ -625,7 +625,7 @@
   "faq": {
     "questions": {
       "0": {
-        "question": "How do I buy/sell IUSD, OUSDV2, or SFUSD?",
+        "question": "How do I buy/sell IUSD, OUSD, or SFUSD?",
         "answer": "<0>You can buy or sell the tokens for GBYTE on the <1>home page</1>, on the more advanced <3>trading page</3>, or buy IUSD for BTC on the <5>Buy with Bitcoin page</5> of this website. The website helps you to construct a request that you send to an <7>Autonomous Agent</7> from your <9>Obyte</9> wallet.</0><1>Some exchanges might also list the tokens to enable you to buy/sell them for BTC or fiat.</1>"
       },
       "3": {
@@ -654,11 +654,11 @@
       },
       "9": {
         "question": "How are bonded stablecoins different from DAI, USDT, USDC, etc?",
-        "answer": "<0>One can earn interest with bonded stablecoins. When OUSDV2 stablecoins are not used, one can \"stake\" them by converting to IUSD whose target price constantly grows. After some time, one can convert IUSD back to OUSDV2 and get more OUSDV2 in exchange, which reflects the interest earned while OUSDV2 was staked.</0>"
+        "answer": "<0>One can earn interest with bonded stablecoins. When OUSD stablecoins are not used, one can \"stake\" them by converting to IUSD whose target price constantly grows. After some time, one can convert IUSD back to OUSD and get more OUSD in exchange, which reflects the interest earned while OUSD was staked.</0>"
       },
       "10": {
         "question": "How do bonded stablecoins compare against discount stablecoins?",
-        "answer": "<0>Bonded stablecoins is our next generation stablecoin design and it improves above <1>discount stablecoins</1> in virtually all dimensions. In particular:</0><1><0>- bonded stablecoins do not expire any more, they are perpetual.</0><1>- OUSDV2 is truly stable, there is no appreciation, it targets the familiar and well-established unit of account, USD.</1><2>- there are no auctions any more and users don’t need to look after their loans and refill collateral or risk losing their collateral when its price falls abruptly.</2><3>- there is no overcollateralization any more, which was commonly misunderstood.</3><4>- there is no need to balance risks against the amount of capital wasted in excess collateral.</4></1>"
+        "answer": "<0>Bonded stablecoins is our next generation stablecoin design and it improves above <1>discount stablecoins</1> in virtually all dimensions. In particular:</0><1><0>- bonded stablecoins do not expire any more, they are perpetual.</0><1>- OUSD is truly stable, there is no appreciation, it targets the familiar and well-established unit of account, USD.</1><2>- there are no auctions any more and users don’t need to look after their loans and refill collateral or risk losing their collateral when its price falls abruptly.</2><3>- there is no overcollateralization any more, which was commonly misunderstood.</3><4>- there is no need to balance risks against the amount of capital wasted in excess collateral.</4></1>"
       },
       "11": {
         "question": "Can I trade with leverage?",
@@ -673,8 +673,8 @@
         "answer": "<0>In v2 stablecoins, they are used to automatically keep the price near the peg. </0><1>The Decision Engine (DE) is an Autonomous Agent that uses the funds in the Stability Fund to correct the price by buying or selling growth tokens. The Stability Fund is another AA that just holds all growth tokens and assets in the reserve currency contributed by investors. The investors get shares of the fund in exchange.</1><2>Since the fund holds growth tokens as part of its assets, and they appreciate as more interest (stable+) tokens are issued, buying shares of the fund is a way to bet on growth of the companion stablecoin.</2><3>The DE can be replaced by governance to optimize its behavior to both better keep the peg and generate greater shareholder value.</3>"
       },
       "14": {
-        "question": "Can OUSDV2 be staked?",
-        "answer": "<0>Yes, just convert it to IUSD. Any time later, you can sell IUSD back to OUSDV2 and get more OUSDV2.</0>"
+        "question": "Can OUSD be staked?",
+        "answer": "<0>Yes, just convert it to IUSD. Any time later, you can sell IUSD back to OUSD and get more OUSD.</0>"
       }
     },
     "action": "Any other questions? Read the <1> introductory article </1> or ask on <3>Discord</3>."
@@ -716,18 +716,18 @@
     "tokens": {
       "interest": {
         "title": "IUSD — interest token that earns 16% interest in USD",
-        "follow": "<0>IUSD is for investors seeking predictable income.</0><1>Its price is programmed to follow the growing target price. It started at exactly 1 USD on April 16, 2021 and the target price of the token grows at 16% per year. In one year, it is expected to be $1.16, in two years — $1.3456. It is a <1>stable+</1> coin.</1>"
+        "follow": "<0>IUSD is for investors seeking predictable income.</0><1>Its price is programmed to follow the growing target price. It started at exactly 1 USD on April 16, 2021 and the target price of the token grows at 16% per year. In one year, it is expected to be $1.16, in two years — $1.3456. It is a <1>stable+</1> coin. (Now the growth rate is 20% after it was changed by a governance vote.)</1>"
       },
       "stable": {
-        "title": "OUSDV2 — a USD-pegged stablecoin",
-        "payments": "<0>OUSDV2 is a familiar unit of account best suited for payments. </0><1>Unlike USD, it can be freely and instantly moved cross-border, and the fees are fractions of a cent.</1>",
+        "title": "OUSD — a USD-pegged stablecoin",
+        "payments": "<0>OUSD is a familiar unit of account best suited for payments. </0><1>Unlike USD, it can be freely and instantly moved cross-border, and the fees are fractions of a cent.</1>",
         "programmed": "<0>Its price is programmed to stay near 1 USD.</0>",
-        "exchange": "<0>You can “stake” OUSDV2 by converting it to IUSD. Any time later, you can make a reverse conversion and get more OUSDV2 in exchange.</0>"
+        "exchange": "<0>You can “stake” OUSD by converting it to IUSD. Any time later, you can make a reverse conversion and get more OUSD in exchange.</0>"
       },
       "fund": {
         "title": "SFUSD — growth and governance token",
         "risks": "<0>SFUSD is for investors seeking higher income, with higher risks.</0><1>SFUSD tokens are shares in the stability fund that is programmatically managed to keep the price of IUSD near the peg.</1><2>The price of SFUSD depends on the popularity of IUSD. As more IUSD tokens are issued, the price of SFUSD grows programmatically — this follows from the bonding curve mechanics. When IUSD tokens are redeemed, SFUSD falls in price.</2>",
-        "vote": "<0>SFUSD holders can vote to tune the interest rate and various parameters of the ecosystem that are important for keeping the peg. They can vote to replace the program, called Decision Engine (DE), that manages the fund. SFUSD holders can even vote to hire a management team tasked with promoting the use of OUSDV2 — which directly affects SFUSD price.</0>"
+        "vote": "<0>SFUSD holders can vote to tune the interest rate and various parameters of the ecosystem that are important for keeping the peg. They can vote to replace the program, called Decision Engine (DE), that manages the fund. SFUSD holders can even vote to hire a management team tasked with promoting the use of OUSD — which directly affects SFUSD price.</0>"
       }
     }
   },
@@ -786,9 +786,9 @@
     "title": "Stable+ coins",
     "sub_title_1": "Stablecoins that earn interest",
     "sub_title_2": "Best suited for investors seeking predictable income",
-    "programmed": "<0>The prices of <1>stable+</1> coins are programmed to follow the growing target price. For example, IUSD — a USD-pegged coin — started at exactly 1 USD on April 16, 2021 and the target price of the token grows at 16% per year. In one year, it is expected to be $1.16, in two years — $1.3456.</0>",
+    "programmed": "<0>The prices of <1>stable+</1> coins are programmed to follow the growing target price. For example, IUSD — a USD-pegged coin — started at exactly 1 USD on April 16, 2021 and the target price of the token grows at 16% per year. In one year, it is expected to be $1.16, in two years — $1.3456. (Now the growth rate is 20% after it was changed by a governance vote.)</0>",
     "curve": "<0>This is made possible by a bonding curve that mathematically bonds their prices with the prices of the companion <1>growth</1> tokens. Every deviation from the target price activates incentives for the traders stable+ tokens that make them buy or sell the tokens, plus there is a <3>stability fund</3> that buys and sells the growth tokens in order to change the price. They both eventually correct the price of the stable+ coin back to the target. They do so to make a profit.</0>",
-    "stake": "<0>If you received OUSDV2 — a USD-pegged stablecoin — you can \"stake\" it by converting to IUSD and holding IUSD. Any time later, you can convert IUSD back to OUSDV2 and get more OUSDV2 in exchange than originally invested.</0>",
+    "stake": "<0>If you received OUSD — a USD-pegged stablecoin — you can \"stake\" it by converting to IUSD and holding IUSD. Any time later, you can convert IUSD back to OUSD and get more OUSD in exchange than originally invested.</0>",
     "choose": "Choose your stable+ coin"
   },
   "notification": {

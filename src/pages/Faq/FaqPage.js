@@ -25,7 +25,7 @@ export const FaqPage = () => {
         )}
       >
         <Panel
-          header={t("faq.questions.0.question", "How do I buy/sell IUSD, OUSDV2, or SFUSD?")}
+          header={t("faq.questions.0.question", "How do I buy/sell IUSD, OUSD, or SFUSD?")}
           key="0"
           className={styles.panel}
         >
@@ -170,7 +170,7 @@ export const FaqPage = () => {
         >
           <Trans i18nKey="faq.questions.9.answer">
             <p>
-              One can earn interest with bonded stablecoins. When OUSDV2 stablecoins are not used, one can "stake" them by converting to IUSD whose target price constantly grows. After some time, one can convert IUSD back to OUSDV2 and get more OUSDV2 in exchange, which reflects the interest earned while OUSDV2 was staked.
+              One can earn interest with bonded stablecoins. When OUSD stablecoins are not used, one can "stake" them by converting to IUSD whose target price constantly grows. After some time, one can convert IUSD back to OUSD and get more OUSD in exchange, which reflects the interest earned while OUSD was staked.
              </p>
           </Trans>
         </Panel>
@@ -191,7 +191,7 @@ export const FaqPage = () => {
                 - bonded stablecoins do not expire any more, they are perpetual.
               </li>
               <li>
-                - OUSDV2 is truly stable, there is no appreciation, it targets the
+                - OUSD is truly stable, there is no appreciation, it targets the
                 familiar and well-established unit of account, USD.
               </li>
               <li>
@@ -296,12 +296,12 @@ export const FaqPage = () => {
         </Panel>
 
         <Panel
-          header={t("faq.questions.14.question", "Can OUSDV2 be staked?")}
+          header={t("faq.questions.14.question", "Can OUSD be staked?")}
           key="14"
           className={styles.panel}
         >
           <Trans i18nKey="faq.questions.14.answer">
-            <p>Yes, just convert it to IUSD. Any time later, you can sell IUSD back to OUSDV2 and get more OUSDV2.</p>
+            <p>Yes, just convert it to IUSD. Any time later, you can sell IUSD back to OUSD and get more OUSD.</p>
           </Trans>
         </Panel>
       </Collapse>

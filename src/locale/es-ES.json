@@ -433,7 +433,7 @@
     "volatility": "1% fue añadido para proteger contra la volatilidad del precio, obtendrás esta cantidad de vuelta si el precio no cambia.",
     "open_wallet": "Clickear en “Comprar” abrirá tu billetera Obyte. <1>Instalala</1> si no tienes una todavía.",
     "min": "Lo sentimos, la cantidad mínima de {{activeCurrency}} es {{min}}. Por favor incrementa la cantidad de {{activeCurrency}}.",
-    "buying_v2": "Para comprar monedas estables (OUSDV2, OBIT, etc.), monedas de fondos (SFUSD, SFGB, etc), y canjear, ve a la <2>página de comercio</2>.",
+    "buying_v2": "Para comprar monedas estables (OUSD, OBIT, etc.), monedas de fondos (SFUSD, SFGB, etc), y canjear, ve a la <2>página de comercio</2>.",
     "updated": "Esta página se actualizará automáticamente",
     "status": "Estado",
     "status_loading": "cargando estado...",
@@ -625,7 +625,7 @@
   "faq": {
     "questions": {
       "0": {
-        "question": "¿Cómo compro/vendo IUSD, OUSDV2 o SFUSD?",
+        "question": "¿Cómo compro/vendo IUSD, OUSD o SFUSD?",
         "answer": "<0>Puedes comprar o vender las monedas por GBYTE en la <1>página de inicio</1>, en la <3>página de intercambio</3> más avanzada, o comprar IUSD por BTC en la <5>página de Comprar con Bitcoin</5> de este sitio web. El sitio web le ayuda a construir una solicitud que envías a un <7>Agente Autónomo</7> de tu billetera <9>Obyte</9>. </0><1>Algunos cambios también pueden listar las monedas para permitirte comprar/venderlos por BTC o metálico.</1>"
       },
       "3": {
@@ -654,7 +654,7 @@
       },
       "9": {
         "question": "¿Cómo son las monedas estables vinculadas diferentes de DAI, USDT, USDC, etc?",
-        "answer": "<0>Uno puede ganar intereses con monedas estables vinculadas. Cuando no se utilizan monedas estables OUSDV2, se pueden \"apostar\" convirtiéndolas a IUSD cuyo precio objetivo crece constantemente. Después de un tiempo, uno puede convertir IUSD de vuelta a OUSDV2 y obtener más OUSDV2 a cambio, lo que refleja el interés ganado mientras se apostaba OUSDV2.</0>"
+        "answer": "<0>Uno puede ganar intereses con monedas estables vinculadas. Cuando no se utilizan monedas estables OUSD, se pueden \"apostar\" convirtiéndolas a IUSD cuyo precio objetivo crece constantemente. Después de un tiempo, uno puede convertir IUSD de vuelta a OUSD y obtener más OUSD a cambio, lo que refleja el interés ganado mientras se apostaba OUSD.</0>"
       },
       "10": {
         "question": "¿Cómo se comparan las monedas estables vinculadas con las monedas estables de descuento?",
@@ -673,8 +673,8 @@
         "answer": "<0>En monedas estables v2, se utilizan para mantener automáticamente el precio cerca de la fijación. </0><1>El Motor de Decisiones (DE) es un Agente Autónomo que utiliza los fondos del Fondo de Estabilidad para corregir el precio comprando o vendiendo monedas de crecimiento. El Fondo de Estabilidad es otro AA que sólo guarda todos las monedas de crecimiento y activos en la moneda de reserva aportados por los inversores. Los inversores obtienen a cambio acciones del fondo. </1><2>Puesto que el fondo guarda monedas de crecimiento como parte de sus activos, y se aprecian a medida que se emiten monedas de interés (estable+), comprar acciones del fondo es una forma de apostar al crecimiento de la moneda estable compañera. </2><3>El DE (motor de decisiones) puede ser reemplazado por la gobernación tanto para optimizar su comportamiento como para mantener mejor la fijación y generar un mayor valor del accionista.</3>"
       },
       "14": {
-        "question": "¿Se puede apostar OUSDV2?",
-        "answer": "<0>Sí, simplemente conviértelo a IUSD. En cualquier momento más tarde, puedes vender IUSD de vuelta a OUSDV2 y obtener más OUSDV2.</0>"
+        "question": "¿Se puede apostar OUSD?",
+        "answer": "<0>Sí, simplemente conviértelo a IUSD. En cualquier momento más tarde, puedes vender IUSD de vuelta a OUSD y obtener más OUSD.</0>"
       }
     },
     "action": "¿Alguna otra pregunta? Lee el <1>artículo introductorio </1> o haz una pregunta en <3>Discord</3>."
@@ -719,15 +719,15 @@
         "follow": "<0>IUSD es para inversores que buscan ingresos predecibles.</0><1>Su precio está programado para seguir el precio objetivo en crecimiento. Comenzó exactamente en 1 USD el 16 de abril de 2021 y el precio objetivo de la ficha crece al 16 % anual. En un año, se espera que sea de $1.16, en dos años — $1.3456. Es una <1>moneda </1>estable+.</1>"
       },
       "stable": {
-        "title": "OUSDV2 — una moneda vinculada al USD",
-        "payments": "<0>OUSDV2 es una unidad familiar de cuenta más adecuada para pagos. </0><1>A diferencia de USD, se puede mover libremente y al instante a través de las fronteras, y las comisiones son fracciones de centavo.</1>",
+        "title": "OUSD — una moneda vinculada al USD",
+        "payments": "<0>OUSD es una unidad familiar de cuenta más adecuada para pagos. </0><1>A diferencia de USD, se puede mover libremente y al instante a través de las fronteras, y las comisiones son fracciones de centavo.</1>",
         "programmed": "<0>Su precio está programado para permanecer cerca de 1 USD.</0>",
-        "exchange": "<0>Puedes “apostar” OUSDV2 convirtiéndola a IUSD. En cualquier momento más tarde, puedes hacer una conversión inversa y obtener más OUSDV2 a cambio.</0>"
+        "exchange": "<0>Puedes “apostar” OUSD convirtiéndola a IUSD. En cualquier momento más tarde, puedes hacer una conversión inversa y obtener más OUSD a cambio.</0>"
       },
       "fund": {
         "title": "SFUSD — moneda de crecimiento y gobernación",
         "risks": "<0>SFUSD es para inversores que buscan mayores ingresos, con mayores riesgos. </0><1>Monedas SFUSD son acciones en el fondo de estabilidad que se gestionan programáticamente para mantener el precio de IUSD cerca de la fijación. </1><2>El precio de SFUSD depende de la popularidad de IUSD. A medida que se emiten más monedas IUSD, el precio de SFUSD crece programáticamente — esto se desprende de las mecánicas de la curva de unión. Cuando las monedas IUSD son canjeadas, SFUSD cae en precio.</2>",
-        "vote": "<0>Los dueños de SFUSD pueden votar para ajustar la tasa de interés y varios parámetros del ecosistema que son importantes para mantener la fijación. Pueden votar para reemplazar el programa, llamado Motor de Decisiones (DE), que administra el fondo. Los dueños de SFUSD pueden incluso votar para contratar un equipo de administración encargado de promover el uso de OUSDV2 — lo que afecta directamente el precio de SFUSD.</0>"
+        "vote": "<0>Los dueños de SFUSD pueden votar para ajustar la tasa de interés y varios parámetros del ecosistema que son importantes para mantener la fijación. Pueden votar para reemplazar el programa, llamado Motor de Decisiones (DE), que administra el fondo. Los dueños de SFUSD pueden incluso votar para contratar un equipo de administración encargado de promover el uso de OUSD — lo que afecta directamente el precio de SFUSD.</0>"
       }
     }
   },
@@ -788,7 +788,7 @@
     "sub_title_2": "Mejor para los inversores que buscan ingresos predecibles",
     "programmed": "<0>Los precios de las monedas <1>estables+</1> están programados para seguir el precio objetivo creciente. Por ejemplo, IUSD — una moneda vinculada al USD— comenzó exactamente a 1 USD el 16 de abril. 2021 y el precio objetivo de la ficha crece a un 16% anual. En un año, se espera que sea de 1.16$, en dos años — 1.3456$.</0>",
     "curve": "<0>Esto es posible gracias a una curva de unión que vincula matemáticamente sus precios con los precios de las monedas de <1>crecimiento</1> compañeras. Cada desviación del precio objetivo activa incentivos para los operadores de monedas estables+ que los hacen comprar o vender las monedas, además hay un <3>fondo de estabilidad</3> que compra y vende las monedas de crecimiento para cambiar el precio. Ambos corrigen eventualmente el precio de la moneda estable+ de vuelta al objetivo. Lo hacen para obtener una ganancia.</0>",
-    "stake": "<0>Si recibes OUSDV2 — una moneda estable vinculada al USD, puedes \"apostar\" convirtiéndola a IUSD y guardando IUSD. En cualquier momento más tarde, puedes convertir IUSD de vuelta a OUSDV2 y obtener más OUSDV2 a cambio, más de lo que originalmente invertiste.</0>",
+    "stake": "<0>Si recibes OUSD — una moneda estable vinculada al USD, puedes \"apostar\" convirtiéndola a IUSD y guardando IUSD. En cualquier momento más tarde, puedes convertir IUSD de vuelta a OUSD y obtener más OUSD a cambio, más de lo que originalmente invertiste.</0>",
     "choose": "Elige tu moneda estable+"
   },
   "notification": {
