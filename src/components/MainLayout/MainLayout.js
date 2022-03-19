@@ -30,6 +30,7 @@ export const MainLayout = ({ children, walletModalVisible, setWalletModalVisibil
   const { t } = useTranslation();
   const [activeMenu, setActiveMenu] = useState(false);
   const {visitedBefore, lang} = useSelector(state => state.settings);
+  const loading = useSelector(state => state.active.loading);
 
   useEffect(() => {
     const unlisten = historyInstance.listen((location, action) => {
@@ -149,7 +150,7 @@ export const MainLayout = ({ children, walletModalVisible, setWalletModalVisibil
         />
         <Route path="/:lang?/trade/:address?/:tab?" exact>
           <SelectStablecoin />
-          <Statistics windowWidth={width} />
+          {!loading && <Statistics windowWidth={width} />}
         </Route>
         {children !== undefined && children !== null && (
           <div style={{ background: "#fff", padding: 20 }}>
