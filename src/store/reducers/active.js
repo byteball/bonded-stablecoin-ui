@@ -44,7 +44,8 @@ export const activeReducer = (state = initialState, action) => {
     case REQ_CHANGE_ACTIVE: {
       return {
         ...state,
-        loading: true
+        loading: true,
+        address: action.payload
       }
     }
     case CHANGE_ACTIVE: {
