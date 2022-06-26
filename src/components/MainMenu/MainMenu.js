@@ -35,11 +35,6 @@ export const MainMenu = ({ mode, pathname, onClose, width }) => {
           {t("main_menu.buy_with_btc", "Buy with Bitcoin")}
         </NavLink>
       </Menu.Item>
-      <Menu.Item key={`${basename}/referral`} style={{ marginRight: 10 }}>
-        <NavLink to={`${basename}/referral`} activeClassName="selected" style={{ margin: 0, padding: 0 }}>
-          {t("main_menu.referral", "Referral program")}
-        </NavLink>
-      </Menu.Item>
       <Menu.Item key={`${basename}/create`}>
         <NavLink to={`${basename}/create`} activeClassName="selected">
           {t("main_menu.create", "Create")}
