@@ -1,0 +1,12 @@
+{
+	"version": "1.0",
+	"description": "Arbitrage between Ostable and Oswap v1",
+	"homepage_url": "https://ostable.org",
+	"source_url": "https://github.com/byteball/stable-oswap-arb",
+	"field_descriptions": {
+		"arb": "Execute arbitrage if possible.",
+		"withdraw": "Withdraw funds",
+		"asset": "Asset to withdraw",
+		"amount": "Amount to withdraw"
+	}
+}
