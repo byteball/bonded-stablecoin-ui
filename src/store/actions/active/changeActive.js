@@ -7,7 +7,8 @@ import { getPrevTransactions } from "./getPrevTransactions";
 export const changeActive = (address) => async (dispatch, getState, socket) => {
 
   dispatch({
-    type: REQ_CHANGE_ACTIVE
+    type: REQ_CHANGE_ACTIVE,
+    payload: address
   });
 
   const store = getState();

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Tabs, Col, Row, BackTop } from "antd";
+import { Tabs, Col, Row, BackTop, Spin } from "antd";
 import ReactGA from "react-ga";
 import {
   InteractionOutlined,
@@ -169,7 +169,11 @@ export const MainPage = ({ setWalletModalVisibility }) => {
     })
   }
 
-  if (address === undefined || !loaded) {
+  if (loading) {
+    return <div style={{ padding: 40, textAlign: "center" }}>
+      <Spin size="large" />
+    </div>
+  } else if (address === undefined || !loaded) {
     return null;
   } else if (
     !handleSkip &&
