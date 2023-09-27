@@ -30,7 +30,7 @@ const ReasonsNotTracking = ({ forwardedRef }) => {
           <div className={styles.item}>
             <div className={styles.label}>003</div>
             <div className={styles.info}>
-              {t("home.reasons.info.2", "They live on a DAG: no fucking miners, no blocks, no miner manipulation, no bribing of miners with fees.")}
+              {t("home.reasons.info.2", "They live on a DAG: no miners, no blocks, no miner manipulation, no bribing of miners with fees.")}
             </div>
           </div>
 
