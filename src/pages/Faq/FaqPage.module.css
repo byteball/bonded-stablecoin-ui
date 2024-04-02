@@ -14,11 +14,16 @@
 }
 
 .panel {
-  background-color: #fafafa !important;
-  border-radius: 15px !important;
-  margin-bottom: 20px !important;
-  border-bottom: none !important;
-  color: #333333 !important;
+  background-color: #fafafa;
+  border-radius: 15px;
+  padding-bottom: 16px;
+  border-bottom: none;
+  padding-left: 16px;
+  padding-right: 16px;
+  margin-bottom: 20px;
+  font-size: 16px;
+  line-height: 25px;
+  color: rgba(0, 0, 0, 0.65);
 }
 
 .panel ul {
@@ -31,19 +36,14 @@
   text-decoration: underline;
 }
 
-:global(.faq .ant-collapse-header) {
-  font-size: 18px !important;
-  line-height: 25px !important;
-  font-weight: bold !important;
-  padding-top: 20px !important;
-  padding-bottom: 20px !important;
-  color: #333333 !important;
-}
-
-:global(.faq .ant-collapse-content-box) {
-  font-size: 16px;
+:global(.faq h2) {
+  font-size: 18px;
   line-height: 25px;
-  color: rgba(0, 0, 0, 0.65);
+  font-weight: bold;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  color: #333333 !important;
+  margin-bottom: 4px;
 }
 
 .icon {
