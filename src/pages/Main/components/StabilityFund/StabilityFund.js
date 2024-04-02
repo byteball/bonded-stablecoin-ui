@@ -160,7 +160,7 @@ export const StabilityFund = () => {
 
   return <div>
     <Title style={{ marginBottom: 0 }} level={3}>{t("trade.tabs.stability_fund.title", "Stability fund")}</Title>
-    <Paragraph type="secondary">{t("trade.tabs.stability_fund.desc", "In v2 stablecoins, the fund is used to automatically keep the price near the peg.")}</Paragraph>
+    <Paragraph type="secondary">{t("trade.tabs.stability_fund.desc", "In v2 stablecoins, the fund is used to automatically keep the price near the peg as much as possible.")}</Paragraph>
 
 
     <Title level={4}>{t("trade.tabs.stability_fund.info_title", "Fund information")}</Title>

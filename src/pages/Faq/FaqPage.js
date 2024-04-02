@@ -77,11 +77,11 @@ export const FaqPage = () => {
         >
           <Trans i18nKey="faq.questions.5.answer">
             <p>
-              It’s not zero-sum. In the bonding curve that is used to issue the
+              It’s not zero-sum (assuming the peg holds). In the bonding curve that is used to issue the
               tokens, the total value of the tokens is greater than the value of
               the reserve that was initially invested to create them. So, yes, it
               is possible for each group to win in terms of the value of their
-              assets, and not at the expense of the other group.
+              assets while the system grows, and not at the expense of the other group.
             </p>
           </Trans>
         </Panel>
@@ -288,7 +288,7 @@ export const FaqPage = () => {
           className={styles.panel}
         >
           <Trans i18nKey="faq.questions.13.answer">
-            <p>In v2 stablecoins, they are used to automatically keep the price near the peg. </p>
+            <p>In v2 stablecoins, they are used to automatically keep the price near the peg as much as possible. </p>
             <p>The Decision Engine (DE) is an Autonomous Agent that uses the funds in the Stability Fund to correct the price by buying or selling growth tokens. The Stability Fund is another AA that just holds all growth tokens and assets in the reserve currency contributed by investors. The investors get shares of the fund in exchange.</p>
             <p>Since the fund holds growth tokens as part of its assets, and they appreciate as more interest (stable+) tokens are issued, buying shares of the fund is a way to bet on growth of the companion stablecoin.</p>
             <p>The DE can be replaced by governance to optimize its behavior to both better keep the peg and generate greater shareholder value.</p>

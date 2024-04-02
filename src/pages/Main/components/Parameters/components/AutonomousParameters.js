@@ -23,7 +23,7 @@ export const AutonomousParameters = ({
         <span>
           <a
             href={`https://${config.TESTNET ? "testnet" : ""
-              }explorer.obyte.org/#${curve_aa}`}
+              }explorer.obyte.org/address/${curve_aa}`}
             target="_blank"
             rel="noopener"
           >
@@ -39,7 +39,7 @@ export const AutonomousParameters = ({
         <span>
           <a
             href={`https://${config.TESTNET ? "testnet" : ""
-              }explorer.obyte.org/#${deposit_aa}`}
+              }explorer.obyte.org/address/${deposit_aa}`}
             target="_blank"
             rel="noopener"
           >
@@ -55,7 +55,7 @@ export const AutonomousParameters = ({
         <span>
           <a
             href={`https://${config.TESTNET ? "testnet" : ""
-              }explorer.obyte.org/#${stable_aa}`}
+              }explorer.obyte.org/address/${stable_aa}`}
             target="_blank"
             rel="noopener"
           >
@@ -71,7 +71,7 @@ export const AutonomousParameters = ({
         <span>
           <a
             href={`https://${config.TESTNET ? "testnet" : ""
-              }explorer.obyte.org/#${fund_aa}`}
+              }explorer.obyte.org/address/${fund_aa}`}
             target="_blank"
             rel="noopener"
           >
@@ -87,7 +87,7 @@ export const AutonomousParameters = ({
         <span>
           <a
             href={`https://${config.TESTNET ? "testnet" : ""
-              }explorer.obyte.org/#${governance_aa}`}
+              }explorer.obyte.org/address/${governance_aa}`}
             target="_blank"
             rel="noopener"
           >
@@ -104,7 +104,7 @@ export const AutonomousParameters = ({
         <span>
           <a
             href={`https://${config.TESTNET ? "testnet" : ""
-              }explorer.obyte.org/#${decision_engine_aa}`}
+              }explorer.obyte.org/address/${decision_engine_aa}`}
             target="_blank"
             rel="noopener"
           >

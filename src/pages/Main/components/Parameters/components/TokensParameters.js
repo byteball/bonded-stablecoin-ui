@@ -27,7 +27,7 @@ export const TokensParameters = ({
           {symbol1 ? (symbol1 + ", " + t("trade.tabs.parameters.asset", "asset") + ": ") : null}
           <a
             href={`https://${config.TESTNET ? "testnet" : ""
-              }explorer.obyte.org/#${asset1}`}
+              }explorer.obyte.org/asset/${symbol1 || asset1}`}
             target="_blank"
             rel="noopener"
           >
@@ -45,7 +45,7 @@ export const TokensParameters = ({
           {symbol2 ? (symbol2 + ", " + t("trade.tabs.parameters.asset", "asset") + ": ") : null}
           <a
             href={`https://${config.TESTNET ? "testnet" : ""
-              }explorer.obyte.org/#${asset2}`}
+              }explorer.obyte.org/asset/${symbol2 || asset2}`}
             target="_blank"
             rel="noopener"
           >
@@ -62,7 +62,7 @@ export const TokensParameters = ({
           {symbol3 ? (symbol3 + ", " + t("trade.tabs.parameters.asset", "asset") + ": ") : null}
           <a
             href={`https://${config.TESTNET ? "testnet" : ""
-              }explorer.obyte.org/#${asset}`}
+              }explorer.obyte.org/asset/${symbol3 || asset}`}
             target="_blank"
             rel="noopener"
           >
@@ -79,7 +79,7 @@ export const TokensParameters = ({
           {symbol4 ? (symbol4 + ", " + t("trade.tabs.parameters.asset", "asset") + ": ") : null}
           <a
             href={`https://${config.TESTNET ? "testnet" : ""
-              }explorer.obyte.org/#${shares_asset}`}
+              }explorer.obyte.org/asset/${symbol4 || shares_asset}`}
             target="_blank"
             rel="noopener"
           >

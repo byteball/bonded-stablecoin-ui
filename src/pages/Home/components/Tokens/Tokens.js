@@ -66,13 +66,13 @@ const InterestNotTracking = ({ forwardedRef, isShown }) => {
   return (
     <div className={styles.tokens} ref={forwardedRef}>
       <h3 className={styles.tokensTitle}>
-        {t("home.tokens.interest.title", "IUSD — interest token that earns 16% interest in USD")}
+        {t("home.tokens.interest.title", "IUSD — interest token that aims to earn 16% interest in USD")}
       </h3>
       <div className={styles.wrapper}>
         <div className={styles.first + " " + styles.text}>
           <Trans i18nKey="home.tokens.interest.follow">
             <p>IUSD is for investors seeking predictable income.</p>
-            <p>Its price is programmed to follow the growing target price. It started at exactly 1 USD on April 16, 2021 and the target price of the token grows at 16% per year. In one year, it is expected to be $1.16, in two years — $1.3456. It is a <b>stable+</b> coin. (Now the growth rate is 20% after it was changed by a governance vote.)</p>
+            <p>Its price is programmed to gravitate to the growing target price. It started at exactly 1 USD on April 16, 2021 and the target price of the token grows at 16% per year. In one year, it is expected to be $1.16, in two years — $1.3456. It is a <b>stable+</b> coin. (Now the growth rate is 20% after it was changed by a governance vote.)</p>
           </Trans>
         </div>
         <div className={styles.second + " " + styles.img}>
@@ -106,7 +106,7 @@ const StableNotTracking = ({ forwardedRef, isShown, isShownCoinAnimation, setSho
       <div className={styles.wrapper}>
         <div className={styles.first + " " + styles.text}>
           <Trans i18nKey="home.tokens.stable.programmed">
-            <p>Its price is programmed to stay near 1 USD.</p>
+            <p>Its price is programmed to gravitate to 1 USD.</p>
           </Trans>
         </div>
         <div className={styles.second + " " + styles.img}>
@@ -147,7 +147,7 @@ const GrowthNotTracking = ({ forwardedRef, isShown }) => {
         <div className={styles.first + " " + styles.text}>
           <Trans i18nKey="home.tokens.fund.risks">
             <p>SFUSD is for investors seeking higher income, with higher risks.</p>
-            <p>SFUSD tokens are shares in the stability fund that is programmatically managed to keep the price of IUSD near the peg.</p>
+            <p>SFUSD tokens are shares in the stability fund that is programmatically managed to push the price of IUSD closer to the peg.</p>
             <p>The price of SFUSD depends on the popularity of IUSD. As more IUSD tokens are issued, the price of SFUSD grows programmatically — this follows from the bonding curve mechanics. When IUSD tokens are redeemed, SFUSD falls in price.</p>
           </Trans>
         </div>

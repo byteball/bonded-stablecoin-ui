@@ -165,7 +165,7 @@ export const HowItWorksPage = () => {
               <div style={{ fontWeight: "bold", fontSize: 24, marginBottom: 5 }}><Trans i18nKey="how_it_works_v2.title_fund">2. Stability Fund</Trans></div>
               <Trans i18nKey="how_it_works_v2.fund">
                 The fund holds the entire supply of GRDV2 and some amount of the reserve currency GBYTE that was contributed by investors.
-                The fund is algorithmically managed by an Autonomous Agent called <b>Decision Engine</b>, which can use the fund’s GBYTE and GRDV2
+                The fund is algorithmically managed by an Autonomous Agent called <b>Decision Engine</b>, which can use the fund’s GBYTE (if sufficient) and GRDV2
                 to buy or redeem GRDV2 in order to change its supply <i>s</i><sub>1</sub> and thus change the price <i>p</i><sub>2</sub> back to the target. Investors buy shares
                 SFUSD in the fund by contributing GBYTE into its reserves. They do so anticipating that the shares would appreciate thanks
                 to the growth of IUSD issuance which raises the worth of the fund’s GRDV2 holdings.
