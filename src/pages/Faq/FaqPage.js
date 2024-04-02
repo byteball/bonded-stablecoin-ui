@@ -1,12 +1,10 @@
 import React from "react";
-import { Collapse, Typography } from "antd";
-import { DownOutlined } from "@ant-design/icons";
+import { Typography } from "antd";
 import { Trans, useTranslation } from 'react-i18next';
 import { Helmet } from "react-helmet";
 
 import styles from "./FaqPage.module.css";
 
-const { Panel } = Collapse;
 const { Title } = Typography;
 export const FaqPage = () => {
   const { t } = useTranslation();
@@ -15,20 +13,9 @@ export const FaqPage = () => {
     <div className="faq">
       <Helmet title="Bonded stablecoins - F.A.Q." />
       <Title level={1}>F.A.Q.</Title>
-      <Collapse
-        accordion
-        expandIconPosition="right"
-        bordered={false}
-        className={styles.collapse}
-        expandIcon={({ isActive }) => (
-          <DownOutlined rotate={isActive ? 180 : 0} className={styles.icon} />
-        )}
-      >
-        <Panel
-          header={t("faq.questions.0.question", "How do I buy/sell IUSD, OUSD, or SFUSD?")}
-          key="0"
-          className={styles.panel}
-        >
+      <div>
+        <div key="0" className={styles.panel}>
+          <h2>{t("faq.questions.0.question", "How do I buy/sell IUSD, OUSD, or SFUSD?")}</h2>
           <Trans i18nKey="faq.questions.0.answer">
             <p>
               You can buy or sell the tokens for GBYTE on the <a href="/">home page</a>, on the more advanced <a href="/trade">trading page</a>, or buy IUSD for BTC on the <a href="/buy">Buy with Bitcoin page</a> of this website. The website helps
@@ -40,13 +27,10 @@ export const FaqPage = () => {
               them for BTC or fiat.
             </p>
           </Trans>
-        </Panel>
+        </div>
 
-        <Panel
-          header={t("faq.questions.3.question", "Who operates the minting of all these tokens?")}
-          key="3"
-          className={styles.panel}
-        >
+        <div key="3" className={styles.panel}>
+          <h2>{t("faq.questions.3.question", "Who operates the minting of all these tokens?")}</h2>
           <Trans i18nKey="faq.questions.3.answer">
             <p>
               A bunch of soulless agents. They are called <a href="https://obyte.org/platform/autonomous-agents" target="_blank" rel="noopener">Autonomous Agents</a> (AAs). They
@@ -54,13 +38,10 @@ export const FaqPage = () => {
               work.
             </p>
           </Trans>
-        </Panel>
+        </div>
 
-        <Panel
-          header={t("faq.questions.4.question", "Are AAs smart contracts?")}
-          key="4"
-          className={styles.panel}
-        >
+        <div key="4" className={styles.panel}>
+          <h2>{t("faq.questions.4.question", "Are AAs smart contracts?")}</h2>
           <Trans i18nKey="faq.questions.4.answer">
             <p>
               No, they are not <a href="https://obyte.org/platform/smart-contracts" target="_blank" rel="noopener">smart contracts</a>. They are neither smart, nor
@@ -68,13 +49,10 @@ export const FaqPage = () => {
               rules.
             </p>
           </Trans>
-        </Panel>
+        </div>
 
-        <Panel
-          header={t("faq.questions.5.question", "IUSD constantly grows thanks to interest. Assuming this attracts new users, SFUSD should grow too and both token holders win, who loses then?")}
-          key="5"
-          className={styles.panel}
-        >
+        <div key="5" className={styles.panel}>
+          <h2>{t("faq.questions.5.question", "IUSD constantly grows thanks to interest. Assuming this attracts new users, SFUSD should grow too and both token holders win, who loses then?")}</h2>
           <Trans i18nKey="faq.questions.5.answer">
             <p>
               It’s not zero-sum (assuming the peg holds). In the bonding curve that is used to issue the
@@ -84,13 +62,10 @@ export const FaqPage = () => {
               assets while the system grows, and not at the expense of the other group.
             </p>
           </Trans>
-        </Panel>
+        </div>
 
-        <Panel
-          header={t("faq.questions.6.question", "Does this system run on a blockchain?")}
-          key="6"
-          className={styles.panel}
-        >
+        <div key="6" className={styles.panel}>
+          <h2>{t("faq.questions.6.question", "Does this system run on a blockchain?")}</h2>
           <Trans i18nKey="faq.questions.6.answer">
             <p>
               No. It runs on a DAG (Directed Acyclic Graph) based distributed
@@ -115,13 +90,10 @@ export const FaqPage = () => {
               the order of transactions.
             </p>
           </Trans>
-        </Panel>
+        </div>
 
-        <Panel
-          header={t("faq.questions.7.question", "What makes stablecoins pegged to their benchmark?")}
-          key="7"
-          className={styles.panel}
-        >
+        <div key="7" className={styles.panel}>
+          <h2>{t("faq.questions.7.question", "What makes stablecoins pegged to their benchmark?")}</h2>
           <Trans i18nKey="faq.questions.7.answer">
             <p>
               The price of IUSD is “attracted” to the target (benchmark) with the
@@ -147,9 +119,10 @@ export const FaqPage = () => {
               details.
             </p>
           </Trans>
-        </Panel>
+        </div>
 
-        <Panel header={t("faq.questions.8.question", "What are the risks?")} key="8" className={styles.panel}>
+        <div key="8" className={styles.panel}>
+          <h2>{t("faq.questions.8.question", "What are the risks?")}</h2>
           <Trans i18nKey="faq.questions.8.answer">
             <p>
               This is new unproven technology and might not work as expected.
@@ -161,25 +134,19 @@ export const FaqPage = () => {
               of the predecessors.
             </p>
           </Trans>
-        </Panel>
+        </div>
 
-        <Panel
-          header={t("faq.questions.9.question", "How are bonded stablecoins different from DAI, USDT, USDC, etc?")}
-          key="9"
-          className={styles.panel}
-        >
+        <div key="9" className={styles.panel}>
+          <h2>{t("faq.questions.9.question", "How are bonded stablecoins different from DAI, USDT, USDC, etc?")}</h2>
           <Trans i18nKey="faq.questions.9.answer">
             <p>
               One can earn interest with bonded stablecoins. When OUSD stablecoins are not used, one can "stake" them by converting to IUSD whose target price constantly grows. After some time, one can convert IUSD back to OUSD and get more OUSD in exchange, which reflects the interest earned while OUSD was staked.
              </p>
           </Trans>
-        </Panel>
+        </div>
 
-        <Panel
-          header={t("faq.questions.10.question", "How do bonded stablecoins compare against discount stablecoins?")}
-          key="10"
-          className={styles.panel}
-        >
+        <div key="10" className={styles.panel}>
+          <h2>{t("faq.questions.10.question", "How do bonded stablecoins compare against discount stablecoins?")}</h2>
           <Trans i18nKey="faq.questions.10.answer">
             <p>
               Bonded stablecoins is our next generation stablecoin design and it
@@ -209,13 +176,10 @@ export const FaqPage = () => {
               </li>
             </ul>
           </Trans>
-        </Panel>
+        </div>
 
-        <Panel
-          header={t("faq.questions.11.question", "Can I trade with leverage?")}
-          key="11"
-          className={styles.panel}
-        >
+        <div key="11" className={styles.panel}>
+          <h2>{t("faq.questions.11.question", "Can I trade with leverage?")}</h2>
           <Trans i18nKey="faq.questions.11.answer">
             <p>
               Yes. You’ll need to create a leveraged stablecoin or use one that
@@ -260,13 +224,10 @@ export const FaqPage = () => {
               .
             </p>
           </Trans>
-        </Panel>
+        </div>
 
-        <Panel
-          header={t("faq.questions.12.question", "I want to trade a stablecoin pegged to asset X but it doesn’t exist")}
-          key="12"
-          className={styles.panel}
-        >
+        <div key="12" className={styles.panel}>
+          <h2>{t("faq.questions.12.question", "I want to trade a stablecoin pegged to asset X but it doesn’t exist")}</h2>
           <Trans i18nKey="faq.questions.12.answer">
             <p>
               If an oracle that posts the price of X already exists, you 
@@ -280,31 +241,26 @@ export const FaqPage = () => {
               </a>.
             </p>
           </Trans>
-        </Panel>
+        </div>
 
-        <Panel
-          header={t("faq.questions.13.question", "What is the Stability Fund and Decision Engine?")}
-          key="13"
-          className={styles.panel}
-        >
+        <div key="13" className={styles.panel}>
+          <h2>{t("faq.questions.13.question", "What is the Stability Fund and Decision Engine?")}</h2>
           <Trans i18nKey="faq.questions.13.answer">
             <p>In v2 stablecoins, they are used to automatically keep the price near the peg as much as possible. </p>
             <p>The Decision Engine (DE) is an Autonomous Agent that uses the funds in the Stability Fund to correct the price by buying or selling growth tokens. The Stability Fund is another AA that just holds all growth tokens and assets in the reserve currency contributed by investors. The investors get shares of the fund in exchange.</p>
             <p>Since the fund holds growth tokens as part of its assets, and they appreciate as more interest (stable+) tokens are issued, buying shares of the fund is a way to bet on growth of the companion stablecoin.</p>
             <p>The DE can be replaced by governance to optimize its behavior to both better keep the peg and generate greater shareholder value.</p>
           </Trans>
-        </Panel>
+        </div>
 
-        <Panel
-          header={t("faq.questions.14.question", "Can OUSD be staked?")}
-          key="14"
-          className={styles.panel}
-        >
+        <div key="14" className={styles.panel}>
+          <h2>{t("faq.questions.14.question", "Can OUSD be staked?")}</h2>
           <Trans i18nKey="faq.questions.14.answer">
             <p>Yes, just convert it to IUSD. Any time later, you can sell IUSD back to OUSD and get more OUSD.</p>
           </Trans>
-        </Panel>
-      </Collapse>
+        </div>
+      </div>
+
       <div className={styles.action}>
         <Trans i18nKey="faq.action">
           Any other questions? Read the 
