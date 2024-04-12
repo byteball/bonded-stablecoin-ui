@@ -216,9 +216,9 @@ export const MainPage = ({ setWalletModalVisibility }) => {
             <TabPane
               disabled={!("reserve" in bonded_state)}
               tab={
-                <span>
+                <a href={`${basename}/trade/${address}/charts`}>
                   <LineChartOutlined /> {t("trade.tabs.charts.name", "Charts")}
-                </span>
+                </a>
               }
               key="charts"
             >
@@ -226,9 +226,9 @@ export const MainPage = ({ setWalletModalVisibility }) => {
             </TabPane>
             <TabPane
               tab={
-                <span>
+                <a href={`${basename}/trade/${address}/buy-redeem`}>
                   <InteractionOutlined /> {t("trade.tabs.buy_redeem.name", "Buy/redeem")}
-                </span>
+                </a>
               }
               key="buy-redeem"
             >
@@ -258,9 +258,9 @@ export const MainPage = ({ setWalletModalVisibility }) => {
             {fund_aa ? <TabPane
               disabled={!("reserve" in bonded_state)}
               tab={
-                <span>
+                <a href={`${basename}/trade/${address}/fund`}>
                   <FundIcon /> {t("trade.tabs.stability_fund.name", "Stability fund")}
-                </span>
+                </a>
               }
               key="fund"
             >
@@ -268,9 +268,9 @@ export const MainPage = ({ setWalletModalVisibility }) => {
             </TabPane> : <TabPane
               disabled={!("reserve" in bonded_state) || (!bonded_state.interest_rate && !deposit_state.supply)}
               tab={
-                <span>
+                <a href={`${basename}/trade/${address}/deposits`}>
                   <ImportOutlined /> {t("trade.tabs.deposits.name", "Deposits")}
-                </span>
+                </a>
               }
               key="deposits"
             >
@@ -279,10 +279,10 @@ export const MainPage = ({ setWalletModalVisibility }) => {
             <TabPane
               disabled={!("reserve" in bonded_state)}
               tab={
-                <span>
+                <a href={`${basename}/trade/${address}/capacitor`}>
                   <CapacitorIcon />
                   {t("trade.tabs.capacitor.name", "Capacitors")}
-                </span>
+                </a>
               }
               key="capacitor"
             >
@@ -297,10 +297,10 @@ export const MainPage = ({ setWalletModalVisibility }) => {
             <TabPane
               disabled={!("reserve" in bonded_state)}
               tab={
-                <span>
+                <a href={`${basename}/trade/${address}/governance`}>
                   <GovernanceIcon />
                   {t("trade.tabs.governance.name", "Governance")}
-                </span>
+                </a>
               }
               key="governance"
             >
@@ -309,10 +309,10 @@ export const MainPage = ({ setWalletModalVisibility }) => {
             <TabPane
               disabled={!("reserve" in bonded_state)}
               tab={
-                <span>
+                <a href={`${basename}/trade/${address}/transactions`}>
                   <NodeIndexOutlined />
                   {t("trade.tabs.transactions.name", "Transactions")}
-                </span>
+                </a>
               }
               key="transactions"
             >
@@ -320,10 +320,10 @@ export const MainPage = ({ setWalletModalVisibility }) => {
             </TabPane>
             <TabPane
               tab={
-                <span>
+                <a href={`${basename}/trade/${address}/parameters`}>
                   <SlidersOutlined />
                   {t("trade.tabs.parameters.name", "Parameters")}
-                </span>
+                </a>
               }
               key="parameters"
             >

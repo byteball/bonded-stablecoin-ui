@@ -42,3 +42,8 @@ h4.ant-typography,
 .ant-table .ant-table-footer {
   padding-left: 0 !important;
 }
+
+.ant-tabs-tab-btn a {
+  color: inherit !important;
+  pointer-events: none;
+}
