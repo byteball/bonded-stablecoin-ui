@@ -37,7 +37,9 @@ const AppRouter = () => {
   
   useEffect(() => {
     if(!lang){
-      const language = navigator.language.split("-")[0];
+      const languageInUrl = window.location.pathname.split("/")[1];
+      const language = botCheck(navigator.userAgent) ? languageInUrl : navigator.language.split("-")[0];
+
       if(language && langs.find((lang) => lang.name === language)){
         dispatch(changeLanguage(language));
       } else {
