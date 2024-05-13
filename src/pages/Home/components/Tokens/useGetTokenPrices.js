@@ -13,6 +13,8 @@ export const useGetTokenPrices = (list, data, balances) => {
 
   let info = {};
   list && data && tokensList.forEach((item) => {
+    if(!list[item.address]) return;
+    
     info = {
       ...info, [item.pegged]: {
         bonded_state: item.address in data ? data[item.address] : {},

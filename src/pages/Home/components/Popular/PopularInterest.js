@@ -68,7 +68,7 @@ export const PopularInterest = ({ prices, hideTitle = false, showAll = false }) 
 
   const tokensListChanged = tokensList.map((item) => {
     const address = item.address;
-    const apy = ("interest_rate" in data[address].bonded_state ? data[address].bonded_state.interest_rate : data[address].params.interest_rate) * 100;
+    const apy = ("interest_rate" in (data[address]?.bonded_state || {}) ? data[address]?.bonded_state?.interest_rate : data[address]?.params?.interest_rate) * 100;
     return {
       ...item,
       apy
