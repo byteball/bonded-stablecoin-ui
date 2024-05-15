@@ -11,7 +11,7 @@ import { updateOracleValues } from "store/actions/active/updateOracleValues";
 import { botCheck } from "utils/botCheck";
 
 let client;
-if (!botCheck(navigator.userAgent)) {
+if (!botCheck()) {
   client = new obyte.Client(
     `wss://obyte.org/bb${config.TESTNET ? "-test" : ""}`,
     {

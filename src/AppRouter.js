@@ -38,7 +38,7 @@ const AppRouter = () => {
   useEffect(() => {
     if(!lang){
       const languageInUrl = window.location.pathname.split("/")[1];
-      const language = botCheck(navigator.userAgent) ? languageInUrl : navigator.language.split("-")[0];
+      const language = botCheck() ? languageInUrl : navigator.language.split("-")[0];
 
       if(language && langs.find((lang) => lang.name === language)){
         dispatch(changeLanguage(language));
@@ -51,7 +51,7 @@ const AppRouter = () => {
   }, [lang]);
 
   useEffect(()=>{
-    if(botCheck(navigator.userAgent)){
+    if(botCheck()){
       dispatch(getListForBot());
     } else {
       const update = (states, balances) => {
@@ -76,7 +76,7 @@ const AppRouter = () => {
     }
   }, [dispatch, activeWallet, loadedData]);
 
-  if ((!connected || !loaded) && !botCheck(navigator.userAgent)) return <Spinner />;
+  if ((!connected || !loaded) && !botCheck()) return <Spinner />;
 
   const langNames = langs.map((lang) => lang.name);
   const basename = `/:lang(${langNames.join("|")})?`;

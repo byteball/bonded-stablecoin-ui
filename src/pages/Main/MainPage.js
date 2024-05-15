@@ -100,7 +100,7 @@ export const MainPage = ({ setWalletModalVisibility }) => {
 
   useEffect(() => {
     if (urlParams.address && address !== urlParams.address) {
-      if (botCheck(navigator.userAgent)) {
+      if (botCheck()) {
         dispatch(changeActiveForBot(urlParams.address));
       } else {
         dispatch(changeActive(urlParams.address));
