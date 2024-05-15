@@ -32,15 +32,17 @@ const AppRouter = () => {
   const connected = useSelector((state) => state.connected);
   const { loaded } = useSelector((state) => state.list);
   const { loaded: loadedData } = useSelector((state) => state.data);
-  const { lang, activeWallet} = useSelector((state) => state.settings);
+  const { lang, activeWallet } = useSelector((state) => state.settings);
   const dispatch = useDispatch();
-  
-  useEffect(() => {
-    if(!lang){
-      const languageInUrl = window.location.pathname.split("/")[1];
-      const language = botCheck() ? languageInUrl : navigator.language.split("-")[0];
 
-      if(language && langs.find((lang) => lang.name === language)){
+  useEffect(() => {
+    if (!lang) {
+      const languageFromBrowserSettings = navigator.language.split("-")[0];
+
+      const languageInUrl = window.location.pathname.split("/")[1];
+      const language = botCheck() ? languageInUrl : (languageInUrl && langs.find((lang) => lang.name === languageInUrl) ? languageInUrl : languageFromBrowserSettings);
+
+      if (language && langs.find((lang) => lang.name === language)) {
         dispatch(changeLanguage(language));
       } else {
         dispatch(changeLanguage("en"));
@@ -50,22 +52,22 @@ const AppRouter = () => {
     }
   }, [lang]);
 
-  useEffect(()=>{
-    if(botCheck()){
+  useEffect(() => {
+    if (botCheck()) {
       dispatch(getListForBot());
     } else {
       const update = (states, balances) => {
         dispatch(updateData(states, balances));
       }
-      
+
       const handleSnapshot = (states, balances) => {
         dispatch(getData(states, balances));
       }
-      
+
       const onError = () => {
         dispatch(getDataError());
       }
-      
+
       updateProvider({ address: config.UPCOMING_STATE_WS_URL, update, handleSnapshot, onError });
     }
   }, []);
