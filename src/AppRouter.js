@@ -36,19 +36,32 @@ const AppRouter = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    const languageInUrl = window.location.pathname.split("/")[1];
+    const regexp = new RegExp(langs.map((lang) => '/' + lang.name).join("|"), "g");
+    const cleanedUrl = window.location.pathname.replace(regexp, "");
+
     if (!lang) {
       const languageFromBrowserSettings = navigator.language.split("-")[0];
-
-      const languageInUrl = window.location.pathname.split("/")[1];
       const language = botCheck() ? languageInUrl : (languageInUrl && langs.find((lang) => lang.name === languageInUrl) ? languageInUrl : languageFromBrowserSettings);
 
       if (language && langs.find((lang) => lang.name === language)) {
         dispatch(changeLanguage(language));
+
+        if (language !== languageInUrl) {
+          historyInstance.replace(`${language !== "en" ? '/' + language : ""}${cleanedUrl === "/" && language !== "en" ? "" : cleanedUrl}`);
+        }
       } else {
         dispatch(changeLanguage("en"));
+        historyInstance.replace(cleanedUrl);
       }
     } else {
       i18.changeLanguage(lang);
+
+      if (lang !== languageInUrl) {
+        historyInstance.replace(`${lang !== "en" ? '/' + lang : ""}${cleanedUrl === "/" ? "" : cleanedUrl}`);
+      } else if (lang === "en" && languageInUrl === "en") {
+        historyInstance.replace(cleanedUrl);
+      }
     }
   }, [lang]);
 
