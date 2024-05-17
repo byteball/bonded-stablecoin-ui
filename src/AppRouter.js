@@ -36,15 +36,17 @@ const AppRouter = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const languageInUrl = window.location.pathname.split("/")[1];
+    const pathname = window.location.pathname;
+    const langList = langs.map((lang) => lang.name);
+    const languageInUrl = langList.includes(pathname.split("/")[1]) ? pathname.split("/")[1] : null;
     const regexp = new RegExp(langs.map((lang) => '/' + lang.name).join("|"), "g");
-    const cleanedUrl = window.location.pathname.replace(regexp, "");
+    const cleanedUrl = pathname.replace(regexp, "");
 
     if (!lang) {
       const languageFromBrowserSettings = navigator.language.split("-")[0];
-      const language = botCheck() ? languageInUrl : (languageInUrl && langs.find((lang) => lang.name === languageInUrl) ? languageInUrl : languageFromBrowserSettings);
+      const language = botCheck() ? languageInUrl : (languageInUrl || languageFromBrowserSettings);
 
-      if (language && langs.find((lang) => lang.name === language)) {
+      if (language && langList.find((lang) => lang === language)) { // if language is in the list
         dispatch(changeLanguage(language));
 
         if (language !== languageInUrl) {
