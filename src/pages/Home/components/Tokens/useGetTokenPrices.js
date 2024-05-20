@@ -13,6 +13,8 @@ export const useGetTokenPrices = (list, data, balances) => {
 
   let info = {};
   list && data && tokensList.forEach((item) => {
+    if(!list[item.address]) return;
+    
     info = {
       ...info, [item.pegged]: {
         bonded_state: item.address in data ? data[item.address] : {},
@@ -26,7 +28,7 @@ export const useGetTokenPrices = (list, data, balances) => {
   
   useEffect(() => {
     (async () => {
-      const isBot = botCheck(navigator.userAgent);
+      const isBot = botCheck();
       const GBYTE_USD = isBot ? await axios.get(config.BUFFER_URL + "/get_data_feed/" + config.RATE_ORACLE + "/GBYTE_USD").then(response => response.data.data)
         : await socket.api.getDataFeed({
           oracles: [config.RATE_ORACLE],

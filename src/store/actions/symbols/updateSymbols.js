@@ -2,6 +2,7 @@ import { UPDATE_SYMBOLS_LIST } from "../../types";
 import config from "config";
 import uniq from "lodash.uniq";
 import { keyBy } from "lodash";
+import axios from "axios";
 
 const expireIn = 10; // days
 
@@ -33,12 +34,16 @@ export const updateSymbols = () => async (dispatch, getState, socket) => {
   }
   assets = uniq(assets);
   const getSymbols = assets.map((asset) => {
-    return socket.api.getSymbolByAsset(
-      config.TOKEN_REGISTRY,
-      asset
-    ).then((symbol) => {
-      return { asset, symbol, "updated_at": Date.now() }
-    });
+    if (socket) {
+      return socket.api.getSymbolByAsset(
+        config.TOKEN_REGISTRY,
+        asset
+      ).then((symbol) => {
+        return { asset, symbol, "updated_at": Date.now() }
+      });
+    } else {
+      return axios.get(config.BUFFER_URL + "/symbol/" + encodeURIComponent(asset)).then(response => ({asset, symbol: response.data.data, "updated_at": Date.now() }));
+    }  
   });
 
   const symbols = await Promise.all(getSymbols);

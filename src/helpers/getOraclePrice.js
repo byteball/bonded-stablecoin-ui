@@ -1,11 +1,16 @@
 import socket from "services/socket";
 
+import { getOraclePriceForBot } from "./getOraclePriceForBot";
+
 export const getOraclePrice = async (
   bonded_state,
   params,
   showOracles = false
 ) => {
   let oracleValue1, oracleValue2, oracleValue3;
+
+  if (!socket) return getOraclePriceForBot(bonded_state, params, showOracles);
+
   if ("oracles" in bonded_state) {
     const { oracles } = bonded_state;
     if (oracles[0]) {
@@ -32,8 +37,8 @@ export const getOraclePrice = async (
     const oraclesValues = [oracleValue1, oracleValue2, oracleValue3].filter(
       (v) => !!v
     );
-    
-    const price =  oraclesValues.reduce((result, current, index) => {
+
+    const price = oraclesValues.reduce((result, current, index) => {
       return oracles[index].op === "/"
         ? result / current
         : result * (current || 1);
