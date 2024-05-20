@@ -39,8 +39,11 @@ const AppRouter = () => {
     const pathname = window.location.pathname;
     const langList = langs.map((lang) => lang.name);
     const languageInUrl = langList.includes(pathname.split("/")[1]) ? pathname.split("/")[1] : null;
-    const regexp = new RegExp(langs.map((lang) => '/' + lang.name).join("|"), "g");
-    const cleanedUrl = pathname.replace(regexp, "");
+    let cleanedUrl = pathname;
+
+    if (languageInUrl) {
+      cleanedUrl = pathname.replace('/' + languageInUrl, "");
+    }
 
     if (!lang) {
       const languageFromBrowserSettings = navigator.language.split("-")[0];
