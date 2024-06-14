@@ -33,7 +33,7 @@ export const HashHandler = ({ children }) => {
           if (obyte.utils.isValidAddress(symbolOrAddress)) {
             if (address !== symbolOrAddress) {
               if (symbolOrAddress in data) {
-                if (botCheck(navigator.userAgent)) {
+                if (botCheck()) {
                   dispatch(changeActiveForBot(symbolOrAddress));
                 } else {
                   dispatch(changeActive(symbolOrAddress));
@@ -60,7 +60,7 @@ export const HashHandler = ({ children }) => {
                 }
               }
               if (address) {
-                if (botCheck(navigator.userAgent)) {
+                if (botCheck()) {
                   dispatch(changeActiveForBot(address));
                 } else {
                   dispatch(changeActive(address));
@@ -72,7 +72,7 @@ export const HashHandler = ({ children }) => {
           }
         } else {
           if (recent) {
-            if (botCheck(navigator.userAgent)) {
+            if (botCheck()) {
               dispatch(changeActiveForBot(recent));
             } else {
               dispatch(changeActive(recent));
@@ -86,7 +86,7 @@ export const HashHandler = ({ children }) => {
               }
             });
             if (maxReserve.address) {
-              if (botCheck(navigator.userAgent)) {
+              if (botCheck()) {
                 dispatch(changeActiveForBot(maxReserve.address));
               } else {
                 dispatch(changeActive(maxReserve.address));

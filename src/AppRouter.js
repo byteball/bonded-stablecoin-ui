@@ -32,38 +32,60 @@ const AppRouter = () => {
   const connected = useSelector((state) => state.connected);
   const { loaded } = useSelector((state) => state.list);
   const { loaded: loadedData } = useSelector((state) => state.data);
-  const { lang, activeWallet} = useSelector((state) => state.settings);
+  const { lang, activeWallet } = useSelector((state) => state.settings);
   const dispatch = useDispatch();
-  
+
   useEffect(() => {
-    if(!lang){
-      const language = navigator.language.split("-")[0];
-      if(language && langs.find((lang) => lang.name === language)){
+    const pathname = window.location.pathname;
+    const langList = langs.map((lang) => lang.name);
+    const languageInUrl = langList.includes(pathname.split("/")[1]) ? pathname.split("/")[1] : null;
+    let cleanedUrl = pathname;
+
+    if (languageInUrl) {
+      cleanedUrl = pathname.replace('/' + languageInUrl, "");
+    }
+
+    if (!lang) {
+      const languageFromBrowserSettings = navigator.language.split("-")[0];
+      const language = botCheck() ? languageInUrl : (languageInUrl || languageFromBrowserSettings);
+
+      if (language && langList.find((lang) => lang === language)) { // if language is in the list
         dispatch(changeLanguage(language));
+
+        if (language !== languageInUrl) {
+          historyInstance.replace(`${language !== "en" ? '/' + language : ""}${cleanedUrl === "/" && language !== "en" ? "" : cleanedUrl}`);
+        }
       } else {
         dispatch(changeLanguage("en"));
+        historyInstance.replace(cleanedUrl);
       }
     } else {
       i18.changeLanguage(lang);
+
+      if (lang !== languageInUrl) {
+        historyInstance.replace(`${lang !== "en" ? '/' + lang : ""}${cleanedUrl === "/" ? "" : cleanedUrl}`);
+      } else if (lang === "en" && languageInUrl === "en") {
+        historyInstance.replace(cleanedUrl);
+      }
     }
   }, [lang]);
 
-  useEffect(()=>{
-    if(botCheck(navigator.userAgent)){
+  useEffect(() => {
+    if (botCheck()) {
       dispatch(getListForBot());
     } else {
       const update = (states, balances) => {
         dispatch(updateData(states, balances));
       }
-      
+
       const handleSnapshot = (states, balances) => {
         dispatch(getData(states, balances));
       }
-      
+
       const onError = () => {
         dispatch(getDataError());
       }
-      
+
       updateProvider({ address: config.UPCOMING_STATE_WS_URL, update, handleSnapshot, onError });
     }
   }, []);
@@ -74,7 +96,7 @@ const AppRouter = () => {
     }
   }, [dispatch, activeWallet, loadedData]);
 
-  if ((!connected || !loaded) && !botCheck(navigator.userAgent)) return <Spinner />;
+  if ((!connected || !loaded) && !botCheck()) return <Spinner />;
 
   const langNames = langs.map((lang) => lang.name);
   const basename = `/:lang(${langNames.join("|")})?`;

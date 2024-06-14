@@ -12,7 +12,7 @@ export const listReducer = (state = initialState, action) => {
     case LOAD_LIST_REQUEST: {
       return {
         ...state,
-        data: action.payload,
+        data: action.payload || {},
         loading: true,
         loaded: false,
       };
