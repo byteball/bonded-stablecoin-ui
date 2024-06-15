@@ -87,7 +87,7 @@ export const getPrevTransactionsForBot = () => async (dispatch, getState) => {
 
       if (isRedeem) {
         const chain = await http.getAaResponseChain(data.unit.unit);
-        console.log('chain', chain)
+
         return { ...data, chain }
       } else {
         return data
