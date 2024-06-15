@@ -7,6 +7,8 @@ import { Decimal } from "decimal.js";
 import CoinIcon from "stablecoin-icons";
 import config from "config";
 import { toPairs } from "lodash";
+import { botCheck } from "utils/botCheck";
+import { changeActiveForBot } from "store/actions/active/changeActiveForBot";
 
 const { OptGroup } = Select;
 
@@ -77,7 +79,11 @@ export const SelectStablecoin = () => {
           value={activeAddress || undefined}
           loading={loading}
           onChange={(address) => {
-            dispatch(changeActive(address));
+            if (botCheck()) {
+              dispatch(changeActiveForBot(address));
+            } else {
+              dispatch(changeActive(address));
+            }
           }}
         >
           {optionListRecent.length > 0 && (
