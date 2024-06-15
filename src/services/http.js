@@ -1,120 +1,121 @@
 import axios from "axios";
-import config from "config";
+import config from "../config";
 
 class httpHub {
-    constructor() {
-        this.hubUrl = `https://${config.TESTNET ? "testnet." : ""}obyte.org/api`;
-        this.client = new axios.create({
-            method: "post",
-            baseURL: this.hubUrl,
-            headers: {
-                "Access-Control-Allow-Origin": "*",
-                "Access-Control-Allow-Methods": "POST, GET, OPTIONS"
-            }
-        });
-    }
+	constructor() {
+		this.hubUrl = `https://${config.TESTNET ? "testnet." : ""}obyte.org/api`;
 
-    async getDataFeed(oracles = [], feed_name, ifnone = "none") {
-        return await this.client.post("/get_data_feed", { oracles, feed_name, ifnone }).then((res) => res?.data?.data || ifnone);
-    }
+		this.client = new axios.create({
+			method: "post",
+			baseURL: this.hubUrl,
+			headers: {
+				"Access-Control-Allow-Origin": "*",
+				"Access-Control-Allow-Methods": "POST, OPTIONS"
+			}
+		});
+	}
 
-    async getDefinition(address) {
-        return await this.client.post("/get_definition", { address }).then((res) => res?.data?.data || {});
-    }
+	async getDataFeed(oracles = [], feed_name, ifnone = "none") {
+		return await this.client.post("/get_data_feed", { oracles, feed_name, ifnone }).then((res) => res?.data?.data || ifnone);
+	}
 
-    async getStateVars(address, var_prefix) {
-        return await this.client.post("/get_aa_state_vars", { address, var_prefix }).then((res) => res?.data?.data || {});
-    }
+	async getDefinition(address) {
+		return await this.client.post("/get_definition", { address }).then((res) => res?.data?.data || {});
+	}
 
-    async getAssetBySymbol(tokenRegistryAddress, symbol) {
-        if (typeof symbol !== 'string') {
-            return null;
-        }
+	async getStateVars(address, var_prefix) {
+		return await this.client.post("/get_aa_state_vars", { address, var_prefix }).then((res) => res?.data?.data || {});
+	}
 
-        if (symbol === 'GBYTE' || symbol === 'MBYTE' || symbol === 'KBYTE' || symbol === 'BYTE') {
-            return 'base';
-        }
+	async getAssetBySymbol(tokenRegistryAddress, symbol) {
+		if (typeof symbol !== 'string') {
+			return null;
+		}
 
-        const aaStateVars = await this.getStateVars(tokenRegistryAddress, `s2a_${symbol}`);
+		if (symbol === 'GBYTE' || symbol === 'MBYTE' || symbol === 'KBYTE' || symbol === 'BYTE') {
+			return 'base';
+		}
 
-        if (`s2a_${symbol}` in aaStateVars) {
-            return aaStateVars[`s2a_${symbol}`];
-        }
-        return null;
-    }
+		const aaStateVars = await this.getStateVars(tokenRegistryAddress, `s2a_${symbol}`);
 
-    async getSymbolByAsset(tokenRegistryAddress, asset) {
-        if (asset === null || asset === 'base') {
-            return 'GBYTE';
-        }
-        if (typeof asset !== 'string') {
-            return null;
-        }
+		if (`s2a_${symbol}` in aaStateVars) {
+			return aaStateVars[`s2a_${symbol}`];
+		}
+		return null;
+	}
 
-        const aaStateVars = await this.getStateVars(tokenRegistryAddress, `a2s_${asset}`);
+	async getSymbolByAsset(tokenRegistryAddress, asset) {
+		if (asset === null || asset === 'base') {
+			return 'GBYTE';
+		}
+		if (typeof asset !== 'string') {
+			return null;
+		}
 
-        if (`a2s_${asset}` in aaStateVars) {
-            return aaStateVars[`a2s_${asset}`];
-        }
-        return asset.replace(/[+=]/, '').substr(0, 6);
-    }
+		const aaStateVars = await this.getStateVars(tokenRegistryAddress, `a2s_${asset}`);
 
-    async getDecimalsBySymbolOrAsset(tokenRegistryAddress, symbolOrAsset) {
+		if (`a2s_${asset}` in aaStateVars) {
+			return aaStateVars[`a2s_${asset}`];
+		}
+		return asset.replace(/[+=]/, '').substr(0, 6);
+	}
 
-        if (!symbolOrAsset) throw Error('symbolOrAsset is undefined');
+	async getDecimalsBySymbolOrAsset(tokenRegistryAddress, symbolOrAsset) {
 
-        if (typeof symbolOrAsset !== 'string') throw Error('not valid symbolOrAsset');
+		if (!symbolOrAsset) throw Error('symbolOrAsset is undefined');
 
-        if (symbolOrAsset === 'base' || symbolOrAsset === 'GBYTE') {
-            return 9;
-        }
+		if (typeof symbolOrAsset !== 'string') throw Error('not valid symbolOrAsset');
 
-        let asset;
+		if (symbolOrAsset === 'base' || symbolOrAsset === 'GBYTE') {
+			return 9;
+		}
 
-        if (symbolOrAsset.length === 44) {
-            asset = symbolOrAsset;
-        } else if (symbolOrAsset === symbolOrAsset.toUpperCase()) {
-            const aaStateVarsWithPrefix = await this.getStateVars(tokenRegistryAddress, `s2a_${symbolOrAsset}`);
+		let asset;
 
-            if (!(`s2a_${symbolOrAsset}` in aaStateVarsWithPrefix)) {
-                throw Error(`no such symbol ${symbolOrAsset}`);
-            }
+		if (symbolOrAsset.length === 44) {
+			asset = symbolOrAsset;
+		} else if (symbolOrAsset === symbolOrAsset.toUpperCase()) {
+			const aaStateVarsWithPrefix = await this.getStateVars(tokenRegistryAddress, `s2a_${symbolOrAsset}`);
 
-            asset = aaStateVarsWithPrefix[`s2a_${symbolOrAsset}`];
-        } else {
-            throw Error('not valid symbolOrAsset');
-        }
+			if (!(`s2a_${symbolOrAsset}` in aaStateVarsWithPrefix)) {
+				throw Error(`no such symbol ${symbolOrAsset}`);
+			}
 
-        const aaStateVarsWithPrefix = await this.getStateVars(tokenRegistryAddress, `current_desc_${asset}`);
+			asset = aaStateVarsWithPrefix[`s2a_${symbolOrAsset}`];
+		} else {
+			throw Error('not valid symbolOrAsset');
+		}
 
-        if (!(`current_desc_${asset}` in aaStateVarsWithPrefix)) {
-            throw Error(`no decimals for ${symbolOrAsset}`);
-        }
+		const aaStateVarsWithPrefix = await this.getStateVars(tokenRegistryAddress, `current_desc_${asset}`);
 
-        const descHash = aaStateVarsWithPrefix[`current_desc_${asset}`];
+		if (!(`current_desc_${asset}` in aaStateVarsWithPrefix)) {
+			throw Error(`no decimals for ${symbolOrAsset}`);
+		}
 
-        const decimalsStateVar = await this.getStateVars(tokenRegistryAddress, `decimals_${descHash}`);
+		const descHash = aaStateVarsWithPrefix[`current_desc_${asset}`];
 
-        const decimals = decimalsStateVar[`decimals_${descHash}`];
+		const decimalsStateVar = await this.getStateVars(tokenRegistryAddress, `decimals_${descHash}`);
 
-        if (typeof decimals !== 'number') {
-            throw Error(`no decimals for ${symbolOrAsset}`);
-        } else {
-            return decimals;
-        }
-    }
+		const decimals = decimalsStateVar[`decimals_${descHash}`];
 
-    async getAaResponses(address) {
-        return await this.client.post("/get_aa_responses", { aa: address }).then((res) => res?.data?.data || {});
-    }
+		if (typeof decimals !== 'number') {
+			throw Error(`no decimals for ${symbolOrAsset}`);
+		} else {
+			return decimals;
+		}
+	}
 
-    async getJoint(unit) {
-        return await this.client.post("/get_joint", { unit }).then((res) => res?.data?.data || {});
-    }
+	async getAaResponses(address) {
+		return await this.client.post("/get_aa_responses", { aa: address }).then((res) => res?.data?.data || {});
+	}
 
-    async getAaResponseChain(trigger_unit) {
-        return await this.client.post("/get_aa_response_chain", { trigger_unit }).then((res) => res?.data?.data || {});
-    }
+	async getJoint(unit) {
+		return await this.client.post("/get_joint", { unit }).then((res) => res?.data?.data || {});
+	}
+
+	async getAaResponseChain(trigger_unit) {
+		return await this.client.post("/get_aa_response_chain", { trigger_unit }).then((res) => res?.data?.data || {});
+	}
 }
 
 export default new httpHub();
