@@ -10,6 +10,7 @@ import { Withdraw } from "./components/Withdraw";
 import { useWindowSize } from "hooks/useWindowSize.js";
 import { GovernanceItem } from "./GovernanceItem";
 import { useLocation } from "react-router-dom";
+import { botCheck } from "utils/botCheck";
 
 const { Title, Text } = Typography;
 
@@ -43,7 +44,7 @@ export const Governance = ({ openWalletModal }) => {
     }
   }, [location.hash, currentParams]);
 
-  if (!activeWallet) {
+  if (!activeWallet && !botCheck()) {
     return (
       <div style={{ textAlign: "center", cursor: "pointer", color: "#1890ff" }} onClick={openWalletModal}>
         {t("trade.tabs.governance.no_auth", "Please add the address of your wallet in order to participate in governance")}
@@ -304,8 +305,8 @@ export const Governance = ({ openWalletModal }) => {
                 choice={
                   activeWallet &&
                   activeWallet in
-                  (governanceParams[item.name].choice || {}) &&
-                  governanceParams[item.name].choice[activeWallet]
+                  (governanceParams[item.name].choice || {}) ?
+                  governanceParams[item.name].choice[activeWallet] : undefined
                 }
                 challengingPeriodEndInSeconds={challengingPeriodEndInSeconds}
                 regularPeriod={params.regular_challenging_period}
