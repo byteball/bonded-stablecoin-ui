@@ -85,7 +85,7 @@ export const changeActiveForBot = (address) => async (dispatch, getState) => {
       symbol1: symbolByAsset1 !== bondedInfo.asset1.replace(/[+=]/, "").substr(0, 6) && symbolByAsset1 ? symbolByAsset1 : bondedInfo.asset1.replace(/[+=]/, "").substr(0, 6),
       symbol2:  symbolByAsset2 !== bondedInfo.asset2.replace(/[+=]/, "").substr(0, 6) && symbolByAsset2 ? symbolByAsset2 : bondedInfo.asset2.replace(/[+=]/, "").substr(0, 6),
       symbol3: stable ? (symbolByAsset3 !== stableInfo?.asset.replace(/[+=]/, "").substr(0, 6) && symbolByAsset3) : (symbolByAsset3 !== depositInfo?.asset.replace(/[+=]/, "").substr(0, 6) && symbolByAsset3 ? symbolByAsset3 : depositInfo?.asset.replace(/[+=]/, "").substr(0, 6)),
-      symbol4: fundInfo?.shares_asset && symbolByAsset4 !== fundInfo.shares_asset.replace(/[+=]/, "").substr(0, 6) && symbolByAsset4 ? symbolByAsset4 : fundInfo.shares_asset.replace(/[+=]/, "").substr(0, 6),
+      symbol4: fundInfo?.shares_asset && symbolByAsset4 !== fundInfo?.shares_asset.replace(/[+=]/, "").substr(0, 6) && symbolByAsset4 ? symbolByAsset4 : fundInfo?.shares_asset.replace(/[+=]/, "").substr(0, 6),
       transactions: {
         curve: {},
         depositOrStable: {},
