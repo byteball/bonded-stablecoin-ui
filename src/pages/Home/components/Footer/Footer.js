@@ -23,7 +23,7 @@ export const Footer = () => {
         <Link to={`${basename}/faq`}>F.A.Q.</Link>
         <Link to={`${basename}/how-it-works`}>{t("main_menu.how", "How it works")}</Link>
       </Space>
-      <div className={styles.copy}>&copy; Obyte</div>
+      <div className={styles.copy}><a href="https://obyte.org" target="_blank" rel="noopener">Built on Obyte</a></div>
     </div>
   )
 };
