@@ -43,7 +43,7 @@ export const Transactions = () => {
         <Text>{t("trade.tabs.transactions.address", "The address of the autonomous agent")}: </Text>
         <a
           href={`https://${config.TESTNET ? "testnet" : ""
-            }explorer.obyte.org/#${address}`}
+            }explorer.obyte.org/address/${address}`}
           target="_blank"
           rel="noopener"
         >
@@ -58,7 +58,7 @@ export const Transactions = () => {
         <Text>{t("trade.tabs.transactions.address", "The address of the autonomous agent")}: </Text>
         <a
           href={`https://${config.TESTNET ? "testnet" : ""
-            }explorer.obyte.org/#${stable_aa || deposit_aa}`}
+            }explorer.obyte.org/address/${stable_aa || deposit_aa}`}
           target="_blank"
           rel="noopener"
         >
@@ -73,7 +73,7 @@ export const Transactions = () => {
         <Text>{t("trade.tabs.transactions.address", "The address of the autonomous agent")}: </Text>
         <a
           href={`https://${config.TESTNET ? "testnet" : ""
-            }explorer.obyte.org/#${decision_engine_aa}`}
+            }explorer.obyte.org/address/${decision_engine_aa}`}
           target="_blank"
           rel="noopener"
         >
@@ -88,7 +88,7 @@ export const Transactions = () => {
         <Text>{t("trade.tabs.transactions.address", "The address of the autonomous agent")}: </Text>
         <a
           href={`https://${config.TESTNET ? "testnet" : ""
-            }explorer.obyte.org/#${governance_aa}`}
+            }explorer.obyte.org/address/${governance_aa}`}
           target="_blank"
           rel="noopener"
         >

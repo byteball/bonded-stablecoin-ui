@@ -117,7 +117,7 @@ export const ForceCloseDepositsInfo = ({
     <p>
       <Text type="warning">
         <Trans i18nKey="trade.tabs.deposits.warning">
-          This page is beta, it may have bugs and display incorrect information which can lead you to trying to close a deposit that is not least protected and losing money. Double check this information using state vars on the <a target="_blank" rel="noopener" href={`https://${config.TESTNET ? "testnet" : ""}explorer.obyte.org/#${depositAa}`}>explorer</a>.
+          This page is beta, it may have bugs and display incorrect information which can lead you to trying to close a deposit that is not least protected and losing money. Double check this information using state vars on the <a target="_blank" rel="noopener" href={`https://${config.TESTNET ? "testnet" : ""}explorer.obyte.org/address/${depositAa}`}>explorer</a>.
         </Trans>
       </Text>
     </p>
