@@ -111,7 +111,7 @@ export const GovernanceItem = ({
           return value * 100 + "%";
         } else if (name === "decision_engine_aa") {
           return <a href={`https://${config.TESTNET ? "testnet" : ""
-            }explorer.obyte.org/#${value}`}
+            }explorer.obyte.org/address/${value}`}
             target="_blank"
             rel="noopener">
             {value}

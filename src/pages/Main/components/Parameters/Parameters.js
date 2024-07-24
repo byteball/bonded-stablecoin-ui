@@ -49,7 +49,7 @@ export const Parameters = () => {
       <div style={{ marginBottom: 10 }}>
         <a
           href={`https://${config.TESTNET ? "testnet" : ""
-            }explorer.obyte.org/#${active.address}`}
+            }explorer.obyte.org/address/${active.address}`}
           target="_blank"
           rel="noopener"
         >

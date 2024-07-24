@@ -48,7 +48,7 @@ export const TransactionsTable = ({ source, type }) => {
       const [event, input, inputCurrency, output, user] = eventIdentification(type, item, actualParams, activeWallet, active);
 
       return <a href={`https://${config.TESTNET ? "testnet" : ""
-        }explorer.obyte.org/#${item.unit}`}
+        }explorer.obyte.org/${item.unit}`}
         target="_blank"
         rel="noopener" className={styles.row}>
         <div className={styles.status}>
